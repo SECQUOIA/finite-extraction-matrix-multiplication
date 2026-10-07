@@ -1,0 +1,43 @@
+\section{Sparse exactification and a two-power refinement}
+\label{subsec:sparse}
+
+These refinements explain which costs of a separator can be reduced.
+The general extraction in Section~\ref{sec:extraction} uses the simpler degree bound of
+Lemma~\ref{lem:exactification}.
+If \(G(t)=\sum_{s\in E}t^sG_s\), with finite nonnegative integer
+support \(E\) containing zero, define
+\[
+ P(z)=\prod_{s\in E\setminus\{0\}}\frac{z-2^s}{1-2^s}
+      =\sum_{j=0}^{|E|-1}\alpha_jz^j.
+\]
+Then \(\sum_j\alpha_jG(2^j)=G_0\). This gives an exact rational
+interpolation formula using \(|E|\) evaluations. For a separator,
+each evaluation uses \(L\) source copies, for a total of \(L|E|\).
+For one separator, applying this prescription to the guaranteed support
+set \(\{cd^2:0\le d\le d_*\}\) cannot improve on direct copying:
+the prescribed count satisfies
+\begin{equation}\label{eq:one-power-limit}
+ L(d_*+1)\ge MK_0.
+\end{equation}
+If \(d_*=M-1\), use \(L\ge K_0\). Otherwise
+\(d_*+1=\lceil K_0/c\rceil\), and
+\(L(d_*+1)\ge K_0(d_*+1)+K_0(M-1)\ge MK_0\).
+Direct copying uses one source for each pair \((h,u)\), and restricts
+that source to sector \(h\). Equation~\eqref{eq:one-power-limit} concerns
+these particular copy counts, not all possible exactifications.
+
+A smaller exact projection is possible for two powers of the separator
+polynomial \(G\). If a prime \(q\)
+satisfies \(q>d_*\), \(q\equiv3\pmod4\), and \(q\nmid c\), then
+for a primitive \(q\)-th root \(\eta\),
+\begin{equation}\label{eq:two-power}
+ \frac1q\sum_{j=0}^{q-1}G(\eta^j)^{\otimes2}=G_0^{\otimes2}.
+\end{equation}
+Indeed a surviving exponent would require
+\(d_1^2+d_2^2\equiv0\pmod q\). Since \(-1\) is not a square
+modulo \(q\), both \(d_i\) vanish modulo \(q\), hence are zero.
+For \(M=K_0=8,c=1\), one can use \(L=15,q=11\), giving
+\(11\cdot15^2=2475\) source copies for the squared tensor, compared
+with \(8^4=4096\) by direct copying.
+No unbounded prime search is needed for the main result: the general
+degree projection is always available.

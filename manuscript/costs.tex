@@ -1,0 +1,153 @@
+\section{Finite size and limitations of the prescribed construction}
+\label{sec:costs}
+
+The preceding proof is effective, but its parameters grow rapidly.
+This section gives an exact denominator formula for every profile index
+and a finite example. Appendix~\ref{subsec:obstruction} proves a lower
+bound for one prescribed small-index schedule. These size bounds concern
+the specified construction, not general matrix multiplication algorithms.
+
+\subsection{The minimal denominator scale}
+
+\begin{theorem}[Exact normalization]\label{thm:normalization}
+The least integer scale in Section~\ref{subsec:types} is
+\begin{equation}\label{eq:minimal-scale}
+ K_a=\lcm\left(
+ \frac{3(a-1)(3a-1)}{\gcd(3a-1,4)},\quad
+ \left\{\frac{3t(3t+4)}{\gcd(t,2)^2}:1\le t\le a-2\right\}
+ \right).
+\end{equation}
+In particular,
+\begin{equation}\label{eq:scale-divisibility}
+ 3\lcm(1,\ldots,a-1)\mid 2K_a,
+ \qquad K_a\mid3\lcm(1,\ldots,3a-1),
+\end{equation}
+and
+\begin{equation}\label{eq:scale-growth}
+ K_a\ge\frac32\lcm(1,\ldots,a-1)\ge\frac{3\,2^{a-2}}a.
+\end{equation}
+\end{theorem}
+\begin{proof}
+In the final row put \(t=a-1\), \(D_r=3t+2\), and \(b=a+h\).
+All split weights have common denominator \(3tD_r\).
+Their integer numerators are \(D_r\), from \(\mu/3\), and
+\((D_r+2h\pm2)(D_r-h)\) for \(0\le h\le D_r-1\).
+Modulo \(D_r\), the latter products are \(-2h(h\pm1)\), all divisible
+by four. The case \(h=1\) with the plus sign is congruent to \(-4\).
+Thus the joint gcd of the denominator and all numerators is exactly
+\(\gcd(D_r,4)\). This gives the first entry in \eqref{eq:minimal-scale}.
+
+In a lower row put \(t=r-1\) and \(V=3t+4\).
+Use common denominator \(3tV\). At \(b=r\), the two split numerators
+are \(V^2\) and \(3tV\); the tripling split numerator is \(2(3t+2)\).
+For \(b=r+h>r\), the split numerators are
+\(2(3t+2+2h\pm2)(3t+2-h)\).
+An odd prime dividing both \(V^2\) and \(2(3t+2)\) would divide the
+difference between \(V\) and \(3t+2\), namely two, which is impossible.
+If \(t\) is odd, \(V^2\) is odd, so the joint gcd is one.
+If \(t\) is even, all numerators and the denominator are divisible
+by four. When \(t\equiv2\pmod4\), \(V^2\) has exactly two factors
+of two; when \(t\equiv0\pmod4\), \(2(3t+2)\) has exactly two.
+Thus the joint gcd is exactly four. This proves the remaining entries.
+
+Each row denominator is either \(3\lcm(t,3t+c)\) or half that number,
+with \(c=2\) for the final row and \(c=4\) for lower rows.
+The integers involved lie between one and \(3a-1\); twice each row
+denominator is divisible by \(3t\). Taking least common multiples
+proves \eqref{eq:scale-divisibility}.
+
+For completeness, every binomial coefficient \(\binom nh\) divides
+\(\lcm(1,\ldots,n)\). In its factorial valuation at a prime \(p\),
+each power \(p^j\le n\) contributes zero or one, so its valuation
+is at most \(\lfloor\log_p n\rfloor\).
+The largest binomial coefficient in row \(n\) is at least
+\(2^n/(n+1)\). Apply this with \(n=a-1\) and use
+\eqref{eq:scale-divisibility} to obtain \eqref{eq:scale-growth}.
+\end{proof}
+
+The scale is minimal for these exact rational split weights. Approximate
+types, different weights, or different tensor maps need not obey this
+bound. Since \(U\ge K_a\), already the unpowered source dimension
+\(u_0=2^{2NU}\) grows at least doubly exponentially in \(a\) under
+this bound. The inequality \(U\ge K_a\) also follows directly from
+\eqref{eq:formal-ledger}: the net consumption of \([a,a]\) is \(K_a\),
+and all its source occurrences belong to concavity relations.
+
+\subsection{Small indices and a finite example}
+
+Table~\ref{tab:small} gives exact counts from the rational formulas.
+The values of \(\tau_a\) are displayed approximately.
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrr}
+\toprule
+\(a\)&\(K_a\)&\(U\)&\(T\)&\(U+T-K_a\)&\(\tau_a\)\\
+\midrule
+2&15&230&15&230&2.737468\\
+3&84&3316&162&3394&2.641126\\
+4&3465&252362&8877&257774&2.592310\\
+\bottomrule
+\end{tabular}
+\caption{The normalization, source type counts, catalyst factor count,
+and limiting exponent for the first three indices. The exponent column
+is a limit for fixed \(a\), not the cost of these unamortized types.}
+\label{tab:small}
+\end{table}
+
+For \(a=2\), the concavity types, indexed by \(b=2,\ldots,6\), are
+\[
+ \begin{array}{c|rrrrr}
+ b&2&3&4&5&6\\ \hline
+ w_b&50&56&54&44&26\\
+ u_b&35&36&33&26&15\\
+ d_b&15&20&21&18&11
+ \end{array}
+\]
+The tripling count is \(z=15\). In this subsection write
+\(Q_b=Q_{2,b}\). The catalyst is
+\[
+ \Cat_N=Q_2^{35N}Q_3^{56N}Q_4^{54N}Q_5^{44N}Q_6^{26N}Q_7^{15N},
+\]
+where powers denote tensor powers. Hence
+\begin{equation}\label{eq:small-kappa}
+ \kappa_N=3^{210N}4^{336N}5^{324N}6^{264N}7^{156N}8^{90N},
+ \qquad u_0=2^{460N},\quad v_0=2^{30N}M^2.
+\end{equation}
+The entropy identity becomes
+\[
+ \frac{3^{15}}{2^{215}}\prod_{b=2}^6
+ \frac{w_b^{w_b}}{u_b^{u_b}d_b^{d_b}}=(10/3)^{15}.
+\]
+
+The archived calculation for \((N,k,j)=(300,125,3750)\) bounds
+\eqref{eq:finite-exponent}, using \(\log(S/H)<36\log2\), in the
+interval \((2.78918,2.78919)\).
+Its target dimension \(B=v_0^{kj}\) has \(21\,665\,218\,118\)
+decimal digits; the recursive input dimension \(A=u_0^{kj}\) has
+\(19\,472\,877\,845\) digits. These are finite construction parameters,
+not measured running times or storage requirements of an implemented
+algorithm. The example illustrates exact finite cost accounting; it is
+not competitive with existing theoretical bounds or practical methods.
+
+The saved certificates use rational logarithm enclosures. For clarity,
+the entire enclosure method is short. Write a positive integer as \(2^e y\),
+\(1\le y\le2\), bracket \(y\) by adjacent rationals with denominator
+\(2^{80}\), and set \(z=(y-1)/(y+1)\). Then
+\begin{equation}\label{eq:log-enclosure}
+ 2\sum_{h=0}^{39}\frac{z^{2h+1}}{2h+1}
+ \le\log y\le
+ 2\sum_{h=0}^{39}\frac{z^{2h+1}}{2h+1}
+ +\frac{2z^{81}}{81(1-z^2)}.
+\end{equation}
+The bound follows by summing the positive tail of the power series and
+using \(2h+1\ge81\) in that tail. Apply the same bound to \(\log2\),
+then combine rational intervals. For a positive rational, enclose the
+logarithms of its numerator and denominator separately and subtract the
+intervals. Decimal digit counts follow by enclosing
+\(\log_{10}A\) or \(\log_{10}B\) strictly between consecutive integers.
+These saved computations corroborate the displayed example; no numerical
+experiment is required by Theorem~\ref{thm:effective}.
+
+Appendix~\ref{subsec:obstruction} proves an actual-count lower bound
+for this prescribed schedule, independent of how its three parameters
+are tuned.

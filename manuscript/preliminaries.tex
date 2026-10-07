@@ -1,0 +1,123 @@
+\section{Tensors, restrictions, and arithmetic algorithms}
+\label{sec:preliminaries}
+
+All logarithms are natural. All vector spaces are finite dimensional.
+We first work over \(\C\);
+every coefficient used in the construction will be algebraic.
+A tensor is written as a trilinear form in three disjoint variable groups,
+called its legs. Its rank \(\R(T)\) is the least number of products of
+three linear forms whose sum is \(T\).
+We write \(A\restr B\) if substitutions that are linear on each leg
+transform \(A\) into \(B\). Such a restriction gives a bilinear algorithm
+for \(B\) using a bilinear algorithm for \(A\).
+If the substitutions depend on a nonzero parameter \(t\), and the
+transformed tensor is a polynomial
+\(B+tB_1+\cdots+t^DB_D\), we write \(A\degen B\).
+The individual substitutions may be Laurent polynomials; only their
+combined tensor is required to have no negative powers.
+Every degeneration below is supplied with its substitutions and a degree
+bound. No general approximation theorem is needed to use it.
+
+For a positive integer \(s\), the notation \(sT\) means the full direct sum of
+\(s\) copies of \(T\), with independent variables on all three legs.
+It does not mean scalar multiplication of the coefficients.
+Tensor products distribute over these direct sums.
+We abbreviate tensor products by juxtaposition when no confusion can arise.
+We never cancel a direct-sum multiplicity or a tensor factor from a
+restriction.
+
+\begin{lemma}[Composition rules used below]\label{lem:composition}
+Suppose a triple of Laurent-polynomial linear substitutions \(\Phi_i(t)\)
+transforms a tensor \(A_i\) into
+\(G_i(t)=\sum_{d=0}^{D_i}t^dG_{i,d}\).
+Let \(P_i\) be a specified restriction with \(P_i(C_i)=A_i\), and
+let \(R_i\) be a triple of linear maps on the whole target variable spaces.
+If \(P_i,R_i\) are independent of \(t\), then
+\[
+ R_i\Phi_i(t)P_i(C_i)=\sum_{d=0}^{D_i}t^dR_i(G_{i,d}).
+\]
+Their tensor product has degree at most \(\sum_iD_i\).
+Its constant coefficient is \(\bigotimes_iR_i(G_{i,0})\).
+Permuting the three legs preserves these statements.
+\end{lemma}
+\begin{proof}
+The first identity follows by substitution and linearity on the tensor
+space. In a tensor product of polynomials with nonnegative exponents,
+degrees add, and a term has degree zero exactly when every factor does.
+Permuting the legs only permutes the three substitution maps.
+\end{proof}
+
+The square matrix multiplication tensor is
+\[
+ \MM_d=\sum_{i,j,k=0}^{d-1}x_{ij}y_{jk}z_{ki}.
+\]
+Its third variables encode the output coordinates by duality.
+Let \(B_X(d)=x\sum_{i=0}^{d-1}y_i z_i\), and define \(B_Y(d)\) and
+\(B_Z(d)\) by permuting the legs. Relabeling coordinates gives
+\begin{equation}\label{eq:matrix-products}
+ \MM_d\MM_e\cong\MM_{de},\qquad
+ B_X(d)B_Y(d)B_Z(d)\cong\MM_d.
+\end{equation}
+For example, the three paired indices in the second product can be taken
+as the row, inner, and column indices of matrix multiplication.
+Consequently the product of all six leg permutations of \(B_X(d)\)
+is \(\MM_{d^2}\).
+
+The basic convolution tensor is
+\begin{equation}\label{eq:convolution}
+ C(r,b)=\sum_{i=0}^{r-1}\sum_{j=0}^{b-1}x_i y_j z_{i+j}.
+\end{equation}
+It represents multiplication of polynomials of degrees at most \(r-1\)
+and \(b-1\). Put \(d=r+b-1\) and let \(\xi\) be a primitive
+\(d\)-th root of unity. Evaluation at \(\xi^\ell\) gives the explicit
+rank decomposition
+\begin{equation}\label{eq:convolution-rank}
+ C(r,b)=\frac1d\sum_{\ell=0}^{d-1}
+ \left(\sum_i\xi^{\ell i}x_i\right)
+ \left(\sum_j\xi^{\ell j}y_j\right)
+ \left(\sum_{h=0}^{d-1}\xi^{-\ell h}z_h\right).
+\end{equation}
+Indeed \(0\le i+j\le d-1\), so the Fourier sum selects exactly
+\(h=i+j\). The output flattening has rank \(d\), and hence
+\(\R(C(r,b))=d\).
+
+For \(\pi\in S_3\), superscript \(\pi\) denotes a permutation of the
+legs. Define the balanced tensor
+\begin{equation}\label{eq:balanced}
+ Q_{r,b}=\bigotimes_{\pi\in S_3} C(r,b)^\pi.
+\end{equation}
+The six factors are kept as labeled factors, even when some are isomorphic.
+Swapping the inputs in \eqref{eq:convolution} and reordering these factors
+gives
+\begin{equation}\label{eq:balanced-properties}
+ Q_{r,b}\cong Q_{b,r},\qquad
+ \R(Q_{r,b})\le(r+b-1)^6,\qquad Q_{1,2}\cong\MM_4.
+\end{equation}
+All these isomorphisms are coordinate permutations.
+
+Arithmetic complexity counts scalar additions, subtractions, and
+multiplications, including multiplication by fixed coefficients.
+The algorithm may depend on a fixed exponent allowance \(\eps\), but
+not on the input dimension \(n\). Its constant preprocessing cost may
+depend on \(\eps\). This is an arithmetic-operation statement, not
+a bit-complexity or floating-point stability statement.
+
+\begin{lemma}[Exactification]\label{lem:exactification}
+Suppose specified substitutions transform \(A\) into a polynomial
+\(G(t)=\sum_{h=0}^D t^hG_h\). For every positive integer \(k\),
+\[
+ (kD+1)A^{\otimes k}\restr G_0^{\otimes k}.
+\]
+\end{lemma}
+\begin{proof}
+Set \(E=kD+1\) and take a primitive \(E\)-th root \(\eta\).
+The tensor polynomial \(G(t)^{\otimes k}\) has degree at most \(kD\).
+Thus
+\[
+ \frac1E\sum_{h=0}^{E-1}G(\eta^h)^{\otimes k}=G_0^{\otimes k}.
+\]
+Each evaluation uses one copy of \(A^{\otimes k}\); identifying its
+output variable groups and absorbing \(1/E\) into one leg gives the
+claimed restriction. Every evaluation point is nonzero, so Laurent
+substitutions cause no problem.
+\end{proof}

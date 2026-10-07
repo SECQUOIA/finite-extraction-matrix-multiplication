@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xurl}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\hypersetup{pdftitle={Explicit finite extraction from convolution profiles for matrix multiplication},
+ pdfsubject={Finite tensor constructions and exact arithmetic complexity},
+ pdfkeywords={matrix multiplication, tensor rank, convolution, finite construction}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\operatorname{R}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\MM}{\mathsf M}
+\newcommand{\Cat}{\mathcal C}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\restr}{\succeq}
+\newcommand{\degen}{\unrhd}
+\DeclareMathOperator{\diag}{diag}
+\title{Explicit finite extraction from convolution profiles\\for matrix multiplication}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+The convolution-profile argument for the matrix multiplication exponent
+\(9/4\) passes from finite tensor relations to an existence statement for
+fast algorithms. We give a direct finite extraction from those relations.
+An explicit positive rational combination of neighboring-length and
+three-sector relations telescopes to a diagonal profile bound.
+Clearing denominators gives integer tensor types.
+We compose their exact restrictions with a Fourier separator, exact
+interpolation, repeated use of a fixed catalyst, and a batched recursion.
+All direct-sum multiplicities and finite overheads are retained.
+For a profile index \(a\), the resulting exponents approach
+\(3\log(2a-1)/\log F(a,a)\), where
+\(F(a,a)=\frac{3a-1}{2}\prod_{h=1}^{a-1}(1+1/(3h))\).
+These bounds tend to \(9/4\). An integer-arithmetic selection procedure
+therefore produces, for each positive rational \(\eps\), a finite
+algorithm with arithmetic complexity \(O_\eps(n^{9/4+\eps})\).
+It also specifies a rational bilinear seed with exponent below
+\(9/4+\eps\). We prove that \(F\) is the least profile satisfying the
+underlying scalar axioms and determine the exact denominator scale of the
+rational certificate. That scale grows at least exponentially in \(a\).
+The construction resolves the finite extraction problem for these
+relations, but supplies neither an exact exponent-\(9/4\) recursion nor
+a practical algorithm.
+\end{abstract}
+
+\tableofcontents
+\input{introduction}
+\input{preliminaries}
+\input{profile}
+\input{maps}
+\input{extraction}
+\input{costs}
+\input{discussion}
+\appendix
+\input{appendix-composition}
+\input{appendix-separator}
+\input{appendix-obstruction}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

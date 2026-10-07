@@ -1,0 +1,103 @@
+\section{An actual-count lower bound for the small-index schedule}
+\label{subsec:obstruction}
+
+The following result concerns exactly the interpolation count and catalyst
+decomposition in \eqref{eq:relative-counts}. Its hypothesis uses the
+actual branching count, rather than the sufficient upper bound
+\eqref{eq:finite-exponent}.
+We use \(\log_4 48\), the recursive exponent of a known rational
+rank-48 algorithm for \(4\times4\) multiplication~\citep{Dumas26},
+as a fixed comparison value.
+
+\begin{proposition}[A limitation of parameter tuning]\label{prop:obstruction}
+For the \(a=2\) construction, use \(E=kD+1\), the catalyst bound
+\eqref{eq:small-kappa}, and the full-batch recursion of
+Lemma~\ref{lem:batch}. Assume \(B>A\). If
+\[
+ \frac{\log\lceil r/m\rceil}{\log(B/A)}
+ <\rho_{48}:=\frac{\log48}{\log4},
+\]
+then its recursive input dimension \(A\) has more than
+\(11.37\) billion decimal digits. One of its separator sector counts
+also exceeds \(10^{1206}\).
+\end{proposition}
+\begin{proof}
+Use the small-index counts above and define
+\begin{align*}
+ \delta&=30\rho_{48}\log(10/3)-90\log3,\\
+ \gamma&=6(35\log3+56\log4+54\log5+44\log6+26\log7+15\log8),\\
+ \mu&=\log\binom{56}{36}.
+\end{align*}
+Thus \(\log\kappa_N=N\gamma\).
+The hypothesis and \(\lceil r/m\rceil\ge r/m\) imply the necessary
+condition
+\begin{equation}\label{eq:necessary-cost}
+ \frac{\log E}{k}+\frac{N\gamma}{j}
+ <\rho_{48}\Delta_N-90N\log3.
+\end{equation}
+We have dropped the positive copy-ratio charge, making the condition weaker.
+
+The one-sided Stirling estimate~\citep{Robbins55,DLMF26}
+\(\log(n!)=(n+\tfrac12)\log n-n+\tfrac12\log(2\pi)+r_n\),
+\(0<r_n<1/(12n)\), gives
+\begin{equation}\label{eq:entropy-loss-upper}
+ \Delta_N\le30N\log(10/3)-7\log N-2C_0+\frac{2\eta}{N},
+\end{equation}
+where
+\begin{align*}
+ C_0&=\frac12\sum_{b=2}^6\log(6u_bd_b/w_b)
+       +\log6+\frac32\log5-\frac12\log15,\\
+ \eta&=\sum_{b=2}^6\frac1{12w_b}+\frac1{180}.
+\end{align*}
+For each binomial coefficient, subtract the three Stirling formulas and
+keep only the positive remainder \(1/(12Nw_b)\). Its correction to
+entropy is at most
+\(-\frac12\log N-\frac12\log(2\pi u_bd_b/w_b)+1/(12Nw_b)\).
+The three-sector coefficient contributes
+\(-\log N-\log(2\pi)+\frac12\log15-\frac32\log5+1/(180N)\).
+Replace \(2\pi\) by the smaller number six and use the exact entropy
+identity to obtain \eqref{eq:entropy-loss-upper}.
+
+The right side of \eqref{eq:necessary-cost} is therefore at most
+\[
+ f(N)=\delta N-\rho_{48}(7\log N+2C_0-2\eta/N).
+\]
+Its second derivative is
+\(\rho_{48}(7/N^2+4\eta/N^3)>0\).
+The archived rational enclosures from \eqref{eq:log-enclosure} give
+\(f(1)<-71.4589\) and \(f(80)<-0.224635\).
+A convex function is at most its endpoint chord on \([1,80]\).
+The necessary condition has a positive left side, so \(N\ge81\).
+The penalty \(7\log N+2C_0-2\eta/N\) is increasing. Put
+\(\beta=\rho_{48}(7\log81+2C_0-2\eta/81)\). Then
+\begin{equation}\label{eq:necessary-simplified}
+ \frac{\log E}{k}+\frac{N\gamma}{j}<\delta N-\beta.
+\end{equation}
+
+Selecting 36 positions within each of \(N\) disjoint blocks of 56 proves
+\(M_3=\binom{56N}{36N}\ge\binom{56}{36}^N\).
+Because \(M_3\ge2\),
+\(E\ge6(M_3-1)^2+1\ge M_3^2\), hence \(\log E\ge2N\mu\).
+Arithmetic--geometric mean in \eqref{eq:necessary-simplified} yields
+\[
+ Nkj>\frac{8\mu\gamma N^3}{(\delta N-\beta)^2}
+       \ge\frac{54\mu\gamma\beta}{\delta^3}.
+\]
+Here \(\delta N>\beta\), and the last inequality follows from
+\(4x^3-27(x-1)^2=(x-3)^2(4x-3)\ge0\), \(x=\delta N/\beta>1\).
+The same saved rational enclosures certify
+\[
+ \frac{54\mu\gamma\beta}{\delta^3}>82\,111\,374.98,
+ \qquad
+ 460\frac{54\mu\gamma\beta}{\delta^3}\frac{\log2}{\log10}
+       >11\,370\,273\,954.02,
+ \qquad 81\frac\mu{\log10}>1206.
+\]
+Since \(A=2^{460Nkj}\), these inequalities prove both assertions.
+\end{proof}
+
+The conclusion does not apply after pruning zero branches, replacing the
+catalyst decomposition, sharing bilinear work, or changing exactification.
+Those operations change the counted schedule. Factorized Fourier circuits
+can reduce its linear work and storage, but by themselves do not reduce the
+independent source calls counted in \eqref{eq:relative-counts}.

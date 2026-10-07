@@ -1,0 +1,88 @@
+{
+  "small_indices": [
+    {
+      "index": 2,
+      "minimal_scale_K": 15,
+      "concavity_relations": 5,
+      "tripling_relations": 1,
+      "concavity_factors_U": 230,
+      "tripling_factors_T": 15,
+      "catalyst_Q_factors": 230,
+      "largest_concavity_type_length": 56,
+      "largest_sector_count_bits_at_N1": 50,
+      "source_matrix_dimension_at_N1": "2^460",
+      "entropy_identity_verified": true,
+      "limiting_scalar_exponent_interval": {
+        "lower": "2.73746786817959533187075736551463375424455493957435461774684866104749834289839270978482403",
+        "upper": "2.73746786817959533187075736551463375424528076035164617554631397254581493275425310662670090"
+      },
+      "N1_type_copy_upper_expression_interval": {
+        "lower": "13.2985478836266580115372833481032238216093274033625309600220801035958012249822187852896837",
+        "upper": "13.2985478836266580115372847857383346329380300666107719597070953987573522641258692462380785"
+      },
+      "log_catalyst_rank_bound_interval_at_N1": {
+        "lower": "2181.69759146525543384560923272225895813147885948327423477490469772457347319019200602572073",
+        "upper": "2181.69759146525543384560923272225895813164423826789992649040553494206102287494175790154267"
+      },
+      "status": "counted tensor recipe; no composed rank certificate or practical implementation"
+    },
+    {
+      "index": 3,
+      "minimal_scale_K": 84,
+      "concavity_relations": 13,
+      "tripling_relations": 2,
+      "concavity_factors_U": 3316,
+      "tripling_factors_T": 162,
+      "catalyst_Q_factors": 3394,
+      "largest_concavity_type_length": 448,
+      "largest_sector_count_bits_at_N1": 417,
+      "source_matrix_dimension_at_N1": "2^6632",
+      "entropy_identity_verified": true,
+      "limiting_scalar_exponent_interval": {
+        "lower": "2.64112582867681433027395733328281002514199310973025643501951434448485287527253311550332416",
+        "upper": "2.64112582867681433027395733328281002514292272526450956956240243091297967140015884738809094"
+      },
+      "N1_type_copy_upper_expression_interval": {
+        "lower": "4.10024163744317709513154133154460643793768855960913868740676112495842383558308307878112577",
+        "upper": "4.10024163744317709513154135141522440707511743631432743899631432099271195030741002514718221"
+      },
+      "log_catalyst_rank_bound_interval_at_N1": {
+        "lower": "36811.2176764010424824435991491348970698010194735520895210340636225793955501803706714448539",
+        "upper": "36811.2176764010424824435991491348970698038553438479919839716441771086803574123618324024948"
+      },
+      "status": "counted tensor recipe; no composed rank certificate or practical implementation"
+    },
+    {
+      "index": 4,
+      "minimal_scale_K": 3465,
+      "concavity_relations": 24,
+      "tripling_relations": 3,
+      "concavity_factors_U": 252362,
+      "tripling_factors_T": 8877,
+      "catalyst_Q_factors": 257774,
+      "largest_concavity_type_length": 18480,
+      "largest_sector_count_bits_at_N1": 17370,
+      "source_matrix_dimension_at_N1": "2^504724",
+      "entropy_identity_verified": true,
+      "limiting_scalar_exponent_interval": {
+        "lower": "2.59231015087867646744589236679449611148467039668351143921139977201294189242164529869159655",
+        "upper": "2.59231015087867646744589236679449611148591897749655457144219066597328999551652353000818853"
+      },
+      "N1_type_copy_upper_expression_interval": {
+        "lower": "2.64664607697235520406398744940181263110612544798197743240697329204655025772354319578782849",
+        "upper": "2.64664607697235520406398744956510340470611686004651693620355397316612662954440682301767482"
+      },
+      "log_catalyst_rank_bound_interval_at_N1": {
+        "lower": "3142405.72232260350989666779529610011467141418347965253094273520077780966024866610231594656",
+        "upper": "3142405.72232260350989666779529610011467165893036310390437718840847339027662887946187988903"
+      },
+      "status": "counted tensor recipe; no composed rank certificate or practical implementation"
+    }
+  ],
+  "index_63_scale": {
+    "index": 63,
+    "minimal_scale_K": "1382040519331703757261507163622061990949555708056547736702400",
+    "scale_decimal_digits": 61,
+    "note": "Only the rational scale is computed; tensor types are not expanded."
+  }
+}

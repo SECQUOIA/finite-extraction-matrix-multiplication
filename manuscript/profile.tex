@@ -1,0 +1,225 @@
+\section{The least scalar profile and an explicit rational certificate}
+\label{sec:profile}
+
+We first isolate the scalar problem. The connection to actual tensors will
+be proved by direct maps in Sections~\ref{sec:maps}--\ref{sec:extraction}.
+In particular, no assumption that the least scalar profile is a tensor
+character enters the construction.
+
+\begin{definition}
+A profile is a positive symmetric function \(P:\N_{>0}^2\to\mathbb R\)
+satisfying
+\begin{align}
+ P(1,b)&=b,\label{eq:normalization}\\
+ 2P(a,b)&\ge P(a,b-1)+P(a,b+1)\quad(b\ge2),\label{eq:concavity}\\
+ P(a,3h+a-1)&\ge3P(a,h)\quad(h\ge1).\label{eq:tripling}
+\end{align}
+\end{definition}
+
+Define
+\begin{equation}\label{eq:profile-formula}
+ s_m=\prod_{h=1}^{m-1}\left(1+\frac1{3h}\right),\qquad
+ F(m,n)=s_{\min(m,n)}\left(\max(m,n)+\frac{\min(m,n)-1}{2}\right).
+\end{equation}
+An empty product equals one.
+
+\begin{theorem}[Least profile]\label{thm:least-profile}
+The function \(F\) is a profile, and every profile \(P\) satisfies
+\(P(m,n)\ge F(m,n)\). Moreover,
+\begin{equation}\label{eq:profile-upper}
+ F(m,n)\le(m+n-1)^{4/3},\qquad
+ \log F(a,a)=\frac43\log a+O(1).
+\end{equation}
+The first inequality is strict when \(m=n>1\).
+\end{theorem}
+\begin{proof}
+Normalization and symmetry are immediate. Using
+\(s_{b+1}/s_b=(3b+1)/(3b)\) and
+\(s_{b-1}/s_b=(3b-3)/(3b-2)\), direct subtraction gives
+\[
+ 2F(a,b)-F(a,b-1)-F(a,b+1)=
+ \begin{cases}
+ \dfrac{2(a-b)s_b}{3b(3b-2)},&2\le b\le a,\\[4pt]
+ 0,&b>a.
+ \end{cases}
+\]
+Thus each row is concave. Its affine tail has slope \(s_a\), so its
+extension bounds the row from above:
+\(F(a,h)\le s_a(h+(a-1)/2)\). Evaluating this affine tail at
+\(3h+a-1\ge a\) proves \eqref{eq:tripling} for \(F\).
+
+For minimality, write \(D_a=P(a,a)\),
+\(k_a=2D_a/(3a-1)\), and
+\(\Delta_{a,h}=P(a,h+1)-P(a,h)\).
+Tripling at \(h=a\) and decreasing increments imply
+\[
+ 2D_a\le P(a,4a-1)-P(a,a)\le(3a-1)\Delta_{a,a}.
+\]
+By symmetry and concavity, for \(a\ge2\),
+\[
+ D_a-D_{a-1}
+ =\Delta_{a-1,a-1}+\Delta_{a,a-1}\ge k_{a-1}+k_a.
+\]
+It follows that \(k_a\ge(3a-2)k_{a-1}/(3a-3)\).
+Since \(k_1=1\), this proves \(k_a\ge s_a\) and the diagonal bound.
+
+Fix \(m<n\). Starting with \(x_0=m\), put
+\(x_{j+1}=3x_j+m-1\), and choose \(j\) with \(x_j\ge n\).
+Then
+\[
+ x_j-m=(3^j-1)(3m-1)/2,\qquad P(m,x_j)\ge3^jD_m.
+\]
+A concave sequence lies above the chord joining two of its entries.
+The chord from \(m\) to \(x_j\) therefore gives
+\[
+ P(m,n)\ge D_m+\frac{n-m}{x_j-m}(3^j-1)D_m
+ =\frac{2D_m}{3m-1}\left(n+\frac{m-1}{2}\right)\ge F(m,n).
+\]
+Only finitely many profile inequalities have been used.
+
+Induction gives \(s_a^3\le(3a-1)/2\), strictly for \(a>1\).
+The induction step reduces to
+\((3a+2)(3a)^3-(3a-1)(3a+1)^3=6a+1>0\).
+For \(m\le n\), both \((3m-1)/2\) and \(n+(m-1)/2\) are at most
+\(m+n-1\). Cubing \eqref{eq:profile-formula} proves
+\eqref{eq:profile-upper} and its strict diagonal version.
+Finally, \(\log(1+x)=x+O(x^2)\) and convergence of
+\(\sum h^{-2}\) give \(\log s_a=\frac13\log a+O(1)\).
+\end{proof}
+
+The theorem makes precise a limitation of the scalar argument: these
+axioms, even together with \(P(a,b)\le(a+b-1)^{4/3}\), cannot force
+diagonal growth faster than \(a^{4/3}\). This is a statement about the
+scalar relaxation, not a claim that \(F\) comes from a tensor character.
+The off-diagonal minimality uses tripling at all \(h\).
+The diagonal bound and the rational certificate below need only the
+instances with \(h\) equal to the row index, which are the instances
+realized by our tensor maps.
+
+\subsection{A certificate with fixed rational probabilities}
+
+For a fixed target index \(a\ge2\), use rows \(2\le r\le a\) and
+columns \(r\le b\le4r-2\). The affine formula in
+\eqref{eq:profile-formula} holds in row \(r\) throughout \(b\ge r-1\):
+at its left endpoint this follows from
+\(s_r/s_{r-1}=(3r-2)/(3r-3)\).
+Set
+\begin{equation}\label{eq:probabilities}
+ q_{r,b}^{\pm}=\frac{2b+r-1\pm2}{2(2b+r-1)}.
+\end{equation}
+These positive rational probabilities equal the neighboring values of
+\(F\) divided by \(2F(r,b)\).
+Put \(y_{r,b}=\log(P(r,b)/F(r,b))\). Weighted arithmetic--geometric
+mean applied to \eqref{eq:concavity} yields
+\begin{equation}\label{eq:log-concavity}
+ y_{r,b}-q^-_{r,b}y_{r,b-1}-q^+_{r,b}y_{r,b+1}\ge0.
+\end{equation}
+Indeed the normalized concavity inequality is
+\[
+ \frac{P(r,b)}{F(r,b)}\ge
+ q^-_{r,b}\frac{P(r,b-1)}{F(r,b-1)}+
+ q^+_{r,b}\frac{P(r,b+1)}{F(r,b+1)}
+ \ge \exp\bigl(q^-_{r,b}y_{r,b-1}+q^+_{r,b}y_{r,b+1}\bigr).
+\]
+We will also use the equality
+\(H(q)+\sum q^\pm\log F(r,b\pm1)=\log(2F(r,b))\),
+where \(H(q)=-\sum q^\pm\log q^\pm\).
+Tripling at \(h=r\) gives
+\(y_{r,4r-1}-y_{r,r}\ge0\).
+
+Put \(L=4r-1\) and \(D_r=3r-1\). In the final row \(r=a\), set
+\begin{equation}\label{eq:final-weights}
+ \lambda_{r,b}=\frac{2(2b+r-1)(L-b)}{3(r-1)D_r},\qquad
+ \mu_r=\frac1{r-1}.
+\end{equation}
+In each lower row \(r<a\), set
+\begin{equation}\label{eq:lower-weights}
+ \begin{split}
+ \lambda_{r,r}&=\frac{2D_r}{3(r-1)},\\
+ \lambda_{r,b}&=\frac{4(2b+r-1)(L-b)}{3(r-1)(3r+1)}\quad(b>r),\\
+ \mu_r&=\frac{2D_r}{(r-1)(3r+1)}.
+ \end{split}
+\end{equation}
+
+\begin{proposition}[Rational telescoping]\label{prop:dual}
+Weight \eqref{eq:log-concavity} by \(\lambda_{r,b}\) and tripling by
+\(\mu_r\). Their sum over all specified rows and columns is exactly
+\(y_{a,a}-y_{1,2}\ge0\). All weights and all split weights
+\(\lambda q^\pm\), \(\mu/3\) are positive rationals.
+\end{proposition}
+\begin{proof}
+Write \(h_b=2b+r-1\) and \(f_b=\lambda_{r,b}/h_b\).
+At an interior column the concavity contribution is
+\(h_b(f_b-(f_{b-1}+f_{b+1})/2)\).
+In the final row \(f_b=2(L-b)/(3(r-1)D_r)\) is affine.
+The left external coefficient is
+\(-h_{r-1}f_r/2=-1\). At \(r\), the concavity contribution is
+\(r/(r-1)\); subtracting \(\mu_r=1/(r-1)\) leaves \(1\).
+The terminal coefficient is
+\(-h_Lf_{L-1}/2+\mu_r=0\).
+Thus this row leaves \(y_{r,r}-y_{r,r-1}\).
+
+In a lower row, \(f_b\) is affine for \(b>r\) and
+\(f_r=2/(3(r-1))\). Its affine extension from \(b>r\) differs at
+\(r\) by \(2/(3r+1)\). The second difference therefore leaves
+coefficient \(1\) at \(r+1\). The left external coefficient remains
+\(-1\); the concavity coefficient at \(r\) is
+\(2(3r-1)/((r-1)(3r+1))=\mu_r\), which cancels with \(-\mu_r\), and
+the terminal coefficient cancels with \(\mu_r\).
+This row leaves \(y_{r,r+1}-y_{r,r-1}\).
+Symmetry identifies \(y_{r,r+1}=y_{r+1,r}\), so all row boundaries
+cancel except \(y_{a,a}-y_{2,1}=y_{a,a}-y_{1,2}\).
+\end{proof}
+
+The probabilities in this certificate are fixed by \(F\), not by the
+unknown values of \(P\). This fact is what permits an exact finite
+tensor construction.
+
+\subsection{Integer types and their entropy identity}
+\label{subsec:types}
+
+Let \(K=K_a\) be the least common multiple of the denominators of all
+\(\lambda q^+\), \(\lambda q^-\), and \(\mu/3\), in lowest terms.
+For each concavity relation write
+\[
+ w=K\lambda,\qquad u=K\lambda q^+,\qquad d=K\lambda q^-;
+ \qquad w=u+d.
+\]
+For each tripling relation write \(z=K\mu\); then \(3\mid z\).
+Let
+\begin{equation}\label{eq:type-totals}
+ U=\sum w,\quad T=\sum z,\quad
+ I_c=\frac{3a^2+a-4}{2},\quad I_t=a-1,\quad I=\frac{3(a+2)(a-1)}2.
+\end{equation}
+The sums run over concavity and tripling relations, respectively.
+There are \(I_c\) and \(I_t\) such relations.
+
+For a formal symbol \([r,b]=[b,r]\), Proposition~\ref{prop:dual} gives
+the exact integer identity
+\begin{equation}\label{eq:formal-ledger}
+ \sum_{r,b}\bigl(w[r,b]-u[r,b+1]-d[r,b-1]\bigr)
+ +\sum_r z\bigl([r,4r-1]-[r,r]\bigr)
+ =K[a,a]-K[1,2].
+\end{equation}
+This is an identity of exponent vectors, not an identity of sums of tensors.
+Let \(i_{r,b}\) and \(o_{r,b}\) be the nonnegative source and output
+counts on its left, after identifying symmetric pairs. Put
+\(c_{r,b}=\min(i_{r,b},o_{r,b})\) and
+\begin{equation}\label{eq:catalyst}
+ \Cat=\bigotimes_{r\le b}Q_{r,b}^{\otimes c_{r,b}},\qquad
+ \Cat_N=\Cat^{\otimes N}.
+\end{equation}
+Thus \(\sum c_{r,b}=U+T-K\). The common factors are retained as the
+catalyst \(\Cat\); they are not formally canceled from a restriction.
+
+Tightness of each entropy relation at \(F\) also gives
+\begin{equation}\label{eq:entropy-identity}
+ 2^{K-U}3^T\prod_{\text{concavity relations}}
+ \frac{w^w}{u^u d^d}=F(a,a)^K.
+\end{equation}
+To check the identity, multiply
+\((2F(r,b))^w=(w^w/(u^ud^d))F(r,b+1)^uF(r,b-1)^d\)
+and \(F(r,4r-1)^z=3^zF(r,r)^z\) over the relations.
+Use \eqref{eq:formal-ledger} and \(F(1,2)=2\).
+This derivation proves the identity over the rationals, without a numerical
+entropy calculation.

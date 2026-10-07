@@ -1,0 +1,167 @@
+\section{Exact type restrictions and separation of a shared leg}
+\label{sec:maps}
+
+We now realize the two families of relations by finite tensor maps.
+There are two distinct tasks. A type projection removes off-diagonal
+blocks, but leaves the first leg shared. A subsequent separator makes
+the surviving blocks independent on all three legs.
+Precisely, matched sectors sharing the first leg have the form
+\(\sum_h A_h\), with \(A_h\in X\otimes Y_h\otimes Z_h\) and
+direct-sum decompositions on the second and third legs. All supported
+terms use the same sector label on those two legs, while the space \(X\)
+is common to all sectors.
+
+\subsection{The neighboring-length map}
+
+Let \(V_e\) be the homogeneous binary forms of degree \(e\) in \(u,v\),
+and let \(W=\operatorname{span}(s,w)\). For degree \(e\ge1\), put
+\(s_i=u^{e-i}v^is\) and \(w_i=u^{e-i}v^iw\).
+Choose quotient lifts \(s_0,\ldots,s_e,w_e\) and kernel vectors
+\(k_i=w_i-s_{i+1}\), \(0\le i<e\).
+These form a basis of \(V_e\otimes W\): substitution \((s,w)=(u,v)\)
+sends the quotient lifts to distinct monomials and kills the kernel
+vectors, which are independent. The kernel is
+\((uw-vs)V_{e-1}\).
+
+\begin{lemma}[Exact neighboring-length types]\label{lem:determinant}
+For positive integers \(n_+,n_-\) with \(n=n_++n_-\), a specified
+restriction of
+\((C(r,b)B_X(2))^{\otimes n}\), \(r,b\ge2\), has
+\(\binom n{n_+}\) matched sectors on its second and third legs.
+Each sector is isomorphic to
+\(C(r,b+1)^{\otimes n_+}C(r,b-1)^{\otimes n_-}\).
+The first leg is still shared; the sector-specific coordinate permutation
+is applied only after separation.
+\end{lemma}
+\begin{proof}
+View \(C(r,b)B_X(2)\) as multiplication
+\(V_{r-1}\times(V_{b-1}\otimes W)\to V_{r+b-2}\otimes W\).
+Use the preceding bases on its second-input and output spaces, and the
+dual output basis on its third leg. Multiplication by
+\(u^{r-1-i}v^i\) shifts each monomial index by \(i\).
+It preserves the kernel and induces ordinary multiplication on the quotient.
+The two diagonal blocks are \(C(r,b+1)\) and \(C(r,b-1)\).
+The only off-diagonal terms are
+\begin{equation}\label{eq:off-diagonal}
+ x_i q_b k^*_{b-1+i},\qquad 0\le i<r-1,
+\end{equation}
+where \(q_b=w_{b-1}\) is the last input quotient lift and the star
+denotes an output-dual coordinate.
+Indeed, the image of that lift has index \(b-1+i\). Unless this is the
+last output index, \(w_{b-1+i}=s_{b+i}+k_{b-1+i}\).
+All other quotient lifts stay in the quotient, and a kernel vector maps
+to a kernel vector. This proves \eqref{eq:off-diagonal}.
+
+In \(n\) tensor positions, retain words with exactly \(n_-\) kernel
+labels on both the second and third legs. Each off-diagonal term increases
+the output kernel count by one, and no term decreases it. Equal retained
+counts therefore remove every off-diagonal term. In a surviving term the
+two sector labels agree at each position. Choosing the \(n_+\) quotient
+positions gives the asserted number of sectors and their tensors.
+\end{proof}
+
+This is an exact restriction after a fixed basis change. In particular,
+it incurs no interpolation degree.
+
+\subsection{The three-sector map}
+
+\begin{lemma}[Exact three-sector types]\label{lem:tripling}
+For \(r\ge2\) and \(3\mid n\), a coordinate restriction of
+\(C(r,4r-1)^{\otimes n}\) has
+\(n!/(n/3)!^3\) matched sectors on its second and third legs.
+Each sector contains \(2n/3\) factors isomorphic to \(C(r,r)\) and
+\(n/3\) factors isomorphic to \(C(r,r)\) with its second and third
+legs exchanged. The first leg remains shared.
+The sector-specific coordinate permutations are applied only after separation.
+\end{lemma}
+\begin{proof}
+A supported term has \(0\le i<r\), \(0\le y<4r-1\), and \(z=i+y\).
+Partition the index sets into the following intervals, with endpoints
+included:
+\[
+\begin{array}{c|ccc}
+ &\text{left}&\text{middle}&\text{right}\\ \hline
+Y &[0,r-1]&[r,3r-2]&[3r-1,4r-2]\\
+Z &[0,2r-2]&[2r-1,3r-2]&[3r-1,5r-3].
+\end{array}
+\]
+A left \(Y\)-index forces a left \(Z\)-index, and a right \(Y\)-index
+forces a right \(Z\)-index. Every unmatched term therefore has a middle
+\(Y\)-label and an outer \(Z\)-label. Retain \(n/3\) labels of each
+kind on both legs in a tensor power. Equality of the middle counts
+eliminates every unmatched term; the remaining labels agree positionwise.
+
+The outer blocks are translates of \(C(r,r)\).
+The middle block has terms
+\[
+ x_{r-1-i}\,y_{r+i+j}\,z_{2r-1+j},\qquad 0\le i,j<r.
+\]
+Reversing the first index and exchanging the last two legs identifies it
+with \(C(r,r)\). These identifications are statements about each sector
+separately. We do not apply different first-leg maps to blocks while that
+leg is shared.
+\end{proof}
+
+\subsection{A Fourier separator}
+
+The following form includes an auxiliary dimension and a phase slope.
+The main construction uses only \(K_0=M\), \(c=1\).
+
+\begin{proposition}[Shared-leg separator]\label{prop:separator}
+Let
+\(A=\sum_{h=0}^{M-1}A_h\), with
+\(A_h\in X\otimes Y_h\otimes Z_h\), where the \(Y_h\) and \(Z_h\)
+are pairwise disjoint sectors. For positive integers \(K_0,c\), put
+\(L=K_0+c(M-1)\). There is an explicit degeneration
+\begin{equation}\label{eq:separator}
+ L A\degen\bigoplus_{h=0}^{M-1}(A_h B_X(K_0)).
+\end{equation}
+Its polynomial has exponent support contained in
+\(\{cd^2:0\le d\le d_*\}\), where
+\(d_* =\min(M-1,\lfloor(K_0-1)/c\rfloor)\).
+In particular, \(K_0=M,c=1\) uses \(2M-1\) source copies and has
+degree at most \((M-1)^2\).
+Permuting all three legs gives the same statement with any chosen shared leg.
+\end{proposition}
+\begin{proof}
+Choose a primitive \(L\)-th root \(\zeta\). In source copy \(\ell\),
+\(0\le\ell<L\), make the substitutions
+\begin{align*}
+ x_a^{(\ell)}&\longmapsto\sum_{g=0}^{M-1}\zeta^{\ell cg}X_{a,g},\\
+ y_{h,b}^{(\ell)}&\longmapsto
+       \sum_{u=0}^{K_0-1}\zeta^{\ell(u-ch)}Y_{h,b,u},\\
+ z_{h,d}^{(\ell)}&\longmapsto
+       L^{-1}\sum_{v=0}^{K_0-1}\zeta^{-\ell v}Z_{h,d,v}.
+\end{align*}
+Summing the copies retains exactly
+\(u-v+c(g-h)\equiv0\pmod L\). Its absolute value is at most \(L-1\),
+so the congruence is the equality \(u-v+c(g-h)=0\).
+Multiply the new variables by the respective powers of \(t\)
+\[
+ t^{cg^2},\qquad t^{2hu-ch^2},\qquad t^{-2hv}.
+\]
+Every surviving term has total exponent
+\(cg^2+2h(u-v)-ch^2=c(g-h)^2\).
+It is zero exactly when \(g=h\) and \(u=v\). These terms are precisely
+the target in \eqref{eq:separator}, whose first variables \(X_{a,h}\)
+are now independent for different \(h\).
+Moreover \(c|g-h|=|u-v|\le K_0-1\), proving the exponent support.
+\end{proof}
+
+Only after this separator has been applied do we reorder tensor positions
+or use sector-specific first-leg reversals. Applying the maps on all six
+permutations balances the exchanged factors in Lemma~\ref{lem:tripling}:
+composition with the transposition \(\sigma\) of its last two legs
+permutes \(S_3\). Explicitly, for \(C=C(r,r)\),
+\[
+ \bigotimes_{\pi\in S_3}
+ \bigl((C^\pi)^{\otimes 2n/3}((C^\sigma)^\pi)^{\otimes n/3}\bigr)
+ \cong Q_{r,r}^{\otimes n}.
+\]
+This uses permutations of tensor factors within each global leg; it
+does not swap two global legs in only part of a tensor.
+Thus every separated balanced sector is exactly the prescribed product
+of the \(Q_{r,b}\), up to a specified coordinate permutation.
+
+Further finite refinements of this separator are proved in
+Appendix~\ref{subsec:sparse}. They are not used in the main extraction.

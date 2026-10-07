@@ -1,0 +1,70 @@
+{
+  "verified_configurations": 576,
+  "two_power_costs": [
+    {
+      "blocks": 2,
+      "auxiliary": 2,
+      "slope": 1,
+      "power": 2,
+      "source_copies_before_exactification": 3,
+      "maximum_mismatch": 1,
+      "projection_evaluations": 3,
+      "exact_source_copies": 27,
+      "direct_source_copies": 16,
+      "generic_interpolation_evaluations": 3,
+      "verification_prime": 7
+    },
+    {
+      "blocks": 4,
+      "auxiliary": 4,
+      "slope": 1,
+      "power": 2,
+      "source_copies_before_exactification": 7,
+      "maximum_mismatch": 3,
+      "projection_evaluations": 7,
+      "exact_source_copies": 343,
+      "direct_source_copies": 256,
+      "generic_interpolation_evaluations": 19,
+      "verification_prime": 29
+    },
+    {
+      "blocks": 8,
+      "auxiliary": 8,
+      "slope": 1,
+      "power": 2,
+      "source_copies_before_exactification": 15,
+      "maximum_mismatch": 7,
+      "projection_evaluations": 11,
+      "exact_source_copies": 2475,
+      "direct_source_copies": 4096,
+      "generic_interpolation_evaluations": 99,
+      "verification_prime": 331
+    },
+    {
+      "blocks": 16,
+      "auxiliary": 16,
+      "slope": 1,
+      "power": 2,
+      "source_copies_before_exactification": 31,
+      "maximum_mismatch": 15,
+      "projection_evaluations": 19,
+      "exact_source_copies": 18259,
+      "direct_source_copies": 65536,
+      "generic_interpolation_evaluations": 451,
+      "verification_prime": 2357
+    },
+    {
+      "blocks": 32,
+      "auxiliary": 32,
+      "slope": 1,
+      "power": 2,
+      "source_copies_before_exactification": 63,
+      "maximum_mismatch": 31,
+      "projection_evaluations": 43,
+      "exact_source_copies": 170667,
+      "direct_source_copies": 1048576,
+      "generic_interpolation_evaluations": 1923,
+      "verification_prime": 5419
+    }
+  ]
+}

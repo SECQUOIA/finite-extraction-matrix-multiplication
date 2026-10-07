@@ -1,0 +1,135 @@
+\section{The full composed relation maps}
+\label{sec:composed-maps}
+
+This appendix writes the composition in
+\eqref{eq:complete-relation-map} on its full variable spaces. In
+particular, a sector-specific reindexing is a fixed linear map even on
+the positive-degree terms, whose sector labels need not agree.
+
+Fix the scale \(N\) of Section~\ref{sec:extraction}. For relation \(i\),
+let its source tensor and its canonical sector tensor be
+\[
+ \mathcal U_i=
+ \begin{cases}
+  (C(r,b)B_X(2))^{\otimes Nw_i},&i\in\mathcal I_c,\\
+  C(r,4r-1)^{\otimes Nz_i},&i\in\mathcal I_t,
+ \end{cases}
+\]
+and
+\[
+ \mathcal V_i=
+ \begin{cases}
+  C(r,b+1)^{\otimes Nu_i}C(r,b-1)^{\otimes Nd_i},
+       &i\in\mathcal I_c,\\
+  C(r,r)^{\otimes 2Nz_i/3}(C(r,r)^\sigma)^{\otimes Nz_i/3},
+       &i\in\mathcal I_t,
+ \end{cases}
+\]
+where \(\sigma\) exchanges the second and third legs. In the tripling
+case, the exchanged factors remain in this expression until the six
+permutations are combined.
+
+Let \(\mathsf T_i\) be the exact type map of
+Lemma~\ref{lem:determinant} or Lemma~\ref{lem:tripling}. Enumerate its
+retained words by \(h=0,\ldots,M_i-1\), and write
+\[
+ \mathsf T_i(\mathcal U_i)=
+ \sum_{h=0}^{M_i-1}\sum_{\alpha,\beta,\gamma}
+ c_{i,h}(\alpha,\beta,\gamma)x_\alpha y_{h,\beta}z_{h,\gamma}.
+\]
+The first variable space \(X_i\) is shared. The other two spaces are
+\(\bigoplus_hY_{i,h}\) and \(\bigoplus_hZ_{i,h}\), and the indices
+\(\beta,\gamma\) range over the coordinates of sector \(h\).
+
+Set \(L_i=2M_i-1\), and let \(\mathsf S_i(t)\) be the substitutions
+of Proposition~\ref{prop:separator} with \(K_0=M_i,c=1\).
+After the type maps in the \(L_i\) source copies, these give exactly
+\begin{align}
+ &\mathsf S_i(t)
+   \left(\bigoplus_{\ell=0}^{L_i-1}\mathsf T_i\right)
+   (L_i\mathcal U_i) \notag\\
+ &\quad=
+ \sum_{\substack{0\le h,g,u,v<M_i\\u-v+g-h=0}}
+ t^{(g-h)^2}
+ \sum_{\alpha,\beta,\gamma}
+ c_{i,h}(\alpha,\beta,\gamma)
+ X_{\alpha,g}Y_{h,\beta,u}Z_{h,\gamma,v}.
+ \label{eq:composed-relation-polynomial}
+\end{align}
+The Fourier sum imposes the displayed equality, and the combined weight
+is \((g-h)^2\). This formula includes every positive-degree term.
+
+For example, for a neighboring-length relation put \(n=Nw_i\), and
+let \(\omega(h)\in\{+,-\}^n\) be its retained word. In the quotient
+and kernel bases, before reordering positions,
+\[
+ c_{i,h}(\boldsymbol\alpha,\boldsymbol\beta,\boldsymbol\gamma)
+ =\prod_{\nu=1}^n\mathbf1_{\{\gamma_\nu=\alpha_\nu+\beta_\nu\}}.
+\]
+Here \(0\le\alpha_\nu<r\). At a \(+\) position,
+\(0\le\beta_\nu\le b\) and \(0\le\gamma_\nu\le r+b-1\);
+at a \(-\) position, \(0\le\beta_\nu\le b-2\) and
+\(0\le\gamma_\nu\le r+b-3\).
+Thus the coefficient of
+\(X_{\boldsymbol\alpha,g}Y_{h,\boldsymbol\beta,u}
+Z_{h,\boldsymbol\gamma,v}\) in
+\eqref{eq:composed-relation-polynomial} is
+\[
+ \mathbf1_{\{u-v+g-h=0\}}\,t^{(g-h)^2}
+ \prod_{\nu=1}^n\mathbf1_{\{\gamma_\nu=\alpha_\nu+\beta_\nu\}}.
+\]
+For a tripling relation the coefficient is likewise a product of
+\(\mathbf1_{\{\gamma_\nu=\alpha_\nu+\beta_\nu\}}\), with the original interval
+coordinates in Lemma~\ref{lem:tripling}; the middle-position reversals
+are part of the subsequent reindexing.
+
+The separator target spaces are
+\[
+ \widetilde X_i=\bigoplus_gX_i^{(g)},\qquad
+ \widetilde Y_i=\bigoplus_h(Y_{i,h}\otimes\C^{M_i}),\qquad
+ \widetilde Z_i=\bigoplus_h(Z_{i,h}\otimes\C^{M_i}).
+\]
+For each \(h\), let
+\((\mathsf R^X_{i,h},\mathsf R^Y_{i,h},\mathsf R^Z_{i,h})\) be the coordinate
+permutations identifying its sector tensor with \(\mathcal V_i\).
+They group tensor positions by type; in the tripling case they also
+shift each second- and third-leg interval to start at zero and reverse
+the first index at middle positions. Define the maps on the full
+target spaces by
+\[
+ \mathsf R_i=
+ \left(
+  \bigoplus_h \mathsf R^X_{i,h},\quad
+  \bigoplus_h(\mathsf R^Y_{i,h}\otimes I_{M_i}),\quad
+  \bigoplus_h(\mathsf R^Z_{i,h}\otimes I_{M_i})
+ \right).
+\]
+The first component acts on block \(h\) of \(\widetilde X_i\), whether
+or not a monomial's other sector labels equal \(h\). Hence all three
+maps are defined on every term of
+\eqref{eq:composed-relation-polynomial}, and they are independent of \(t\).
+
+The map \(\Phi_{i,\pi}(t)\) of \eqref{eq:complete-relation-map}
+acts on \(L_i\mathcal U_i^\pi\). Its separator acts along the leg
+occupied by \(X_i\) after permutation by \(\pi\).
+The constant term in \eqref{eq:composed-relation-polynomial} has
+\(g=h\) and \(u=v\), so
+\[
+ \Phi_{i,\pi}(t)(L_i\mathcal U_i^\pi)
+ =\bigoplus_{h=0}^{M_i-1}(\mathcal V_iB_X(M_i))^\pi
+   +\sum_{d=1}^{(M_i-1)^2}t^dG_{i,\pi,d}.
+\]
+In particular, the constant term has \(M_i\) full direct-sum copies.
+
+Tensor \(\Phi_{i,\pi}(t)\) over all \(i,\pi\), using one parameter.
+The source and constant-term multiplicities are
+\(\prod_iL_i^6=S\) and \(\prod_iM_i^6=H\).
+Lemma~\ref{lem:composition} bounds the degree by
+\(6\sum_i(M_i-1)^2=D\). Regroup the source factors and the
+constant-term factors by coordinate permutations independent of \(t\).
+For tripling, the mixed factors \(\mathcal V_i^\pi\) combine over
+all six permutations to \(Q_{r,r}^{\otimes Nz_i}\), by the
+orientation-balance identity in Section~\ref{sec:maps}.
+The ledger \eqref{eq:formal-ledger} and the dot-product identities
+\eqref{eq:matrix-products} then give exactly
+\eqref{eq:catalytic-degeneration}.

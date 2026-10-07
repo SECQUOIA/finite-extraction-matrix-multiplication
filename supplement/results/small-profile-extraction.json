@@ -1,0 +1,62 @@
+{
+  "scale_N": 300,
+  "interpolation_power_k": 125,
+  "catalyst_reuse_j": 3750,
+  "status": "explicit tensor recipe; maps and rank seed not materialized; impractical",
+  "sector_count_bit_lengths": [
+    13213,
+    15790,
+    15611,
+    12877,
+    7660,
+    7120
+  ],
+  "interpolation_degree_bit_length": 31582,
+  "interpolation_evaluations_bit_length": 31589,
+  "exponent_upper_expression_interval": {
+    "lower": "2.78918206113258100024952570753979783870657640388468602729500354031610977395914824670255676",
+    "upper": "2.78918206113258100024952570788426950509953318855942469281081757517484853611631517505686769"
+  },
+  "certified_below_2_79": true,
+  "finite_type_upper_expression_interval": {
+    "lower": "2.75670972966447871984618573050703532617128109297839540827242409448424314463247650745336032",
+    "upper": "2.75670972966447871984618573084709424142090108205116971564697081393064974445853846934381580"
+  },
+  "padded_target_dimension_decimal_digits": 21665218118,
+  "recursive_input_dimension_decimal_digits": 19472877845,
+  "simultaneous_output_count_decimal_digits": 61185743470,
+  "log10_dimension_shrink_ratio": {
+    "lower": "2192340272.96669142586984508732254449020689394438630947811830744539270329456571279689797145",
+    "upper": "2192340272.96669142586984508759298459025108530894893182654853245567904392646575426738553437"
+  },
+  "resource_ledger": {
+    "inputs": {
+      "2": 15000,
+      "3": 16800,
+      "4": 16200,
+      "5": 13200,
+      "6": 7800,
+      "7": 4500
+    },
+    "outputs": {
+      "1": 4500,
+      "2": 10500,
+      "3": 16800,
+      "4": 16200,
+      "5": 13200,
+      "6": 7800,
+      "7": 4500
+    },
+    "catalyst": {
+      "2": 10500,
+      "3": 16800,
+      "4": 16200,
+      "5": 13200,
+      "6": 7800,
+      "7": 4500
+    },
+    "consumed_Q2": 4500,
+    "produced_Q1": 4500,
+    "input_oriented_dot_exponent": 69000
+  }
+}

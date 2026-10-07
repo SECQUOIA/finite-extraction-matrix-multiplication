@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-10-07T02:27:00.186408+00:00",
+  "scope": "scalar profile only; not a matrix multiplication algorithm",
+  "verification": {
+    "status": "exact_checks_passed",
+    "grid_size": 64,
+    "positive": 4096,
+    "symmetric": 4096,
+    "boundary": 64,
+    "concavity": 3968,
+    "tripling": 672,
+    "upper_bound": 4096
+  },
+  "diagonal_asymptotic_exponent": "4/3",
+  "diagonal_asymptotic_constant": 1.679769782583278,
+  "linear_programs": [],
+  "finite_costs": {
+    "scope": "profile index a, not a matrix multiplication seed dimension",
+    "formula": "tau_a = 3 log(2a-1) / log F(a,a)",
+    "asymptotic_gap_coefficient": 0.6843478908905215,
+    "error_policy": "Only the first two minima use exact rational comparisons. Other values are numerical estimates. The analytic Gamma envelopes bound finite-a corrections; their binary64 evaluation is not certified interval arithmetic. Four significant figures are retained for very large dimensions.",
+    "estimates": [
+      {
+        "target_exponent": "2.5",
+        "leading_asymptotic_log_dimension": 2.3483990011757068,
+        "leading_asymptotic_log10_dimension": 1.0198967275177178,
+        "leading_asymptotic_dimension_4_significant_figures": "1.047E+1",
+        "finite_index_estimate": 10,
+        "status": "minimum certified by exact rational scan"
+      },
+      {
+        "target_exponent": "2.4",
+        "leading_asymptotic_log_dimension": 4.173326710217098,
+        "leading_asymptotic_log10_dimension": 1.812452761426737,
+        "leading_asymptotic_dimension_4_significant_figures": "6.493E+1",
+        "finite_index_estimate": 63,
+        "status": "minimum certified by exact rational scan"
+      },
+      {
+        "target_exponent": "2.3",
+        "leading_asymptotic_log_dimension": 13.297965255424055,
+        "leading_asymptotic_log10_dimension": 5.775232930971834,
+        "leading_asymptotic_dimension_4_significant_figures": "5.960E+5",
+        "finite_index_estimate": 595975,
+        "status": "numerical crossing; not an exact minimality certificate",
+        "exponent_at_previous_index": 2.300000003321948,
+        "exponent_at_index": 2.2999999971923697
+      },
+      {
+        "target_exponent": "2.26",
+        "leading_asymptotic_log_dimension": 68.0457965266658,
+        "leading_asymptotic_log10_dimension": 29.55191394824241,
+        "leading_asymptotic_dimension_4_significant_figures": "3.564E+29",
+        "finite_index_estimate": "3.564E+29",
+        "status": "asymptotic scale estimate, four significant figures",
+        "localization_log_dimension_half_width": 0.001,
+        "lower_exponent_bound_below_estimate": 2.2600001461266452,
+        "upper_exponent_bound_above_estimate": 2.2599998538776256
+      },
+      {
+        "target_exponent": "2.251",
+        "leading_asymptotic_log_dimension": 683.9588983281353,
+        "leading_asymptotic_log10_dimension": 297.03957539253645,
+        "leading_asymptotic_dimension_4_significant_figures": "1.095E+297",
+        "finite_index_estimate": "1.095E+297",
+        "status": "asymptotic scale estimate, four significant figures",
+        "localization_log_dimension_half_width": 0.001,
+        "lower_exponent_bound_below_estimate": 2.2510000014612466,
+        "upper_exponent_bound_above_estimate": 2.2509999985387568
+      }
+    ]
+  }
+}

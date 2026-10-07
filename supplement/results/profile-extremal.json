@@ -1,0 +1,158 @@
+{
+  "generated_at": "2026-10-07T02:15:20.097925+00:00",
+  "scope": "scalar profile only; not a matrix multiplication algorithm",
+  "verification": {
+    "status": "exact_checks_passed",
+    "grid_size": 64,
+    "positive": 4096,
+    "symmetric": 4096,
+    "boundary": 64,
+    "concavity": 3968,
+    "tripling": 672,
+    "upper_bound": 4096
+  },
+  "diagonal_asymptotic_exponent": "4/3",
+  "diagonal_asymptotic_constant": 1.679769782583278,
+  "linear_programs": [
+    {
+      "target": [
+        2,
+        2
+      ],
+      "grid_size": 7,
+      "sufficient_proof_grid": 7,
+      "variables": 28,
+      "inequalities": 42,
+      "scipy_version": "1.18.0",
+      "solver": "scipy.optimize.linprog(method='highs')",
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "exact_infinite_minimum": "10/3",
+      "exact_infinite_minimum_float": 3.3333333333333335,
+      "lp_minimum": 3.3333333333333335,
+      "difference_from_exact_minimum": 0.0,
+      "maximum_inequality_violation": 0.0
+    },
+    {
+      "target": [
+        3,
+        3
+      ],
+      "grid_size": 11,
+      "sufficient_proof_grid": 11,
+      "variables": 66,
+      "inequalities": 117,
+      "scipy_version": "1.18.0",
+      "solver": "scipy.optimize.linprog(method='highs')",
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "exact_infinite_minimum": "56/9",
+      "exact_infinite_minimum_float": 6.222222222222222,
+      "lp_minimum": 6.222222222222223,
+      "difference_from_exact_minimum": 8.881784197001252e-16,
+      "maximum_inequality_violation": 0.0
+    },
+    {
+      "target": [
+        4,
+        4
+      ],
+      "grid_size": 15,
+      "sufficient_proof_grid": 15,
+      "variables": 120,
+      "inequalities": 230,
+      "scipy_version": "1.18.0",
+      "solver": "scipy.optimize.linprog(method='highs')",
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "exact_infinite_minimum": "770/81",
+      "exact_infinite_minimum_float": 9.506172839506172,
+      "lp_minimum": 9.50617283950617,
+      "difference_from_exact_minimum": -1.7763568394002505e-15,
+      "maximum_inequality_violation": 2.1316282072803006e-14
+    },
+    {
+      "target": [
+        8,
+        8
+      ],
+      "grid_size": 31,
+      "sufficient_proof_grid": 31,
+      "variables": 496,
+      "inequalities": 1054,
+      "scipy_version": "1.18.0",
+      "solver": "scipy.optimize.linprog(method='highs')",
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "exact_infinite_minimum": "499928/19683",
+      "exact_infinite_minimum_float": 25.398973733678808,
+      "lp_minimum": 25.398973733678794,
+      "difference_from_exact_minimum": -1.4210854715202004e-14,
+      "maximum_inequality_violation": 8.526512829121202e-14
+    },
+    {
+      "target": [
+        16,
+        16
+      ],
+      "grid_size": 63,
+      "sufficient_proof_grid": 63,
+      "variables": 2016,
+      "inequalities": 4494,
+      "scipy_version": "1.18.0",
+      "solver": "scipy.optimize.linprog(method='highs')",
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "exact_infinite_minimum": "688842732920/10460353203",
+      "exact_infinite_minimum_float": 65.85272213584928,
+      "lp_minimum": 65.85272213584949,
+      "difference_from_exact_minimum": 2.1316282072803006e-13,
+      "maximum_inequality_violation": 4.808953235624358e-11
+    },
+    {
+      "target": [
+        2,
+        10
+      ],
+      "grid_size": 22,
+      "sufficient_proof_grid": 22,
+      "variables": 253,
+      "inequalities": 517,
+      "scipy_version": "1.18.0",
+      "solver": "scipy.optimize.linprog(method='highs')",
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "exact_infinite_minimum": "14",
+      "exact_infinite_minimum_float": 14.0,
+      "lp_minimum": 14.0,
+      "difference_from_exact_minimum": 0.0,
+      "maximum_inequality_violation": 8.526512829121202e-14
+    },
+    {
+      "target": [
+        7,
+        30
+      ],
+      "grid_size": 87,
+      "sufficient_proof_grid": 87,
+      "variables": 3828,
+      "inequalities": 8642,
+      "scipy_version": "1.18.0",
+      "solver": "scipy.optimize.linprog(method='highs')",
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "exact_infinite_minimum": "152152/2187",
+      "exact_infinite_minimum_float": 69.5711019661637,
+      "lp_minimum": 69.57110196616367,
+      "difference_from_exact_minimum": -2.842170943040401e-14,
+      "maximum_inequality_violation": 1.2079226507921703e-11
+    }
+  ]
+}
