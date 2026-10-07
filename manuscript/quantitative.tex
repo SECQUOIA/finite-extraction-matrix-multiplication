@@ -1,0 +1,158 @@
+\subsection{An explicit rate of convergence}
+\label{subsec:quantitative}
+
+The preceding estimates give more than convergence to \(9/4\).
+The following bounds specify an index for every exponent allowance.
+The constants are deliberately conservative.
+
+\begin{theorem}[A fully specified family]\label{thm:quantitative}
+For an integer \(a\ge2^{64}\), choose
+\[
+ \ell_a=\lceil\log_2a\rceil,\qquad
+ K=a^3\ell_a,\qquad N=k=1,\qquad j=a\ell_a.
+\]
+Apply conserved rounding to the maximal-width occupations, and use
+the resulting integer types in the finite construction.
+The relative scheme has \(B>A\). Its pooled recursive exponent \(p\)
+satisfies
+\begin{equation}\label{eq:explicit-rate}
+ p<\frac94+\frac{900}{\log a},
+ \qquad
+ \log A\le181a^5\ell_a^2.
+\end{equation}
+In particular, the complete finite construction has exponent tending
+to \(9/4\) and \(\log A=O(a^5(\log a)^2)\).
+\end{theorem}
+\begin{proof}
+Write \(t=\log a\) and \(\ell=\ell_a\). Then \(t>32\),
+\(\ell\ge64\), \(t/\log2\le\ell\le a\), and \(\log K\le4t\).
+We first bound the contraction, including both rounding and type losses.
+The candidate coordinate count and the number of active relations obey
+\(J_a\le2a^3\) and \(I\le2a^2\).
+The occupation and rounding bounds give, for each action and reset,
+\[
+ w_i\le180K+2a,\qquad z_r\le2K+1.
+\]
+Consequently the type loss at \(N=1\) is bounded by
+\begin{equation}\label{eq:quantitative-type-loss}
+ \mathcal T_1\le
+ J_a\log(180K+2a+1)+(a-1)\log(2K+2).
+\end{equation}
+Here the sum of the action support sizes minus one is at most \(J_a\),
+and there are at most \(a-1\) positive resets.
+Since \(180K+2a+1\le181K\), \(\log181<6\), and \(\log4<2\),
+\[
+ \frac{4J_a+\mathcal T_1}{K}
+ \le\frac{20+8t+(4t+2)/a^2}{\ell}
+ \le\frac{\frac{41}{2}+9t}{\ell}
+ <\frac{41}{128}+\frac{63}{10}.
+\]
+The first two inequalities use \((a-1)/a^3\le1/a^2\le1/4\);
+the last uses \(\ell\ge64\) and \(t/\ell\le\log2<7/10\).
+
+There is also a convenient elementary lower bound for the profile.
+The inequality \(\log(1+x)\ge x-x^2/2\), for \(x\ge0\), gives
+\[
+ \log s_a
+ \ge\frac13\sum_{h=1}^{a-1}\frac1h
+     -\frac1{18}\sum_{h=1}^{a-1}\frac1{h^2}
+ \ge\frac13\log a-\frac19.
+\]
+As \(F(a,a)=s_a(3a-1)/2\ge a s_a\), we obtain
+\(\log F(a,a)\ge(4/3)t-1/9\).
+The conserved potential identity and the type bound therefore imply
+\begin{equation}\label{eq:quantitative-contraction}
+ \frac{\log(v/u)}{K}
+ \ge\log F(a,a)-\frac{4J_a+\mathcal T_1}{K}
+ >\frac43t-7>0,
+\end{equation}
+where \(1/9+41/128+63/10<7\). This proves \(B>A\).
+
+We next bound every term in the exponent numerator.
+The copy charge satisfies
+\[
+ \frac{\log(S/H)}{K}
+ \le\frac{6}{a\ell}\le1.
+\]
+For interpolation, each action entropy is at most its auxiliary charge,
+and the per-row occupation estimate gives
+\[
+ H_i\le w_i\log d_i\le180K+2a\log(2a).
+\]
+The reset entropy \(z_r\log3\) is smaller than the same upper bound.
+Thus, writing \(B_1\) for the largest of these entropy bounds,
+\[
+ \frac{\log E}{K}
+ \le\frac{\log(3I+1)+2B_1}{K}
+ \le360+\frac{5}{a\ell}\le361.
+\]
+In the middle inequality we used
+\(\log(6a^2+1)\le2a\) and \(\log(2a)\le a\), valid for \(a\ge2\).
+
+Finally, the rounded count bounds imply
+\[
+ U+T-K\le182aK+2a^3+a<184aK.
+\]
+All catalyst rank bases are less than \(5a\), so
+\[
+ \frac{\log\kappa_1}{jK}
+ \le552\frac{\log(5a)}{\ell}
+ <552\cdot\frac7{10}\left(1+\frac28\right)=483.
+\]
+This uses \(\log2<7/10\), \(\log5<2\), and \(t>8\).
+Together with \(3\log(2a-1)<3t+3\), these estimates bound the
+pooled exponent numerator by \(K(3t+850)\).
+This bound even allows the additional fixed-batch ceiling charge
+\(\log2/j\), which is less than \(K\).
+Combining it with \eqref{eq:quantitative-contraction} gives
+\[
+ p<\frac{3t+850}{\frac43t-7}
+ =\frac94+\frac{850+63/4}{\frac43t-7}
+ <\frac94+\frac{900}{t},
+\]
+because \((4/3)t-7\ge t\) for \(t>32\).
+Conversely, every overhead is nonnegative and
+\(\log(v/u)\le K\log F(a,a)\), so
+\[
+ p\ge\frac{3\log(2a-1)}{\log F(a,a)}>\frac94
+\]
+by the strict diagonal bound in Theorem~\ref{thm:least-profile}.
+The upper and lower bounds prove the claimed limit.
+
+For the source dimension, use \(C_a\le180a\) and the rounded
+auxiliary bound to obtain
+\[
+ \log A=j\log u
+ \le a\ell\bigl(180aK+2a^3\log(2a)\bigr)
+ =a^5\ell^2\left(180+
+                 \frac{2\log(2a)}{a\ell}\right)
+ \le181a^5\ell^2.
+\]
+The last inequality follows from \(\log(2a)\le a\) and \(\ell\ge64\).
+\end{proof}
+
+\begin{corollary}[An explicit index for an exponent allowance]
+\label{cor:explicit-allowance}
+Given a positive rational \(\eps\), put
+\[
+ \ell=\max\left\{64,\left\lceil\frac{1800}{\eps}\right\rceil\right\},
+ \qquad a=2^\ell.
+\]
+The family in Theorem~\ref{thm:quantitative} gives a finite relative
+scheme with recursive exponent strictly below \(9/4+\eps\), and
+\[
+ \log A\le181\,2^{5\ell}\ell^2.
+\]
+The index and all four construction parameters are selected by integer
+and rational computations.
+\end{corollary}
+\begin{proof}
+Here \(\ell_a=\ell\) and \(\log a=\ell\log2>\ell/2\). Therefore
+\(900/\log a<1800/\ell\le\eps\), and the source bound follows
+from \eqref{eq:explicit-rate}.
+\end{proof}
+
+The bound concerns the recursive source dimension \(A\) of the relative
+scheme. It does not bound the side of a rational square seed obtained
+after coefficient descent, or the time and bit complexity needed to
+write out all coefficients of the construction.

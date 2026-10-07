@@ -1,78 +1,96 @@
-\section{Consequences, scope, and further questions}
+\section{Consequences and scope}
 \label{sec:discussion}
 
-The construction gives an effective answer to a particular extraction
-problem. The convolution relations can be combined with probabilities and
-integer multiplicities that are known in advance. Their composition
-produces an exact relative multiplication identity, and a concrete recursion
-converts that identity to ordinary matrix multiplication. Neither a
-detecting tensor character nor an unknown optimal rank decomposition is
-needed. Theorem~\ref{thm:effective} and Corollary~\ref{cor:seed} make
-this statement precise for each fixed positive exponent allowance.
+The construction gives a finite answer to the extraction problem for every
+fixed positive exponent allowance. Its relative schemes are specified by
+coordinate maps and integer parameters, and their recursive use includes
+all finite overheads. Unrolling one fixed scheme and restricting its
+coefficients to the rationals gives the seed in
+Theorem~\ref{thm:main}. The argument uses the finite convolution relations
+from \citet{OAI26}, but does not assume that preprint's spectral conclusion.
+The theorem therefore provides a separate finite derivation of
+\(\omega\le9/4\).
 
-The least-profile theorem has a different use. It identifies the exact
-limit of arguments using only normalization, symmetry, concavity, and
-shifted tripling. A stronger diagonal exponent would require additional
-constraints, rather than more instances of the same scalar inequalities.
-The diagonal bound already follows from tripling at the row index, which
-is the subfamily used in the tensor construction. Only the off-diagonal
-minimality proof needs all the shifted tripling inequalities.
-The rational certificate is useful beyond its numerical bound because it
-specifies precisely which tensor factors must be supplied, produced, and
-retained. This makes hidden cancellation assumptions testable at the level
-of finite maps.
+The quantitative family also resolves a denominator problem in exact
+certificate constructions. Clearing the binary certificate's prescribed
+rational denominators requires an exponentially growing scale. That
+requirement belongs to those exact weights. Conserved rounding uses any
+positive integer scale, preserves every tensor-factor balance, and loses at most
+\(4J_a=O(a^3)\) in the entropy expression. The resulting family has
+\(\log A=O(a^5(\log a)^2)\), with explicit constants and a proved choice
+of \(a\) for every allowance. The binary denominator formula remains a useful comparison, but it is
+not a size barrier for this construction or for matrix multiplication
+algorithms in general.
 
-The separator refinements also have an independent scope. They apply to
-any family of matched sectors sharing one leg. The smaller copy count and
-the two-power projection improve particular finite reductions, without
-requiring any convolution structure. Their use in another tensor argument
-would still require separate accounting for the auxiliary dot products and
-for conversion of simultaneous outputs to an algorithm.
+The least-profile theorem identifies the exact limit of the stated scalar
+axioms. The diagonal lower bound follows from tripling at the row index,
+which is the subfamily used by the tensor maps; off-diagonal minimality
+uses shifted tripling beyond the row index. Since the displayed profile itself
+satisfies the axioms, those axioms alone cannot force faster diagonal
+growth. The multiway relations improve the finite accounting while keeping
+the same limiting profile exponent. A smaller asymptotic exponent would
+require additional mathematical input.
 
-There are three limitations to the exponent conclusion. First, every
-finite profile index in this construction has \(\tau_a>9/4\); the proof
-does not supply one fixed recursion with bound \(O(n^{9/4})\).
-Second, the algorithm and coefficient set are fixed after the allowance
-is chosen. A uniform version with a changing allowance requires additional
-conventions for generating and loading its rational constants, as well as
-an analysis of setup time. We do not give a quantitative convergence rate
-for such a version.
-Third, its exact arithmetic identities do not establish numerical stability
-or useful finite-size performance. The denominator growth and the
-small-index cost obstruction explain the large parameter sizes of the
-prescribed construction. They do not give a stability analysis.
+Several components can also be used separately. The determinant map turns
+a filtration preserved by multiplication into exact fixed-type restrictions.
+The occupation estimates control both the total rational multiplicity of
+the relations and the logarithmic cost of their auxiliaries. The circulation rounding preserves
+integer resource balances, while its entropy estimate remains valid for
+arbitrarily small or zero occupations. The separator applies to any
+matched sectors sharing a leg. Each use in another tensor argument would
+still need its own compatibility and cost analysis.
 
-Several changes could alter this conclusion about cost. One could replace
-the exact tangent probabilities by types whose error is controlled with
-smaller denominators; use a different family of convolution relations;
-find a cheaper way to supply the common tensor factors; or exploit
-structure among the simultaneous recursive products. None of the lower
-bounds in Section~\ref{sec:costs} or Appendix~\ref{subsec:obstruction}
-excludes these alternatives. Establishing
-such a change would require a new finite identity or a new cost analysis,
-not an interpretation of an asymptotic tensor inequality as a finite
-cancellation rule.
+The threefold balance and pooled recursion have precise, limited effects.
+Alternating row orientations make three cyclic copies sufficient and reduce
+the dimensions at fixed parameters. This alone gives no improvement in
+the exponent: threefold power \(2k\) reproduces the charged scalar counts
+of sixfold power \(k\) for the same types and reuse count. Pooling the
+recursive subproblems removes the ceiling in the branch ratio, replacing
+\(\lceil r/m\rceil\) by \(r/m\) in the exponent. It does not remove
+interpolation evaluations, catalyst supply, or linear transformations.
+
+The scale bound applies to the relative source dimension \(A\). It does
+not bound the dimension of the final rational seed, the size of its
+coefficients, or the time needed to write them out. The seed procedure
+terminates because it uses a fixed coefficient field and a strict gap
+between the constructed exponent and the requested allowance. No new
+small-rank identity is claimed. Every finite member of the prescribed
+family has exponent strictly above \(9/4\), and the proof supplies no
+fixed recursion with cost \(O(n^{9/4})\).
+
+The allowance and coefficient set are fixed before the input dimension
+grows. Although Theorem~\ref{thm:quantitative} gives a rate in the profile
+index, it is not a construction-time or bit-complexity bound. A uniform
+algorithm that changes its allowance with the input dimension would require
+conventions for generating and loading its rational constants and a bound
+on that setup cost. Exact arithmetic also gives no numerical stability
+guarantee. The finite examples do not establish a useful matrix-size range.
+
+Further reductions in finite cost can be assessed through the separate
+terms of the exponent formula. A smaller separation degree would reduce
+interpolation; a cheaper decomposition of the retained factors would reduce
+catalyst supply; and different transition rules might reduce the occupation
+and type costs. Such changes would need explicit maps or proved estimates.
+The present analysis supplies no general lower bound that excludes them.
 
 \subsection*{Supporting calculations and source files}
 
 The proof is contained in the formulas and arguments in this paper.
-The accompanying supplement, \path|finite-extraction-supplement-v1.zip|
-(version 1, 7 October 2026), includes exact-arithmetic scripts for the rational
-weights and resource counts, component-map checks, and saved rational
-interval certificates. The general type data are generated by
-\path|experiments/general_profile_extraction.py|; the small-index
-certificates are recorded in
-\path|results/small-profile-extraction.json| and their method in
-\path|experiments/small_profile_extraction.py|.
-The separator calculations are in
-\path|experiments/finite_constructions.py|, and the scalar-profile
-calculations in \path|experiments/profile_bounds.py|.
-These files are supplementary checks, not assumptions of the main theorem.
-The complete composed coefficient arrays are specified by
-Theorem~\ref{thm:effective}; they are not stored as expanded arrays.
+The accompanying supplement, \path|finite-extraction-supplement-v2.zip|
+(version 2, 7 October 2026), includes exact-arithmetic scripts, component
+checks, and the saved interval certificates used for the finite examples.
+The determinant and cyclic maps are checked in
+\path|experiments/multiway_determinant.py| and
+\path|experiments/cyclic_profile_extraction.py|. The occupation and rounded
+counts are generated by \path|experiments/multiway_profile_flows.py| and
+\path|experiments/multiway_rounded_flow.py|. The finite-cost evaluator is
+\path|experiments/multiway_finite_costs.py|, with its saved report in
+\path|results/multiway-finite-costs.json|. The supplement also retains the
+binary-certificate calculations underlying the appendix comparisons.
 
-The numerical example and interval bounds in Section~\ref{sec:costs}
-and Appendix~\ref{subsec:obstruction}
-are taken from the archived calculations. They were not obtained from
-timing a realization of the large construction. No numerical benchmark
-is used to infer an arithmetic exponent.
+These files are supporting checks, not assumptions of the main theorem.
+The composed coefficient maps are specified mathematically; their full
+arrays are not stored. The reported finite bounds come from saved rational
+interval calculations, not from timing or executing the represented large
+matrix algorithms. No numerical benchmark is used to infer an arithmetic
+exponent.

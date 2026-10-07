@@ -1,83 +1,134 @@
 \section{Exact type restrictions and separation of a shared leg}
 \label{sec:maps}
 
-We now realize the two families of relations by finite tensor maps.
-There are two distinct tasks. A type projection removes off-diagonal
-blocks, but leaves the first leg shared. A subsequent separator makes
-the surviving blocks independent on all three legs.
-Precisely, matched sectors sharing the first leg have the form
-\(\sum_h A_h\), with \(A_h\in X\otimes Y_h\otimes Z_h\) and
-direct-sum decompositions on the second and third legs. All supported
-terms use the same sector label on those two legs, while the space \(X\)
-is common to all sectors.
+We realize the profile relations by finite tensor maps. Each local map
+first produces matched sectors on two legs, with the third leg still
+shared. A Fourier separator then makes the sectors independent on all
+three legs. More precisely, the intermediate tensor is
+\(\sum_\omega A_\omega\), where
+\(A_\omega\in X\otimes Y_\omega\otimes Z_\omega\), the spaces
+\(Y_\omega\) and \(Z_\omega\) are direct-sum blocks, and \(X\) is common
+to all sectors. A separate change of first-leg coordinates in each
+sector is valid only after separation.
 
-\subsection{The neighboring-length map}
+\subsection{A determinant filtration}
 
-Let \(V_e\) be the homogeneous binary forms of degree \(e\) in \(u,v\),
-and let \(W=\operatorname{span}(s,w)\). For degree \(e\ge1\), put
-\(s_i=u^{e-i}v^is\) and \(w_i=u^{e-i}v^iw\).
-Choose quotient lifts \(s_0,\ldots,s_e,w_e\) and kernel vectors
-\(k_i=w_i-s_{i+1}\), \(0\le i<e\).
-These form a basis of \(V_e\otimes W\): substitution \((s,w)=(u,v)\)
-sends the quotient lifts to distinct monomials and kills the kernel
-vectors, which are independent. The kernel is
-\((uw-vs)V_{e-1}\).
+The filtration used here is the integral Clebsch--Gordan filtration;
+see \citet[Lemma~2.5, Theorem~2.8, and Corollary~2.9]{Maakestad23}.
+We give its bases to identify the convolution slices and then obtain an
+exact restriction by matching types in tensor powers.
 
-\begin{lemma}[Exact neighboring-length types]\label{lem:determinant}
-For positive integers \(n_+,n_-\) with \(n=n_++n_-\), a specified
-restriction of
-\((C(r,b)B_X(2))^{\otimes n}\), \(r,b\ge2\), has
-\(\binom n{n_+}\) matched sectors on its second and third legs.
-Each sector is isomorphic to
-\(C(r,b+1)^{\otimes n_+}C(r,b-1)^{\otimes n_-}\).
-The first leg is still shared; the sector-specific coordinate permutation
-is applied only after separation.
+Let \(V_e=\Q[u,v]_e\) be the homogeneous binary forms of degree \(e\).
+For integers \(d\ge h\ge1\), put
+\[
+ W_{d,h}=\Q[u,v]_d\otimes\Q[s,t]_h,\qquad \Delta=ut-vs.
+\]
+Multiplication by a form in \(V_{r-1}\), leaving the auxiliary variables
+\(s,t\) unchanged, represents \(C(r,d+1)B_X(h+1)\). Its second-input
+and output spaces have the filtrations
+\[
+ F^jW_{d,h}=\Delta^jW_{d-j,h-j}\quad(0\le j\le h),\qquad
+ F^{h+1}W_{d,h}=0.
+\]
+After removal of \(\Delta^j\), diagonal substitution \((s,t)=(u,v)\)
+identifies
+\begin{equation}\label{eq:filtration-quotient}
+ F^jW_{d,h}/F^{j+1}W_{d,h}\cong V_{d+h-2j}.
+\end{equation}
+Here and below these are fixed-coordinate polynomial spaces; no
+representation-theoretic identification is needed.
+
+We use an explicit integer basis for this filtration. Define
+\[
+ L_{p,q}(i)=
+ \begin{cases}
+ u^{p-i}v^is^q,&0\le i\le p,\\
+ v^ps^{q-(i-p)}t^{i-p},&p<i\le p+q,
+ \end{cases}
+\]
+and take
+\begin{equation}\label{eq:determinant-basis}
+ B_{j,i}=\Delta^jL_{d-j,h-j}(i),\qquad
+ 0\le j\le h,\quad 0\le i\le d+h-2j.
+\end{equation}
+To verify both the basis and \eqref{eq:filtration-quotient}, repeatedly
+replace \(ut\) by \(vs+\Delta\). Modulo \(\Delta\), each monomial
+reduces to the unique displayed lift having the same total exponent of
+\(v,t\). The remainder is divisible by \(\Delta\); repeat in
+bidegree \((d-1,h-1)\). The quotient monomials at each stage are
+independent under diagonal substitution. This gives unique integer
+coordinates and terminates after at most \(h\) such steps. The number
+of basis vectors is
+\[
+ \sum_{j=0}^h(d+h-2j+1)=(d+1)(h+1).
+\]
+Use the same construction in the output space \(W_{d+r-1,h}\).
+The third tensor leg uses the dual of this output basis; applying the
+input basis matrix to that leg would give the wrong tensor map.
+
+Multiplication commutes with \(\Delta\), so it never decreases the
+filtration index. On quotient \(j\), multiplication by
+\(u^{r-1-\alpha}v^\alpha\) sends monomial index \(i\) to
+\(i+\alpha\) with coefficient one. With \(d=b-1\), the diagonal
+blocks are therefore exactly
+\[
+ C(r,b+h),\ C(r,b+h-2),\ \ldots,\ C(r,b-h).
+\]
+
+\begin{lemma}[Exact multiway types]\label{lem:multiway}\label{lem:determinant}
+Let \(r\ge1\), \(h\ge1\), and \(b\ge h+1\). For nonnegative
+integers \(n_0,\ldots,n_h\) with positive sum \(n\), a specified
+restriction of \((C(r,b)B_X(h+1))^{\otimes n}\) has
+\[
+ M=\frac{n!}{\prod_{j=0}^h n_j!}
+\]
+matched sectors on its second and third legs. Each sector is isomorphic
+to \(\prod_{j=0}^hC(r,b+h-2j)^{\otimes n_j}\). The first leg is
+shared; the sector-specific reordering of its tensor positions is made
+only after separation.
 \end{lemma}
 \begin{proof}
-View \(C(r,b)B_X(2)\) as multiplication
-\(V_{r-1}\times(V_{b-1}\otimes W)\to V_{r+b-2}\otimes W\).
-Use the preceding bases on its second-input and output spaces, and the
-dual output basis on its third leg. Multiplication by
-\(u^{r-1-i}v^i\) shifts each monomial index by \(i\).
-It preserves the kernel and induces ordinary multiplication on the quotient.
-The two diagonal blocks are \(C(r,b+1)\) and \(C(r,b-1)\).
-The only off-diagonal terms are
-\begin{equation}\label{eq:off-diagonal}
- x_i q_b k^*_{b-1+i},\qquad 0\le i<r-1,
-\end{equation}
-where \(q_b=w_{b-1}\) is the last input quotient lift and the star
-denotes an output-dual coordinate.
-Indeed, the image of that lift has index \(b-1+i\). Unless this is the
-last output index, \(w_{b-1+i}=s_{b+i}+k_{b-1+i}\).
-All other quotient lifts stay in the quotient, and a kernel vector maps
-to a kernel vector. This proves \eqref{eq:off-diagonal}.
-
-In \(n\) tensor positions, retain words with exactly \(n_-\) kernel
-labels on both the second and third legs. Each off-diagonal term increases
-the output kernel count by one, and no term decreases it. Equal retained
-counts therefore remove every off-diagonal term. In a surviving term the
-two sector labels agree at each position. Choosing the \(n_+\) quotient
-positions gives the asserted number of sectors and their tensors.
+Use \eqref{eq:determinant-basis} in each tensor position. Retain on both
+affected legs only the words containing \(n_j\) occurrences of
+filtration index \(j\). Every supported term has input indices
+\(j_\nu\) and output indices \(j'_\nu\) with
+\(j'_\nu\ge j_\nu\) in each position \(\nu\). Both retained words
+have total index \(\sum_jjn_j\), so every inequality is an equality.
+Thus all off-diagonal blocks disappear exactly. The remaining words
+agree positionwise; their number is the displayed multinomial
+coefficient. Their diagonal blocks give the claimed factors.
 \end{proof}
 
-This is an exact restriction after a fixed basis change. In particular,
-it incurs no interpolation degree.
+For \(h=1\), the two quotient blocks are \(C(r,b+1)\) and
+\(C(r,b-1)\), the neighboring-length relation. For larger \(h\),
+the auxiliary dimension is \(h+1\), whereas \(h\) repeated binary
+steps consume dimension \(2^h\). This changes the finite tensor cost.
+It does not strengthen scalar concavity: pairing lengths equally far
+from \(b\) already gives
+\((h+1)P(r,b)\ge\sum_{j=0}^hP(r,b+h-2j)\).
+The exact type restriction itself has no interpolation degree.
 
-\subsection{The three-sector map}
+\subsection{Tripling with only the middle count fixed}
 
-\begin{lemma}[Exact three-sector types]\label{lem:tripling}
-For \(r\ge2\) and \(3\mid n\), a coordinate restriction of
-\(C(r,4r-1)^{\otimes n}\) has
-\(n!/(n/3)!^3\) matched sectors on its second and third legs.
-Each sector contains \(2n/3\) factors isomorphic to \(C(r,r)\) and
-\(n/3\) factors isomorphic to \(C(r,r)\) with its second and third
-legs exchanged. The first leg remains shared.
-The sector-specific coordinate permutations are applied only after separation.
+\begin{lemma}[Exact tripling types]\label{lem:tripling}
+Let \(r\ge2\), \(n\ge1\), and \(0\le m\le n\). A coordinate
+restriction of \(C(r,4r-1)^{\otimes n}\) has
+\[
+ M_{\mathrm t}(n,m)=\binom nm2^{n-m}
+\]
+matched sectors on its second and third legs. Each sector contains
+\(n-m\) factors isomorphic to \(C(r,r)\) and \(m\) factors
+isomorphic to \(C(r,r)^{(23)}\). The first leg remains shared.
+The choice \(m=\lfloor(n+1)/3\rfloor\) maximizes this count and gives
+\begin{equation}\label{eq:tripling-mode}
+ M_{\mathrm t}(n,m)\ge\frac{3^n}{n+1}.
+\end{equation}
+No divisibility condition on \(n\) is required.
 \end{lemma}
 \begin{proof}
-A supported term has \(0\le i<r\), \(0\le y<4r-1\), and \(z=i+y\).
-Partition the index sets into the following intervals, with endpoints
-included:
+A supported term has \(0\le i<r\), \(0\le y<4r-1\), and
+\(z=i+y\). Partition the index sets into the following intervals,
+with endpoints included:
 \[
 \begin{array}{c|ccc}
  &\text{left}&\text{middle}&\text{right}\\ \hline
@@ -85,21 +136,32 @@ Y &[0,r-1]&[r,3r-2]&[3r-1,4r-2]\\
 Z &[0,2r-2]&[2r-1,3r-2]&[3r-1,5r-3].
 \end{array}
 \]
-A left \(Y\)-index forces a left \(Z\)-index, and a right \(Y\)-index
-forces a right \(Z\)-index. Every unmatched term therefore has a middle
-\(Y\)-label and an outer \(Z\)-label. Retain \(n/3\) labels of each
-kind on both legs in a tensor power. Equality of the middle counts
-eliminates every unmatched term; the remaining labels agree positionwise.
+A left \(Y\)-index forces a left \(Z\)-index, and a right
+\(Y\)-index forces a right \(Z\)-index. Every mismatched term has
+a middle \(Y\)-label and an outer \(Z\)-label. Retain the words
+with exactly \(m\) middle labels on each leg, leaving their outer
+labels unrestricted. The number of middle labels cannot increase from
+input to output. Equality of their totals therefore removes every
+mismatched term. The surviving labels agree in every position, giving
+\(\binom nm\) choices of middle positions and \(2^{n-m}\) choices
+of outer labels.
 
-The outer blocks are translates of \(C(r,r)\).
-The middle block has terms
+Each outer block is a translate of \(C(r,r)\). The middle block has
+terms
 \[
  x_{r-1-i}\,y_{r+i+j}\,z_{2r-1+j},\qquad 0\le i,j<r.
 \]
-Reversing the first index and exchanging the last two legs identifies it
-with \(C(r,r)\). These identifications are statements about each sector
-separately. We do not apply different first-leg maps to blocks while that
-leg is shared.
+Reversing the first index and shifting the interval coordinates identifies
+it with \(C(r,r)^{(23)}\). This identifies a tensor with permuted
+leg dimensions; it does not perform a leg exchange on just one part of
+a tensor. The word-specific first-leg reversal is deferred until
+separation.
+
+Finally,
+\(M_{\mathrm t}(n,m+1)/M_{\mathrm t}(n,m)=(n-m)/(2(m+1))\).
+These ratios show that \(\lfloor(n+1)/3\rfloor\) is a maximizing
+choice, with a possible tie. The \(n+1\) counts sum to \(3^n\),
+which proves \eqref{eq:tripling-mode}.
 \end{proof}
 
 \subsection{A Fourier separator}
@@ -148,20 +210,51 @@ are now independent for different \(h\).
 Moreover \(c|g-h|=|u-v|\le K_0-1\), proving the exponent support.
 \end{proof}
 
-Only after this separator has been applied do we reorder tensor positions
-or use sector-specific first-leg reversals. Applying the maps on all six
-permutations balances the exchanged factors in Lemma~\ref{lem:tripling}:
-composition with the transposition \(\sigma\) of its last two legs
-permutes \(S_3\). Explicitly, for \(C=C(r,r)\),
-\[
- \bigotimes_{\pi\in S_3}
- \bigl((C^\pi)^{\otimes 2n/3}((C^\sigma)^\pi)^{\otimes n/3}\bigr)
- \cong Q_{r,r}^{\otimes n}.
-\]
-This uses permutations of tensor factors within each global leg; it
-does not swap two global legs in only part of a tensor.
-Thus every separated balanced sector is exactly the prescribed product
-of the \(Q_{r,b}\), up to a specified coordinate permutation.
+\subsection{Threefold balancing}
 
-Further finite refinements of this separator are proved in
-Appendix~\ref{subsec:sparse}. They are not used in the main extraction.
+Products over the three cyclic leg permutations are an established
+balancing operation; see \citet[Section~3.3]{CVZ21}. We use the two
+parity classes of permutations to make this operation compatible with
+the row boundaries of the convolution construction.
+
+Let \(\mathcal A_+\) and \(\mathcal A_-\) be the even and odd
+permutations of three legs, as in the definition of \(S^\sigma_{r,b}\).
+Apply a relation and its separator in each of the three orientations
+\(\pi\in\mathcal A_\sigma\). The shared leg is the image of the
+native first leg under \(\pi\); it occupies each global leg exactly
+once. Consequently the source auxiliary of a width-\(h\) relation
+becomes
+\[
+ B_X(h+1)B_Y(h+1)B_Z(h+1)\cong\MM_{h+1},
+\]
+and its separated convolution factors combine into the required
+\(S^\sigma_{r,b+h-2j}\). The three separator auxiliaries likewise
+combine into \(\MM_M\).
+
+For tripling, put \(C=C(r,r)\) and \(\tau=(23)\). After separation,
+every retained word is put into the same order: the \(n-m\) outer
+positions, followed by the \(m\) middle positions. Thus independent
+sector choices in the three orientations all have the same canonical
+sector tensor \(C^{\otimes(n-m)}(C^\tau)^{\otimes m}\). Regrouping
+these factors gives
+\begin{equation}\label{eq:cyclic-tripling-balance}
+ \bigotimes_{\pi\in\mathcal A_\sigma}
+ \left(C^{\otimes(n-m)}(C^\tau)^{\otimes m}\right)^\pi
+ \cong(S^\sigma_{r,r})^{\otimes(n-m)}
+       (S^{-\sigma}_{r,r})^{\otimes m}
+ \cong(S^\sigma_{r,r})^{\otimes n}.
+\end{equation}
+The first isomorphism reorders tensor factors within each global leg;
+the second uses the diagonal sign isomorphism
+\(S^+_{r,r}\cong S^-_{r,r}\). All sector-specific reversals have
+already been made on independent first-leg blocks. No individual factor
+undergoes an illicit exchange of two global legs.
+
+Adjacent rows of the profile construction will use opposite signs.
+This makes their boundary factors agree under the actual isomorphism
+\(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\); using one sign for all
+rows would not give that identification. The signed resource accounting
+is carried out in the construction below. Appendix~\ref{sec:composed-maps}
+specifies the complete relation maps, including their positive-degree
+terms. Further separator refinements appear in
+Appendix~\ref{subsec:sparse}; they are not needed for the main theorem.

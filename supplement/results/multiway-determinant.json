@@ -1,0 +1,82 @@
+{
+  "local_maps": [
+    {
+      "r": 2,
+      "b": 3,
+      "h": 2,
+      "input_dimension": 9,
+      "output_dimension": 12,
+      "sector_input_lengths": [
+        5,
+        3,
+        1
+      ],
+      "diagonal_terms": 18,
+      "off_diagonal_terms": 3,
+      "maximum_order_increase": 1,
+      "maximum_coefficient_magnitude": 1,
+      "exact_diagonal_and_triangularity_verified": true
+    },
+    {
+      "r": 3,
+      "b": 3,
+      "h": 2,
+      "input_dimension": 9,
+      "output_dimension": 15,
+      "sector_input_lengths": [
+        5,
+        3,
+        1
+      ],
+      "diagonal_terms": 27,
+      "off_diagonal_terms": 7,
+      "maximum_order_increase": 2,
+      "maximum_coefficient_magnitude": 2,
+      "exact_diagonal_and_triangularity_verified": true
+    },
+    {
+      "r": 2,
+      "b": 4,
+      "h": 3,
+      "input_dimension": 16,
+      "output_dimension": 20,
+      "sector_input_lengths": [
+        7,
+        5,
+        3,
+        1
+      ],
+      "diagonal_terms": 32,
+      "off_diagonal_terms": 6,
+      "maximum_order_increase": 1,
+      "maximum_coefficient_magnitude": 1,
+      "exact_diagonal_and_triangularity_verified": true
+    }
+  ],
+  "index_two_chain": {
+    "K": 15,
+    "concavity_factors": 105,
+    "tripling_factors": 15,
+    "residual": {
+      "1": -15,
+      "2": 15
+    },
+    "catalyst": {
+      "2": 15,
+      "3": 42,
+      "5": 33,
+      "7": 15
+    },
+    "three_cyclic_source_auxiliary_side_per_N": "2^30 * 3^75",
+    "six_permutation_source_auxiliary_side_per_N": "2^60 * 3^150",
+    "N1_concavity_sector_counts": [
+      14307150,
+      19914562703599200,
+      33006526375680
+    ],
+    "N1_middle_only_tripling_sector_count": 3075072,
+    "N1_equal_three_frequency_tripling_sector_count": 756756,
+    "entropy_identity_verified_exactly": true,
+    "scope": "Local maps and integer ledger only; no complete recursive coefficient maps or benchmark."
+  }
+}

@@ -1,153 +1,140 @@
-\section{Finite size and limitations of the prescribed construction}
+\section{Finite examples and the scope of the size bounds}
 \label{sec:costs}
 
-The preceding proof is effective, but its parameters grow rapidly.
-This section gives an exact denominator formula for every profile index
-and a finite example. Appendix~\ref{subsec:obstruction} proves a lower
-bound for one prescribed small-index schedule. These size bounds concern
-the specified construction, not general matrix multiplication algorithms.
+The explicit family in Theorem~\ref{thm:quantitative} proves convergence
+with every finite charge retained. Its constants are conservative, and
+its guaranteed indices are far beyond useful sizes. Smaller fixed indices
+can be evaluated directly from their rounded counts. This section gives certified finite examples and explains their
+verification by exact-arithmetic enclosures.
 
-\subsection{The minimal denominator scale}
+\subsection{Bounds for evaluating finite types}
 
-\begin{theorem}[Exact normalization]\label{thm:normalization}
-The least integer scale in Section~\ref{subsec:types} is
-\begin{equation}\label{eq:minimal-scale}
- K_a=\lcm\left(
- \frac{3(a-1)(3a-1)}{\gcd(3a-1,4)},\quad
- \left\{\frac{3t(3t+4)}{\gcd(t,2)^2}:1\le t\le a-2\right\}
- \right).
+The entropy bounds in Section~\ref{sec:extraction} can be sharpened
+without evaluating large factorials. Put \(c_0=(1+\log2)/2\).
+For every integer \(t\ge1\),
+\begin{equation}\label{eq:elementary-factorial}
+ (t+\tfrac12)\log t-t+c_0
+ \le\log(t!)\le(t+\tfrac12)\log t-t+1.
 \end{equation}
-In particular,
-\begin{equation}\label{eq:scale-divisibility}
- 3\lcm(1,\ldots,a-1)\mid 2K_a,
- \qquad K_a\mid3\lcm(1,\ldots,3a-1),
+For the upper bound, the trapezoidal sum of the concave function
+\(\log x\) on \([1,t]\) is at most its integral. For the lower
+bound, Jensen's inequality on each interval
+\([i-1/2,i+1/2]\) bounds its integral by \(\log i\).
+Sum over \(i=1,\ldots,t\), evaluate the integral, and use
+\((t+1/2)\log(1+1/(2t))\ge1/2\), a consequence of
+\(\log(1+x)\ge x/(1+x)\). This proves both inequalities.
+
+For an action with \(s\) positive child counts, let
+\[
+ C_i=\frac12\log(Nw_i)
+       -\frac12\sum_{y:n_{i,y}>0}\log(Nn_{i,y}).
+\]
+Subtracting the factorial bounds gives
+\begin{equation}\label{eq:finite-multinomial}
+ NH_i+C_i+c_0-s\le\log M_i
+       \le NH_i+C_i+1-sc_0.
 \end{equation}
-and
-\begin{equation}\label{eq:scale-growth}
- K_a\ge\frac32\lcm(1,\ldots,a-1)\ge\frac{3\,2^{a-2}}a.
-\end{equation}
-\end{theorem}
-\begin{proof}
-In the final row put \(t=a-1\), \(D_r=3t+2\), and \(b=a+h\).
-All split weights have common denominator \(3tD_r\).
-Their integer numerators are \(D_r\), from \(\mu/3\), and
-\((D_r+2h\pm2)(D_r-h)\) for \(0\le h\le D_r-1\).
-Modulo \(D_r\), the latter products are \(-2h(h\pm1)\), all divisible
-by four. The case \(h=1\) with the plus sign is congruent to \(-4\).
-Thus the joint gcd of the denominator and all numerators is exactly
-\(\gcd(D_r,4)\). This gives the first entry in \eqref{eq:minimal-scale}.
+Intersect these bounds with Lemma~\ref{lem:types} and with
+\(\log M_i\ge0\). A type with one positive child count has
+\(\log M_i=0\) exactly. For a reset apply
+\eqref{eq:finite-multinomial} to the two counts
+\((m_r,Nz_r-m_r)\), omitting any zero count, then add \((Nz_r-m_r)\log2\).
+Intersect the result with
+\([Nz_r\log3-\log(Nz_r+1),\,Nz_r\log3]\).
+This uses the actual modal integer \(m_r\), without replacing it
+by \(Nz_r/3\).
 
-In a lower row put \(t=r-1\) and \(V=3t+4\).
-Use common denominator \(3tV\). At \(b=r\), the two split numerators
-are \(V^2\) and \(3tV\); the tripling split numerator is \(2(3t+2)\).
-For \(b=r+h>r\), the split numerators are
-\(2(3t+2+2h\pm2)(3t+2-h)\).
-An odd prime dividing both \(V^2\) and \(2(3t+2)\) would divide the
-difference between \(V\) and \(3t+2\), namely two, which is impossible.
-If \(t\) is odd, \(V^2\) is odd, so the joint gcd is one.
-If \(t\) is even, all numerators and the denominator are divisible
-by four. When \(t\equiv2\pmod4\), \(V^2\) has exactly two factors
-of two; when \(t\equiv0\pmod4\), \(2(3t+2)\) has exactly two.
-Thus the joint gcd is exactly four. This proves the remaining entries.
+These sector bounds give a lower bound for \(\Delta_N\) and an
+upper bound for \(\log E\). Together with the actual signed
+catalyst in \eqref{eq:kappa} and
+\(\log(S/H)<3I\log2\), they give a sufficient upper bound for
+\(\Phi\). All expressions involve logarithms of integer counts and
+small rank bases. They do not require the factorials, sector words, or
+coefficient arrays to be materialized.
 
-Each row denominator is either \(3\lcm(t,3t+c)\) or half that number,
-with \(c=2\) for the final row and \(c=4\) for lower rows.
-The integers involved lie between one and \(3a-1\); twice each row
-denominator is divisible by \(3t\). Taking least common multiples
-proves \eqref{eq:scale-divisibility}.
+\subsection{Saved finite certificates}
 
-For completeness, every binomial coefficient \(\binom nh\) divides
-\(\lcm(1,\ldots,n)\). In its factorial valuation at a prime \(p\),
-each power \(p^j\le n\) contributes zero or one, so its valuation
-is at most \(\lfloor\log_p n\rfloor\).
-The largest binomial coefficient in row \(n\) is at least
-\(2^n/(n+1)\). Apply this with \(n=a-1\) and use
-\eqref{eq:scale-divisibility} to obtain \eqref{eq:scale-growth}.
-\end{proof}
+Table~\ref{tab:finite-multiway} records three fixed comparisons at the
+larger rounding scale
+\(K=a^3\lceil\log_2a\rceil^2\), \(N=1\), \(k=32\), and
+\(j=128a\lceil\log_2a\rceil\). Increasing \(j\) amortizes
+catalyst supply; increasing \(k\) amortizes interpolation. Both also
+increase the source dimension \(A=u^{kj}\).
 
-The scale is minimal for these exact rational split weights. Approximate
-types, different weights, or different tensor maps need not obey this
-bound. Since \(U\ge K_a\), already the unpowered source dimension
-\(u_0=2^{2NU}\) grows at least doubly exponentially in \(a\) under
-this bound. The inequality \(U\ge K_a\) also follows directly from
-\eqref{eq:formal-ledger}: the net consumption of \([a,a]\) is \(K_a\),
-and all its source occurrences belong to concavity relations.
-
-\subsection{Small indices and a finite example}
-
-Table~\ref{tab:small} gives exact counts from the rational formulas.
-The values of \(\tau_a\) are displayed approximately.
 \begin{table}[ht]
 \centering
-\begin{tabular}{rrrrrr}
+\begin{tabular}{rrrrr}
 \toprule
-\(a\)&\(K_a\)&\(U\)&\(T\)&\(U+T-K_a\)&\(\tau_a\)\\
+\(a\)&\(K\)&\(j\)&upper bound for \(\Phi\)&decimal digits of \(A\)\\
 \midrule
-2&15&230&15&230&2.737468\\
-3&84&3316&162&3394&2.641126\\
-4&3465&252362&8877&257774&2.592310\\
+4&256&1\,024&3.628926097&84\,456\,434\\
+8&4\,608&3\,072&2.848599165&11\,877\,489\,885\\
+12&27\,648&6\,144&2.675820359&234\,905\,651\,862\\
 \bottomrule
 \end{tabular}
-\caption{The normalization, source type counts, catalyst factor count,
-and limiting exponent for the first three indices. The exponent column
-is a limit for fixed \(a\), not the cost of these unamortized types.}
-\label{tab:small}
+\caption{Certified sufficient exponent bounds at fixed small indices.
+Here \(N=1\) and \(k=32\). Each exponent is rounded upwards from
+its rational interval. The digit counts refer to the recursive source
+side, not to a stored or executed matrix.}
+\label{tab:finite-multiway}
 \end{table}
 
-For \(a=2\), the concavity types, indexed by \(b=2,\ldots,6\), are
-\[
- \begin{array}{c|rrrrr}
- b&2&3&4&5&6\\ \hline
- w_b&50&56&54&44&26\\
- u_b&35&36&33&26&15\\
- d_b&15&20&21&18&11
- \end{array}
-\]
-The tripling count is \(z=15\). In this subsection write
-\(Q_b=Q_{2,b}\). The catalyst is
-\[
- \Cat_N=Q_2^{35N}Q_3^{56N}Q_4^{54N}Q_5^{44N}Q_6^{26N}Q_7^{15N},
-\]
-where powers denote tensor powers. Hence
-\begin{equation}\label{eq:small-kappa}
- \kappa_N=3^{210N}4^{336N}5^{324N}6^{264N}7^{156N}8^{90N},
- \qquad u_0=2^{460N},\quad v_0=2^{30N}M^2.
-\end{equation}
-The entropy identity becomes
-\[
- \frac{3^{15}}{2^{215}}\prod_{b=2}^6
- \frac{w_b^{w_b}}{u_b^{u_b}d_b^{d_b}}=(10/3)^{15}.
-\]
+The last row proves that this finite relative scheme has pooled exponent
+less than \(2.675820359\). Its size also shows why this is a mathematical
+construction rather than an implementation result. The table does not
+bound the exact exponents from below, compare practical running times,
+or give the dimensions of the final rational seeds.
 
-The archived calculation for \((N,k,j)=(300,125,3750)\) bounds
-\eqref{eq:finite-exponent}, using \(\log(S/H)<36\log2\), in the
-interval \((2.78918,2.78919)\).
-Its target dimension \(B=v_0^{kj}\) has \(21\,665\,218\,118\)
-decimal digits; the recursive input dimension \(A=u_0^{kj}\) has
-\(19\,472\,877\,845\) digits. These are finite construction parameters,
-not measured running times or storage requirements of an implemented
-algorithm. The example illustrates exact finite cost accounting; it is
-not competitive with existing theoretical bounds or practical methods.
-
-The saved certificates use rational logarithm enclosures. For clarity,
-the entire enclosure method is short. Write a positive integer as \(2^e y\),
-\(1\le y\le2\), bracket \(y\) by adjacent rationals with denominator
-\(2^{80}\), and set \(z=(y-1)/(y+1)\). Then
+The saved certificates use rational logarithm enclosures. For a positive
+integer write it as \(2^e y\), \(1\le y\le2\), and bracket
+\(y\) by adjacent rationals of denominator \(2^{80}\). For
+\(z=(y-1)/(y+1)\),
 \begin{equation}\label{eq:log-enclosure}
  2\sum_{h=0}^{39}\frac{z^{2h+1}}{2h+1}
  \le\log y\le
  2\sum_{h=0}^{39}\frac{z^{2h+1}}{2h+1}
  +\frac{2z^{81}}{81(1-z^2)}.
 \end{equation}
-The bound follows by summing the positive tail of the power series and
-using \(2h+1\ge81\) in that tail. Apply the same bound to \(\log2\),
-then combine rational intervals. For a positive rational, enclose the
-logarithms of its numerator and denominator separately and subtract the
-intervals. Decimal digit counts follow by enclosing
-\(\log_{10}A\) or \(\log_{10}B\) strictly between consecutive integers.
-These saved computations corroborate the displayed example; no numerical
-experiment is required by Theorem~\ref{thm:effective}.
+The positive tail of the power series gives the remainder bound.
+Evaluate at the rational bracket endpoints, apply the same bound to
+\(\log2\), and combine the intervals with outward rounding.
+For a positive rational, subtract the denominator's logarithm interval
+from the numerator's. Digit counts follow by enclosing \(\log_{10}A\)
+strictly between consecutive integers.
+The supplementary report \texttt{results/multiway-finite-costs.json}
+contains the integer types, signed catalyst counts, charge intervals,
+and source hashes underlying the table.
 
-Appendix~\ref{subsec:obstruction} proves an actual-count lower bound
-for this prescribed schedule, independent of how its three parameters
-are tuned.
+\subsection{Comparison with exact normalization}
+
+Appendix~\ref{sec:exact-certificate} gives a closed binary certificate
+and its exact minimal denominator \(K_a\). It satisfies
+\[
+ K_a\ge\frac32\lcm(1,\ldots,a-1)\ge\frac{3\,2^{a-2}}a.
+\]
+This is an obstruction to using those exact rational frequencies at a
+smaller scale. Conserved rounding avoids that requirement: its edge
+counts need only approximate the frequencies while preserving the entire
+resource identity. The bound \(\mathcal L\le4J_a\) measures the
+resulting loss. Multiway relations also reduce the ideal total auxiliary
+charge to \(O(a)\). Together these changes give the bound
+\(\log A=O(a^5(\log a)^2)\).
+
+Threefold balancing separately reduces the dimension charges relative to
+sixfold balancing at the same \(k\). It does not by itself halve an
+exponent: doubling \(k\) in the threefold construction recovers the
+same charged scalar counts as using \(k\) with sixfold balancing,
+when the underlying types agree. Likewise, increasing a sector count
+improves the target dimension but also increases the separator degree.
+The full expression \eqref{eq:pooled-exponent} is needed to assess either
+change.
+
+The dimension \(A\) belongs to the specified relative scheme. It is
+not a lower bound on all algorithms obtainable by restricting its source,
+or on all rational seeds with the same exponent. For example, tensoring
+a small scheme with \(\MM_C\) increases its displayed source side,
+while restricting that common factor to one coefficient recovers the
+small scheme. A source-size obstruction therefore needs a stated
+construction and reduction model. Neither the denominator benchmark nor
+the displayed finite examples imply a general size barrier for fast
+matrix multiplication.

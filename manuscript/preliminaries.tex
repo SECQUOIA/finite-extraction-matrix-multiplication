@@ -27,14 +27,14 @@ We never cancel a direct-sum multiplicity or a tensor factor from a
 restriction.
 
 \begin{lemma}[Composition rules used below]\label{lem:composition}
-Suppose a triple of Laurent-polynomial linear substitutions \(\Phi_i(t)\)
+Suppose a triple of Laurent-polynomial linear substitutions \(\Psi_i(t)\)
 transforms a tensor \(A_i\) into
 \(G_i(t)=\sum_{d=0}^{D_i}t^dG_{i,d}\).
 Let \(P_i\) be a specified restriction with \(P_i(C_i)=A_i\), and
 let \(R_i\) be a triple of linear maps on the whole target variable spaces.
 If \(P_i,R_i\) are independent of \(t\), then
 \[
- R_i\Phi_i(t)P_i(C_i)=\sum_{d=0}^{D_i}t^dR_i(G_{i,d}).
+ R_i\Psi_i(t)P_i(C_i)=\sum_{d=0}^{D_i}t^dR_i(G_{i,d}).
 \]
 Their tensor product has degree at most \(\sum_iD_i\).
 Its constant coefficient is \(\bigotimes_iR_i(G_{i,0})\).
@@ -82,18 +82,40 @@ Indeed \(0\le i+j\le d-1\), so the Fourier sum selects exactly
 \(\R(C(r,b))=d\).
 
 For \(\pi\in S_3\), superscript \(\pi\) denotes a permutation of the
-legs. Define the balanced tensor
-\begin{equation}\label{eq:balanced}
- Q_{r,b}=\bigotimes_{\pi\in S_3} C(r,b)^\pi.
+legs. Let \(\mathcal A_+\) and \(\mathcal A_-\) be the even and odd
+permutations, respectively. Define
+\begin{equation}\label{eq:cyclic-def}
+ S^\sigma_{r,b}=\bigotimes_{\pi\in\mathcal A_\sigma}C(r,b)^\pi,
+ \qquad \sigma\in\{+,-\}.
 \end{equation}
-The six factors are kept as labeled factors, even when some are isomorphic.
-Swapping the inputs in \eqref{eq:convolution} and reordering these factors
-gives
+The three factors remain labeled even when some are isomorphic.
+The following identities are legwise coordinate permutations:
+\begin{equation}\label{eq:cyclic-identities}
+ S^\sigma_{r,b}\cong S^{-\sigma}_{b,r},\qquad
+ S^+_{r,r}\cong S^-_{r,r},\qquad
+ S^\sigma_{1,b}\cong\MM_b,
+ \qquad \R(S^\sigma_{r,b})\le(r+b-1)^3.
+\end{equation}
+Indeed swapping the inputs of \(C(r,b)\) gives \(C(b,r)\), and this
+odd permutation exchanges the two cosets. On the diagonal it also gives
+the second identity. Since \(C(1,b)=B_X(b)\), the three factors in
+either coset put its exceptional leg in each global position once;
+\eqref{eq:matrix-products} gives the third identity.
+The rank bound tensors the displayed evaluation decompositions.
+These isomorphisms do not exchange global legs of selected factors after
+they have been multiplied; they identify coordinates within each global leg.
+
+For comparison with the exact binary certificate in
+Appendix~\ref{sec:exact-certificate}, put
+\begin{equation}\label{eq:balanced}
+ Q_{r,b}=S^+_{r,b}S^-_{r,b}
+        =\bigotimes_{\pi\in S_3}C(r,b)^\pi.
+\end{equation}
+Then
 \begin{equation}\label{eq:balanced-properties}
  Q_{r,b}\cong Q_{b,r},\qquad
  \R(Q_{r,b})\le(r+b-1)^6,\qquad Q_{1,2}\cong\MM_4.
 \end{equation}
-All these isomorphisms are coordinate permutations.
 
 Arithmetic complexity counts scalar additions, subtractions, and
 multiplications, including multiplication by fixed coefficients.

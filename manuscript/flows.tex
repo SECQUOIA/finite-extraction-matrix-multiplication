@@ -1,0 +1,207 @@
+\section{Rational occupation flows with bounded auxiliary cost}
+\label{sec:flows}
+
+We now choose how often to use each multiway relation. The choice must
+conserve all convolution factors and keep the product of the auxiliary
+dimensions small. Both requirements can be expressed through the
+occupation counts of a finite absorbing walk. Expected visits are obtained
+from the fundamental matrix of an absorbing chain
+\citep[Theorem~11.4]{GrinsteadSnell97}; the change of probabilities below
+is a Doob transform by a positive harmonic function
+\citep[Section~17.6.1]{LevinPeres17}. The bounds on this particular walk
+will be proved directly. The probabilities below
+are prescribed by the least profile; no optimization oracle is needed.
+
+Fix a target index \(a\ge2\). In row \(2\le r\le a\), put
+\[
+ n_r=3r,\qquad x=b-r+1,\qquad
+ f_r(x)=\frac{3(r-1)}2+x\quad(0\le x\le n_r).
+\]
+The profile formula extends to the left boundary:
+\begin{equation}\label{eq:affine-row}
+ F(r,r-1+x)=s_r f_r(x)\qquad(0\le x\le n_r).
+\end{equation}
+For \(x\ge1\), this is \eqref{eq:profile-formula}. At \(x=0\),
+symmetry and \(s_r/s_{r-1}=(3r-2)/(3r-3)\) give
+\(F(r,r-1)=s_{r-1}(3r-2)/2=3(r-1)s_r/2\).
+
+For an interior state \(1\le x<n_r\), define
+\begin{align}
+ h_{r,x}&=\min(x,n_r-x),&d_{r,x}&=h_{r,x}+1,\notag\\
+ \mathcal Y_{r,x}&=\{x-h_{r,x},x-h_{r,x}+2,\ldots,x+h_{r,x}\},
+ &q_{r,x,y}&=\frac{f_r(y)}{d_{r,x}f_r(x)}
+ \quad(y\in\mathcal Y_{r,x}).\label{eq:multiway-probabilities}
+\end{align}
+The probabilities are positive rationals and sum to one, since the
+average of the children is \(x\) and \(f_r\) is affine. The determinant
+relation of Lemma~\ref{lem:multiway} uses auxiliary dimension
+\(d_{r,x}\) and these child columns. Its filtration index corresponding
+to child \(y\) is \((x+h_{r,x}-y)/2\).
+Its hypothesis holds: \(h_{r,x}\le x\) implies
+\(b=r-1+x\ge h_{r,x}+1\). Thus every child remains in the row interval
+\([r-1,4r-1]\).
+
+State zero absorbs. At state \(n_r\), the walk returns deterministically
+to state one, representing the tripling relation from column \(4r-1\)
+to column \(r\). Inject one unit at
+\[
+ i_r=\begin{cases}1,&r=a,\\2,&r<a.\end{cases}
+\]
+Let \(e_0,\ldots,e_{n_r}\) be the standard coordinate vectors for the
+states of this row.
+
+\begin{proposition}[Rational occupation flows]\label{prop:occupations}
+The walk is absorbed at zero in finite expected time, from every state.
+Its expected interior visit counts \(\lambda_{r,x}\) and expected reset
+count \(\mu_r\) are nonnegative rationals, determined by a nonsingular
+finite rational linear system. They satisfy the exact row identity
+\begin{equation}\label{eq:row-flow}
+ \sum_{x=1}^{n_r-1}\lambda_{r,x}
+ \left(e_x-\sum_{y\in\mathcal Y_{r,x}}q_{r,x,y}e_y\right)
+ +\mu_r(e_{n_r}-e_1)=e_{i_r}-e_0.
+\end{equation}
+The reset counts are
+\begin{equation}\label{eq:reset-weights}
+ \mu_r=
+ \begin{cases}
+  \dfrac1{r-1},&r=a,\\[4pt]
+  \dfrac{2(3r-1)}{(r-1)(3r+1)},&r<a.
+ \end{cases}
+\end{equation}
+In particular, \(\mu_r\le2\). Each of the two row sums
+\(\sum_x\lambda_{r,x}\) and
+\(\sum_x\lambda_{r,x}\log d_{r,x}\) is less than \(105\) in the
+final row and less than \(180\) in a lower row. Consequently, with
+\(C_a=105+180(a-2)\),
+\begin{equation}\label{eq:occupation-bounds}
+ \sum_{r=2}^a\sum_{x=1}^{n_r-1}\lambda_{r,x}\le C_a,
+ \qquad
+ \sum_{r=2}^a\sum_{x=1}^{n_r-1}
+       \lambda_{r,x}\log d_{r,x}\le C_a.
+\end{equation}
+In particular, every action satisfies
+\(\lambda_{r,x}\log d_{r,x}\le180\).
+Unreachable states may have zero occupation.
+\end{proposition}
+
+\begin{proof}
+Fix a row and suppress its subscript. First consider the walk that
+chooses each child in \(\mathcal Y_x\) with equal probability
+\(1/(h(x)+1)\), and stops at either endpoint. Write \(\tau\) for its
+first endpoint visit. This walk is a martingale. The nonnegative function
+\[
+ g(x)=\sqrt{x}+\sqrt{n-x}-\sqrt n,
+ \qquad \gamma=1-\frac{2\sqrt2}{3}>0
+\]
+has the drift bound
+\begin{equation}\label{eq:square-root-drift}
+ g(x)-\mathbb E_0[g(X_{t+1})\mid X_t=x]
+ \ge\gamma\sqrt{h(x)}\qquad(1\le x<n).
+\end{equation}
+Here \(\mathbb E_0\) denotes expectation for the uniform walk. To prove
+the bound when \(x\le n/2\), its children are \(0,2,\ldots,2x\).
+Concavity of the square root, integrated on each unit interval, gives
+\[
+ \sum_{k=0}^{x}\sqrt{k}
+ \le\frac23x^{3/2}+\frac12\sqrt{x}.
+\]
+It follows that
+\(\mathbb E_0\sqrt{X_{t+1}}\le(2\sqrt2/3)\sqrt{x}\).
+Jensen's inequality gives
+\(\mathbb E_0\sqrt{n-X_{t+1}}\le\sqrt{n-x}\).
+These two inequalities prove \eqref{eq:square-root-drift}; reflection
+about \(n/2\) proves the other half.
+
+Stop this estimate at \(\tau\wedge T\), where \(T\) is a positive
+integer. Summing the conditional drift and using \(g\ge0\) gives
+\[
+ \gamma\,\mathbb E_{0,i}
+ \sum_{t<\tau\wedge T}\sqrt{h(X_t)}\le g(i).
+\]
+Monotone convergence therefore proves
+\begin{equation}\label{eq:uniform-excursion-bound}
+ \mathbb E_{0,i}\sum_{t<\tau}\sqrt{h(X_t)}
+ \le\frac{g(i)}\gamma\le\frac{\sqrt{i}}\gamma.
+\end{equation}
+Since \(h(x)\ge1\) in the interior, this also proves finite expected
+absorption, without assuming it in the stopping argument. The inequality
+\(\log(1+h)\le\sqrt h\) for \(h\ge1\) follows because
+\(\sqrt h-\log(1+h)\) is positive at one and has nonnegative derivative.
+Thus
+\eqref{eq:uniform-excursion-bound} bounds both the number of steps and
+the sum of \(\log(h+1)\) during an excursion.
+
+Now use the probabilities \(q\), still stopping at the first endpoint.
+They are the transform of the uniform probabilities by the positive
+harmonic function \(f\). For a path from \(i\) to \(x_t\), the
+likelihood ratio telescopes to \(f(x_t)/f(i)\), including when the last
+state is an endpoint. For every interior entry \(i\ge1\),
+\[
+ \frac{f(x_t)}{f(i)}\le\frac{f(n)}{f(i)}
+ \le\frac{f(n)}{f(1)}=3.
+\]
+Applying this bound at each time to nonnegative charges gives
+\begin{equation}\label{eq:harmonic-excursion-bound}
+ C_i\le\frac{3\sqrt i}\gamma,
+\end{equation}
+where \(C_i\) denotes either the expected number of interior visits or
+the expected sum of \(\log(h+1)\) in one \(q\)-excursion.
+In particular, these excursions also end in finite expected time.
+
+The uniform walk exits at \(n\) with probability \(i/n\): apply the
+martingale identity at \(\tau\wedge T\), then use bounded convergence.
+The endpoint likelihood ratio therefore gives the \(q\)-exit probability
+\begin{equation}\label{eq:exit-probability}
+ p_i=\frac{i f(n)}{n f(i)},\qquad
+ p_1=\frac1r,\qquad
+ p_2=\frac{2(3r-1)}{r(3r+1)}<\frac2r.
+\end{equation}
+After an exit at \(n\), the reset starts a new excursion at one.
+For either of the charges in \eqref{eq:harmonic-excursion-bound}, the
+total expectation from entry \(i\) is consequently
+\[
+ C_i+\frac{p_i C_1}{1-p_1}.
+\]
+For entry one this is at most
+\[
+ \frac6\gamma=54+36\sqrt2<105.
+\]
+For entry two it is at most
+\[
+ \frac{3(\sqrt2+2)}\gamma=90+63\sqrt2<180.
+\]
+The expected number of resets is \(p_i/(1-p_1)\), which gives
+\eqref{eq:reset-weights}. The same formulas give finite expectations
+from every other interior entry; from state \(n\), there is one initial
+reset followed by entry at one. Thus absorption has finite expected time
+from every state of the full walk.
+
+Let \(P_{uv}\) be its one-step transition probability from \(u\) to
+\(v\), for \(u,v\in\{1,\ldots,n\}\). This transient matrix includes
+the reset state \(n\). Finite expected
+absorption implies that \(\sum_{t\ge0}P^t\) has finite entries and is
+the inverse of \(I-P\). The occupation vector is therefore the unique
+solution of
+\[
+ (I-P^{\mathsf T})
+ (\lambda_1,\ldots,\lambda_{n-1},\mu)^{\mathsf T}
+ =(\mathbf1_{\{v=i\}})_{v=1}^{n}.
+\]
+The matrix and right-hand side are rational, so this solution is rational
+and can be obtained by exact Gaussian elimination. To recover the
+coordinate at zero as well, sum the successive differences
+\(e_{X_t}-e_{X_{t+1}}\) up to absorption and take expectations. Their
+sum is \(e_i-e_0\), proving \eqref{eq:row-flow}. The row estimates give
+\eqref{eq:occupation-bounds}, and nonnegativity gives the individual
+action bound.
+\end{proof}
+
+The bound \eqref{eq:occupation-bounds} controls two different costs:
+the total relation count before integer scaling, and the logarithm of
+the source auxiliary dimension. Both grow at most linearly with the
+number of rows. There are nevertheless up to \(3r-1\) interior actions
+in row \(r\), each with up to \(\lfloor3r/2\rfloor+1\) children.
+Thus the whole construction has \(O(a^2)\) possible actions and
+\(O(a^3)\) child counts. Their rounding and finite-type costs must also
+be controlled. The next section does this while preserving the row
+identities exactly, rather than clearing the occupation denominators.

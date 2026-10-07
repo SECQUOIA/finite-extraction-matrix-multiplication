@@ -1,0 +1,108 @@
+{
+  "signed_ledgers": [
+    {
+      "index": 2,
+      "K": 1,
+      "U": 30,
+      "T": 3,
+      "catalyst_factors": 32,
+      "signed_ledger_verified": true
+    },
+    {
+      "index": 3,
+      "K": 1,
+      "U": 78,
+      "T": 6,
+      "catalyst_factors": 83,
+      "signed_ledger_verified": true
+    },
+    {
+      "index": 4,
+      "K": 1,
+      "U": 147,
+      "T": 9,
+      "catalyst_factors": 155,
+      "signed_ledger_verified": true
+    },
+    {
+      "index": 8,
+      "K": 1,
+      "U": 649,
+      "T": 21,
+      "catalyst_factors": 669,
+      "signed_ledger_verified": true
+    },
+    {
+      "index": 16,
+      "K": 1,
+      "U": 2749,
+      "T": 45,
+      "catalyst_factors": 2793,
+      "signed_ledger_verified": true
+    },
+    {
+      "index": 63,
+      "K": 1,
+      "U": 44616,
+      "T": 186,
+      "catalyst_factors": 44801,
+      "signed_ledger_verified": true
+    }
+  ],
+  "cyclic_power2_equals_sixfold_power1_counts": true,
+  "matching_small_count_bit_lengths": {
+    "A": 61,
+    "B": 42,
+    "r": 618,
+    "m": 120,
+    "E": 13
+  },
+  "partial_middle_types": [
+    {
+      "z": 0,
+      "middle_count": 0,
+      "sector_count": 1
+    },
+    {
+      "z": 1,
+      "middle_count": 0,
+      "sector_count": 2
+    },
+    {
+      "z": 2,
+      "middle_count": 1,
+      "sector_count": 4
+    },
+    {
+      "z": 3,
+      "middle_count": 1,
+      "sector_count": 12
+    },
+    {
+      "z": 4,
+      "middle_count": 1,
+      "sector_count": 32
+    },
+    {
+      "z": 5,
+      "middle_count": 2,
+      "sector_count": 80
+    },
+    {
+      "z": 6,
+      "middle_count": 2,
+      "sector_count": 240
+    },
+    {
+      "z": 7,
+      "middle_count": 2,
+      "sector_count": 672
+    },
+    {
+      "z": 8,
+      "middle_count": 3,
+      "sector_count": 1792
+    }
+  ],
+  "scope": "Local exact permutation and ledger checks; no composed multiplication seed."
+}

@@ -1,243 +1,280 @@
 \section{The counted finite construction}
 \label{sec:extraction}
 
-The parameters have separate roles. The profile index \(a\) determines
-the limiting exponent, and fixes the denominator scale \(K\).
-The type scale \(N\) reduces the relative loss in counting sector words.
-The tensor power \(k\) amortizes interpolation, and the number \(j\)
-of exact reuses amortizes the catalyst. We choose them in this order.
+Fix a profile index \(a\ge2\) and a positive integer rounding scale
+\(K\). Use the integer counts of Proposition~\ref{prop:rounded-ledger}.
+Let \(\mathcal I_c\) index the actions with \(w_i>0\), and let
+\(\mathcal I_t\) index the resets with \(z_r>0\). Put
+\(\mathcal J=\mathcal I_c\sqcup\mathcal I_t\) and \(I=|\mathcal J|\).
+An action \(i=(r,x)\) has auxiliary dimension \(d_i=d_{r,x}\),
+child counts \(n_{i,y}\), and empirical distribution
+\(p_{i,y}=n_{i,y}/w_i\). Counts for children are assigned to the
+filtration index \((x+h_{r,x}-y)/2\).
 
-Fix \(a\ge2\) and the integer types of Section~\ref{subsec:types}.
-Index the concavity and tripling relations by disjoint sets
-\(\mathcal I_c\) and \(\mathcal I_t\), whose union is \(\{1,\ldots,I\}\).
-At an additional positive integer scale \(N\), let the sector count of
-each relation be
+The remaining parameters have distinct roles. A type scale \(N\)
+reduces the relative loss in counting sector words. A tensor power
+\(k\) amortizes interpolation, and the number \(j\) of exact reuses
+amortizes the catalyst. Unlike exact normalization of the binary
+certificate, the choice of \(K\) is unrestricted.
+
+At scale \(N\), define the sector counts
 \begin{equation}\label{eq:sector-counts}
- M_i=\binom{Nw_i}{Nu_i}
- \quad\text{or}\quad
- M_i=\frac{(Nz_i)!}{(Nz_i/3)!^3},
+ M_i=\frac{(Nw_i)!}{\prod_y(Nn_{i,y})!}\quad(i\in\mathcal I_c),
+ \qquad
+ M_r=\binom{Nz_r}{m_r}2^{Nz_r-m_r},\quad
+ m_r=\left\lfloor\frac{Nz_r+1}{3}\right\rfloor
+ \quad(r\in\mathcal I_t).
 \end{equation}
-for a concavity or tripling relation, respectively. Define
+Zero child counts contribute \(0!=1\). Put
 \begin{align}
- M&=\prod_{i=1}^I M_i,&
- S&=\prod_{i=1}^I(2M_i-1)^6,& H&=M^6,\label{eq:copy-counts}\\
- D&=6\sum_{i=1}^I(M_i-1)^2,&
- u_0&=2^{2NU},&v_0&=(2^{NK}M)^2.\label{eq:dimensions}
+ M&=\prod_{i\in\mathcal J}M_i,&
+ S&=\prod_{i\in\mathcal J}(2M_i-1)^3,&
+ H&=M^3,\label{eq:copy-counts}\\
+ D&=3\sum_{i\in\mathcal J}(M_i-1)^2,&
+ u&=\prod_{i\in\mathcal I_c}d_i^{Nw_i},&
+ v&=2^{NK}M.\label{eq:dimensions}
 \end{align}
-The letters \(u_0,v_0\) denote matrix dimensions, not the split counts
-\(u_i,d_i\).
+Here \(S\) is an integer multiplicity; the tensors
+\(S^\sigma_{r,b}\) always carry indices.
+Let \(\Cat_N\) be the catalyst in \eqref{eq:rounded-catalyst}.
 
 \begin{proposition}[Counted catalytic degeneration]\label{prop:catalytic}
 The specified maps give a polynomial degeneration of degree at most \(D\):
 \begin{equation}\label{eq:catalytic-degeneration}
- S\Cat_N Q_{a,a}^{\otimes NK}\MM_{u_0}
- \degen H\Cat_N\MM_{v_0}.
+ S\Cat_N(S^+_{a,a})^{\otimes NK}\MM_u
+ \degen H\Cat_N\MM_v.
 \end{equation}
 \end{proposition}
 \begin{proof}
-Apply Lemma~\ref{lem:determinant} with counts \((Nu_i,Nd_i)\) to
-each concavity relation, and Lemma~\ref{lem:tripling} with counts
-\((Nz_i/3,Nz_i/3,Nz_i/3)\) to each tripling relation.
-Write this exact type map as \(\mathsf T_i\), the separator map as
-\(\mathsf S_i(t)\), and the sector-specific coordinate permutations
-after separation as \(\mathsf R_i\). For each \(\pi\in S_3\), the
-complete relation map is
+For each action use the fixed-type restriction of
+Lemma~\ref{lem:multiway}, and for each reset use the partial-middle
+restriction of Lemma~\ref{lem:tripling}. In row \(r\), take the three
+permutations in the coset with sign \(\sigma_r=(-1)^{a-r}\).
+For each such permutation apply the separator of
+Proposition~\ref{prop:separator}, with auxiliary dimension \(M_i\).
+It consumes \(2M_i-1\) source copies and produces \(M_i\)
+independent copies of the sector tensor, each with a dot product of
+dimension \(M_i\).
+
+Write the type restriction as \(\mathsf T_i\), the separator map as
+\(\mathsf S_i(t)\), and the sector-specific coordinate maps after
+separation as \(\mathsf R_i\). The complete map for a permuted relation is
 \begin{equation}\label{eq:complete-relation-map}
- \Phi_{i,\pi}(t)=\mathsf R_i^\pi\circ\mathsf S_i(t)^\pi\circ
+ \Psi_{i,\pi}(t)=\mathsf R_i^\pi\circ\mathsf S_i(t)^\pi\circ
  \left(\bigoplus_{\ell=0}^{2M_i-2}\mathsf T_i^\pi\right).
 \end{equation}
-Appendix~\ref{sec:composed-maps} specifies its target spaces and every
-coefficient, including the positive-degree terms. In particular,
-\(\mathsf R_i\) is a fixed map on the whole target space.
-For every relation and every leg permutation, apply
-Proposition~\ref{prop:separator} along the leg that is shared after that
-permutation, with auxiliary dimension \(M_i\).
-It consumes \(2M_i-1\) source copies and produces \(M_i\)
-independent copies of its sector tensor, each with a dot product
-of dimension \(M_i\).
+For a reset, group its three permuted factors before using the diagonal
+identity in \eqref{eq:cyclic-identities}. This identifies every separated
+sector with the same power of \(S^{\sigma_r}_{r,r}\), regardless of
+its outer labels. Appendix~\ref{sec:composed-maps} specifies these maps
+on the whole target spaces, including positive-degree terms.
 
-Tensoring these maps over the six permutations and all relations
-gives the direct-sum counts \(S\) and \(H\).
-The convolution factors on the source are
-\(\Cat_N Q_{a,a}^{\otimes NK}\), and those on the output are
-\(\Cat_N Q_{1,2}^{\otimes NK}\), by \eqref{eq:formal-ledger}.
-The neighboring-length sources contribute \(NU\) dot products of
-dimension two in each of the six permutations. Their product is
-\(\MM_{2^{2NU}}\).
-The separator outputs contribute \(\MM_{M^2}\), while
-\(Q_{1,2}^{\otimes NK}\cong\MM_{2^{2NK}}\).
-Equation~\eqref{eq:matrix-products} gives the stated dimensions.
-
-The full map is \(\bigotimes_{i,\pi}\Phi_{i,\pi}(t)\), followed by
-the displayed regroupings of factors. Use one common parameter in all
-separators. Lemma~\ref{lem:composition} bounds its degree by \(D\).
-The initial type restrictions and final coordinate permutations are
-independent of \(t\), so there are no further degree terms.
+Tensoring all relation maps gives the copy counts \(S\) and \(H\).
+The signed ledger \eqref{eq:rounded-ledger} identifies the convolution
+factors on the two sides with
+\(\Cat_N(S^+_{a,a})^{\otimes NK}\) and
+\(\Cat_N\MM_{2^{NK}}\), respectively. Each action contributes
+three dot products of dimension \(d_i^{Nw_i}\), one in each leg.
+Their product is \(\MM_u\). The separator outputs similarly contribute
+\(\MM_M\), giving \(\MM_v\).
+Use one common parameter for all separators. Their degrees add by
+Lemma~\ref{lem:composition}, giving \(D\). All preceding type maps and
+subsequent coordinate maps are independent of that parameter.
 \end{proof}
 
-The copy ratio satisfies \(1<S/H<2^{6I}\). This inequality bounds a
-cost; it does not cancel either direct-sum multiplicity.
+The estimate \(1\le S/H<2^{3I}\) bounds a cost. Neither direct-sum
+multiplicity has been canceled.
 
 \subsection{Exactification and repeated use of one catalyst}
 
 Define the explicit rank bound
 \begin{equation}\label{eq:kappa}
- \kappa_N=\prod_{h\le b}(h+b-1)^{6Nc_{h,b}}\ge\R(\Cat_N).
+ \kappa_N=\prod_{\sigma,r,b}(r+b-1)^{3Nc_{\sigma,r,b}}
+ \ge\R(\Cat_N).
 \end{equation}
-It comes from tensoring the decompositions
-\eqref{eq:convolution-rank}, not from a rank-minimization oracle.
+It tensors the evaluation decompositions \eqref{eq:convolution-rank}.
+The boundary factor \(\MM_2\) has zero catalyst multiplicity, so this
+product uses only the remaining convolution factors.
 
 \begin{proposition}[An exact relative multiplication scheme]
 \label{prop:relative}
-For any positive integers \(k,j\), put \(E=kD+1\),
-\(A=u_0^{kj}\), \(B=v_0^{kj}\), and
+For positive integers \(k,j\), put \(E=kD+1\),
+\(A=u^{kj}\), \(B=v^{kj}\), and
 \begin{equation}\label{eq:relative-counts}
- r=\kappa_N^k E^j S^{kj}(2a-1)^{6NKkj},\qquad m=H^{kj}.
+ r_* =\kappa_N^k E^j S^{kj}(2a-1)^{3NKkj},
+ \qquad m_* =H^{kj}.
 \end{equation}
-There is a specified exact restriction \(r\MM_A\restr m\MM_B\).
+There is a specified exact restriction \(r_*\MM_A\restr m_*\MM_B\).
 \end{proposition}
 \begin{proof}
 Apply Lemma~\ref{lem:exactification} to the \(k\)-th power of
 \eqref{eq:catalytic-degeneration}. Replace each source copy of
-\(Q_{a,a}\) by its explicit rank-\((2a-1)^6\) decomposition.
-Writing
+\(S^+_{a,a}\) by its rank-\((2a-1)^3\) evaluation decomposition.
+Writing \(\alpha=ES^k(2a-1)^{3NKk}\) and \(\beta=H^k\), we obtain
 \[
- \alpha=ES^k(2a-1)^{6NKk},\qquad \beta=H^k,
+ \alpha\Cat_N^{\otimes k}\MM_{u^k}
+ \restr\beta\Cat_N^{\otimes k}\MM_{v^k}.
 \]
-we obtain the exact restriction
+Apply this exact restriction \(j\) times while retaining the same catalyst:
 \[
- \alpha\Cat_N^{\otimes k}\MM_{u_0^k}
- \restr \beta\Cat_N^{\otimes k}\MM_{v_0^k}.
+ \alpha^j\Cat_N^{\otimes k}\MM_{u^{kj}}
+ \restr\beta^j\Cat_N^{\otimes k}\MM_{v^{kj}}.
 \]
-This restriction may be applied \(j\) times while retaining one catalyst:
-\[
- \alpha^j\Cat_N^{\otimes k}\MM_{u_0^{kj}}
- \restr\beta^j\Cat_N^{\otimes k}\MM_{v_0^{kj}}.
-\]
-For the induction, tensor the previous restriction with
-\(\alpha\MM_{u_0^k}\), then apply the one-step restriction to the
-retained catalyst in each output summand. Tensor products of matrix
-multiplication tensors combine by \eqref{eq:matrix-products}.
-The catalyst exponent stays \(k\), not \(kj\).
-
+For the induction, tensor the preceding restriction with
+\(\alpha\MM_{u^k}\), then apply the one-step restriction to the
+retained catalyst in each output summand. The matrix factors combine by
+\eqref{eq:matrix-products}. The catalyst exponent stays \(k\).
 Supply its source using \(\kappa_N^k\) rank-one tensors and restrict
-the output catalyst to one nonzero coefficient. A coefficient equal to
-one is available by choosing a monomial in each convolution factor.
-This gives \eqref{eq:relative-counts}.
+the output catalyst to a coefficient equal to one. Such a coefficient
+is available by choosing a monomial in every convolution factor.
+This proves \eqref{eq:relative-counts}.
 \end{proof}
 
 Exactification precedes reuse. Iterating the degeneration itself would
-require a separate bound on its accumulated approximation degree.
+require a separate bound on the accumulated approximation degree.
 
-\subsection{Batched recursion with padding}
+\subsection{Pooled recursion with padding}
 
 \begin{lemma}[Relative schemes give recursive algorithms]\label{lem:batch}
 Suppose an explicit restriction \(r\MM_A\restr m\MM_B\) is given,
-with positive integers \(B>A\). Put
+with positive integers \(B>A\). Set
 \[
- b_0=\lceil r/m\rceil,\qquad
- p_0=\frac{\log b_0}{\log(B/A)}.
+ q=r/m,\qquad p=\frac{\log q}{\log(B/A)}.
 \]
-Then \(p_0\ge2\). The restriction yields a fixed arithmetic algorithm
-for matrix multiplication with cost \(O(n^{p_0})\) if \(p_0>2\),
-and \(O(n^2\log n)\) if \(p_0=2\).
-Its scalar products are products of a linear form in the left input
+Then \(p\ge2\). The restriction yields a fixed arithmetic algorithm
+with cost \(O(n^p)\) if \(p>2\), and \(O(n^2\log n)\) if \(p=2\).
+Every scalar product is a product of a linear form in the left input
 entries and a linear form in the right input entries.
 \end{lemma}
 \begin{proof}
 The first-leg flattenings have ranks \(rA^2\) and \(mB^2\).
-Rank cannot increase under restriction, so
-\(r/m\ge(B/A)^2\), which proves \(p_0\ge2\).
-Compute a batch of \(m\) products of \(n\times n\) matrices. Pad each
-input to side \(B\lceil n/B\rceil\) and divide it into \(B\)-by-\(B\)
-blocks. The restriction reduces the batch to \(r\) matrix products of
-side \(n'=A\lceil n/B\rceil\).
-The scalar identity remains valid on matrix blocks: each term keeps a
-left-input factor before a right-input factor, and its coefficients are
-central scalars. Group the resulting products into \(b_0\) batches of
-size \(m\), padding the last batch with zeros, and recurse.
-All preprocessing and output combinations at a node take \(O(n^2)\)
-arithmetic operations, with constants depending only on the fixed scheme.
-Thus the batch cost satisfies
+Rank cannot increase under restriction, so \(q\ge(B/A)^2>1\).
+
+Pool all products at a given recursion depth. If there are \(v_\ell\)
+products of side \(n_\ell\), group them in batches of \(m\), filling
+the last batch with zero products. Pad each input to side
+\(B\lceil n_\ell/B\rceil\), divide it into a \(B\times B\) array of blocks of side
+\(\lceil n_\ell/B\rceil\), and apply the restriction. This gives
 \[
- T(n)\le b_0T\bigl(A\lceil n/B\rceil\bigr)+C n^2
+ v_{\ell+1}=r\lceil v_\ell/m\rceil\le qv_\ell+r,
+ \qquad n_{\ell+1}=A\lceil n_\ell/B\rceil.
 \]
-above the fixed leaf threshold, for a constant \(C\).
+The scalar identity remains valid on matrix blocks: its products place a
+left-input factor before a right-input factor, and its coefficients are
+central scalars. Starting with \(v_0=1\), the count obeys
+\(v_\ell\le q^\ell(1+r/(q-1))\).
+There is a constant \(C\), depending only on the scheme, for which
+all transformations at this level take at most \(Cv_\ell n_\ell^2\)
+operations. To justify pooling across different parents, perform the
+input transformations in increasing depth, store their linear output
+maps, and perform the output combinations in reverse depth after computing
+the leaves. Products at the same depth can then be grouped together
+without changing any algebraic dependency.
 
-Set \(\rho=A/B<1\) and \(c=A/(1-\rho)=AB/(B-A)\).
-Then \(n'\le\rho n+A\), or \(n'-c\le\rho(n-c)\).
-Choose the integer leaf threshold \(n_*=\lceil c\rceil+1\), and use classical
-multiplication at leaves. At level \(\ell\), each dimension is at most
-\(c+\rho^\ell(n-c)\), so there are
-\(O(\log_{1/\rho}n)\) levels. Summing the work over levels gives the
-two stated bounds. More explicitly, the part proportional to \(n^2\)
-is bounded by a constant times
-\(n^2\sum_\ell(b_0\rho^2)^\ell\); the remaining constant-size
-contribution has the same or smaller order. The number of leaves is
-\(O(n^{p_0})\).
-
-Set all but one input pair of the initial batch to zero to obtain one
-matrix product. The fixed batch size changes only the constant.
-At each recursive call the input transformations are separately linear
-in the original left and right entries. This property persists to the
-classical products at the leaves, proving the last statement.
+Put \(\rho=A/B\) and \(c=A/(1-\rho)\). Since
+\(n_{\ell+1}\le\rho n_\ell+A\),
+\(n_\ell\le c+\rho^\ell(n-c)\).
+Use classical multiplication at the fixed leaf threshold
+\(n_* =\lceil c\rceil+1\). There are at most
+\(\log_{1/\rho}n+O(1)\) levels. The total work is bounded by a
+constant times the sum of
+\(q^\ell(1+\rho^{2\ell}n^2)\) over these levels, including leaves.
+As \(q\rho^2\ge1\), this gives the two asserted bounds.
+At every stage the input transformations are separately linear in the
+original left and right entries. This remains true at the classical
+leaves and proves the last assertion.
 \end{proof}
 
-In the present construction \(r/m\ge1\). Since
-\(\lceil r/m\rceil\le2r/m\), Proposition~\ref{prop:relative} gives
-the upper expression
-\begin{equation}\label{eq:finite-exponent}
- p_0\le
- \frac{6NK\log(2a-1)+\log(S/H)+\log(kD+1)/k
-       +\log\kappa_N/j+\log2/(kj)}{\log(v_0/u_0)}
+For the relative scheme above, write \(\Delta_N=\log(v/u)\).
+Whenever \(\Delta_N>0\), its pooled exponent is exactly
+\begin{equation}\label{eq:pooled-exponent}
+ p=\frac{3NK\log(2a-1)+\log(S/H)+\log E/k+\log\kappa_N/j}
+ {\Delta_N}.
 \end{equation}
-whenever \(v_0>u_0\).
-Every copy, interpolation, catalyst, and batching charge is present.
-The source \(\MM_A\) remains the recursive operation; no fast
-decomposition of it has been assumed.
+For comparison with saved finite cost certificates, also define the
+slightly larger bound
+\begin{equation}\label{eq:finite-exponent}
+ \Phi=\frac{3NK\log(2a-1)+\log(S/H)+\log E/k
+              +\log\kappa_N/j+\log2/(kj)}{\Delta_N}.
+\end{equation}
+To see the origin of the extra term, let \(\operatorname{cost}(n)\) be the cost of
+one batch of \(m_*\) products when each parent's children are grouped
+separately. With \(b_0=\lceil r_*/m_*\rceil\), this schedule obeys
+\[
+ \operatorname{cost}(n)\le b_0\operatorname{cost}\bigl(A\lceil n/B\rceil\bigr)+O(n^2).
+\]
+The dimension estimate in Lemma~\ref{lem:batch} gives exponent
+\(\log b_0/\log(B/A)\), bounded by \(\Phi\) since
+\(b_0\le2r_*/m_*\). Pooling removes this last ceiling charge. Both expressions retain the actual
+copy, interpolation, and catalyst costs. The source \(\MM_A\) is
+the recursive operation; no fast decomposition of it has been assumed.
 
-\subsection{Finite parameter selection}
+\subsection{Type losses and finite cost bounds}
 
 \begin{lemma}[A quantitative type bound]\label{lem:types}
-Let \(n_1+\cdots+n_s=n\), with all \(n_i>0\), and put \(q_i=n_i/n\).
+Let \(n_1+\cdots+n_s=n\), with all \(n_i>0\), and put \(p_i=n_i/n\).
 Then
 \[
- \frac{\exp(nH(q))}{(n+1)^{s-1}}
- \le\frac{n!}{\prod_i n_i!}\le\exp(nH(q)).
+ \frac{\exp(nH(p))}{(n+1)^{s-1}}
+ \le\frac{n!}{\prod_i n_i!}\le\exp(nH(p)),
+ \qquad H(p)=-\sum_i p_i\log p_i.
 \]
 \end{lemma}
 \begin{proof}
 The multinomial probability of the type \((n_i)\) is its coefficient
-times \(\prod q_i^{n_i}=\exp(-nH(q))\), and is at most one.
-It is also a mode. To see this, the factor \(n_i^h/h!\) is maximized
-at \(h=n_i\) or \(h=n_i-1\); compare consecutive terms. The joint
-type probability, up to a common factor, is the product of these factors.
-There are at most \((n+1)^{s-1}\) types, so a mode has probability at
-least their reciprocal. This proves both bounds.
+times \(\exp(-nH(p))\), and is at most one. It is also a mode:
+the factor \(n_i^h/h!\) is maximized at \(h=n_i\) or \(h=n_i-1\),
+as follows by comparing consecutive terms. The joint probability, up to
+a common factor, is the product of these factors. There are at most
+\((n+1)^{s-1}\) types, so a mode has probability at least their reciprocal.
 \end{proof}
 
-Put \(\Delta_N=\log(v_0/u_0)\). Equations
-\eqref{eq:entropy-identity} and \eqref{eq:dimensions} imply
+For an action \(i\), let \(s_i=|\{y:n_{i,y}>0\}|\) and
+\(H_i=w_iH(p_i)\). For a reset put \(H_r=z_r\log3\).
+Define
+\begin{align}
+ \mathcal T_N&=\sum_{i\in\mathcal I_c}(s_i-1)\log(Nw_i+1)
+             +\sum_{r\in\mathcal I_t}\log(Nz_r+1),\notag\\
+ B_N&=N\max_{i\in\mathcal J}H_i.\label{eq:type-penalty}
+\end{align}
+Lemma~\ref{lem:types} and the modal estimate for partial-middle
+tripling give
 \begin{equation}\label{eq:type-error}
- \begin{aligned}
- 2NK\log F(a,a)-2\mathcal E_N&\le\Delta_N\le2NK\log F(a,a),\\
- \mathcal E_N&=\sum_{i\in\mathcal I_c}\log(Nw_i+1)
-          +2\sum_{i\in\mathcal I_t}\log(Nz_i+1).
- \end{aligned}
+ NG-\mathcal T_N\le\Delta_N\le NG,
+ \qquad G=K\log F(a,a)-\mathcal L,
+ \qquad 0\le\mathcal L\le4J_a.
 \end{equation}
-For fixed \(a\), the error is \(O_a(\log N)\), while the main term
-is linear in \(N\). As \(\log(S/H)<6I\log2\), taking \(N\) large,
-then \(k\) large, and finally \(j\) large in
-\eqref{eq:finite-exponent} gives the limit
-\begin{equation}\label{eq:tau}
- \tau_a=\frac{3\log(2a-1)}{\log F(a,a)}\longrightarrow\frac94.
-\end{equation}
-For each finite \(a\), \(\tau_a>9/4\) by
-Theorem~\ref{thm:least-profile}.
+Only the number of used children enters the type penalty. The source
+auxiliary dimension remains \(d_i\), including when some children
+have count zero.
 
-The limiting argument can be replaced by the following precise selection
-procedure. Its comparisons involve only rational numbers raised to
-integer powers; no fixed numerical precision is assumed.
+The other charges have the elementary bounds
+\begin{equation}\label{eq:finite-cost-bounds}
+ \begin{split}
+ 0&\le\log(S/H)<3I\log2,\\
+ \log E&\le\log(3kI+1)+2B_N,\\
+ \log\kappa_N&\le3N(U+T-K)\log(5a).
+ \end{split}
+\end{equation}
+Indeed \(M_i\le\exp(NH_i)\), and
+\(E=1+3k\sum_i(M_i-1)^2\le(3kI+1)\exp(2B_N)\).
+Every rank base \(r+b-1\) is less than \(5a\); the catalyst count
+is \(U+T-K\). These bounds do not require expanding the sector words
+or writing out any tensor coefficients.
+
+The uncharged profile expression
+\begin{equation}\label{eq:tau}
+ \tau_a=\frac{3\log(2a-1)}{\log F(a,a)}
+ \longrightarrow\frac94
+\end{equation}
+remains useful for comparison. Since \(\Delta_N\le NK\log F(a,a)\)
+and all numerator charges in \eqref{eq:pooled-exponent} are nonnegative,
+every scheme here with \(B>A\) has \(p\ge\tau_a>9/4\).
+The finite construction therefore approaches the endpoint from above.
+
+\input{quantitative}
+
+\subsection{An effective algorithm over a specified field}
 
 \begin{theorem}[Effective finite extraction]\label{thm:effective}
 There is a terminating procedure that, given a positive rational
@@ -249,63 +286,33 @@ integer and rational computations, coordinate permutations, tensor
 products, and the maps proved above.
 \end{theorem}
 \begin{proof}
-Write \(\theta=9/4+\eps=p/q\) in positive integers. Perform the following
-searches in increasing integer order, stopping at the first successful
-choice in each step.
-\begin{enumerate}
-\item Choose \(a\ge2\) such that
-\(F(a,a)^p>(2a-1)^{3q}\). Compute the rational weights, their least
-denominator \(K\), the integer types, and the catalyst counts.
-\item Choose \(N\ge1\). Compute \(M_i,S,H,D,u_0,v_0,\kappa_N\) and
-put \(R_0=(S/H)(2a-1)^{6NK}\). Require
-\begin{equation}\label{eq:selection-N}
- (v_0/u_0)^p>R_0^q.
-\end{equation}
-\item With these data fixed, choose \(k\ge1\), put \(E=kD+1\), and require
-\begin{equation}\label{eq:selection-k}
- (v_0/u_0)^{pk}>(E R_0^k)^q.
-\end{equation}
-\item Choose \(j\ge1\) such that
-\begin{equation}\label{eq:selection-j}
- (v_0/u_0)^{pkj}>
- \bigl(2\kappa_N^k(E R_0^k)^j\bigr)^q.
-\end{equation}
-Use Proposition~\ref{prop:relative}, followed by Lemma~\ref{lem:batch}.
-\end{enumerate}
-Clear positive denominators to implement each test as an integer comparison.
-The first search terminates by \eqref{eq:tau}. For its chosen \(a\),
-\eqref{eq:type-error} and the bounded copy-ratio charge imply
-\eqref{eq:selection-N} for all sufficiently large \(N\).
-In particular \(v_0>u_0\), since \(R_0>1\).
-In the third search the strict exponential advantage in
-\eqref{eq:selection-N} dominates \(E^q=(kD+1)^q\).
-Once \(k\) is fixed, the strict exponential advantage in
-\eqref{eq:selection-k} dominates \((2\kappa_N^k)^q\) as \(j\)
-increases. Thus every search terminates; their order keeps all previously
-chosen data fixed.
+Choose \(a,K,N,k,j\) by Corollary~\ref{cor:explicit-allowance} and
+Theorem~\ref{thm:quantitative}. Compute the rational occupations by their
+finite linear systems, round their circulations using the integral
+max-flow procedure in Lemma~\ref{lem:circulation-rounding}, and form the
+integer counts and catalyst. Proposition~\ref{prop:relative} gives the
+exact relative scheme. Theorem~\ref{thm:quantitative} and
+Lemma~\ref{lem:batch} give an exponent strictly below \(9/4+\eps\).
+The possible quadratic-logarithmic term is also within this allowance.
 
-The ratio of the actual counts in \eqref{eq:relative-counts} is
-\(r/m=\kappa_N^k(E R_0^k)^j\). Hence
-\eqref{eq:selection-j} implies
-\(\lceil r/m\rceil^q<(B/A)^p\). The recursive exponent is strictly
-less than \(\theta\). Any quadratic or quadratic-logarithmic term in
-Lemma~\ref{lem:batch} is also \(O(n^\theta)\), because \(\theta>2\).
-
-To specify the maps, enumerate tensor positions and sector words in
-lexicographic order. Use the displayed determinant bases, interval sectors,
-Fourier substitutions, evaluation decompositions, and root averages.
-Separate sectors before applying their individual coordinate permutations.
-Compose the maps in the order in the proofs of
+For a deterministic specification, order states, edges, tensor positions,
+and sector words lexicographically, and use the first available augmenting
+path at each max-flow step. Use the displayed determinant bases, interval
+sectors, Fourier substitutions, evaluation decompositions, and root
+averages. Separate sectors before applying their individual coordinate
+maps. Compose the maps in the order in the proofs of
 Propositions~\ref{prop:catalytic} and \ref{prop:relative}.
-All roots of unity have explicitly known finite orders. One may take
+Every root of unity has an explicitly known finite order. One may take
 \[
- L_*=\lcm\bigl(E,\,2a-1,\,\{2M_i-1:1\le i\le I\},
-                   \,\{h+b-1:c_{h,b}>0\}\bigr).
+ L_* =\lcm\bigl(E,\,2a-1,\,
+       \{2M_i-1:i\in\mathcal J\},\,
+       \{r+b-1:c_{\sigma,r,b}>0\}\bigr).
 \]
-Every coefficient lies in \(\Q(\zeta_{L_*})\); catalyst reuse and block
-recursion introduce no further roots of unity.
-Thus the construction specifies finite coefficient arrays as well as their
-composition, even though expanding them is unnecessary for the proof.
+All coefficients lie in \(\Q(\zeta_{L_*})\), represented by the power
+basis modulo the cyclotomic polynomial. Catalyst reuse and recursion
+introduce no further roots of unity. Thus the procedure specifies finite
+coefficient arrays and their composition; expanding them is not needed
+for the proof of correctness.
 \end{proof}
 
 \subsection{Rational coefficients and an explicit square seed}
@@ -344,7 +351,7 @@ strictly below \(9/4+\eps\).
 \end{corollary}
 \begin{proof}
 Apply Theorem~\ref{thm:effective} with \(\eps/2\).
-For each integer dimension \(n\), unroll its batched recursion to
+For each integer dimension \(n\), unroll its pooled recursion to
 classical leaves, and set the unused initial input pairs to zero.
 Lemma~\ref{lem:batch} gives a bilinear decomposition of \(\MM_n\).
 Its number of leaf products is at most its arithmetic cost, hence is
@@ -354,7 +361,8 @@ by at most a fixed constant.
 
 Enumerate \(n=2,3,\ldots\), generate the finite recursion and its rational
 decomposition, and stop when its length \(R_n\) satisfies
-\(R_n^q<n^p\), where \(p/q=9/4+\eps\).
+\(R_n^{\beta_\eps}<n^{\alpha_\eps}\), where the positive integers
+\(\alpha_\eps,\beta_\eps\) satisfy \(\alpha_\eps/\beta_\eps=9/4+\eps\).
 The strict gap in exponents proves termination, regardless of the fixed
 constants. This is a construction of identities by proved operations,
 not a search for solutions to unspecified rank equations.
@@ -364,13 +372,5 @@ Ordinary block recursion on the resulting seed has exponent
 
 Every rational seed identity also holds over every field of characteristic
 zero. The preprocessing time of this procedure is finite for each fixed
-\(\eps\). No bound uniform in \(\eps\), and no useful bit-complexity
-estimate, is asserted.
-
-For \(0<\eps\le3/4\), this prescribed seed generator returns
-\(d_0>n_*>A\), where \(A,n_*\) are chosen with allowance \(\eps/2\).
-At dimensions \(n\le n_*\), it produces the classical decomposition
-with \(n^3\) nonzero terms, which fails the strict stopping test.
-Termwise coefficient descent preserves these already rational terms.
-This size constraint concerns the stated generator, not rational seeds
-in general.
+\(\eps\). No quantitative bound on preprocessing time or coefficient bit size is
+asserted.

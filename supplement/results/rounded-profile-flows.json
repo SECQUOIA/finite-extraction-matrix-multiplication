@@ -1,0 +1,271 @@
+{
+  "rounding": "ceil down edges; ceil tripling to multiples of three; recover up edges from currents",
+  "reports": [
+    {
+      "index": 2,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 8,
+      "N": 1,
+      "k": 1,
+      "j": 8,
+      "concavity_factors_U": 131,
+      "tripling_factors_T": 9,
+      "catalyst_Q_factors": 132,
+      "max_split_weight": 32,
+      "max_tripling_weight": 9,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "0.00590590633398275060493063555780489739131058305800848057110503333519735973816460589142454680",
+        "upper": "0.00590590633398275060493063555780489740046377087169492082897848452517064858453150810622474435"
+      },
+      "normalized_KL_loss_rational_upper_bound": "685/672",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.75096229728773075742730698632007830890674893029248301221037742481336690362183222124972267",
+        "upper": "2.75096229728773075742730698632007830892734768455159172319622047864948879996851338747644738"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "-22.7617191131328190495194555102662209326010128300297309277193628220261093656559955005420007",
+        "upper": "-22.7617191131328190495194555102662209324550629717308689840036663241283411126426338580035362"
+      },
+      "fully_charged_exponent_upper_expression_interval": null,
+      "recursive_source_dimension": "2^2096",
+      "recursive_source_dimension_decimal_digits": 631,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    },
+    {
+      "index": 3,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 27,
+      "N": 1,
+      "k": 1,
+      "j": 27,
+      "concavity_factors_U": 1090,
+      "tripling_factors_T": 54,
+      "catalyst_Q_factors": 1117,
+      "max_split_weight": 145,
+      "max_tripling_weight": 39,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "0.00393405157939319649997542087141109961594837381352662996111715336798864274289305060906713646",
+        "upper": "0.00393405157939319649997542087141109964751881648736355462295336389597372495656989981249074817"
+      },
+      "normalized_KL_loss_rational_upper_bound": "3805/11907",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.64682167603812288786635665204907053466006198090224492016842755287930880705549018068446408",
+        "upper": "2.64682167603812288786635665204907053470534816559304231442546084688820643599576532618457278"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "-40.7474297610181151791640122769602304306768699647964637575174556872973993453186324049094804",
+        "upper": "-40.7474297610181151791640122769602304289872257814441793501871290536554941991557184256096163"
+      },
+      "fully_charged_exponent_upper_expression_interval": null,
+      "recursive_source_dimension": "2^58860",
+      "recursive_source_dimension_decimal_digits": 17719,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    },
+    {
+      "index": 4,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 64,
+      "N": 1,
+      "k": 1,
+      "j": 64,
+      "concavity_factors_U": 4735,
+      "tripling_factors_T": 171,
+      "catalyst_Q_factors": 4842,
+      "max_split_weight": 343,
+      "max_tripling_weight": 93,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "0.00601391911758191058717713927344099028231627453393620948799297031952960571315839224159600911",
+        "upper": "0.00601391911758191058717713927344099035158600213804798305053265596659697452121513312845958193"
+      },
+      "normalized_KL_loss_rational_upper_bound": "418555/3311616",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.59925157885630022791118807360158958892410079682316126088479187241251056371597440243208486",
+        "upper": "2.59925157885630022791118807360158958900334775469975451980022060675363360288765708690119359"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "-8.71977776745334687467025715667541912837666012251386067386144884843841712023976197701358589",
+        "upper": "-8.71977776745334687467025715667541911960535307123373343834823398851263410630998664936207631"
+      },
+      "fully_charged_exponent_upper_expression_interval": null,
+      "recursive_source_dimension": "2^606080",
+      "recursive_source_dimension_decimal_digits": 182449,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    },
+    {
+      "index": 8,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 512,
+      "N": 1,
+      "k": 1,
+      "j": 512,
+      "concavity_factors_U": 155586,
+      "tripling_factors_T": 2076,
+      "catalyst_Q_factors": 157150,
+      "max_split_weight": 2732,
+      "max_tripling_weight": 732,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "0.000232711165172801995472997374699913143255876192979000365777075197107416424194611691496890920",
+        "upper": "0.000232711165172801995472997374699913543037408111709231537699185879266362395705587501752389361"
+      },
+      "normalized_KL_loss_rational_upper_bound": "11107917475/974707621888",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.51173620023295071295773654261611980322458201418508633851792874502337188991598059744392006",
+        "upper": "2.51173620023295071295773654261611980353365028247344566095952840412767996596983807133848709"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "1738.85470042267194945187722154884754149221396495401164447479825301034762644083678109208935",
+        "upper": "1738.85470042267194945187722154884754189967443905520496395053838507396462328848702420814489"
+      },
+      "fully_charged_exponent_upper_expression_interval": {
+        "lower": "10.0529590955387693063289505922011229410737402965876201895873378232633432147432590273089071",
+        "upper": "10.0529590955387693063289505922011229434301977010870289095311142715728251986312993621207475"
+      },
+      "recursive_source_dimension": "2^159320064",
+      "recursive_source_dimension_decimal_digits": 47960119,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    },
+    {
+      "index": 16,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 4096,
+      "N": 1,
+      "k": 1,
+      "j": 4096,
+      "concavity_factors_U": 5082334,
+      "tripling_factors_T": 22398,
+      "catalyst_Q_factors": 5100636,
+      "max_split_weight": 21847,
+      "max_tripling_weight": 5853,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "0.0000214787732750145065116254361469263339562237045184952110360438301678449130323923343980926018",
+        "upper": "0.0000214787732750145065116254361469284376921454288094516797960112388315675278692060106008679440"
+      },
+      "normalized_KL_loss_rational_upper_bound": "1403413005485534842345/1547420804802023924957184",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.46022910818424582301572860209939403461157212046995093583718512372773309648051440447488615",
+        "upper": "2.46022910818424582301572860209939403584511417478046381509215301871446595233875203529750211"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "26601.0674818298106181421485295005626196099848583942832594180910127567840522478788083879984",
+        "upper": "26601.0674818298106181421485295005626368075188259952267157775952624357334127740319407600377"
+      },
+      "fully_charged_exponent_upper_expression_interval": {
+        "lower": "5.32344381315713341088630254568307212669653293565660274794669325586881936110130394553833124",
+        "upper": "5.32344381315713341088630254568307213013854734946219992378649449864964972147859977113892322"
+      },
+      "recursive_source_dimension": "2^41634480128",
+      "recursive_source_dimension_decimal_digits": 12533227373,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    },
+    {
+      "index": 63,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 250047,
+      "N": 1,
+      "k": 1,
+      "j": 250047,
+      "concavity_factors_U": 4915011462,
+      "tripling_factors_T": 2059209,
+      "catalyst_Q_factors": 4916820624,
+      "max_split_weight": 1333584,
+      "max_tripling_weight": 357210,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "7.68929064183609036252455004665234231703175560381663169063648042224054416384490537180493044E-8",
+        "upper": "7.68929064183609048006447489943022220957276461545829580574789784365806193217831822768221411E-8"
+      },
+      "normalized_KL_loss_rational_upper_bound": "452506435613622269338097214289542513284352457741173138587550373718729917259085943/87173794542923024103229455919818864736511104014638982318517379297540973612090006858480",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.39985133534515369439619236453246857210538465471660587555067791770763986342710328669554537",
+        "upper": "2.39985133534515369439619236453246859114095917149322771987877008577363269760101745359158945"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "2854902.24872373089501562067051886513840921091418965207589822910538498488464979741252639103",
+        "upper": "2854902.24872373089501562067051886516235127783861224969005378621472883063576458525809311814"
+      },
+      "fully_charged_exponent_upper_expression_interval": {
+        "lower": "3.39083129666166609566474031731762385777731799031649714575478394142994735297578302090381232",
+        "upper": "3.39083129666166609566474031731762388621412250578073067764854285382306452683634547719570536"
+      },
+      "recursive_source_dimension": "2^2457967742077428",
+      "recursive_source_dimension_decimal_digits": 739922018739774,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    }
+  ],
+  "finite_interpolation_amortization_examples": [
+    {
+      "index": 16,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 4096,
+      "N": 1,
+      "k": 64,
+      "j": 4096,
+      "concavity_factors_U": 5082334,
+      "tripling_factors_T": 22398,
+      "catalyst_Q_factors": 5100636,
+      "max_split_weight": 21847,
+      "max_tripling_weight": 5853,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "0.0000214787732750145065116254361469263339562237045184952110360438301678449130323923343980926018",
+        "upper": "0.0000214787732750145065116254361469284376921454288094516797960112388315675278692060106008679440"
+      },
+      "normalized_KL_loss_rational_upper_bound": "1403413005485534842345/1547420804802023924957184",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.46022910818424582301572860209939403461157212046995093583718512372773309648051440447488615",
+        "upper": "2.46022910818424582301572860209939403584511417478046381509215301871446595233875203529750211"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "26601.0674818298106181421485295005626196099848583942832594180910127567840522478788083879984",
+        "upper": "26601.0674818298106181421485295005626368075188259952267157775952624357334127740319407600377"
+      },
+      "fully_charged_exponent_upper_expression_interval": {
+        "lower": "4.20240768233240024767965918769398137098662849489547588654140845974190242301725361637959878",
+        "upper": "4.20240768233240024767965918769398137370379410326570502424362078379367033926014525815981944"
+      },
+      "recursive_source_dimension": "2^2664606728192",
+      "recursive_source_dimension_decimal_digits": 802126551834,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    },
+    {
+      "index": 63,
+      "log_interval_accumulation_dyadic_bits": 160,
+      "K": 250047,
+      "N": 1,
+      "k": 64,
+      "j": 250047,
+      "concavity_factors_U": 4915011462,
+      "tripling_factors_T": 2059209,
+      "catalyst_Q_factors": 4916820624,
+      "max_split_weight": 1333584,
+      "max_tripling_weight": 357210,
+      "exact_ledger_verified": true,
+      "normalized_KL_loss_interval": {
+        "lower": "7.68929064183609036252455004665234231703175560381663169063648042224054416384490537180493044E-8",
+        "upper": "7.68929064183609048006447489943022220957276461545829580574789784365806193217831822768221411E-8"
+      },
+      "normalized_KL_loss_rational_upper_bound": "452506435613622269338097214289542513284352457741173138587550373718729917259085943/87173794542923024103229455919818864736511104014638982318517379297540973612090006858480",
+      "rounded_entropy_limit_exponent_interval": {
+        "lower": "2.39985133534515369439619236453246857210538465471660587555067791770763986342710328669554537",
+        "upper": "2.39985133534515369439619236453246859114095917149322771987877008577363269760101745359158945"
+      },
+      "N1_log_contraction_lower_expression_interval": {
+        "lower": "2854902.24872373089501562067051886513840921091418965207589822910538498488464979741252639103",
+        "upper": "2854902.24872373089501562067051886516235127783861224969005378621472883063576458525809311814"
+      },
+      "fully_charged_exponent_upper_expression_interval": {
+        "lower": "2.75337910800333631827753133860616357775611954459780396088781698413615785412750025488685247",
+        "upper": "2.75337910800333631827753133860616360084700111654758639331165726398077813740015885961531918"
+      },
+      "recursive_source_dimension": "2^157309935492955392",
+      "recursive_source_dimension_decimal_digits": 47355009199345524,
+      "status": "symbolic count bounds; no sectors or coefficient maps materialized"
+    }
+  ],
+  "scope": "Polynomial normalization; astronomical recursion constants; no practical algorithm claimed."
+}
