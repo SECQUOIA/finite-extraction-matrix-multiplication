@@ -1,145 +1,408 @@
 \section{Tensors, restrictions, and arithmetic algorithms}
 \label{sec:preliminaries}
 
-All logarithms are natural. All vector spaces are finite dimensional.
-We first work over \(\C\);
-every coefficient used in the construction will be algebraic.
-A tensor is written as a trilinear form in three disjoint variable groups,
-called its legs. Its rank \(\R(T)\) is the least number of products of
-three linear forms whose sum is \(T\).
-We write \(A\restr B\) if substitutions that are linear on each leg
-transform \(A\) into \(B\). Such a restriction gives a bilinear algorithm
-for \(B\) using a bilinear algorithm for \(A\).
-If the substitutions depend on a nonzero parameter \(t\), and the
-transformed tensor is a polynomial
-\(B+tB_1+\cdots+t^DB_D\), we write \(A\degen B\).
-The individual substitutions may be Laurent polynomials; only their
-combined tensor is required to have no negative powers.
-Every degeneration below is supplied with its substitutions and a degree
-bound. No general approximation theorem is needed to use it.
+This section fixes conventions and proves, in the form used later, the
+standard tools that turn tensor identities into algorithms: identities
+among matrix multiplication, dot-product, and convolution tensors;
+composition and exactification of degenerations; and the pooled recursion,
+which turns a relative scheme \(r_*\MM_A\restr m_*\MM_B\) into an algorithm
+with exponent \(\log(r_*/m_*)/\log(B/A)\) (Lemma~\ref{lem:batch}).
 
-For a positive integer \(s\), the notation \(sT\) means the full direct sum of
-\(s\) copies of \(T\), with independent variables on all three legs.
-It does not mean scalar multiplication of the coefficients.
-Tensor products distribute over these direct sums.
-We abbreviate tensor products by juxtaposition when no confusion can arise.
-We never cancel a direct-sum multiplicity or a tensor factor from a
-restriction.
+\subsection{Tensors, restrictions, and leg permutations}
+\label{subsec:prelim-conventions}
 
-\begin{lemma}[Composition rules used below]\label{lem:composition}
-Suppose a triple of Laurent-polynomial linear substitutions \(\Psi_i(t)\)
-transforms a tensor \(A_i\) into
-\(G_i(t)=\sum_{d=0}^{D_i}t^dG_{i,d}\).
-Let \(P_i\) be a specified restriction with \(P_i(C_i)=A_i\), and
-let \(R_i\) be a triple of linear maps on the whole target variable spaces.
-If \(P_i,R_i\) are independent of \(t\), then
-\[
- R_i\Psi_i(t)P_i(C_i)=\sum_{d=0}^{D_i}t^dR_i(G_{i,d}).
-\]
-Their tensor product has degree at most \(\sum_iD_i\).
-Its constant coefficient is \(\bigotimes_iR_i(G_{i,0})\).
-Permuting the three legs preserves these statements.
-\end{lemma}
-\begin{proof}
-The first identity follows by substitution and linearity on the tensor
-space. In a tensor product of polynomials with nonnegative exponents,
-degrees add, and a term has degree zero exactly when every factor does.
-Permuting the legs only permutes the three substitution maps.
-\end{proof}
+All logarithms are natural, and all vector spaces are finite dimensional.
+We work over \(\C\); the coefficients used by the construction lie in a
+cyclotomic field (Theorem~\ref{thm:effective}). For a positive integer
+\(m\), \(\zeta_m\) denotes a primitive \(m\)-th root of unity.
 
-The square matrix multiplication tensor is
-\[
- \MM_d=\sum_{i,j,k=0}^{d-1}x_{ij}y_{jk}z_{ki}.
-\]
-Its third variables encode the output coordinates by duality.
-Let \(B_X(d)=x\sum_{i=0}^{d-1}y_i z_i\), and define \(B_Y(d)\) and
-\(B_Z(d)\) by permuting the legs. Relabeling coordinates gives
+A \emph{tensor} is a trilinear form in three disjoint groups of variables,
+called its \emph{legs}. We name the variables of legs \(1\), \(2\), and
+\(3\) with the letters \(x\), \(y\), and \(z\), respectively. The rank
+\(\R(T)\) of a tensor \(T\) is the least number of products of three linear
+forms, one in the variables of each leg, whose sum is \(T\). The
+\emph{flattening} of \(T\) along a leg is its coefficient matrix with rows
+indexed by the variables of that leg and columns indexed by pairs of
+variables of the other two legs; its rank is at most \(\R(T)\).
+
+We write \(T\restr T'\), and call \(T'\) a \emph{restriction} of \(T\), if
+linear substitutions on each leg transform \(T\) into \(T'\): every variable
+of \(T\) is replaced by a linear form in the variables of the same leg of
+\(T'\). We read a tensor as a bilinear map: its two arguments are the values
+of the variables of legs \(1\) and \(2\), and its result is the vector of
+coefficients of the variables of leg \(3\). In this reading, \(T\restr T'\)
+says that \(T'\) can be evaluated by applying linear maps to its two
+arguments, evaluating \(T\), and applying a linear map to the result. In
+particular \(\R(T')\le\R(T)\), and no flattening rank increases under
+restriction. We write \(T\cong T'\), and call the tensors
+\emph{isomorphic}, if \(T'\) arises from \(T\) by a bijection from the
+variables of each leg of \(T\) to the variables of the same leg of \(T'\);
+isomorphic tensors are restrictions of each other.
+
+For a positive integer \(m\), the tensor \(mT\) is the full direct sum of
+\(m\) copies of \(T\), with independent variables on all three legs;
+\(\oplus\) denotes full direct sums in general. Juxtaposition denotes the
+tensor product, whose leg-\(i\) variables are the products of the leg-\(i\)
+variables of the factors, and \(T^{\otimes n}\) is a tensor power. Tensor
+products distribute over direct sums, so that \((mT)T'\cong m(TT')\), and
+reordering the factors of a tensor product is an isomorphism.
+
+For \(\pi\in S_3\), the tensor \(T^\pi\) places leg \(i\) of \(T\) at
+position \(\pi(i)\), so that \((T^{\pi'})^{\pi}=T^{\pi\pi'}\). In a product
+such as \(T^\pi T'\), leg \(i\) of \(T\) lies
+in leg \(\pi(i)\) of the product; we call the legs of the product its
+\emph{global} legs. Let \(\mathcal A_+\) and \(\mathcal A_-\) be the sets of
+even and odd permutations, and write \((23)\) for the transposition of legs
+\(2\) and \(3\). Every identity of this paper also holds under the opposite
+convention (\(T^\pi\mapsto T^{\pi^{-1}}\), \(\pi\pi'\mapsto\pi'\pi\)):
+permutations enter only through the sets \(\mathcal A_\pm\), which are
+closed under inversion, and \(\pi\pi'\) and \(\pi'\pi\) lie in the same set
+because \(\mathcal A_+\) is normal in \(S_3\).
+
+\subsection{Matrix multiplication, dot-product, and convolution tensors}
+\label{subsec:prelim-tensors}
+
+The matrix multiplication tensor of side \(d\) is
+\(\MM_d=\sum_{\alpha,\beta,\gamma=0}^{d-1}
+x_{\alpha\beta}\,y_{\beta\gamma}\,z_{\gamma\alpha}\). As a bilinear map it
+multiplies the matrices \((x_{\alpha\beta})\) and
+\((y_{\beta\gamma})\): the coefficient of \(z_{\gamma\alpha}\) is the entry
+\((\alpha,\gamma)\) of their product. The \emph{dot-product tensors}
+\(B_X(d)=x\sum_{\gamma=0}^{d-1}y_\gamma z_\gamma\),
+\(B_Y(d)=y\sum_{\gamma=0}^{d-1}x_\gamma z_\gamma\), and
+\(B_Z(d)=z\sum_{\gamma=0}^{d-1}x_\gamma y_\gamma\) each have one leg with a
+single variable. Relabeling variables gives
 \begin{equation}\label{eq:matrix-products}
- \MM_d\MM_e\cong\MM_{de},\qquad
- B_X(d)B_Y(d)B_Z(d)\cong\MM_d.
+ \MM_d\MM_{d'}\cong\MM_{dd'},\qquad
+ B_X(d)B_Y(d)B_Z(d)\cong\MM_d .
 \end{equation}
-For example, the three paired indices in the second product can be taken
-as the row, inner, and column indices of matrix multiplication.
-Consequently the product of all six leg permutations of \(B_X(d)\)
-is \(\MM_{d^2}\).
+For the first, merge corresponding indices of the two factors. For the
+second, call the summation indices of \(B_X(d)\), \(B_Y(d)\), and
+\(B_Z(d)\) \(\gamma\), \(\alpha\), and \(\beta\); then the leg-\(1\),
+leg-\(2\), and leg-\(3\) variables of the product are determined by
+\((\alpha,\beta)\), \((\beta,\gamma)\), and \((\gamma,\alpha)\), and
+renaming them gives \(\MM_d\).
 
-The basic convolution tensor is
+The tensor \(B_X(d)^\pi\) has its single-variable leg at position
+\(\pi(1)\), and \(B_X(d)^{(23)}\cong B_X(d)\); hence \(B_X(d)^\pi\) is
+isomorphic to \(B_X(d)\), \(B_Y(d)\), or \(B_Z(d)\) according as
+\(\pi(1)\) is \(1\), \(2\), or \(3\). In each of
+\(\mathcal A_+=\{\mathrm{id},(123),(132)\}\) and
+\(\mathcal A_-=\{(12),(13),(23)\}\), the value \(\pi(1)\) runs through
+\(1,2,3\) once. By \eqref{eq:matrix-products}, therefore,
+\begin{equation}\label{eq:coset-dot-products}
+ \bigotimes_{\pi\in\mathcal A_\sigma}B_X(d)^\pi\cong\MM_d
+ \quad(\sigma\in\{+,-\}),\qquad
+ \bigotimes_{\pi\in S_3}B_X(d)^\pi\cong\MM_{d^2}.
+\end{equation}
+The construction uses the first identity, for the three orientations of one
+set \(\mathcal A_\sigma\); the second, for all six orientations, serves only
+the exact binary certificate of Appendix~\ref{sec:exact-certificate}.
+
+For positive integers \(r\) and \(b\), the \emph{convolution tensor} is
 \begin{equation}\label{eq:convolution}
- C(r,b)=\sum_{i=0}^{r-1}\sum_{j=0}^{b-1}x_i y_j z_{i+j}.
+ C(r,b)=\sum_{\alpha=0}^{r-1}\sum_{\beta=0}^{b-1}
+        x_\alpha\, y_\beta\, z_{\alpha+\beta}.
 \end{equation}
-It represents multiplication of polynomials of degrees at most \(r-1\)
-and \(b-1\). Put \(d=r+b-1\) and let \(\xi\) be a primitive
-\(d\)-th root of unity. Evaluation at \(\xi^\ell\) gives the explicit
-rank decomposition
-\begin{equation}\label{eq:convolution-rank}
- C(r,b)=\frac1d\sum_{\ell=0}^{d-1}
- \left(\sum_i\xi^{\ell i}x_i\right)
- \left(\sum_j\xi^{\ell j}y_j\right)
- \left(\sum_{h=0}^{d-1}\xi^{-\ell h}z_h\right).
-\end{equation}
-Indeed \(0\le i+j\le d-1\), so the Fourier sum selects exactly
-\(h=i+j\). The output flattening has rank \(d\), and hence
-\(\R(C(r,b))=d\).
+Its legs have \(r\), \(b\), and \(r+b-1\) variables. If \(x_\alpha\) and
+\(y_\beta\) are the coefficients of two polynomials with \(r\) and \(b\)
+coefficients, the bilinear map \(C(r,b)\) returns the \(r+b-1\) coefficients
+of their product. For \(r=1\), the tensor \(C(1,b)\) is \(B_X(b)\).
 
-For \(\pi\in S_3\), superscript \(\pi\) denotes a permutation of the
-legs. Let \(\mathcal A_+\) and \(\mathcal A_-\) be the even and odd
-permutations, respectively. Define
+The rank of \(C(r,b)\) is \(r+b-1\). To see this, put
+\(\zeta=\zeta_{r+b-1}\). Evaluation at the points \(\zeta^\ell\),
+followed by interpolation, gives the rank decomposition
+\begin{equation}\label{eq:convolution-rank}
+ C(r,b)=\frac1{r+b-1}\sum_{\ell=0}^{r+b-2}
+ \Bigl(\sum_{\alpha=0}^{r-1}\zeta^{\ell\alpha}x_\alpha\Bigr)
+ \Bigl(\sum_{\beta=0}^{b-1}\zeta^{\ell\beta}y_\beta\Bigr)
+ \Bigl(\sum_{\gamma=0}^{r+b-2}\zeta^{-\ell\gamma}z_\gamma\Bigr).
+\end{equation}
+Indeed, the coefficient of \(x_\alpha y_\beta z_\gamma\) on the right is
+\(1\) if \(\alpha+\beta\equiv\gamma\pmod{r+b-1}\) and \(0\) otherwise,
+and since \(\alpha+\beta\) and \(\gamma\) lie in \(\{0,\ldots,r+b-2\}\),
+the congruence forces \(\gamma=\alpha+\beta\). Conversely, the flattening
+of \(C(r,b)\) along leg \(3\) has rank \(r+b-1\), because the rows of the
+variables \(z_\gamma\) are nonzero and have disjoint supports. The tensors
+\(B_X(d)\) and \(C(r,b)\), the second identity in
+\eqref{eq:matrix-products}, and the rank of \(C(r,b)\) also appear
+in \citet[Sections~2 and~4]{OAI26}.
+
+Since Section~\ref{sec:maps} applies each relation simultaneously to the
+three oriented copies \(C(r,b)^\pi\), \(\pi\in\mathcal A_\sigma\), the
+construction tracks the \emph{symmetrized convolution tensors}
 \begin{equation}\label{eq:cyclic-def}
  S^\sigma_{r,b}=\bigotimes_{\pi\in\mathcal A_\sigma}C(r,b)^\pi,
  \qquad \sigma\in\{+,-\}.
 \end{equation}
-The three factors remain labeled even when some are isomorphic.
-The following identities are legwise coordinate permutations:
+We call \(\sigma\) the \emph{sign} of \(S^\sigma_{r,b}\), and we regard
+\(S^\sigma_{r,b}\) as a product of three factors indexed by
+\(\pi\in\mathcal A_\sigma\), also when some of these factors are
+isomorphic. These tensors satisfy
 \begin{equation}\label{eq:cyclic-identities}
  S^\sigma_{r,b}\cong S^{-\sigma}_{b,r},\qquad
  S^+_{r,r}\cong S^-_{r,r},\qquad
  S^\sigma_{1,b}\cong\MM_b,
  \qquad \R(S^\sigma_{r,b})\le(r+b-1)^3.
 \end{equation}
-Indeed swapping the inputs of \(C(r,b)\) gives \(C(b,r)\), and this
-odd permutation exchanges the two cosets. On the diagonal it also gives
-the second identity. Since \(C(1,b)=B_X(b)\), the three factors in
-either coset put its exceptional leg in each global position once;
-\eqref{eq:matrix-products} gives the third identity.
-The rank bound tensors the displayed evaluation decompositions.
-These isomorphisms do not exchange global legs of selected factors after
-they have been multiplied; they identify coordinates within each global leg.
+For the first identity, exchanging the first two legs of \(C(r,b)\) gives
+\(C(b,r)\), that is, \(C(b,r)=C(r,b)^{(12)}\). Hence
+\(S^{-\sigma}_{b,r}
+=\bigotimes_{\pi\in\mathcal A_{-\sigma}}\bigl(C(r,b)^{(12)}\bigr)^\pi
+=\bigotimes_{\pi\in\mathcal A_{-\sigma}}C(r,b)^{\pi(12)}\). As \(\pi\)
+runs through \(\mathcal A_{-\sigma}\), the product \(\pi(12)\), which has
+the opposite parity, runs through \(\mathcal A_\sigma\), so both sides have
+the same three factors in a different order. Taking \(b=r\) gives the second identity.
+For the third, \(C(1,b)=B_X(b)\), so \(S^\sigma_{1,b}\cong\MM_b\) by
+\eqref{eq:coset-dot-products}. The rank bound follows by tensoring three
+copies of \eqref{eq:convolution-rank}, since permuting legs does not change
+rank. For \(r,b\ge2\) with \(r\ne b\), these identities do not relate
+\(S^+_{r,b}\) to \(S^-_{r,b}\); Section~\ref{subsec:orientations} explains
+why the construction needs no such relation.
 
-For comparison with the exact binary certificate in
-Appendix~\ref{sec:exact-certificate}, put
-\begin{equation}\label{eq:balanced}
+Appendix~\ref{sec:exact-certificate}, which compares the construction with
+the exact binary certificate, uses the sixfold product \(Q_{r,b}\) below;
+its properties follow from \eqref{eq:cyclic-identities}
+and \eqref{eq:matrix-products}:
+\begin{gather}
  Q_{r,b}=S^+_{r,b}S^-_{r,b}
-        =\bigotimes_{\pi\in S_3}C(r,b)^\pi.
-\end{equation}
-Then
-\begin{equation}\label{eq:balanced-properties}
+        =\textstyle\bigotimes_{\pi\in S_3}C(r,b)^\pi ,
+ \label{eq:balanced}\\
  Q_{r,b}\cong Q_{b,r},\qquad
- \R(Q_{r,b})\le(r+b-1)^6,\qquad Q_{1,2}\cong\MM_4.
-\end{equation}
+ \R(Q_{r,b})\le(r+b-1)^6,\qquad Q_{1,2}\cong\MM_2\MM_2\cong\MM_4 .
+ \label{eq:balanced-properties}
+\end{gather}
 
-Arithmetic complexity counts scalar additions, subtractions, and
-multiplications, including multiplication by fixed coefficients.
-The algorithm may depend on a fixed exponent allowance \(\eps\), but
-not on the input dimension \(n\). Its constant preprocessing cost may
-depend on \(\eps\). This is an arithmetic-operation statement, not
-a bit-complexity or floating-point stability statement.
+\subsection{Degenerations and exactification}
+\label{subsec:prelim-degenerations}
 
-\begin{lemma}[Exactification]\label{lem:exactification}
-Suppose specified substitutions transform \(A\) into a polynomial
-\(G(t)=\sum_{h=0}^D t^hG_h\). For every positive integer \(k\),
-\[
- (kD+1)A^{\otimes k}\restr G_0^{\otimes k}.
-\]
+The local relations of Section~\ref{sec:maps} are degenerations: their maps
+depend on a parameter \(t\), and they produce the desired tensor only as the
+constant term of a polynomial in \(t\). The letter \(t\) denotes this
+parameter; as a subscript, as in \(M_{\mathrm t}\) and \(\mathcal I_t\), it
+abbreviates ``tripling''.
+
+Let \(T\) and \(T'\) be tensors and let \(D\ge0\) be an integer. We write
+\(T\degen T'\), and call this a \emph{degeneration of degree at most
+\(D\)}, if a triple \(\Psi(t)\) of linear maps, one on each leg, whose
+matrix entries are Laurent polynomials in \(t\), transforms \(T\) into a
+polynomial in \(t\) of degree at most \(D\) with tensor coefficients and
+constant term \(T'\); the entries of \(\Psi(t)\) may contain negative
+powers of \(t\), but the transformed tensor may not. Degenerations enter the
+construction only through the next two lemmas. Each local degeneration
+(Corollary~\ref{cor:oriented-relations}) is a type restriction, then a
+separator, then a reindexing, and Section~\ref{sec:extraction} tensors all
+of them with one parameter; Lemma~\ref{lem:composition} shows that maps independent of
+\(t\), applied before or after a degeneration, keep its degree bound, and
+that degree bounds add under tensor products.
+
+\begin{lemma}[Composition]\label{lem:composition}
+For each \(i\) in a finite index set, let \(\mathcal U_i\) be a tensor, let
+\(\mathsf T_i\) and \(\mathsf R_i\) be triples of linear maps that do not
+depend on \(t\), and let \(\mathsf S_i(t)\) be a triple of linear maps with
+Laurent-polynomial entries. Suppose that \(\mathsf S_i(t)\) transforms
+\(\mathsf T_i(\mathcal U_i)\) into a polynomial \(\widetilde T_i(t)\) in
+\(t\) of degree at most \(D_i\) with constant term \(\widetilde T_{i,0}\),
+and that \(\mathsf R_i\) is defined on all target variables of
+\(\mathsf S_i(t)\). Then the composite
+\(\mathsf R_i\circ\mathsf S_i(t)\circ\mathsf T_i\) transforms
+\(\mathcal U_i\) into the polynomial obtained by applying \(\mathsf R_i\) to
+each coefficient of \(\widetilde T_i(t)\), so
+\(\mathcal U_i\degen\mathsf R_i(\widetilde T_{i,0})\) with degree at most
+\(D_i\). Applying these composites to the factors of
+\(\bigotimes_i\mathcal U_i\), with one common parameter \(t\), gives a
+polynomial in \(t\) of degree at most \(\sum_iD_i\) with constant term
+\(\bigotimes_i\mathsf R_i(\widetilde T_{i,0})\).
+
+For \(\pi\in S_3\), let \(\mathsf T_i^\pi\), \(\mathsf S_i(t)^\pi\), and
+\(\mathsf R_i^\pi\) assign to leg \(\pi(l)\) the maps that \(\mathsf T_i\),
+\(\mathsf S_i(t)\), and \(\mathsf R_i\) assign to leg \(l\). Then
+\(\mathsf S_i(t)^\pi\circ\mathsf T_i^\pi\) transforms
+\(\mathcal U_i^\pi\) into \(\widetilde T_i(t)^\pi\), on which
+\(\mathsf R_i^\pi\) acts coefficient by coefficient as \(\mathsf R_i\)
+acts on \(\widetilde T_i(t)\). Hence both statements also hold with each
+\(\mathcal U_i\) replaced by \(\mathcal U_i^{\pi_i}\), for every choice of
+\(\pi_i\in S_3\).
 \end{lemma}
+
 \begin{proof}
-Set \(E=kD+1\) and take a primitive \(E\)-th root \(\eta\).
-The tensor polynomial \(G(t)^{\otimes k}\) has degree at most \(kD\).
-Thus
+Since \(\mathsf R_i\) is linear and independent of \(t\), it acts
+coefficient by coefficient. In the expanded tensor product the exponents of
+\(t\) add and are nonnegative, so the degree is at most \(\sum_iD_i\), and
+a term has exponent zero exactly when every factor contributes its constant
+term. Permuting legs reassigns the maps of each triple to other legs and
+changes no coefficient and no power of \(t\).
+\end{proof}
+
+\begin{lemma}[Exactification~\citep{Bini80}]\label{lem:exactification}
+Suppose that a triple \(\Psi(t)\) of linear maps with Laurent-polynomial
+entries transforms a tensor \(T\) into a polynomial \(\widetilde T(t)\) in
+\(t\) of degree at most \(D\) with constant term \(\widetilde T_0\). Then,
+for every positive integer \(k\),
 \[
- \frac1E\sum_{h=0}^{E-1}G(\eta^h)^{\otimes k}=G_0^{\otimes k}.
+ (kD+1)\,T^{\otimes k}\restr\widetilde T_0^{\otimes k}.
 \]
-Each evaluation uses one copy of \(A^{\otimes k}\); identifying its
-output variable groups and absorbing \(1/E\) into one leg gives the
-claimed restriction. Every evaluation point is nonzero, so Laurent
-substitutions cause no problem.
+With \(E=kD+1\), this restriction uses the maps
+\(\Psi(\zeta_E^\ell)^{\otimes k}\), \(0\le\ell<E\), and the scalar \(1/E\).
+\end{lemma}
+
+\begin{proof}
+Put \(E=kD+1\) and \(\zeta=\zeta_E\). Since \(\zeta^\ell\ne0\), the
+Laurent entries of \(\Psi\) can be evaluated at \(\zeta^\ell\), and
+\(\Psi(\zeta^\ell)^{\otimes k}\) transforms \(T^{\otimes k}\) into
+\(\widetilde T(\zeta^\ell)^{\otimes k}\). As \(\widetilde T(t)^{\otimes k}\)
+is a polynomial in \(t\) of degree at most \(kD=E-1\) with constant term
+\(\widetilde T_0^{\otimes k}\), and
+\(\sum_{\ell=0}^{E-1}\zeta^{\ell\eta}=0\) for \(0<\eta<E\),
+\[
+ \frac1E\sum_{\ell=0}^{E-1}\widetilde T(\zeta^\ell)^{\otimes k}
+ =\widetilde T_0^{\otimes k}.
+\]
+Apply the \(\ell\)-th triple to the \(\ell\)-th summand of
+\(E\,T^{\otimes k}\), send the copy of each target variable in every
+summand to that variable, which turns the direct sum of the \(E\) images
+into their sum, and multiply the map on one leg by \(1/E\). All these maps
+are linear on each leg, so \(E\,T^{\otimes k}\restr\widetilde
+T_0^{\otimes k}\).
+\end{proof}
+
+\subsection{From relative schemes to algorithms}
+\label{subsec:relative-schemes}
+
+We measure algorithms by their arithmetic cost: the number of additions,
+subtractions, and multiplications of field elements, including
+multiplications by fixed coefficients. An algorithm may depend on a fixed
+exponent allowance \(\eps\) but not on the input dimension \(n\); its fixed
+coefficients are computed once, in a preprocessing step whose cost depends
+on \(\eps\) only.
+
+\begin{definition}[Relative scheme]\label{def:relative-scheme}
+A \emph{relative scheme} is a restriction
+\(r_*\MM_A\restr m_*\MM_B\), given by its three linear maps, where
+\(r_*\), \(m_*\), \(A\), and \(B\) are positive integers with \(B>A\). We
+call \(A\) its \emph{source side}, \(B\) its \emph{target side}, and
+\[
+ p=\frac{\log(r_*/m_*)}{\log(B/A)}
+\]
+its \emph{pooled exponent}.
+\end{definition}
+
+In the bilinear reading of Section~\ref{subsec:prelim-conventions}, a
+relative scheme computes \(m_*\) independent products of \(B\times B\)
+matrices from \(r_*\) products of \(A\times A\) matrices whose inputs are
+formed, and whose results are combined, by linear maps. Grouping the
+\(r_*\) products created by one batch only among themselves would give the
+exponent \((\log\lceil r_*/m_*\rceil)/\log(B/A)\); pooling all products
+of one recursion depth removes the ceiling.
+
+\begin{lemma}[Pooled recursion]\label{lem:batch}
+Let \(r_*\MM_A\restr m_*\MM_B\) be a relative scheme with pooled exponent
+\(p\). Then \(p\ge2\). The scheme yields a fixed arithmetic algorithm that
+multiplies \(n\times n\) matrices with \(O(n^p)\) operations if \(p>2\),
+and with \(O(n^2\log n)\) operations if \(p=2\); the implied constants
+depend only on the scheme. Apart from multiplications by fixed
+coefficients, every multiplication in this algorithm multiplies a linear
+form in the entries of the left input matrix by a linear form in the
+entries of the right input matrix.
+\end{lemma}
+
+\begin{proof}
+The idea is to pool all products of one recursion depth, which have the
+same side, and to cut them into batches of \(m_*\) regardless of which
+batch created them; their number then grows by the factor \(r_*/m_*\) per
+depth, up to one partly filled batch, while the side shrinks by the factor
+\(A/B\).
+
+\emph{Step 1: \(p\ge2\).} The flattening of \(\MM_A\) along leg \(1\) has
+rank \(A^2\), because the rows of the variables \(x_{\alpha\beta}\) are
+nonzero and have disjoint supports. Flattening ranks add over direct sums
+and do not increase under restriction, so \(r_*A^2\ge m_*B^2\). Thus
+\(r_*/m_*\ge(B/A)^2>1\), which gives \(p\ge2\) and \(r_*>m_*\).
+
+\emph{Step 2: the recursion.} Put \(\rho=A/B<1\) and
+\(n_\infty=A/(1-\rho)\), and call \(n_*=\lceil n_\infty\rceil+1\) the
+\emph{leaf threshold}. At depth \(\ell\) the pooled recursion holds
+\(\nu_\ell\) products of \(n_\ell\times n_\ell\) matrices, starting from
+\(\nu_0=1\) and \(n_0=n\). If \(n_\ell\le n_*\), then \(\ell\) is the last
+depth, denoted \(\ell_{\max}\), and its products are computed by the
+classical algorithm. If \(n_\ell>n_*\), the products are cut into
+\(\lceil\nu_\ell/m_*\rceil\) batches of \(m_*\), the last one filled up
+with products of zero matrices, and each input matrix is padded with zeros
+to side \(B\lceil n_\ell/B\rceil\) and cut into a \(B\times B\) array of
+blocks of side \(\lceil n_\ell/B\rceil\). A batch is then an instance of
+\(m_*\MM_B\) whose entries are blocks; the maps of the scheme on legs \(1\)
+and \(2\) form from it the inputs of \(r_*\) products of side
+\(A\lceil n_\ell/B\rceil\), and the map on leg \(3\) forms the \(m_*\)
+outputs from their results. This is valid for blocks: the scheme is an
+identity of trilinear forms with scalar coefficients in which each product
+has a linear form in the left input before one in the right input, so it
+holds over the noncommutative ring of block matrices. Therefore
+\begin{equation}\label{eq:pooled-recurrence}
+ \nu_{\ell+1}=r_*\lceil\nu_\ell/m_*\rceil
+ \le\frac{r_*}{m_*}\nu_\ell+r_*,
+ \qquad
+ n_{\ell+1}=A\lceil n_\ell/B\rceil .
+\end{equation}
+Apart from the products, the work at a depth \(\ell<\ell_{\max}\)
+(padding, cutting into blocks, the fixed linear maps on at most
+\(\nu_\ell\) batches of blocks of side \(\lceil n_\ell/B\rceil\le n_\ell\),
+and removing the padding) takes \(O(\nu_\ell n_\ell^2)\) operations, since
+\(B\lceil n_\ell/B\rceil<n_\ell+B\).
+
+The computation runs in two passes: a downward pass forms the inputs and
+records the batches depth by depth, the products at depth \(\ell_{\max}\)
+are computed classically, and an upward pass applies the output maps depth
+by depth, discarding the padding and the zero products. Inputs at depth
+\(\ell+1\) depend only on inputs at depth \(\ell\), and outputs at
+depth \(\ell\) only on outputs at depth \(\ell+1\), so products created
+by different batches may share a batch.
+
+\emph{Step 3: counts and depths.} Since \(r_*>m_*\), induction
+on~\eqref{eq:pooled-recurrence} with the geometric sum
+\(\sum_{\ell'<\ell}(r_*/m_*)^{\ell'}\le(r_*/m_*)^\ell m_*/(r_*-m_*)\) gives
+\(\nu_\ell\le\bigl(1+\frac{r_*m_*}{r_*-m_*}\bigr)(r_*/m_*)^\ell\); as
+\(r_*/m_*=\rho^{-p}\) by the definition of \(p\), this is
+\(\nu_\ell=O(\rho^{-p\ell})\). For the sides,
+\(n_\ell/B\le\lceil n_\ell/B\rceil<n_\ell/B+1\) gives
+\(\rho n_\ell\le n_{\ell+1}<\rho n_\ell+A\), and since
+\(A=(1-\rho)n_\infty\), the upper bound reads
+\(n_{\ell+1}-n_\infty<\rho(n_\ell-n_\infty)\). Hence
+\[
+ \rho^\ell n\le n_\ell<n_\infty+\rho^\ell n .
+\]
+If depth \(\ell\) is not the last one, then \(n_\ell>n_*\ge n_\infty+1\),
+so \(\rho^\ell n>n_\ell-n_\infty>1\); as \(\rho^\ell n\to0\), the
+recursion stops. Taking \(\ell=\ell_{\max}-1\) gives
+\(\rho^{\ell_{\max}}n>\rho\), which also holds for \(\ell_{\max}=0\)
+because \(n\ge1>\rho\); and \(\rho^{\ell_{\max}}n\le n_{\ell_{\max}}\le
+n_*\). Thus
+\[
+ \rho<\rho^{\ell_{\max}}n\le n_*,\qquad\text{so}\qquad
+ \ell_{\max}=\log_{1/\rho}n+O(1).
+\]
+
+\emph{Step 4: total cost.} Each classical product at the last depth costs
+at most \(2n_*^3\) operations, so the leaves cost
+\(O(\nu_{\ell_{\max}})=O(\rho^{-p\ell_{\max}})\). By Steps 2 and 3, and
+since \(n_\ell^2\le2n_\infty^2+2\rho^{2\ell}n^2\), the work at a depth
+\(\ell<\ell_{\max}\) is \(O(\rho^{-p\ell}+\rho^{(2-p)\ell}n^2)\).
+Including the last depth, the total cost is therefore
+\[
+ O\Bigl(\sum_{\ell=0}^{\ell_{\max}}
+ \bigl(\rho^{-p\ell}+\rho^{(2-p)\ell}n^2\bigr)\Bigr).
+\]
+The first sum is geometric with ratio \(\rho^{-p}>1\), hence
+\(O(\rho^{-p\ell_{\max}})=O\bigl(n^p(\rho^{\ell_{\max}}n)^{-p}\bigr)\). If
+\(p>2\), the second sum is geometric with ratio \(\rho^{2-p}>1\), hence
+\(O(\rho^{(2-p)\ell_{\max}}n^2)=O\bigl(n^p(\rho^{\ell_{\max}}n)^{2-p}\bigr)\).
+Both are \(O(n^p)\) because \(\rho^{\ell_{\max}}n>\rho\). If \(p=2\), each
+of the \(\ell_{\max}+1=O(\log n)\) terms of the second sum equals \(n^2\).
+
+\emph{Step 5: bilinearity.} Padding, cutting into blocks, batching, and the
+maps of the scheme on legs \(1\) and \(2\) act linearly and separately on
+left and right inputs, so by induction on the depth every entry of a left
+(right) input at every depth is a linear form in the entries of the
+original left (right) input. The classical algorithm at the last depth
+multiplies an entry of a left input by an entry of a right input, and all
+other multiplications are by fixed coefficients.
 \end{proof}

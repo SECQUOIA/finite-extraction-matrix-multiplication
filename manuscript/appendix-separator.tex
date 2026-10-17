@@ -1,43 +1,187 @@
-\section{Sparse exactification and a two-power refinement}
+\section{The general separator and exactification of one separator}
 \label{subsec:sparse}
 
-These refinements explain which costs of a separator can be reduced.
-The general extraction in Section~\ref{sec:extraction} uses the simpler degree bound of
-Lemma~\ref{lem:exactification}.
-If \(G(t)=\sum_{s\in E}t^sG_s\), with finite nonnegative integer
-support \(E\) containing zero, define
-\[
- P(z)=\prod_{s\in E\setminus\{0\}}\frac{z-2^s}{1-2^s}
-      =\sum_{j=0}^{|E|-1}\alpha_jz^j.
-\]
-Then \(\sum_j\alpha_jG(2^j)=G_0\). This gives an exact rational
-interpolation formula using \(|E|\) evaluations. For a separator,
-each evaluation uses \(L\) source copies, for a total of \(L|E|\).
-For one separator, applying this prescription to the guaranteed support
-set \(\{cd^2:0\le d\le d_*\}\) cannot improve on direct copying:
-the prescribed count satisfies
-\begin{equation}\label{eq:one-power-limit}
- L(d_*+1)\ge MK_0.
-\end{equation}
-If \(d_*=M-1\), use \(L\ge K_0\). Otherwise
-\(d_*+1=\lceil K_0/c\rceil\), and
-\(L(d_*+1)\ge K_0(d_*+1)+K_0(M-1)\ge MK_0\).
-Direct copying uses one source for each pair \((h,u)\), and restricts
-that source to sector \(h\). Equation~\eqref{eq:one-power-limit} concerns
-these particular copy counts, not all possible exactifications.
+This appendix proves the separator with a dot-product dimension \(K_0\)
+and a phase slope \(c\), and compares three ways of turning a single
+separator into a restriction: sparse interpolation, direct copying, and,
+for its tensor square, an average over a prime number of roots of unity.
+The construction of Section~\ref{sec:extraction} uses none of this: it
+needs only the case \(K_0=M\), \(c=1\) (Proposition~\ref{prop:separator}),
+and it exactifies the whole catalytic degeneration of
+Proposition~\ref{prop:catalytic} by Lemma~\ref{lem:exactification}.
 
-A smaller exact projection is possible for two powers of the separator
-polynomial \(G\). If a prime \(q\)
-satisfies \(q>d_*\), \(q\equiv3\pmod4\), and \(q\nmid c\), then
-for a primitive \(q\)-th root \(\eta\),
-\begin{equation}\label{eq:two-power}
- \frac1q\sum_{j=0}^{q-1}G(\eta^j)^{\otimes2}=G_0^{\otimes2}.
+\subsection{The separator with general parameters}
+
+Let \(T=\sum_{g=0}^{M-1}T_g\) be a tensor with \(M\) sectors sharing the
+first leg \(X\), with coordinates \(x_\alpha\), \(y_{g,\beta}\),
+\(z_{g,\gamma}\) and coefficients \(T_g[\alpha,\beta,\gamma]\) as in the
+proof of Proposition~\ref{prop:separator}. For positive integers \(K_0\)
+and \(c\), put
+\begin{equation}\label{eq:separator-parameters}
+ L_0=K_0+c(M-1),\qquad
+ \delta_*=\min\Bigl(M-1,\Bigl\lfloor\frac{K_0-1}{c}\Bigr\rfloor\Bigr).
 \end{equation}
-Indeed a surviving exponent would require
-\(d_1^2+d_2^2\equiv0\pmod q\). Since \(-1\) is not a square
-modulo \(q\), both \(d_i\) vanish modulo \(q\), hence are zero.
-For \(M=K_0=8,c=1\), one can use \(L=15,q=11\), giving
-\(11\cdot15^2=2475\) source copies for the squared tensor, compared
-with \(8^4=4096\) by direct copying.
-No unbounded prime search is needed for the main result: the general
-degree projection is always available.
+For \(K_0=M\) and \(c=1\) these are \(L_0=2M-1\) and \(\delta_*=M-1\), and
+the next proposition is Proposition~\ref{prop:separator}.
+
+\begin{proposition}[General separator]\label{prop:separator-general}
+Let \(T\), \(K_0\), \(c\), \(L_0\) and \(\delta_*\) be as above. The
+substitutions in the proof, whose entries are Laurent polynomials in
+\(t\), transform \(L_0T\) into a polynomial \(\widetilde T(t)\) whose
+exponents lie in \(\{c\delta^2:0\le\delta\le\delta_*\}\) and whose
+constant term is \(\widetilde T_0=\bigoplus_gT_gB_X(K_0)\). In particular,
+\begin{equation}\label{eq:separator-general}
+ L_0T\degen\bigoplus_{g=0}^{M-1}T_gB_X(K_0),
+\end{equation}
+with degree at most \(c\delta_*^2\). After a permutation of the legs, the
+same holds when the shared leg is the second or the third leg.
+\end{proposition}
+
+\begin{proof}
+We follow the proof of Proposition~\ref{prop:separator} with
+\(\zeta=\zeta_{L_0}\), source copies \(\ell=0,\ldots,L_0-1\), and target
+variables \(X_{\alpha,g'}\), \(Y_{g,\beta,e}\), \(Z_{g,\gamma,e'}\) with
+\(0\le g'\le M-1\) and \(0\le e,e'\le K_0-1\). In copy \(\ell\) substitute
+\[
+ x_\alpha\mapsto\sum_{g'}\zeta^{\ell cg'}t^{cg'^2}X_{\alpha,g'},\quad
+ y_{g,\beta}\mapsto\sum_{e}\zeta^{\ell(e-cg)}t^{2ge-cg^2}Y_{g,\beta,e},\quad
+ z_{g,\gamma}\mapsto\frac1{L_0}\sum_{e'}\zeta^{-\ell e'}t^{-2ge'}
+ Z_{g,\gamma,e'}.
+\]
+Summing over \(\ell\), the term \(x_\alpha y_{g,\beta}z_{g,\gamma}\)
+contributes to the coefficient of \(X_{\alpha,g'}Y_{g,\beta,e}Z_{g,\gamma,e'}\)
+a power of \(t\) times the average over \(\ell\) of
+\(\zeta^{\ell(e-e'+c(g'-g))}\), which is \(1\) if \(L_0\) divides
+\(e-e'+c(g'-g)\) and \(0\) otherwise. Since
+\(|e-e'+c(g'-g)|\le(K_0-1)+c(M-1)=L_0-1\), the surviving terms are exactly
+those with \(e-e'=c(g-g')\). On them the exponent of \(t\) is
+\(cg'^2+2g(e-e')-cg^2=cg'^2+2cg(g-g')-cg^2=c(g'-g)^2\). Hence the sum
+of the images of the \(L_0\) copies is the polynomial
+\[
+ \widetilde T(t)=\sum_{\substack{g,g',e,e'\\e-e'+c(g'-g)=0}}t^{c(g'-g)^2}
+ \sum_{\alpha,\beta,\gamma}T_g[\alpha,\beta,\gamma]\,
+ X_{\alpha,g'}Y_{g,\beta,e}Z_{g,\gamma,e'}.
+\]
+The exponent vanishes exactly when \(g'=g\), and then \(e=e'\); as in
+Step~3 of the proof of Proposition~\ref{prop:separator}, these terms form
+\(\bigoplus_gT_gB_X(K_0)\). For every surviving term, \(\delta=|g'-g|\)
+satisfies \(\delta\le M-1\) and \(c\delta=|e-e'|\le K_0-1\), so \(\delta\le\delta_*\).
+Permuting the legs permutes the three substitution maps.
+\end{proof}
+
+The two parameters trade source copies against sparsity of the exponent
+support: increasing \(c\) by one adds \(M-1\) source copies and never
+increases the number \(\delta_*+1\) of possible exponents, which drops
+below \(M\) once \(c(M-1)>K_0-1\).
+
+\subsection{Sparse exactification and direct copying}
+
+With \(k=1\), Lemma~\ref{lem:exactification} uses \(D+1\) evaluations for
+a polynomial of degree at most \(D\). When the polynomial has few distinct
+exponents, fewer evaluations suffice.
+
+\begin{lemma}[Sparse exactification]\label{lem:sparse-exactification}
+Suppose that a triple \(\Psi(t)\) of linear maps with Laurent-polynomial
+entries transforms a tensor into
+\(\widetilde T(t)=\sum_{\eta\in\mathcal E}t^\eta\widetilde T_\eta\), where
+\(\mathcal E\) is a finite set of nonnegative integers that contains \(0\).
+Then the direct sum of \(|\mathcal E|\) copies of that tensor restricts to
+\(\widetilde T_0\), with rational interpolation coefficients.
+\end{lemma}
+
+\begin{proof}
+The polynomial
+\(\psi(u)=\prod_{\eta\in\mathcal E\setminus\{0\}}(u-2^\eta)/(1-2^\eta)
+=\sum_{\iota=0}^{|\mathcal E|-1}\psi_\iota u^\iota\) has rational
+coefficients, \(\psi(1)=1\), and \(\psi(2^\eta)=0\) for every
+\(\eta\in\mathcal E\setminus\{0\}\). Hence
+\(\sum_\iota\psi_\iota\widetilde T(2^\iota)
+=\sum_{\eta\in\mathcal E}\psi(2^\eta)\widetilde T_\eta=\widetilde T_0\).
+Each \(\widetilde T(2^\iota)\) is the image of one copy of the source
+tensor under \(\Psi(2^\iota)\), which is defined because \(2^\iota\ne0\).
+Sending the \(|\mathcal E|\) copies to the common target variables and
+absorbing \(\psi_\iota\) into one leg of copy \(\iota\) gives the
+restriction.
+\end{proof}
+
+For a separator the source is \(L_0T\), and by
+Proposition~\ref{prop:separator-general} the exponent support has
+\(\delta_*+1\) elements. Lemma~\ref{lem:sparse-exactification} therefore
+gives a restriction from \(L_0(\delta_*+1)\) copies of \(T\) to
+\(\bigoplus_gT_gB_X(K_0)\).
+
+Direct copying reaches the same target from \(MK_0\) copies of \(T\) by a
+restriction, with no parameter \(t\). Take one copy of \(T\) for each pair
+\((g,e)\) with \(0\le g\le M-1\) and \(0\le e\le K_0-1\), restrict it to
+sector \(g\) by setting the coordinates of the other sectors to zero, and
+map \(x_\alpha\mapsto X_{\alpha,g}\), \(y_{g,\beta}\mapsto Y_{g,\beta,e}\)
+and \(z_{g,\gamma}\mapsto Z_{g,\gamma,e}\). For fixed \(g\), the \(K_0\)
+copies keep separate second and third legs but share the first leg, so
+together they form \(T_gB_X(K_0)\); different values of \(g\) use
+different variables on all three legs. This gives
+\(MK_0\,T\restr\bigoplus_gT_gB_X(K_0)\).
+
+Sparse exactification of one separator never uses fewer copies than direct
+copying:
+\begin{equation}\label{eq:one-power-limit}
+ L_0(\delta_*+1)\ge MK_0.
+\end{equation}
+If \(\delta_*=M-1\), this follows from \(L_0\ge K_0\). Otherwise
+\(\delta_*=\lfloor(K_0-1)/c\rfloor\), so \(\delta_*+1=\lceil K_0/c\rceil\)
+and \(c(\delta_*+1)\ge K_0\); hence
+\(L_0(\delta_*+1)=K_0(\delta_*+1)+c(\delta_*+1)(M-1)\ge K_0+K_0(M-1)=MK_0\).
+The two-power refinement below shows that the tensor square of a
+separator can be made exact with fewer copies than direct copying needs.
+
+In the main construction direct copying would be too expensive. With
+\(K_0=M_i\), it uses \(M_i^2\) source copies in each of the three
+orientations of relation \(i\), so \(M_i^6\) in all, against \(M_i^3\)
+output copies: a ratio \(M_i^3\) instead of \((2M_i-1)^3/M_i^3<8\). The copy
+overhead would be \(3\sum_i\log M_i\), three times the contribution
+\(\sum_i\log M_i\) of the separators to \(\log B_1\), instead of less than
+\(3I\log2\) by~\eqref{eq:finite-cost-bounds}.
+
+\subsection{A two-power refinement}
+
+For the tensor square of the separator polynomial
+\(\widetilde T(t)\) of Proposition~\ref{prop:separator-general}, an
+average over a prime number of roots of unity removes all terms of
+positive degree. Let \(\mathfrak p\) be a prime with
+\(\mathfrak p>\delta_*\), \(\mathfrak p\equiv3\pmod 4\) and
+\(\mathfrak p\nmid c\); such primes exist, since there are infinitely many
+primes congruent to \(3\) modulo \(4\). Let \(\zeta_{\mathfrak p}\) be a
+primitive \(\mathfrak p\)-th root of unity. Then
+\begin{equation}\label{eq:two-power}
+ \frac1{\mathfrak p}\sum_{\iota=0}^{\mathfrak p-1}
+ \widetilde T(\zeta_{\mathfrak p}^\iota)^{\otimes2}=\widetilde T_0^{\otimes2}.
+\end{equation}
+Indeed, write
+\(\widetilde T(t)=\sum_{\delta=0}^{\delta_*}t^{c\delta^2}\widetilde T_{c\delta^2}\),
+where some coefficients may vanish. Then \(\widetilde T(t)^{\otimes2}\) is
+the sum of the terms
+\(t^{c(\delta_1^2+\delta_2^2)}\,\widetilde T_{c\delta_1^2}\otimes
+\widetilde T_{c\delta_2^2}\) with \(0\le\delta_1,\delta_2\le\delta_*\),
+and the average in~\eqref{eq:two-power} keeps exactly those with
+\(\mathfrak p\mid c(\delta_1^2+\delta_2^2)\). Since \(\mathfrak p\nmid c\),
+such a term has \(\delta_1^2+\delta_2^2\equiv0\pmod{\mathfrak p}\). If
+\(\mathfrak p\nmid\delta_1\), then \((\delta_2\delta_1^{-1})^2\equiv-1
+\pmod{\mathfrak p}\), which is impossible because \(-1\) is not a square
+modulo a prime congruent to \(3\) modulo \(4\). Hence
+\(\mathfrak p\mid\delta_1\), and then \(\mathfrak p\mid\delta_2\). As
+\(0\le\delta_1,\delta_2\le\delta_*<\mathfrak p\), both vanish, and only
+\(\widetilde T_0\otimes\widetilde T_0\) remains. Each evaluation
+\(\widetilde T(\zeta_{\mathfrak p}^\iota)^{\otimes2}\) is the image of
+\((L_0T)^{\otimes2}=L_0^2\,T^{\otimes2}\) under the tensor square of the
+substitutions, so, as in the proof of
+Lemma~\ref{lem:sparse-exactification},
+\(\mathfrak p\,L_0^2\,T^{\otimes2}\restr
+(\bigoplus_gT_gB_X(K_0))^{\otimes2}\).
+
+For example, let \(M=K_0=8\) and \(c=1\). Then \(L_0=15\) and
+\(\delta_*=7\), and the smallest admissible prime is \(\mathfrak p=11\).
+The restriction above uses \(11\cdot15^2=2475\) copies of \(T^{\otimes2}\).
+Direct copying applied to \(T^{\otimes2}\), which has \(M^2\) sectors and
+needs a dot product of dimension \(K_0^2\), uses \((MK_0)^2=8^4=4096\)
+copies. Lemma~\ref{lem:exactification} with \(k=2\) and degree
+\(c\delta_*^2=49\) would need \(2\cdot49+1=99\) evaluations, that is,
+\(99\cdot15^2=22275\) copies.

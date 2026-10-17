@@ -1,0 +1,209 @@
+\section{Notation}
+\label{sec:notation}
+
+{\small
+This appendix lists the symbols that keep one meaning across sections,
+each with the place where it is defined. Notation local to
+Section~\ref{sec:maps}, namely the binary forms, the filtration, words,
+types and the separator variables, is defined there and reused in
+Appendices~\ref{sec:composed-maps} and~\ref{subsec:sparse}.
+Appendix~\ref{sec:exact-certificate} reuses the names of the walk and the
+counts for its binary certificate, as stated at its start. Some letters
+also have a local meaning. In sums \(\sum_{j=0}^h\) over the children of
+a split, and as the filtration index (Sections~\ref{sec:maps}
+and~\ref{sec:flows}, Appendix~\ref{sec:composed-maps}), \(j\) is
+unrelated to the reuse count. In Section~\ref{sec:maps},
+Appendix~\ref{subsec:sparse} and the heuristic of
+Section~\ref{subsec:intro-heuristic}, \(M\) is the sector count of a
+single relation. The lifts \(L_{c,h}(i)\) of Section~\ref{sec:maps} are
+unrelated to \(L_i\) and \(L\). In Section~\ref{sec:maps}, \(c\) counts
+coefficients, and in Appendix~\ref{subsec:sparse} it is a phase slope;
+neither is related to the catalyst multiplicities \(c_{\sigma,r,b}\). The
+degree bound \(D\) and the relative entropy \(D(\cdot\Vert\cdot)\) are
+distinguished by their arguments.
+
+\subsection*{Tensors and operations}
+\raggedright
+
+\begin{list}{}{\setlength{\leftmargin}{0.22\textwidth}%
+ \setlength{\labelwidth}{0.2\textwidth}\setlength{\labelsep}{0.02\textwidth}%
+ \setlength{\itemsep}{1pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}%
+ \renewcommand{\makelabel}[1]{#1\hfil}}
+\item[\(\omega\)] exponent of matrix multiplication
+ (\S\ref{sec:introduction})
+\item[\(\R(T)\)] rank of the tensor \(T\) (\S\ref{subsec:prelim-conventions})
+\item[\(t\)] degeneration parameter (\S\ref{subsec:prelim-degenerations})
+\item[\(T\restr T'\)] restriction: linear maps on the three legs turn
+ \(T\) into \(T'\) (\S\ref{subsec:prelim-conventions})
+\item[\(T\degen T'\)] degeneration: substitutions depending on the
+ parameter \(t\) turn \(T\) into a polynomial in \(t\) with constant term
+ \(T'\) (\S\ref{subsec:prelim-degenerations})
+\item[\(mT\)] direct sum of \(m\) copies of \(T\), with independent
+ variables on all three legs (\S\ref{subsec:prelim-conventions})
+\item[\(T^\pi\)] leg permutation: leg \(i\) of \(T\) moves to position
+ \(\pi(i)\), for \(\pi\in S_3\) (\S\ref{subsec:prelim-conventions})
+\item[\(\mathcal A_+\), \(\mathcal A_-\), \((23)\)] even and odd
+ permutations in \(S_3\); the transposition of legs \(2\) and \(3\)
+ (\S\ref{subsec:prelim-conventions})
+\item[\(\zeta_m\)] primitive \(m\)-th root of unity
+ (\S\ref{subsec:prelim-conventions})
+\item[\(\MM_d\)] matrix multiplication tensor of side \(d\)
+ (\S\ref{subsec:prelim-tensors})
+\item[\(B_X(d)\), \(B_Y(d)\), \(B_Z(d)\)] dot-product tensors of
+ dimension \(d\); the subscript names the leg with a single variable
+ (\S\ref{subsec:prelim-tensors})
+\item[\(C(r,b)\)] convolution tensor: multiplication of polynomials with
+ \(r\) and \(b\) coefficients \eqref{eq:convolution}
+\item[\(S^\sigma_{r,b}\)] symmetrized convolution tensor
+ \(\bigotimes_{\pi\in\mathcal A_\sigma}C(r,b)^\pi\), with sign
+ \(\sigma\in\{+,-\}\) \eqref{eq:cyclic-def}
+\item[\(Q_{r,b}\)] sixfold product
+ \(S^+_{r,b}S^-_{r,b}=\bigotimes_{\pi\in S_3}C(r,b)^\pi\)
+ \eqref{eq:balanced}
+\end{list}
+
+\subsection*{Profile}
+
+\begin{list}{}{\setlength{\leftmargin}{0.22\textwidth}%
+ \setlength{\labelwidth}{0.2\textwidth}\setlength{\labelsep}{0.02\textwidth}%
+ \setlength{\itemsep}{1pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}%
+ \renewcommand{\makelabel}[1]{#1\hfil}}
+\item[\(P\)] a profile: positive symmetric function satisfying the
+ normalization, concavity and tripling axioms
+ (Definition~\ref{def:profile})
+\item[\(F\), \(s_m\)] least profile;
+ \(s_m=\prod_{h=1}^{m-1}\bigl(1+\frac1{3h}\bigr)\)
+ \eqref{eq:profile-formula}
+\item[\(\tau_a\)] profile exponent \(3\log(2a-1)/\log F(a,a)\)
+ (\S\ref{subsec:intro-heuristic})
+\end{list}
+
+\subsection*{Row walk and integer counts}
+
+\begin{list}{}{\setlength{\leftmargin}{0.22\textwidth}%
+ \setlength{\labelwidth}{0.2\textwidth}\setlength{\labelsep}{0.02\textwidth}%
+ \setlength{\itemsep}{1pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}%
+ \renewcommand{\makelabel}[1]{#1\hfil}}
+\item[\(\mathbf e_x\)] standard basis vector of state \(x\)
+ \eqref{eq:row-flow}
+\item[\(H\), \(D(\cdot\Vert\cdot)\)] Shannon entropy and relative entropy,
+ with natural logarithms (\S\ref{subsec:entropy-loss})
+\item[\(a\)] target index, an integer \(a\ge2\)
+ (\S\ref{subsec:intro-results})
+\item[\(r\), \(b\)] row and column: the two lengths of \(C(r,b)\) and
+ \(S^\sigma_{r,b}\); the walk uses the rows \(2\le r\le a\)
+ (\S\ref{subsec:row-walk})
+\item[\(x\), \(y\)] states \(0,\ldots,3r\) of row \(r\); state \(x\) is
+ column \(b=r-1+x\) (\S\ref{subsec:row-walk})
+\item[\(\sigma_r\)] sign \((-1)^{a-r}\) of row \(r\)
+ (\S\ref{subsec:row-walk})
+\item[\(f_r(x)\)] \(\frac{3(r-1)}2+x\), so that
+ \(F(r,r-1+x)=s_rf_r(x)\) \eqref{eq:affine-row}
+\item[\(h_{r,x}\), \(d_{r,x}\)] width \(\min(x,3r-x)\) and auxiliary
+ dimension \(h_{r,x}+1\) of the split at state \(x\)
+ \eqref{eq:multiway-probabilities}
+\item[\(\mathcal Y_{r,x}\)] children
+ \(\{x-h_{r,x},x-h_{r,x}+2,\ldots,x+h_{r,x}\}\) of the split at
+ \((r,x)\) \eqref{eq:multiway-probabilities}
+\item[\(q_{r,x,y}\)] probability that the split at state \(x\) moves to
+ child \(y\) \eqref{eq:multiway-probabilities}
+\item[\(\xin_r\)] injection state of row \(r\): \(\xin_a=1\), and
+ \(\xin_r=2\) for \(r<a\) (\S\ref{subsec:row-walk})
+\item[\(\lambda_{r,x}\), \(\mu_r\)] occupation: expected number of
+ splits at state \(x\) of row \(r\); expected number of triplings in
+ row \(r\) (Definition~\ref{def:row-walk})
+\item[\(\Gamma_a\)] \(105+180(a-2)\), bound for
+ \(\sum_{r,x}\lambda_{r,x}\) and for
+ \(\sum_{r,x}\lambda_{r,x}\log d_{r,x}\)
+ (Proposition~\ref{prop:occupations})
+\item[\(K\)] rounding scale, a positive integer
+ (\S\ref{subsec:rounded-counts})
+\item[\(n_{r,x,y}\), \(w_{r,x}\)] number of splits at \((r,x)\) with
+ child \(y\); number \(w_{r,x}=\sum_yn_{r,x,y}\) of splits at
+ \((r,x)\) (\S\ref{subsec:rounded-counts})
+\item[\(z_r\)] number of triplings in row \(r\)
+ (\S\ref{subsec:rounded-counts})
+\item[\(\bar w\), \(\bar z\)] totals \(\sum_{r,x}w_{r,x}\) and
+ \(\sum_rz_r\) (\S\ref{subsec:rounded-counts})
+\item[\(W\)] \(\sum_{r,x}w_{r,x}\log d_{r,x}\)
+ (\S\ref{subsec:count-bounds})
+\item[\(\hat q_{r,x}\)] empirical distribution of children of the split
+ at \((r,x)\): \(\hat q_{r,x,y}=n_{r,x,y}/w_{r,x}\)
+ \eqref{eq:rounded-gain}
+\item[\(J_a\)] \(\sum_{r,x}d_{r,x}\), the number of transition
+ coordinates \eqref{eq:coordinate-count}
+\item[{\([\sigma;r,b]\), \([\MM_b]\)}] formal symbol for
+ \(S^\sigma_{r,b}\) in the ledger; boundary symbol, the class of
+ \([\sigma;1,b]\) \eqref{eq:symbol-identifications}
+\item[\(c_{\sigma,r,b}\), \(\Cat\), \(\Cat_N\)] catalyst multiplicity of
+ \(S^\sigma_{r,b}\); catalyst
+ \(\Cat=\bigotimes_{\sigma,r,b}(S^\sigma_{r,b})^{\otimes c_{\sigma,r,b}}\);
+ \(\Cat_N=\Cat^{\otimes N}\) \eqref{eq:rounded-catalyst}
+\item[\(G\), \(\mathcal L\)] rounded potential and rounding loss
+ \eqref{eq:rounded-gain}; \(G=K\log F(a,a)-\mathcal L\) by
+ Proposition~\ref{prop:entropy-loss}
+\end{list}
+
+\subsection*{Finite construction}
+
+\begin{list}{}{\setlength{\leftmargin}{0.22\textwidth}%
+ \setlength{\labelwidth}{0.2\textwidth}\setlength{\labelsep}{0.02\textwidth}%
+ \setlength{\itemsep}{1pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}%
+ \renewcommand{\makelabel}[1]{#1\hfil}}
+\item[\(\eps\)] positive rational exponent allowance
+ (Theorem~\ref{thm:main})
+\item[\(d_0\)] seed side: the side of a rational seed
+ (\S\ref{subsec:intro-results})
+\item[\(N\), \(k\), \(j\)] type scale; interpolation power; reuse count,
+ the number of uses of one copy of the catalyst
+ (\S\ref{subsec:parameters})
+\item[\(\mathcal I_c\), \(\mathcal I_t\)] active splits: pairs \((r,x)\)
+ with \(w_{r,x}>0\); active triplings: rows \(r\) with \(z_r>0\)
+ (\S\ref{subsec:parameters})
+\item[\(\mathcal J\), \(I\)] the relations
+ \(\mathcal J=\mathcal I_c\sqcup\mathcal I_t\), indexed by \(i\);
+ \(I=|\mathcal J|\) (\S\ref{subsec:parameters})
+\item[\(d_i\), \(w_i\), \(n_{i,y}\), \(\hat q_i\)] \(d_{r,x}\),
+ \(w_{r,x}\), \(n_{r,x,y}\) and \(\hat q_{r,x}\) for a split
+ \(i=(r,x)\) (\S\ref{subsec:parameters})
+\item[\(M_i\), \(m_r\)] sector count of relation \(i\); middle count of
+ the tripling in row \(r\) \eqref{eq:sector-counts}
+\item[\(M_{\mathrm t}(n,m)\)] number \(\binom nm2^{n-m}\) of sectors of
+ the tripling of \(C(r,4r-1)^{\otimes n}\) with middle count \(m\)
+ (Lemma~\ref{lem:tripling})
+\item[\(M\), \(L_i\), \(L\)] \(M=\prod_{i\in\mathcal J}M_i\), so that
+ the catalytic degeneration has \(M^3\) output copies; \(L_i=2M_i-1\),
+ the source copies of the separator of relation \(i\);
+ \(L=\prod_iL_i^3\) \eqref{eq:copy-counts}
+\item[\(D\)] \(3\sum_i(M_i-1)^2\), degree bound of the catalytic
+ degeneration \eqref{eq:dimensions}
+\item[\(E\)] \(kD+1\), the number of interpolation points
+ (\S\ref{subsec:relative})
+\item[\(A_1\), \(B_1\)] one-step source side
+ \(\prod_{i\in\mathcal I_c}d_i^{Nw_i}\) and target side \(2^{NK}M\)
+ \eqref{eq:dimensions}
+\item[\(\Delta_N\)] \(\log(B_1/A_1)\) \eqref{eq:delta-N}
+\item[\(\kappa_N\)] rank bound for the catalyst \(\Cat_N\)
+ \eqref{eq:kappa}
+\item[\(r_*\), \(m_*\), \(A\), \(B\)] relative scheme
+ \(r_*\MM_A\restr m_*\MM_B\) with source side \(A\) and target side
+ \(B\) (Definition~\ref{def:relative-scheme}); in the construction,
+ \(A=A_1^{kj}\) and \(B=B_1^{kj}\) \eqref{eq:relative-counts}
+\item[\(p\)] pooled exponent \(\log(r_*/m_*)/\log(B/A)\)
+ (Definition~\ref{def:relative-scheme}); its value for the construction
+ is \eqref{eq:pooled-exponent}
+\item[\(\Phi\), \(\overline\Phi\)] fixed-batch (unpooled) exponent bound
+ \eqref{eq:finite-exponent}; sufficient upper expression
+ \eqref{eq:sufficient-expression}, built from logarithms of integers, which
+ bounds \(\Phi\) from above when \(\underline\Delta_N>0\)
+ (Lemma~\ref{lem:sufficient-expression})
+\item[\(H_i\)] entropy charge of relation \(i\): \(w_iH(\hat q_i)\) for a
+ split, \(z_r\log3\) for the tripling in row \(r\)
+ \eqref{eq:type-penalty}
+\item[\(\bar H_N\), \(\mathcal T_N\)] largest scaled entropy charge
+ \(N\max_{i\in\mathcal J}H_i\); type penalty \eqref{eq:type-penalty}
+\item[\(\ell_a\)] \(\lceil\log_2a\rceil\) (Theorem~\ref{thm:main-relative})
+\item[\(\Lambda\)] order of the cyclotomic field \(\Q(\zeta_\Lambda)\)
+ that contains all coefficients (Theorem~\ref{thm:effective})
+\end{list}
+\par}

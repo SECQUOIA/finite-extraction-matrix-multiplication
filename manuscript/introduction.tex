@@ -1,256 +1,461 @@
 \section{Introduction}
+\label{sec:introduction}
 
-A bound on the matrix multiplication exponent and a finite description of
-an algorithm are different outputs of a proof. An asymptotic tensor
-argument can establish that a suitable rank decomposition exists without
-specifying its dimension or coefficients. A finite extraction chooses the
-tensor maps and their parameters, then accounts for the operations needed
-to use them. This paper gives such an extraction for the convolution
-relations introduced in the preprint \emph{An Upper Bound of \(9/4\) for
-the Matrix Multiplication Exponent}~\citep{OAI26}.
+The exponent \(\omega\) of matrix multiplication is the least real number
+such that, for every \(\eps>0\), two \(n\times n\) complex matrices can
+be multiplied with \(O(n^{\omega+\eps})\) arithmetic operations. On
+2 October 2026 OpenAI posted a preprint~\citep{OAI26} announcing
+\(\omega\le9/4\), well below the bounds near \(2.371\) obtained by the
+laser method~\citep{AD25,Dup26}. Its proof works with tensor characters:
+functions on tensors that add over direct sums, multiply over tensor
+products, do not increase under restriction, and take the value one on
+the unit tensor. These are the points of Strassen's asymptotic
+spectrum~\citep{Str88}. The preprint derives inequalities for the values
+of characters on tensors that encode polynomial multiplication, and
+deduces a bound for their values on matrix multiplication tensors. An
+existence theorem for characters that detect the rank of matrix
+multiplication then turns this into a bound on \(\omega\). The proof
+therefore shows that for every \(\eps>0\) some size \(d\) admits a
+bilinear algorithm for \(d\times d\) matrices with fewer than
+\(d^{9/4+\eps}\) multiplications, but it specifies neither \(d\) nor the
+algorithm.
 
-That preprint separates tensor blocks sharing one leg, applies the
-separation to polynomial multiplication, and derives inequalities for a
-symmetrized convolution profile. Its diagonal growth leads, through a
-detecting-character argument, to the claimed bound \(\omega\le9/4\).
-Here \(\omega\) is the infimum of arithmetic exponents for square matrix
-multiplication. The final algorithmic step chooses a matrix size and an
-exact rank decomposition whose existence follows from the bound. The
-chosen decomposition is not specified.
+This paper constructs such algorithms. We realize the inequalities that
+the preprint's diagonal bound uses by explicit tensor maps, decide how
+often to apply each map, and bound the exponent of the resulting finite
+construction. Theorem~\ref{thm:main} below gives, for each rational
+\(\eps>0\), a terminating procedure that outputs an exact rational
+bilinear algorithm, and Theorem~\ref{thm:main-relative} gives a family
+of relative schemes (defined below) whose exponents converge to \(9/4\)
+at a proved rate.
 
-We construct the finite maps directly and give quantitative parameter
-choices. The main difficulty is to preserve the exact multiplicities of
-all tensor factors while controlling the cost of separation, interpolation,
-and auxiliary tensors. We use multiway convolution relations, choose their
-frequencies through a finite absorbing walk, and round the resulting
-rational counts while preserving every resource balance. This avoids
-clearing potentially large denominators. The construction gives a family
-whose fully counted exponents tend to \(9/4\), with an explicit bound on
-its recursive source dimension.
+\subsection{The results}
+\label{subsec:intro-results}
 
-\subsection{Main results}
-
-A rational bilinear seed is a finite list of rational linear forms whose
-products and recombinations compute a square matrix product.
+Arithmetic operations are additions, subtractions and multiplications of
+scalars, including multiplications by fixed constants
+(Section~\ref{sec:preliminaries}). A \emph{rational bilinear algorithm}
+for \(d_0\times d_0\) matrix multiplication with \(R\) multiplications
+consists of \(R\) pairs of linear forms with rational coefficients, one
+form in the entries of each input matrix, together with rational linear
+combinations of the \(R\) products of these pairs that give the entries
+of the product matrix. Equivalently, it is a rank decomposition of the
+matrix multiplication tensor with rational coefficients.
 
 \begin{theorem}\label{thm:main}
 For every positive rational \(\eps\), a terminating procedure produces
-an integer \(d\ge2\) and an exact rational bilinear algorithm for
-\(d\times d\) matrix multiplication using fewer than
-\(d^{9/4+\eps}\) bilinear multiplications, each multiplying a linear
-form in the left input by a linear form in the right input.
-A fixed recursion on this seed multiplies \(n\times n\) matrices over
-any field of characteristic zero in
-\(O_\eps(n^{9/4+\eps})\) arithmetic operations.
+an integer \(d_0\ge2\) and a rational bilinear algorithm for
+\(d_0\times d_0\) matrix multiplication with fewer than
+\(d_0^{9/4+\eps}\) multiplications. Recursive use of this algorithm
+multiplies \(n\times n\) matrices over every field of characteristic
+zero with \(O_\eps(n^{9/4+\eps})\) arithmetic operations.
 \end{theorem}
 
-In particular, \(\omega\le9/4\). A bound with any positive real allowance
-follows by choosing a smaller positive rational allowance. The procedure
-generates identities by specified finite maps; it does not search for
-solutions to rank equations. Theorem~\ref{thm:effective} and
-Corollary~\ref{cor:seed} prove this statement.
+We call such an algorithm a \emph{rational seed} with \emph{seed side}
+\(d_0\). In particular \(\omega\le9/4\): for a real \(\eps>0\), apply the
+theorem to a rational number in \((0,\eps)\).
 
-The quantitative result first takes the form of a relative scheme:
-\(m\) independent products of \(B\times B\) matrices are reduced to
-\(r\) products of \(A\times A\) matrices. All input transformations and
-output recombinations are specified linear maps. Pooling the subproblems
-at each recursive level gives the exponent
-\(p=\log(r/m)/\log(B/A)\), with all linear work included when \(p>2\).
+The quantitative result is stated for relative schemes. Write \(\MM_d\)
+for the tensor of \(d\times d\) matrix multiplication, \(m\MM_d\) for the
+direct sum of \(m\) copies of it with independent variables, and
+\(T\restr T'\) when \(T'\) is a restriction of \(T\), that is, when
+linear maps on the three legs of \(T\) produce \(T'\)
+(Section~\ref{sec:preliminaries}). A \emph{relative scheme} is a
+restriction \(r_*\MM_A\restr m_*\MM_B\) with positive integers
+\(r_*,m_*,A,B\) and \(A<B\). It computes \(m_*\) independent
+products of \(B\times B\) matrices from \(r_*\) products of
+\(A\times A\) matrices, with all input transformations and output
+recombinations given by specified linear maps. We call \(A\) the
+\emph{source side} and \(B\) the \emph{target side}. Applying the scheme
+recursively, and pooling all subproblems of the same depth into batches
+of \(m_*\), multiplies \(n\times n\) matrices with \(O(n^p)\) arithmetic
+operations whenever \(p>2\), where
+\[
+ p=\frac{\log(r_*/m_*)}{\log(B/A)}
+\]
+is the \emph{pooled exponent} (Definition~\ref{def:relative-scheme} and
+Lemma~\ref{lem:batch}). All logarithms are natural. The construction is
+indexed by an integer \(a\ge2\), the \emph{target index}: it converts
+copies of the tensor \(S^+_{a,a}\) of
+Section~\ref{subsec:intro-heuristic} into matrix multiplication tensors,
+and larger \(a\) gives exponents closer to \(9/4\).
 
 \begin{theorem}[Quantitative relative construction]\label{thm:main-relative}
-For every integer \(a\ge2^{64}\), a specified finite construction gives
-positive integers \(r,m,A,B\), with \(B>A\), and an exact relative
-scheme over an explicitly determined cyclotomic field. Put
-\(\ell_a=\lceil\log_2a\rceil\). Its recursive exponent and source
-dimension satisfy
+For every integer \(a\ge2^{64}\), the construction of
+Section~\ref{sec:extraction}, with the parameters of
+Theorem~\ref{thm:quantitative}, gives a relative scheme
+\(r_*\MM_A\restr m_*\MM_B\) whose coefficients lie in a cyclotomic field
+\(\Q(\zeta_\Lambda)\), with \(\Lambda\) computed by the construction.
+With \(\ell_a=\lceil\log_2a\rceil\), its pooled exponent and source side
+satisfy
 \[
- \frac94<p=\frac{\log(r/m)}{\log(B/A)}
-       <\frac94+\frac{900}{\log a},
+ \frac94<p<\frac94+\frac{900}{\log a},
  \qquad
  \log A\le181a^5\ell_a^2.
 \]
 \end{theorem}
 
-Theorem~\ref{thm:quantitative} proves these bounds. In particular, for
-a positive rational allowance \(\eps\), one may choose
+Theorem~\ref{thm:quantitative} proves the two bounds, and
+Remark~\ref{rem:field-every-a} identifies the field. The guaranteed bound
+is below \(3\) only when \(\log a>1200\)
+(Remark~\ref{rem:calibration}), whereas Section~\ref{sec:costs}
+evaluates the construction at \(a=12\) with other parameters and obtains
+\(2.479<p<2.676\). For a rational \(\eps>0\), the index \(a=2^\ell\) with
+\(\ell=\max\{64,\lceil1800/\eps\rceil\}\) gives \(p<9/4+\eps\)
+(Corollary~\ref{cor:explicit-allowance}). Theorem~\ref{thm:main} follows
+from one scheme of this family: Theorem~\ref{thm:effective} turns it into
+an algorithm over \(\Q(\zeta_\Lambda)\) with exponent below
+\(9/4+\eps/2\), and Corollary~\ref{cor:seed} unrolls the recursion,
+restricts the coefficients to \(\Q\) (Lemma~\ref{lem:descent}), and
+stops at the first side \(d_0\) with fewer than \(d_0^{9/4+\eps}\)
+multiplications, which exists because of the gap \(\eps/2\).
+
+\subsection{Where the exponent \texorpdfstring{\(9/4\)}{9/4} comes from}
+\label{subsec:intro-heuristic}
+
+The following heuristic explains the exponent. No proof depends on it;
+Sections~\ref{sec:maps}--\ref{sec:extraction} make each step rigorous
+and bound its cost. Say that a tensor \(T\) is \emph{worth} a matrix side \(V\) if, for
+large \(n\), explicit maps convert \(T^{\otimes n}\), with the help of a
+reusable auxiliary tensor and with losses subexponential in \(n\), into
+a matrix multiplication tensor of side \(V^{n-o(n)}\). Worth is
+multiplicative under tensor products, \(\MM_d\) is worth \(d\), a tensor
+is worth at least as much as every tensor into which it can be
+converted, and a bounded factor in the number of copies does not change
+worth. If \(T\) has rank \(R\) and is worth \(V\), recursion gives
+\(\omega\le(\log R)/\log V\), because \(T^{\otimes n}\) has rank at
+most \(R^n\), while \(\MM_d\) has rank at least \(d^\omega\).
+
+The construction works with the \emph{convolution tensor} \(C(r,b)\),
+which encodes the multiplication of a polynomial with \(r\) coefficients
+by a polynomial with \(b\) coefficients, and with the dot product
+\(B_X(d)=x\sum_{\gamma=0}^{d-1}y_\gamma z_\gamma\), whose first leg has a
+single variable. The \emph{symmetrized convolution tensor}
+\(S^\sigma_{r,b}\) is the tensor product of the three copies
+\(C(r,b)^\pi\) whose legs are permuted by the even permutations \(\pi\)
+(sign \(\sigma=+\)) or by the odd ones (\(\sigma=-\)); see
+Section~\ref{sec:preliminaries}. Let \(V(r,b)\) be the supremum of the
+sides that \(S^\sigma_{r,b}\) is worth. It does not depend on
+\(\sigma\), because an odd permutation of all three legs exchanges
+\(S^+_{r,b}\) and \(S^-_{r,b}\) and maps \(\MM_d\) to an isomorphic
+tensor. It is symmetric, \(V(r,b)=V(b,r)\), because
+\(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\). Since \(C(1,b)=B_X(b)\) and
+\(S^\sigma_{1,b}\cong\MM_b\), the boundary values are \(V(1,b)=b\).
+
+Two kinds of tensor relations, \emph{splits} and \emph{triplings},
+constrain the other values. Each is built in three steps
+(Section~\ref{sec:maps}). First, a restriction of a tensor power
+leaves \(M\) \emph{sectors}: blocks with their own variables on the
+second and third legs but a common first leg. Second,
+the \emph{separator} (Proposition~\ref{prop:separator}) converts \(2M-1\)
+copies of this tensor into \(M\) sectors that are independent on all
+three legs, and it attaches to each a dot product of dimension \(M\).
+Third, the relation is applied to all three factors \(C(r,b)^\pi\) of
+\(S^\sigma_{r,b}\), one \emph{orientation} \(\pi\) each. The three
+oriented copies of a dot product \(B_X(d)\) have their single-variable
+legs in the three different positions, and their product is \(\MM_d\) by
+\eqref{eq:coset-dot-products}. So \((2M-1)^3\) source copies yield
+\(M^3\) output copies, a ratio below \(8\), each carrying the factor
+\(\MM_M\) that the relation gains.
+
+\emph{Split.} Let \(1\le h\le b-1\). In bases adapted to the determinant
+filtration of binary forms (Section~\ref{subsec:splits}), the tensor
+\(C(r,b)B_X(h+1)\) is block triangular with diagonal blocks
+\(C(r,b+h-2j)\), \(0\le j\le h\). Fix nonnegative integers
+\(n_0,\ldots,n_h\) with sum \(n\). In the \(n\)-th tensor power, keeping
+only the coordinates whose words of block indices have type
+\((n_0,\ldots,n_h)\) removes the off-diagonal blocks and leaves
+\(M=n!/(n_0!\cdots n_h!)\) sectors. The three orientations of the
+auxiliary dot product \(B_X(h+1)\) form the factor \(\MM_{h+1}\) that the
+split consumes. Altogether (Corollary~\ref{cor:oriented-relations}),
+\((2M-1)^3\) copies of \((S^\sigma_{r,b}\MM_{h+1})^{\otimes n}\) are
+converted into \(M^3\) independent copies of
 \[
- \ell=\max\left\{64,\left\lceil\frac{1800}{\eps}\right\rceil\right\},
- \qquad a=2^\ell.
+ \prod_{j=0}^h\bigl(S^\sigma_{r,b+h-2j}\bigr)^{\otimes n_j}\otimes\MM_M .
 \]
-The resulting relative scheme has exponent below \(9/4+\eps\) and
-\(\log A\le181\,2^{5\ell}\ell^2\). These choices require only integer
-and rational computations. The constants are conservative; the statement
-provides a proved finite choice for every allowance.
+Here \(M=e^{nH(\theta)+O(\log n)}\) for the probability vector
+\(\theta_j=n_j/n\), where \(H\) is the Shannon entropy. In terms of
+worth, therefore,
+\((h+1)V(r,b)\ge e^{H(\theta)}\prod_jV(r,b+h-2j)^{\theta_j}\). The right
+side is largest when \(\theta_j\) is proportional to \(V(r,b+h-2j)\),
+and its maximum is the sum of these worths. Hence
+\begin{equation}\label{eq:intro-split}
+ (h+1)V(r,b)\ge\sum_{j=0}^hV(r,b+h-2j).
+\end{equation}
+For \(h=1\) this is the discrete concavity
+\(2V(r,b)\ge V(r,b-1)+V(r,b+1)\). For larger \(h\) it follows from
+concavity (Remark~\ref{rem:multiway-scalar}), but wider splits lower the
+finite costs.
 
-The bound on \(A\) concerns the recursive source of the relative scheme.
-To obtain the rational seed in Theorem~\ref{thm:main}, we unroll a fixed
-scheme to scalar multiplications, restrict its coefficients from its fixed
-number field to \(\Q\), and select a sufficiently large dimension. This
-last procedure terminates, but the displayed bound on \(A\) is not a
-bound on the seed dimension \(d\), its coefficient sizes, or its
-construction time.
+\emph{Tripling.} The second-leg indices of \(C(r,4r-1)\) fall into three
+intervals, of lengths \(r\), \(2r-1\) and \(r\), whose blocks are
+\(C(r,r)\), \(C(r,r)^{(23)}\) and \(C(r,r)\) up to coordinate
+permutations (Section~\ref{subsec:tripling}). In the \(n\)-th tensor
+power, fixing the number of middle blocks leaves \(M\ge3^n/(n+1)\)
+sectors, and \((2M-1)^3\) copies of \((S^\sigma_{r,4r-1})^{\otimes n}\)
+are converted into \(M^3\) copies of
+\((S^\sigma_{r,r})^{\otimes n}\otimes\MM_M\); the middle blocks
+contribute \(S^{-\sigma}_{r,r}\cong S^\sigma_{r,r}\). Hence
+\(V(r,4r-1)\ge3V(r,r)\).
 
-\subsection{The construction and its contributions}
-
-The scalar starting point is the least positive symmetric profile satisfying
-normalization, discrete concavity, and shifted tripling:
+Normalization \(V(1,b)=b\), symmetry, concavity and tripling are the
+axioms of a \emph{profile} (Definition~\ref{def:profile}), except that a
+profile satisfies the tripling axiom \(P(r,3b+r-1)\ge3P(r,b)\) at every
+column \(b\), whereas the tensor maps supply only the case \(b=r\).
+Theorem~\ref{thm:least-profile} shows that every profile \(P\) satisfies
+\(P\ge F\) for an explicit \emph{least profile} \(F\), with
+\(F(a,a)=s_a(3a-1)/2\), \(s_a=\prod_{h=1}^{a-1}(1+\frac1{3h})\), and
+\(\log F(a,a)=\frac43\log a+O(1)\). The diagonal part
+\(P(a,a)\ge F(a,a)\) uses only normalization, symmetry, concavity and the
+tripling axiom with \(b=r\). The worth \(V\) satisfies all of these, so
+\(V(a,a)\ge F(a,a)\). Since \(\R(S^+_{a,a})\le(2a-1)^3\), the heuristic
+gives
 \[
- F(m,n)=s_{\min(m,n)}
-       \left(\max(m,n)+\frac{\min(m,n)-1}{2}\right),
- \qquad
- s_a=\prod_{h=1}^{a-1}\left(1+\frac1{3h}\right).
+ \omega\le\tau_a=\frac{3\log(2a-1)}{\log F(a,a)}
+ \longrightarrow\frac{3}{4/3}=\frac94 .
 \]
-We prove both the formula and its minimality. Its diagonal growth is
-\(a^{4/3}\), and the limiting exponent associated with a fixed profile
-index is
-\[
- \tau_a=\frac{3\log(2a-1)}{\log F(a,a)}.
-\]
-Every \(\tau_a\) exceeds \(9/4\), and \(\tau_a\to9/4\).
-The diagonal certificate uses tripling only at the row index. The full
-least-profile theorem allows all shifted tripling inequalities.
+We call \(\tau_a\) the \emph{profile exponent}; it exceeds \(9/4\)
+because \(F(a,a)<(2a-1)^{4/3}\) for \(a\ge2\). Since \(F\) is itself a
+profile, these inequalities cannot show that \(S^+_{a,a}\) is worth more
+than \(F(a,a)\), so \(9/4\) is the limit of this approach
+(Remark~\ref{rem:profile-limit}).
 
-To realize the profile relations, we apply the determinant filtration of
-binary forms to convolution multiplication. An auxiliary factor of dimension
-\(d\) gives \(d\) convolution blocks. In a tensor power, retaining equal
-filtration counts on the two affected legs removes every off-diagonal
-term exactly. The tripling map requires only the number of middle blocks
-to agree; the two outer blocks can be chosen freely. This larger type
-selection works for every positive integer tripling count and removes
-the need for divisibility by three.
+\subsection{From the heuristic to a finite algorithm}
+\label{subsec:intro-finite}
 
-The affine profile determines rational transition probabilities among the
-blocks. Their occupation counts solve finite rational linear systems and
-give the exact resource identities. A square-root drift estimate bounds
-both the total occupation and the logarithmic auxiliary cost by \(O(a)\).
-This is the quantitative reason for using multiway relations: their larger
-steps keep the expected cost of traversing a row bounded independently
-of its length.
+A finite construction must decide how many times to apply each
+relation, so that every intermediate convolution factor produced by one
+relation is consumed by another. The only net effect on these factors
+should be to consume copies of \(S^+_{a,a}\) and to produce copies of
+\(\MM_2\cong S^\sigma_{1,2}\); the auxiliary matrix tensors are accounted
+for separately. We obtain the frequencies from a random walk in each
+row, the \emph{row walk} of Section~\ref{sec:flows}. For
+\(r=2,\ldots,a\), the \emph{states} \(x\in\{0,\ldots,3r\}\) of row \(r\)
+stand for the factors \(S^{\sigma_r}_{r,r-1+x}\), with column
+\(b=r-1+x\) and sign \(\sigma_r=(-1)^{a-r}\). At an interior state
+\(x\), a split of width \(h_{r,x}=\min(x,3r-x)\) moves to a
+\emph{child} \(y\in\{x-h_{r,x},x-h_{r,x}+2,\ldots,x+h_{r,x}\}\) with
+probability proportional to \(F(r,r-1+y)\). Since \(F\) is affine on the
+columns \(r-1,\ldots,4r-1\) of row \(r\), which contain all children, it
+satisfies \eqref{eq:intro-split} with equality there, and these
+probabilities attain the maximum in the split step with \(V\) replaced
+by \(F\). At state \(3r\) (column \(4r-1\)) a tripling returns to state
+\(1\) (column \(r\)). State \(0\) is column \(r-1\); by the symmetry
+\(S^\sigma_{r,r-1}\cong S^{-\sigma}_{r-1,r}\), it is state \(2\) of row
+\(r-1\), the \emph{injection state} at which the walk of that row
+starts. This identification is why the sign alternates between rows
+(Section~\ref{subsec:orientations}). The walk of row \(a\) starts at
+state \(1\), the factor \(S^+_{a,a}\), and the walk of row \(2\) ends at
+column \(1\), the factor \(S^{\sigma_2}_{2,1}\cong\MM_2\).
 
-We next round the transition counts to integers within their edgewise
-floor and ceiling bounds, preserving the resource identities exactly.
-For any integer scale \(K\ge1\), the rounded entropy expression has
-the form
-\[
- K\log F(a,a)-\mathcal L,
- \qquad 0\le\mathcal L\le4J_a,
- \qquad J_a=O(a^3).
-\]
-The estimate remains valid when occupation counts are arbitrarily small
-or zero. Thus the scale can be chosen for its error bound, independently
-of the denominators of the exact occupations. Exact denominator clearing
-for a binary certificate is analyzed separately as a benchmark; its
-exponential scale is not a lower bound for the rounded construction.
+The expected numbers of visits, called \emph{occupations}, are
+frequencies at which every intermediate factor is produced exactly as
+often as it is consumed (Proposition~\ref{prop:occupations}). Since the
+probabilities are tight for \(F\), the potential \(\log F\) telescopes
+along the walk. Per injected copy of \(S^+_{a,a}\), the expected total
+gain is exactly \(\log F(a,a)\), where a split gains the entropy of its
+child distribution minus the logarithm of its auxiliary dimension
+\(h_{r,x}+1\), a tripling gains \(\log3\), and the final \(\MM_2\)
+contributes \(\log2\). Because every split has the largest width that
+keeps its children in the row, the expected number of splits in a row
+and the sum of the logarithms of their auxiliary dimensions are bounded
+independently of the row, and both totals over all rows are at most
+\(\Gamma_a=105+180(a-2)\) (Proposition~\ref{prop:occupations}). These
+totals control the finite costs: the
+auxiliary dimensions multiply into the source side, and the number of
+splits sets the size of the catalyst described below.
 
-Three cyclic leg permutations suffice when successive rows use opposite
-orientations. After separation, the common source and output factors form
-an explicit catalyst. We retain it, first make the relation exact by
-interpolation, and then reuse the exact relation. Pooling the recursive
-products removes a per-level rounding loss. The final cost includes every
-source copy, output copy, interpolation evaluation, auxiliary factor, and
-catalyst supply. The smaller threefold balance alone does not improve the
-exponent: at corresponding doubled tensor powers, its charged scalar
-counts agree with those of sixfold balance.
+The occupations are rationals whose denominators can be large; for the
+exact binary certificate of Appendix~\ref{sec:exact-certificate}, which
+uses splits of width one only, the scale needed to clear them grows at
+least exponentially in \(a\). Instead, we multiply the
+occupations by a \emph{rounding scale} \(K\) and round the resulting
+transition counts to integers so that every balance stays exact
+(Section~\ref{sec:rounding}). The telescoping identity then holds up to
+a \emph{rounding loss} \(\mathcal L\le4J_a\), where \(J_a=O(a^3)\), the
+number of transition coordinates, counts the possible split transitions
+\(x\to y\) from interior states in all rows. This bound holds for every \(K\), even when some
+occupations are tiny or zero (Proposition~\ref{prop:entropy-loss}).
 
-The numerical bound \(9/4\) was already announced in \citet{OAI26}.
-Compared with that argument, the contributions here are the direct finite
-extraction, the multiway convolution restrictions, the quantitative
-occupation and rounding analysis, and the resulting explicit source-size
-bound. The proof is self-contained at the level of tensor maps and does
-not use the preprint's detecting-character theorem or spectral appendix.
+Section~\ref{sec:extraction} applies every relation its rounded number
+of times, inside tensor powers of fixed type at a \emph{type scale}
+\(N\), separates the sectors and takes the three orientations. The
+factors common to both sides form a \emph{catalyst} \(\Cat_N\), and the
+result is one degeneration, the \emph{catalytic degeneration}
+(Proposition~\ref{prop:catalytic}): it turns \(L\) copies of
+\(\Cat_N(S^+_{a,a})^{\otimes NK}\MM_{A_1}\) into \(M^3\) copies of
+\(\Cat_N\MM_{B_1}\). Here \(\MM_{A_1}\) collects the auxiliary factors of
+the splits, \(M\) is the product of the sector counts,
+\(B_1=2^{NK}M\) collects the \(NK\) final factors \(\MM_2\) and the
+separator auxiliaries, and \(L\) counts the separator source copies.
+Interpolation at \(k\)-th tensor powers with \(E\) points turns this
+degeneration into a restriction (Lemma~\ref{lem:exactification}). Using
+the restriction \(j\) times with one copy of the catalyst, supplied once
+from a rank decomposition of \(\Cat_N^{\otimes k}\) with \(\kappa_N^k\)
+terms, gives a restriction \(r_*\MM_A\restr m_*\MM_B\) with
+\(A=A_1^{kj}\) and \(B=B_1^{kj}\) (Proposition~\ref{prop:relative}).
+With \(\Delta_N=\log(B_1/A_1)\), it is a relative scheme exactly when
+\(\Delta_N>0\), which is not automatic for small \(K\). In that case
+Lemma~\ref{lem:batch} turns it into an algorithm, and its pooled
+exponent \eqref{eq:pooled-exponent} is
+\begin{equation}\label{eq:intro-exponent}
+ p=\frac{3NK\log(2a-1)+\log(L/M^3)+(\log E)/k
+        +(\log\kappa_N)/j}{\Delta_N}.
+\end{equation}
+The main term \(3NK\log(2a-1)\) pays for the rank of the \(NK\) source
+copies of \(S^+_{a,a}\). Without the overheads of
+Table~\ref{tab:overheads}, \(\Delta_N\) would equal \(NK\log F(a,a)\) and
+\(p\) would equal \(\tau_a\); all overheads are nonnegative, so
+\(p\ge\tau_a\). The family of Theorem~\ref{thm:main-relative} uses
+\(K=a^3\ell_a\), \(N=k=1\) and \(j=a\ell_a\), for which every overhead
+is at most a constant multiple of \(K\) while the main terms are of
+order \(K\log a\); this gives the rate \(900/\log a\)
+(Section~\ref{sec:rate}).
 
-\subsection{Relation to previous work}
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+Overhead & Size & Made negligible by & Bounded in\\
+\midrule
+rounding loss & \(0\le\mathcal L\le4J_a\) & rounding scale \(K\)
+ & Proposition~\ref{prop:entropy-loss}\\
+type penalty & \(\mathcal T_N=O(\log(NK))\) & \(N\) or \(K\)
+ & \eqref{eq:type-penalty}, \eqref{eq:type-error}\\
+copy overhead & \(0\le\log(L/M^3)<3I\log2\) & \(N\) or \(K\)
+ & \eqref{eq:finite-cost-bounds}\\
+interpolation overhead & \((\log E)/k\) & interpolation power \(k\)
+ & Lemma~\ref{lem:exactification}, \eqref{eq:finite-cost-bounds}\\
+catalyst overhead & \((\log\kappa_N)/j\) & reuse count \(j\)
+ & \eqref{eq:kappa}, \eqref{eq:finite-cost-bounds}\\
+\bottomrule
+\end{tabular}
+\caption{The overheads of the finite construction. Here \(\mathcal L\)
+is the rounding loss, \(L=\prod_i(2M_i-1)^3\) is the number of separator
+source copies, \(I\) is the number of relations used, and the \(O\)-bound for the type penalty holds
+for fixed \(a\). The rounding loss, multiplied by \(N\), and the type
+penalty reduce the denominator \(\Delta_N\) of \eqref{eq:intro-exponent};
+the other three overheads enter its numerator.}
+\label{tab:overheads}
+\end{table}
 
-Strassen's recursive use of a finite bilinear identity established the
-link between small matrix algorithms and an arithmetic exponent below
-three~\citep{Str69}. Approximate bilinear algorithms, tensor powers, and
-interpolation provide the standard passage from approximate identities to
-exact algorithms~\citep{Bini80}. Sch\"onhage's asymptotic sum inequality
-relates simultaneous matrix products to the exponent~\citep{Sch81}.
-An accessible account of finite interpolation and the sum inequality is
-given by \citet[Theorem~7 and the preceding discussion]{Sto10}.
-Our root-of-unity averaging is an explicit form of interpolation, and our
-pooled recursion proves the needed conversion of simultaneous outputs
-directly.
+\subsection{Relation to the OpenAI preprint}
+\label{subsec:intro-oai}
 
-The asymptotic spectrum supplies a general language for comparing tensor
-powers~\citep{Str88,CVZ}. Relative bilinear complexity is an established
-setting for reductions between matrix multiplication tensors~\citep{Str87}.
-Catalytic tensor comparisons retain an auxiliary tensor on both sides of
-a reduction~\citep{CVZ21}. We use these familiar forms of comparison,
-while specifying the maps and retaining the cost of supplying the catalyst.
+The bound \(\omega\le9/4\) and the scalar framework behind it are due to
+\citet{OAI26}. That preprint introduced the profile axioms (its
+equations (4.5), (4.6) and (4.9)) and proved the diagonal growth bound
+\(P(a,a)\ge a^{4/3}\) (its Lemma~5.1); the diagonal part of
+Theorem~\ref{thm:least-profile}, \(P(a,a)\ge F(a,a)\), follows from the
+same argument. It also gave the determinant filtration step for width
+one (its Lemma~4.1), the partition into three intervals behind our
+tripling (its Lemma~4.2), and the shared-leg separator with \(5M\)
+source copies (its Proposition~3.1). It applied these constructions to
+tensor characters and concluded through the existence of detecting
+characters (its Lemma~2.2).
 
-The determinant filtration itself is also established. Maakestad gives a
-universal integral Clebsch--Gordan filtration for binary forms, together
-with an explicit basis for its determinant kernel~\citep[Section~2,
-Lemma~2.5, Theorem~2.8 and Corollary~2.9]{Maakestad23}.
-Our application identifies the induced convolution multiplication on its
-successive quotients and the exact restrictions obtained by fixing the
-filtration counts. We do not claim a new Clebsch--Gordan filtration.
-Likewise, the existence of an integer circulation between integral lower
-and upper bounds is a standard consequence of total
-unimodularity~\citep[Theorem~2]{HK56}. The algorithmic return-edge
-reduction and fractional-cycle rounding also appear in
-\citet[Sections~2.2--3.1]{KangPayor15}. We use circulation rounding to
-conserve tensor multiplicities; the separate weighted entropy estimate
-controls the cost of this rounding for our occupation flow. Related
-relative-entropy bounds for optimal fixed-total probability approximations appear
-in \citet[Eq.~(42)]{BoechererGeiger16}; our action totals may change
-under the globally conserved rounding.
-The probabilistic tools for the occupation estimates are the fundamental
-matrix of an absorbing chain and a Doob
-transform~\citep{GrinsteadSnell97,LevinPeres17}; the required uniform
-auxiliary-cost estimate is proved here.
+The present paper uses none of the character theory and reproves the
+constructions it needs in the following forms. The local relations
+become type restrictions instead of degenerations that scale coordinates
+by powers of \(t\) (weight degenerations), so that the separator is the
+only degeneration. The tripling restriction fixes only the number of
+middle blocks, so it works for every tripling count without a
+divisibility condition. The splits have arbitrary width \(h\), with
+auxiliary dimension \(h+1\). The separator uses \(2M-1\) source copies
+instead of \(5M\). On the scalar side, we determine the least profile
+off the diagonal as well, show that \(F\) satisfies the axioms, so that
+the bound \(P\ge F\) is attained, and prove the upper bound
+\(F(m,n)\le(m+n-1)^{4/3}\), which is strict for \(m=n>1\). The finite
+analysis is new: the occupations of the row walk and their uniform
+bounds, the integer rounding that keeps every balance exact and its
+uniform bound on the rounding loss, the bounds on all overheads
+(Table~\ref{tab:overheads}), the rate of
+Theorem~\ref{thm:main-relative}, and the rational seeds of
+Theorem~\ref{thm:main}.
 
-Fixed-frequency restrictions, entropy estimates, and products over leg
-permutations are standard in tensor-power methods; Le Gall gives a
-detailed example~\citep{LG14}. Threefold cyclic symmetrization is also
-explicit in \citet[Section~3.3]{CVZ21}; the alternating row signs below
-make it compatible with the convolution resource ledger. Recent
-refinements of the laser method use
-carefully chosen distributions and asymmetric tensor
-powers~\citep{AW21,AD25,Dup26}. For numerical context, the SODA 2025 paper
-of \citet{AD25} proves \(\omega<2.371339\), and the 2026 preprint of
-\citet{Dup26} reports \(\omega<2.371177\). The \(9/4\) bound announced
-in the October 2026 preprint~\citep{OAI26} is substantially stronger.
-The present proof derives that bound from finite convolution maps,
-independently of its spectral conclusion. Interpolation, type counting,
-circulation integrality, symmetrization, and bilinear recursion remain
-classical ingredients of the construction.
+The termination statement in Theorem~\ref{thm:main} would not by itself
+require a construction. As \citet[Remark~5.2]{OAI26} observes, the
+equations of an exact rank decomposition have rational coefficients, so
+a complex solution implies an algebraic one; once \(\omega\le9/4\) is
+known, an exhaustive search over algebraic candidates would therefore
+also terminate for each fixed \(\eps\). What the present construction
+adds is that the algorithm is generated by prescribed maps whose finite
+resources are bounded, as in Theorem~\ref{thm:main-relative}.
 
-The closest source for the shared-leg separator and the initial convolution
-relations is \citet{OAI26}, Proposition~3.1 and Section~4. We give their
-coordinate maps, use exact type restrictions, and reduce the separator's
-source count from \(5M\) to \(2M-1\). The subsequent occupation flows,
-conserved types, and cost estimates concern this specific family of
-relations. No claim of a first general constructive conversion of
-asymptotic tensor bounds is intended.
+\subsection{Related work}
+\label{subsec:intro-related}
 
-Indeed, existence of a suitable complex rank decomposition already permits
-an eventual symbolic search: its defining equations have rational
-coefficients, and a complex solution can be replaced by an algebraic one.
-The purpose of the present construction is to generate identities through
-prescribed operations and to bound their finite resources. This gives
-mathematical control of the extraction without solving an unspecified
-rank-decomposition problem.
+Strassen's algorithm showed that recursion on a fixed bilinear identity
+gives an exponent below three~\citep{Str69}. Approximate bilinear
+algorithms and interpolation give the standard passage from
+degenerations to exact algorithms~\citep{Bini80}, and Sch\"onhage's
+asymptotic sum inequality bounds \(\omega\) through simultaneous
+independent matrix products~\citep{Sch81}. \citet[p.~24 and
+Theorem~7]{Sto10} gives an accessible account of the passage from
+approximate to exact algorithms by coefficient extraction and of the sum
+inequality. Lemma~\ref{lem:exactification} is a root-of-unity form of
+interpolation, and Lemma~\ref{lem:batch} handles simultaneous products
+directly for our relative schemes.
+
+Strassen's laser method~\citep{Str86,Str87} and the construction of
+Coppersmith and Winograd~\citep{CW90} extract independent matrix
+products from tensor powers, with restrictions to words of a fixed type,
+entropy estimates for their number, and products over permuted legs as
+standard tools; \citet[Appendix~A of the full version]{LG14} gives a
+detailed example. \citet{AW21} refine the
+extraction of independent components, \citet{AD25} analyze powers of
+the Coppersmith--Winograd tensor asymmetrically and prove
+\(\omega<2.371339\), and \citet{Dup26} optimize that analysis
+numerically and report \(\omega<2.371177\).
+
+Strassen's asymptotic spectrum compares tensor powers through
+characters~\citep{Str88,CVZ}, and relative bilinear
+complexity~\citep{Str87} is the setting of our relative schemes. Catalytic comparisons, which
+keep an auxiliary tensor on both sides of a reduction, are discussed in
+\citet[Section~3.2]{CVZ21}, which also defines the cyclic
+symmetrization \(T\otimes T^{(123)}\otimes T^{(132)}\) that underlies
+\(S^+_{r,b}\).
+
+The determinant filtration is a case of the universal Clebsch--Gordan
+filtration of \citet[Lemma~2.5, Theorem~2.8, Corollary~2.9 and
+Corollary~2.9]{Maakestad23}; we identify the multiplication induced on
+its quotients and the restrictions obtained by fixing types. Integer
+circulations between integral bounds exist by total
+unimodularity~\citep[Theorem~2]{HK56}, and rounding through a return
+edge appears in \citet[Sections~2.2--3.1]{KangPayor15}.
+\citet[Section~IV.D, Eq.~(42)]{BoechererGeiger16} bound the relative
+entropy of the best approximation of a distribution by a type with a
+fixed total; our rounding may change these totals, and
+Proposition~\ref{prop:entropy-loss} proves the bound that we need. The
+row walk uses the fundamental matrix of an absorbing chain
+\citep[Theorem~11.4]{GrinsteadSnell97} and a Doob transform
+\citep[Section~17.6.1]{LevinPeres17}.
 
 \subsection{Scope and organization}
+\label{subsec:intro-scope}
 
-The results concern exact arithmetic with a fixed positive exponent
-allowance. They give neither one fixed recursion with exponent exactly
-\(9/4\) nor a numerical stability guarantee. The relative source-size
-bound is explicit but enormous, and no useful finite-size implementation
-is established. The finite examples illustrate the individual charges in
-the proof; they are not measurements of a matrix multiplication program.
+All results concern exact arithmetic with a fixed allowance \(\eps\):
+the algorithm of Theorem~\ref{thm:main} depends on \(\eps\) but not on
+the input size. The bound on \(A\) in Theorem~\ref{thm:main-relative}
+concerns the source side of the relative scheme; we give no bound on
+the seed side \(d_0\), on the sizes of the coefficients, or on the
+preprocessing time. The sizes are astronomically large: even the example
+with \(a=12\) in Section~\ref{sec:costs} has a source side \(A\) with
+about \(2.3\times10^{11}\) decimal digits. Every member of the family has
+exponent strictly above \(9/4\), so the construction gives no algorithm
+with \(O(n^{9/4})\) operations. We make no claim about numerical
+stability.
 
-Section~\ref{sec:preliminaries} fixes the tensor conventions and arithmetic
-model. Section~\ref{sec:profile} proves the least-profile theorem, and
-Section~\ref{sec:maps} gives the convolution restrictions, separator, and
-threefold balancing. Sections~\ref{sec:flows} and \ref{sec:rounding}
-construct the rational occupations and round them with exact resource
-balances. Section~\ref{sec:extraction} composes the maps, proves the pooled
-recursion, gives the quantitative parameter family, and extracts rational
-seeds. Section~\ref{sec:costs} presents finite examples, and
-Section~\ref{sec:discussion} states the consequences and limitations.
-The appendices give the exact binary certificate and its denominator
-bound, full composition formulas, and optional separator refinements.
+Sections~\ref{sec:preliminaries}--\ref{sec:rate} contain the proofs:
+general tools
+(Section~\ref{sec:preliminaries}), the least profile
+(Section~\ref{sec:profile}), the splits, triplings and separator
+(Section~\ref{sec:maps}), the row walk (Section~\ref{sec:flows}), the
+rounding (Section~\ref{sec:rounding}), the finite construction and its
+overheads (Section~\ref{sec:extraction}), and the rate and rational seeds
+(Section~\ref{sec:rate}). Section~\ref{sec:costs} evaluates finite
+examples, and Section~\ref{sec:discussion} discusses limits and open
+questions. Appendices~\ref{sec:exact-certificate}--\ref{sec:notation}
+treat the exact binary certificate, the composed relation maps on their
+full variable spaces, the separator with general parameters, and the
+notation.

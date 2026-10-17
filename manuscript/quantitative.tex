@@ -1,158 +1,407 @@
+\section{Explicit rate of convergence and rational seeds}
+\label{sec:rate}
+
+This section fixes the parameters of the construction of
+Section~\ref{sec:extraction} as functions of the target index \(a\) and
+adds up the bounds of Section~\ref{subsec:cost-bounds}, which gives the
+rate of Theorem~\ref{thm:quantitative}. It then fixes every remaining
+choice, identifies the field of coefficients
+(Theorem~\ref{thm:effective}, Remark~\ref{rem:field-every-a}), and
+passes to a rational seed (Corollary~\ref{cor:seed}); together these
+results prove Theorems~\ref{thm:main} and~\ref{thm:main-relative}.
+
 \subsection{An explicit rate of convergence}
 \label{subsec:quantitative}
 
-The preceding estimates give more than convergence to \(9/4\).
-The following bounds specify an index for every exponent allowance.
-The constants are deliberately conservative.
+We bound the terms of the pooled exponent \eqref{eq:pooled-exponent} by
+\eqref{eq:type-error} and \eqref{eq:finite-cost-bounds}. Without the
+rounding loss \(\mathcal L\), the type penalty \(\mathcal T_N\) and the
+three overheads, \(p\) would equal the profile exponent \(\tau_a\) of
+\eqref{eq:tau}; we choose the parameters so that each of these
+quantities is at most an absolute constant times \(K\). The rounding
+loss is at most \(4J_a\) and the type penalty at \(N=1\) is
+\(O(J_a\log K)\), with \(J_a=O(a^3)\), so the rounding scale
+\(K=a^3\ell_a\) makes both \(O(K)\) and the type scale \(N=1\) suffices.
+The copy overhead is \(O(I)=O(a^2)\). The interpolation overhead is at
+most about twice the largest entropy charge of one relation, which is
+\(O(K)\) already for \(k=1\); a larger interpolation power would lower
+it but enlarge \(A=A_1^{kj}\). The catalyst has \(O(aK)\) factors, each
+of rank at most \((5a)^3\), and the reuse count \(j=a\ell_a\) brings its
+overhead down to \(O(K)\). Hence the numerator of \(p\) is
+\(K(3\log a+O(1))\) and \(\Delta_1\ge K(\frac43\log a-O(1))\), so that
+\(p-9/4=O(1/\log a)\), like \(\tau_a-9/4\). At small
+\(a\), larger \(k\), \(j\) and \(K\) reduce the overheads further
+(Section~\ref{sec:costs}, which keeps \(N=1\)).
 
-\begin{theorem}[A fully specified family]\label{thm:quantitative}
-For an integer \(a\ge2^{64}\), choose
+\begin{theorem}[An explicit parameter family]\label{thm:quantitative}
+Let \(a\ge2^{64}\) be an integer, and put
 \[
- \ell_a=\lceil\log_2a\rceil,\qquad
- K=a^3\ell_a,\qquad N=k=1,\qquad j=a\ell_a.
+ \ell_a=\lceil\log_2a\rceil,\qquad K=a^3\ell_a,\qquad N=k=1,
+ \qquad j=a\ell_a.
 \]
-Apply conserved rounding to the maximal-width occupations, and use
-the resulting integer types in the finite construction.
-The relative scheme has \(B>A\). Its pooled recursive exponent \(p\)
-satisfies
+Take the occupations \(\lambda_{r,x},\mu_r\) of the row walk of
+Proposition~\ref{prop:occupations}, in which the split at state \(x\)
+has width \(h_{r,x}=\min(x,3r-x)\); round them at scale \(K\) as in
+Section~\ref{sec:rounding}, by one of the roundings that
+Lemma~\ref{lem:circulation-rounding} allows; and let
+\(r_*\MM_A\restr m_*\MM_B\) be the relative scheme of
+Proposition~\ref{prop:relative} built from these rounded counts. Then
+\(B>A\), and the pooled exponent \(p\) and the source side \(A\) of this
+scheme satisfy
 \begin{equation}\label{eq:explicit-rate}
- p<\frac94+\frac{900}{\log a},
+ \frac94<\tau_a\le p<\frac94+\frac{900}{\log a},
  \qquad
  \log A\le181a^5\ell_a^2.
 \end{equation}
-In particular, the complete finite construction has exponent tending
-to \(9/4\) and \(\log A=O(a^5(\log a)^2)\).
+In particular, \(p\to9/4\) as \(a\to\infty\), and
+\(\log A=O(a^5(\log a)^2)\).
 \end{theorem}
+
 \begin{proof}
-Write \(t=\log a\) and \(\ell=\ell_a\). Then \(t>32\),
-\(\ell\ge64\), \(t/\log2\le\ell\le a\), and \(\log K\le4t\).
-We first bound the contraction, including both rounding and type losses.
-The candidate coordinate count and the number of active relations obey
-\(J_a\le2a^3\) and \(I\le2a^2\).
-The occupation and rounding bounds give, for each action and reset,
-\[
- w_i\le180K+2a,\qquad z_r\le2K+1.
-\]
-Consequently the type loss at \(N=1\) is bounded by
+We bound \(\Delta_1\) from below and each term of the numerator from
+above, all divided by \(K\). Throughout, \(N=k=1\).
+
+\emph{Elementary facts.} Since \(a\ge2^{64}\), we have
+\(\log a\ge64\log2>32\) and \(\ell_a\ge64\); since
+\(\log_2a\le\ell_a\le a\), also \(\log K\le4\log a\) and
+\((\log a)/\ell_a\le\log2\). We use the numerical bounds
+\(\log2<7/10\), \(\log4<2\), \(\log5<2\) and \(\log181<6\). The number
+of transition coordinates satisfies \(J_a\le2a^3\) by
+\eqref{eq:coordinate-count}. The number of relations satisfies
+\(I\le3(a+2)(a-1)/2\le2a^2\), because row \(r\) has \(3r-1\) interior
+states and one tripling. Finally, by \eqref{eq:rounded-edge-errors},
+\(w_{r,x}<K\lambda_{r,x}+d_{r,x}\) and \(z_r<K\mu_r+1\), where
+\(\lambda_{r,x}<180\) and \(\mu_r\le2\) by
+Proposition~\ref{prop:occupations}, and
+\(d_{r,x}\le\lfloor3a/2\rfloor+1\le2a\). Hence \(w_i<180K+2a\) for
+every split \(i\) and \(z_r<2K+1\) for every tripling \(r\).
+
+\emph{Step 1: a lower bound for \(\Delta_1\).} We show that
+\(\Delta_1/K>\frac43\log a-7>0\). The type penalty
+\eqref{eq:type-penalty} at \(N=1\) satisfies
 \begin{equation}\label{eq:quantitative-type-loss}
- \mathcal T_1\le
- J_a\log(180K+2a+1)+(a-1)\log(2K+2).
+ \mathcal T_1\le J_a\log(180K+2a+1)+(a-1)\log(2K+2).
 \end{equation}
-Here the sum of the action support sizes minus one is at most \(J_a\),
-and there are at most \(a-1\) positive resets.
-Since \(180K+2a+1\le181K\), \(\log181<6\), and \(\log4<2\),
+Indeed, the coefficient of \(\log(w_i+1)\) in \(\mathcal T_1\) is the
+number of children of split \(i\) with positive count, minus one; it is
+less than \(d_i\), so these coefficients sum to at most \(J_a\). There
+are at most \(a-1\) triplings, and each contributes
+\(\log(z_r+1)\le\log(2K+2)\). Since \(180K+2a+1\le181K\) and
+\(2K+2\le4K\), the two logarithms in \eqref{eq:quantitative-type-loss}
+are less than \(6+4\log a\) and \(2+4\log a\), respectively. Combining
+this with the bound \(\mathcal L\le4J_a\) on the rounding loss
+(Proposition~\ref{prop:entropy-loss}), with \(J_a\le2a^3\), and with
+\(K=a^3\ell_a\), we obtain
 \[
  \frac{4J_a+\mathcal T_1}{K}
- \le\frac{20+8t+(4t+2)/a^2}{\ell}
- \le\frac{\frac{41}{2}+9t}{\ell}
+ \le\frac{20+8\log a+\frac{a-1}{a^3}(2+4\log a)}{\ell_a}
+ \le\frac{\frac{41}2+9\log a}{\ell_a}
  <\frac{41}{128}+\frac{63}{10}.
 \]
-The first two inequalities use \((a-1)/a^3\le1/a^2\le1/4\);
-the last uses \(\ell\ge64\) and \(t/\ell\le\log2<7/10\).
+The middle inequality uses \((a-1)/a^3\le1/a^2\le1/4\); the last uses
+\(\ell_a\ge64\) and \((\log a)/\ell_a\le\log2<7/10\).
 
-There is also a convenient elementary lower bound for the profile.
-The inequality \(\log(1+x)\ge x-x^2/2\), for \(x\ge0\), gives
+The inequality
+\(\log(1+\xi)\ge\xi-\xi^2/2\) for \(\xi\ge0\), applied with
+\(\xi=1/(3h)\), together with \(\sum_{h=1}^{a-1}1/h\ge\log a\) and
+\(\sum_{h\ge1}1/h^2<2\), gives
 \[
  \log s_a
  \ge\frac13\sum_{h=1}^{a-1}\frac1h
      -\frac1{18}\sum_{h=1}^{a-1}\frac1{h^2}
  \ge\frac13\log a-\frac19.
 \]
-As \(F(a,a)=s_a(3a-1)/2\ge a s_a\), we obtain
-\(\log F(a,a)\ge(4/3)t-1/9\).
-The conserved potential identity and the type bound therefore imply
+Since \(F(a,a)=s_a(3a-1)/2\ge as_a\), it follows that
+\(\log F(a,a)\ge\frac43\log a-\frac19\). By \eqref{eq:type-error} with
+\(N=1\) and by Proposition~\ref{prop:entropy-loss},
+\(\Delta_1\ge K\log F(a,a)-\mathcal L-\mathcal T_1\). Therefore
 \begin{equation}\label{eq:quantitative-contraction}
- \frac{\log(v/u)}{K}
+ \frac{\Delta_1}{K}
  \ge\log F(a,a)-\frac{4J_a+\mathcal T_1}{K}
- >\frac43t-7>0,
+ >\frac43\log a-7>0,
 \end{equation}
-where \(1/9+41/128+63/10<7\). This proves \(B>A\).
+because \(\frac19+\frac{41}{128}+\frac{63}{10}<7\) and \(\log a>32\).
+As \(\log(B/A)=kj\Delta_1\), this proves \(B>A\).
 
-We next bound every term in the exponent numerator.
-The copy charge satisfies
+\emph{Step 2: copy overhead.} By \eqref{eq:finite-cost-bounds} and
+\(I\le2a^2\),
 \[
- \frac{\log(S/H)}{K}
- \le\frac{6}{a\ell}\le1.
+ \frac{\log(L/M^3)}{K}<\frac{3I\log2}{K}\le\frac{6}{a\ell_a}\le1.
 \]
-For interpolation, each action entropy is at most its auxiliary charge,
-and the per-row occupation estimate gives
-\[
- H_i\le w_i\log d_i\le180K+2a\log(2a).
-\]
-The reset entropy \(z_r\log3\) is smaller than the same upper bound.
-Thus, writing \(B_1\) for the largest of these entropy bounds,
+
+\emph{Step 3: interpolation overhead.} By \eqref{eq:finite-cost-bounds},
+\(\log E\le\log(3I+1)+2\bar H_1\), where \(\bar H_1=\max_iH_i\) is the
+largest entropy charge. For a split, \(H_i\le w_i\log d_i\), because its
+empirical child distribution has at most \(d_i\) outcomes, and
+\(w_i\log d_i\le180K+2a\log(2a)\) by \eqref{eq:rounded-count-bounds}.
+For a tripling, \(H_r=z_r\log3<(2K+1)\log3\), which is smaller. Hence
+\(\bar H_1\le180K+2a\log(2a)\), and
 \[
  \frac{\log E}{K}
- \le\frac{\log(3I+1)+2B_1}{K}
- \le360+\frac{5}{a\ell}\le361.
+ \le360+\frac{\log(6a^2+1)+4a\log(2a)}{K}
+ \le360+\frac{2a+4a^2}{a^3\ell_a}
+ \le360+\frac{5}{a\ell_a}\le361,
 \]
-In the middle inequality we used
-\(\log(6a^2+1)\le2a\) and \(\log(2a)\le a\), valid for \(a\ge2\).
+where we used \(\log(6a^2+1)\le2a\) and \(\log(2a)\le a\), both valid
+for \(a\ge2\).
 
-Finally, the rounded count bounds imply
+\emph{Step 4: catalyst overhead.} By \eqref{eq:catalyst-size}, the
+catalyst has \(\bar w+\bar z-K\) factors. The count bounds
+\eqref{eq:rounded-count-bounds}, together with \(\Gamma_a\le180a\) and
+\(J_a\le2a^3\), give
 \[
- U+T-K\le182aK+2a^3+a<184aK.
+ \bar w+\bar z-K\le180aK+2a^3+(2K+1)(a-1)-K
+ \le182aK+2a^3+a<184aK.
 \]
-All catalyst rank bases are less than \(5a\), so
+Hence \eqref{eq:finite-cost-bounds} gives
+\(\log\kappa_1\le3\cdot184aK\log(5a)\), and with \(j=a\ell_a\),
 \[
  \frac{\log\kappa_1}{jK}
- \le552\frac{\log(5a)}{\ell}
+ \le\frac{552\log(5a)}{\ell_a}
+ \le552\log2\left(1+\frac{\log5}{\log a}\right)
  <552\cdot\frac7{10}\left(1+\frac28\right)=483.
 \]
-This uses \(\log2<7/10\), \(\log5<2\), and \(t>8\).
-Together with \(3\log(2a-1)<3t+3\), these estimates bound the
-pooled exponent numerator by \(K(3t+850)\).
-This bound even allows the additional fixed-batch ceiling charge
-\(\log2/j\), which is less than \(K\).
-Combining it with \eqref{eq:quantitative-contraction} gives
-\[
- p<\frac{3t+850}{\frac43t-7}
- =\frac94+\frac{850+63/4}{\frac43t-7}
- <\frac94+\frac{900}{t},
-\]
-because \((4/3)t-7\ge t\) for \(t>32\).
-Conversely, every overhead is nonnegative and
-\(\log(v/u)\le K\log F(a,a)\), so
-\[
- p\ge\frac{3\log(2a-1)}{\log F(a,a)}>\frac94
-\]
-by the strict diagonal bound in Theorem~\ref{thm:least-profile}.
-The upper and lower bounds prove the claimed limit.
+The middle inequality uses \(\ell_a\ge(\log a)/\log2\); the last uses
+\(\log2<7/10\), \(\log5<2\) and \(\log a>8\).
 
-For the source dimension, use \(C_a\le180a\) and the rounded
-auxiliary bound to obtain
+\emph{Step 5: combination.} Since \(3\log(2a-1)<3\log a+3\), Steps~2--4
+bound the numerator of \(p\) by
+\(K(3\log a+3+1+361+483)<K(3\log a+850)\). Together with Step~1, this
+gives
 \[
- \log A=j\log u
- \le a\ell\bigl(180aK+2a^3\log(2a)\bigr)
- =a^5\ell^2\left(180+
-                 \frac{2\log(2a)}{a\ell}\right)
- \le181a^5\ell^2.
+ p<\frac{3\log a+850}{\frac43\log a-7}
+ =\frac94+\frac{850+\frac{63}4}{\frac43\log a-7}
+ <\frac94+\frac{900}{\log a},
 \]
-The last inequality follows from \(\log(2a)\le a\) and \(\ell\ge64\).
+because \(\frac43\log a-7\ge\log a\) when \(\log a\ge21\). The
+fixed-batch bound \(\Phi\) of \eqref{eq:finite-exponent} obeys the same
+bound, since the extra term \((\log2)/(kj)<1\le K\) of its numerator
+still leaves it below \(K(3\log a+850)\). The lower bound
+\(p\ge\tau_a>9/4\) holds for every scheme of
+Section~\ref{sec:extraction} with \(B>A\) (see \eqref{eq:tau}), hence
+here by Step~1.
+
+\emph{Step 6: source side.} With \(N=1\), \(\log A_1=W\) is the sum of
+the logarithms of the auxiliary dimensions, weighted by the split
+counts. By \eqref{eq:rounded-count-bounds},
+\(W\le K\Gamma_a+J_a\log(2a)\le180a^4\ell_a+2a^3\log(2a)\), so
+\[
+ \log A=kj\log A_1
+ \le a\ell_a\bigl(180a^4\ell_a+2a^3\log(2a)\bigr)
+ =a^5\ell_a^2\left(180+\frac{2\log(2a)}{a\ell_a}\right)
+ \le181a^5\ell_a^2,
+\]
+since \(\log(2a)\le a\) and \(\ell_a\ge64\). The limit statements follow
+because \(\ell_a=O(\log a)\).
 \end{proof}
 
-\begin{corollary}[An explicit index for an exponent allowance]
+\begin{corollary}[An index for a given allowance]
 \label{cor:explicit-allowance}
-Given a positive rational \(\eps\), put
+Let \(\eps\) be a positive rational, and put
 \[
  \ell=\max\left\{64,\left\lceil\frac{1800}{\eps}\right\rceil\right\},
  \qquad a=2^\ell.
 \]
-The family in Theorem~\ref{thm:quantitative} gives a finite relative
-scheme with recursive exponent strictly below \(9/4+\eps\), and
-\[
- \log A\le181\,2^{5\ell}\ell^2.
-\]
-The index and all four construction parameters are selected by integer
-and rational computations.
+The relative scheme of Theorem~\ref{thm:quantitative} for this \(a\)
+has pooled exponent \(p<9/4+\eps\), and its source side satisfies
+\(\log A\le181\cdot2^{5\ell}\ell^2\). The index \(a\) and the
+parameters \(K,N,k,j\) are computed from \(\eps\) by integer and
+rational arithmetic.
 \end{corollary}
+
 \begin{proof}
-Here \(\ell_a=\ell\) and \(\log a=\ell\log2>\ell/2\). Therefore
-\(900/\log a<1800/\ell\le\eps\), and the source bound follows
-from \eqref{eq:explicit-rate}.
+Here \(a\ge2^{64}\) and \(\ell_a=\ell\). Since
+\(\log a=\ell\log2>\ell/2\), we get
+\(900/\log a<1800/\ell\le\eps\), and \eqref{eq:explicit-rate} gives
+both claims.
 \end{proof}
 
-The bound concerns the recursive source dimension \(A\) of the relative
-scheme. It does not bound the side of a rational square seed obtained
-after coefficient descent, or the time and bit complexity needed to
-write out all coefficients of the construction.
+\begin{remark}[Calibration]\label{rem:calibration}
+The family of Theorem~\ref{thm:quantitative} is chosen to keep the
+proof short, and its bound is weak for moderate \(a\): at \(a=2^{64}\),
+\eqref{eq:explicit-rate} gives only \(p<22.54\); the bound
+\(9/4+900/\log a\) is below \(3\) exactly when \(\log a>1200\); and for
+\(\eps=1/10\), Corollary~\ref{cor:explicit-allowance} takes
+\(a=2^{18000}\).
+Section~\ref{sec:costs} obtains much better bounds for small \(a\)
+(Table~\ref{tab:finite-multiway}).
+\end{remark}
+
+\subsection{An effective algorithm over a cyclotomic field}
+\label{subsec:effective}
+
+Theorem~\ref{thm:quantitative} allows every rounding of
+Lemma~\ref{lem:circulation-rounding}. To obtain one algorithm for each
+allowance, we fix every choice by a rule and record which roots of unity
+the maps use.
+
+\begin{theorem}[Effective construction]\label{thm:effective}
+There is a terminating procedure that, given a positive rational
+\(\eps\), specifies a finite arithmetic algorithm that multiplies
+arbitrary complex \(n\times n\) matrices in \(O_\eps(n^{9/4+\eps})\)
+operations. All coefficients of the algorithm lie in a cyclotomic field
+\(\Q(\zeta_\Lambda)\) whose order \(\Lambda\) the procedure computes.
+The procedure uses only finite integer and rational computations,
+coordinate permutations, tensor products, and the maps of
+Sections~\ref{sec:preliminaries} and~\ref{sec:maps}--\ref{sec:extraction}.
+\end{theorem}
+
+\begin{proof}
+We list the rules in the order in which they are applied, and then
+collect the roots of unity.
+
+\emph{Step 1: parameters.} Compute \(\ell\) and \(a\) from \(\eps\) by
+Corollary~\ref{cor:explicit-allowance}, and \(K,N,k,j\) by
+Theorem~\ref{thm:quantitative}.
+
+\emph{Step 2: occupations and rounded counts.} Solve the rational linear
+systems of Proposition~\ref{prop:occupations} by exact Gaussian
+elimination. Round each row separately by
+Lemma~\ref{lem:circulation-rounding}, using breadth-first (shortest)
+augmenting paths. List the arcs in the following order, which is also
+the order in which the search scans the arcs at each vertex (the reverse
+residual arc of an arc is scanned at that arc's position): the
+transition edges by increasing state \(x\) and then by increasing child
+\(y\); then the tripling edge \(3r\to1\); then the source and sink arcs
+by increasing state. From the rounded counts \(n_{r,x,y}\) and \(z_r\),
+form the ledger and the catalyst multiplicities \(c_{\sigma,r,b}\) of
+Proposition~\ref{prop:rounded-ledger}. The examples in
+Section~\ref{sec:costs} use the same rule.
+
+\emph{Step 3: maps.} Order tensor positions and sector words
+lexicographically. Use the determinant bases
+\eqref{eq:determinant-basis}, the interval sectors of
+Lemma~\ref{lem:tripling}, the Fourier substitutions of
+Proposition~\ref{prop:separator}, the rank decompositions
+\eqref{eq:convolution-rank}, and the root-of-unity averages of
+Lemma~\ref{lem:exactification}. Separate the sectors before applying
+their individual coordinate maps, and compose the maps in the order of
+the proofs of Propositions~\ref{prop:catalytic}
+and~\ref{prop:relative}; Appendix~\ref{sec:composed-maps} writes out
+the composed relation maps. This gives the relative scheme of
+Proposition~\ref{prop:relative}.
+
+\emph{Step 4: the field of the scheme.} The maps use roots of unity of
+the following orders only:
+\(E=kD+1\), in the exactification of Lemma~\ref{lem:exactification};
+\(2a-1\), in the rank decomposition \eqref{eq:convolution-rank} of
+\(C(a,a)\), through which Proposition~\ref{prop:relative} replaces each
+source copy of \(S^+_{a,a}\) by \((2a-1)^3\) rank-one tensors;
+\(2M_i-1\) for \(i\in\mathcal J\), in the separator of relation \(i\);
+and \(r+b-1\) for every catalyst factor \(S^\sigma_{r,b}\) with
+\(c_{\sigma,r,b}>0\), in the rank decompositions that supply the
+catalyst \eqref{eq:kappa}. Every other map has rational coefficients:
+the determinant bases, the interval sectors, the coordinate
+permutations, the scalars \(1/E\) and \(1/(2M_i-1)\), and the
+restriction of the output catalyst to a coefficient equal to one;
+catalyst reuse introduces no further roots of unity. Hence all
+coefficients of the scheme lie in \(\Q(\zeta_\Lambda)\), where
+\begin{equation}\label{eq:cyclotomic-order}
+ \Lambda=\lcm\bigl(E,\;2a-1,\;\{2M_i-1:i\in\mathcal J\},\;
+       \{r+b-1:c_{\sigma,r,b}>0\}\bigr).
+\end{equation}
+We represent \(\Q(\zeta_\Lambda)\) by the power basis modulo the
+\(\Lambda\)-th cyclotomic polynomial.
+
+\emph{Step 5: the algorithm.} By Theorem~\ref{thm:quantitative} and
+Corollary~\ref{cor:explicit-allowance}, \(2<p<9/4+\eps\), so
+Lemma~\ref{lem:batch} turns the scheme into an algorithm with
+\(O(n^p)\subseteq O_\eps(n^{9/4+\eps})\) operations. Its zero padding
+and its recursion introduce no further roots of unity, so all its
+coefficients lie in \(\Q(\zeta_\Lambda)\). The procedure thus specifies
+finite coefficient arrays and the order of their composition.
+\end{proof}
+
+\begin{remark}[The field for every index]\label{rem:field-every-a}
+Steps~2--4 of this proof do not use the special form \(a=2^\ell\) of
+Step~1. Hence, for every integer \(a\ge2^{64}\), the relative scheme of
+Theorem~\ref{thm:quantitative}, built with the rounding rule of Step~2
+and the orders of Step~3, is produced from \(a\) by a terminating
+procedure, and its coefficients lie in \(\Q(\zeta_\Lambda)\), with
+\(\Lambda\) given by \eqref{eq:cyclotomic-order}. Together with
+Theorem~\ref{thm:quantitative}, this proves
+Theorem~\ref{thm:main-relative}.
+\end{remark}
+
+\subsection{Rational coefficients and a square seed}
+\label{subsec:seed}
+
+\begin{lemma}[Restriction of coefficients to the rationals]
+\label{lem:descent}
+Let \(T\) be a tensor with rational coefficients, and suppose that a
+decomposition of \(T\) into \(R\) rank-one tensors is given over a
+number field \(\mathbb K\) of degree \(g=[\mathbb K:\Q]\). Then the
+construction below gives a decomposition of \(T\) into at most \(g^2R\)
+rank-one tensors with rational coefficients.
+\end{lemma}
+
+\begin{proof}
+Choose a basis \(\theta_1=1,\theta_2,\ldots,\theta_g\) of \(\mathbb K\)
+over \(\Q\) (for \(\Q(\zeta_\Lambda)\), the power basis, in which all
+field operations are effective), and let \(\varphi\colon\mathbb K\to\Q\)
+be the \(\Q\)-linear map that extracts the coefficient of \(\theta_1\).
+In one summand of the decomposition, write the first two linear forms as
+\(\sum_s\theta_s\alpha_s\) and \(\sum_{s'}\theta_{s'}\beta_{s'}\), where
+the forms \(\alpha_s\) and \(\beta_{s'}\) have rational coefficients,
+and call the third form \(\gamma\). Apply \(\varphi\) to every
+coefficient of the tensor identity. The summand becomes
+\[
+ \sum_{s,s'=1}^{g}\alpha_s\otimes\beta_{s'}\otimes
+ \varphi(\theta_s\theta_{s'}\gamma),
+\]
+where \(\varphi\) acts on the coefficients of \(\gamma\). This is a sum
+of at most \(g^2\) rank-one tensors with rational coefficients; terms
+with \(\alpha_s=0\) or \(\beta_{s'}=0\) are omitted, so a summand with
+rational coefficients is left unchanged. The tensor \(T\) itself is
+unchanged, because its coefficients are rational and \(\varphi\) is the
+identity on \(\Q\).
+\end{proof}
+
+\begin{corollary}[Rational seeds]\label{cor:seed}
+For every positive rational \(\eps\), a terminating procedure produces
+an integer \(d_0\ge2\) and a decomposition of \(\MM_{d_0}\) into
+\(R_{d_0}<d_0^{9/4+\eps}\) rank-one tensors with rational coefficients.
+Consequently, a fixed rational bilinear recursion attains an exponent
+strictly below \(9/4+\eps\).
+\end{corollary}
+
+\begin{proof}
+Apply Theorem~\ref{thm:effective} with allowance \(\eps/2\). For each
+side \(n\), unroll the pooled recursion of Lemma~\ref{lem:batch} down to
+its classical leaves, with the zero padding of that lemma. By the last
+assertion of Lemma~\ref{lem:batch}, every leaf multiplication
+multiplies a linear form in the entries of the left input by a linear
+form in the entries of the right input. The unrolled algorithm is
+therefore a decomposition of \(\MM_n\) into rank-one tensors, one for
+each leaf multiplication. Their number is at most the arithmetic cost,
+hence \(O_\eps(n^{9/4+\eps/2})\), and their coefficients lie in
+\(\Q(\zeta_\Lambda)\), a field that does not depend on \(n\). Apply
+Lemma~\ref{lem:descent}, and let \(R_n\) be the number of rank-one
+tensors after descent. Since the degree
+\(g=[\Q(\zeta_\Lambda):\Q]\) does not depend on \(n\), we have
+\(R_n\le g^2\cdot O_\eps(n^{9/4+\eps/2})=O_\eps(n^{9/4+\eps/2})\).
+
+Write \(9/4+\eps=\alpha_\eps/\beta_\eps\) with positive integers
+\(\alpha_\eps,\beta_\eps\). For \(n=2,3,\ldots\), compute \(R_n\) and
+stop at the first \(n\) with \(R_n^{\beta_\eps}<n^{\alpha_\eps}\); this
+\(n\) is \(d_0\). The loop terminates because the exponent of the bound
+on \(R_n\) is smaller than \(9/4+\eps\) by \(\eps/2\). Ordinary block
+recursion on the seed has exponent \(\log_{d_0}R_{d_0}<9/4+\eps\); its
+fixed linear maps cost \(O(n^2)\) operations per node.
+\end{proof}
+
+\begin{remark}[Size of the seed]\label{rem:seed-size}
+Suppose that \(\eps\le3/4\), the only case of interest, since classical
+multiplication has exponent \(3\). Let \(A\) and \(B\) be the sides of
+the scheme that the proof of Corollary~\ref{cor:seed} uses, for the
+allowance \(\eps/2\). Every side \(n\le A\) lies below the leaf
+threshold \(\lceil A/(1-A/B)\rceil+1\) of Lemma~\ref{lem:batch}, so for
+such \(n\) the unrolled algorithm is the classical one, with
+\(n^3\ge n^{9/4+\eps}\) rational products, which descent leaves
+unchanged; hence \(d_0>A\). Moreover \(A=A_1^{kj}=A_1^j\ge2^j\) with
+\(j=a\ell_a\ge2^{70}\), so \(d_0>2^{2^{70}}\); here \(A_1\ge2\) because,
+by \eqref{eq:rounded-row-flow}, the splits that enter state \(0\) of a
+row have total count \(K\), so some split is active. Since the seed has
+rational coefficients, its identity holds over every field of
+characteristic zero.
+\end{remark}

@@ -1,96 +1,102 @@
-\section{Consequences and scope}
+\section{Further remarks}
 \label{sec:discussion}
 
-The construction gives a finite answer to the extraction problem for every
-fixed positive exponent allowance. Its relative schemes are specified by
-coordinate maps and integer parameters, and their recursive use includes
-all finite overheads. Unrolling one fixed scheme and restricting its
-coefficients to the rationals gives the seed in
-Theorem~\ref{thm:main}. The argument uses the finite convolution relations
-from \citet{OAI26}, but does not assume that preprint's spectral conclusion.
-The theorem therefore provides a separate finite derivation of
-\(\omega\le9/4\).
+We end with reusable components, possible improvements and open
+questions.
 
-The quantitative family also resolves a denominator problem in exact
-certificate constructions. Clearing the binary certificate's prescribed
-rational denominators requires an exponentially growing scale. That
-requirement belongs to those exact weights. Conserved rounding uses any
-positive integer scale, preserves every tensor-factor balance, and loses at most
-\(4J_a=O(a^3)\) in the entropy expression. The resulting family has
-\(\log A=O(a^5(\log a)^2)\), with explicit constants and a proved choice
-of \(a\) for every allowance. The binary denominator formula remains a useful comparison, but it is
-not a size barrier for this construction or for matrix multiplication
-algorithms in general.
+Several components can be used separately in other tensor arguments. The
+type restriction of Lemma~\ref{lem:multiway} turns a filtration that
+multiplication preserves, such as the determinant filtration, into
+restrictions of fixed type. The
+occupation estimates of Proposition~\ref{prop:occupations} bound both the
+total occupation of a row and the sum of the logarithms of its auxiliary
+dimensions, weighted by the occupations, uniformly in the length of the
+row. The rounding of
+Lemma~\ref{lem:circulation-rounding} keeps integer balances exact, and
+its entropy estimate (Proposition~\ref{prop:entropy-loss}) holds even
+when some occupations are arbitrarily small or zero. The separator of
+Proposition~\ref{prop:separator} applies to any sectors that share one
+leg.
 
-The least-profile theorem identifies the exact limit of the stated scalar
-axioms. The diagonal lower bound follows from tripling at the row index,
-which is the subfamily used by the tensor maps; off-diagonal minimality
-uses shifted tripling beyond the row index. Since the displayed profile itself
-satisfies the axioms, those axioms alone cannot force faster diagonal
-growth. The multiway relations improve the finite accounting while keeping
-the same limiting profile exponent. A smaller asymptotic exponent would
-require additional mathematical input.
+The exponent formula \eqref{eq:pooled-exponent} separates the overheads,
+so possible improvements can be judged one term at a time. A separator
+with fewer source copies or a smaller degree would reduce the copy and
+interpolation overheads (Appendix~\ref{subsec:sparse} discusses two
+refinements); a cheaper decomposition of the catalyst than the rank bound
+\(\kappa_N\) would reduce the catalyst overhead; and other transition
+rules might reduce the occupation and type costs.
+Section~\ref{subsec:finite-examples} shows which terms matter at small
+indices. Using all six leg orientations instead of three squares the dimensions
+at a given interpolation power \(k\) but gives no better exponent: the
+sixfold construction with power \(k\) coincides with the threefold one
+with power \(2k\) (Section~\ref{subsec:exact-normalization}). We know of no lower bound
+that excludes the improvements listed above.
 
-Several components can also be used separately. The determinant map turns
-a filtration preserved by multiplication into exact fixed-type restrictions.
-The occupation estimates control both the total rational multiplicity of
-the relations and the logarithmic cost of their auxiliaries. The circulation rounding preserves
-integer resource balances, while its entropy estimate remains valid for
-arbitrarily small or zero occupations. The separator applies to any
-matched sectors sharing a leg. Each use in another tensor argument would
-still need its own compatibility and cost analysis.
+\subsection*{Supporting files}
 
-The threefold balance and pooled recursion have precise, limited effects.
-Alternating row orientations make three cyclic copies sufficient and reduce
-the dimensions at fixed parameters. This alone gives no improvement in
-the exponent: threefold power \(2k\) reproduces the charged scalar counts
-of sixfold power \(k\) for the same types and reuse count. Pooling the
-recursive subproblems removes the ceiling in the branch ratio, replacing
-\(\lceil r/m\rceil\) by \(r/m\) in the exponent. It does not remove
-interpolation evaluations, catalyst supply, or linear transformations.
+{\sloppy\renewcommand{\UrlBreaks}{\do\/\do\_}%
+The supplementary material contains scripts, most of them in exact arithmetic, in the
+directory \path|experiments/|, and their saved reports, in
+\path|results/|. The scripts check the determinant maps and the symmetrized
+convolution tensors on small cases (\path|multiway_determinant.py|,
+\path|cyclic_profile_extraction.py|), compute the occupations and the
+rounded counts (\path|multiway_profile_flows.py|,
+\path|multiway_rounded_flow.py|) and the exact binary certificate of
+Appendix~\ref{sec:exact-certificate}
+(\path|general_profile_extraction.py|), and evaluate the bounds of
+Section~\ref{sec:costs} in exact rational interval arithmetic
+(\path|multiway_finite_costs.py|, which writes the report
+\path|results/multiway-finite-costs.json|). The script
+\path|finite_table_checks.py| reproduces the numbers of
+Section~\ref{sec:costs} and the values of \(\tau_a\) below from that
+report. The script \path|extraction_a2_small_scale.py| enumerates, for
+\(a=2\) and \(N=1\), all roundings allowed by
+Lemma~\ref{lem:circulation-rounding}, checks the sign of \(\Delta_1\)
+stated in Section~\ref{subsec:exponent} in exact integer arithmetic, and
+evaluates the numbers of Example~\ref{ex:ledger-a2}. The scripts
+\path|flows_row_maxima.py| and \path|rounding_observed_loss.py| compute
+Example~\ref{ex:row-two} exactly and the floating-point values in
+Remarks~\ref{rem:occupation-constants} and~\ref{rem:observed-loss}. No
+theorem of this paper depends on these files.\par}
 
-The scale bound applies to the relative source dimension \(A\). It does
-not bound the dimension of the final rational seed, the size of its
-coefficients, or the time needed to write them out. The seed procedure
-terminates because it uses a fixed coefficient field and a strict gap
-between the constructed exponent and the requested allowance. No new
-small-rank identity is claimed. Every finite member of the prescribed
-family has exponent strictly above \(9/4\), and the proof supplies no
-fixed recursion with cost \(O(n^{9/4})\).
+\subsection*{Open questions}
 
-The allowance and coefficient set are fixed before the input dimension
-grows. Although Theorem~\ref{thm:quantitative} gives a rate in the profile
-index, it is not a construction-time or bit-complexity bound. A uniform
-algorithm that changes its allowance with the input dimension would require
-conventions for generating and loading its rational constants and a bound
-on that setup cost. Exact arithmetic also gives no numerical stability
-guarantee. The finite examples do not establish a useful matrix-size range.
+\begin{enumerate}
+\item \emph{New relations.} Are there tensor relations (restrictions or
+degenerations) among the symmetrized convolution tensors
+\(S^\sigma_{r,b}\), other than splits and triplings, that add
+inequalities to the profile axioms? By Theorem~\ref{thm:least-profile}
+and Remark~\ref{rem:profile-limit}, such relations are needed for a bound
+below \(9/4\) of the form \(3\log(2a-1)/\log P(a,a)\).
 
-Further reductions in finite cost can be assessed through the separate
-terms of the exponent formula. A smaller separation degree would reduce
-interpolation; a cheaper decomposition of the retained factors would reduce
-catalyst supply; and different transition rules might reduce the occupation
-and type costs. Such changes would need explicit maps or proved estimates.
-The present analysis supplies no general lower bound that excludes them.
+\item \emph{Dependence on the allowance.} Every scheme of the family has
+\(p\ge\tau_a\), and the proof of Theorem~\ref{thm:least-profile} gives
+\(s_a^3\le(3a-1)/2\), hence
+\(\log F(a,a)\le\frac43\log\bigl((3a-1)/2\bigr)\) and
+\[
+ \tau_a-\frac94
+ \ge\frac94\cdot\frac{\log\bigl((4a-2)/(3a-1)\bigr)}
+ {\log\bigl((3a-1)/2\bigr)}
+ \ge\frac{9\log(6/5)}{4\log\bigl((3a-1)/2\bigr)}.
+\]
+So a scheme of the family with exponent below \(9/4+\eps\) has
+\(\log\bigl((3a-1)/2\bigr)>9\log(6/5)/(4\eps)\): its target index grows
+exponentially in \(1/\eps\), and so does the bound on \(\log A\) in
+Corollary~\ref{cor:explicit-allowance}. Is there a finite construction with exponent
+below \(9/4+\eps\) and with \(\log A\) bounded by a polynomial in
+\(1/\eps\)?
 
-\subsection*{Supporting calculations and source files}
+\item \emph{Moderate sizes.} A floating-point evaluation gives
+\(\tau_a>2.371339\) for \(a\le187\). Since \(p\ge\tau_a\), a scheme of
+this family has exponent below \(2.371339\), the bound on \(\omega\)
+proved by \citet{AD25}, only if \(a\ge188\). How small can the source
+side of such a scheme be made, in this family or in a variant of it?
 
-The proof is contained in the formulas and arguments in this paper.
-The accompanying supplement, \path|finite-extraction-supplement-v2.zip|
-(version 2, 7 October 2026), includes exact-arithmetic scripts, component
-checks, and the saved interval certificates used for the finite examples.
-The determinant and cyclic maps are checked in
-\path|experiments/multiway_determinant.py| and
-\path|experiments/cyclic_profile_extraction.py|. The occupation and rounded
-counts are generated by \path|experiments/multiway_profile_flows.py| and
-\path|experiments/multiway_rounded_flow.py|. The finite-cost evaluator is
-\path|experiments/multiway_finite_costs.py|, with its saved report in
-\path|results/multiway-finite-costs.json|. The supplement also retains the
-binary-certificate calculations underlying the appendix comparisons.
-
-These files are supporting checks, not assumptions of the main theorem.
-The composed coefficient maps are specified mathematically; their full
-arrays are not stored. The reported finite bounds come from saved rational
-interval calculations, not from timing or executing the represented large
-matrix algorithms. No numerical benchmark is used to infer an arithmetic
-exponent.
+\item \emph{Uniform algorithms.} Theorem~\ref{thm:main} fixes the
+allowance \(\eps\) and the coefficient field before the input dimension
+grows. Can the running time of the procedure in
+Theorem~\ref{thm:effective} and the constant in Theorem~\ref{thm:main}
+be bounded explicitly in terms of \(\eps\)? Together with a convention
+for setup costs, such bounds would give a single algorithm that uses
+\(n^{9/4+o(1)}\) operations for every \(n\).
+\end{enumerate}

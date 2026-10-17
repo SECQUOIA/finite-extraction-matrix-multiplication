@@ -1,263 +1,451 @@
-\section{Integer types with exact resource balances}
+\section{Rounding the occupations to integer counts}
 \label{sec:rounding}
 
-The occupations in Proposition~\ref{prop:occupations} are rational, but
-their denominators need not be small. We do not clear those denominators.
-Instead, we round the transition counts while preserving every vertex
-balance. The resulting entropy loss has a bound that is uniform even
-when some occupations are arbitrarily small or zero.
+The tensor maps of Section~\ref{sec:maps} apply each split and each tripling
+a whole number of times, whereas the occupations \(\lambda_{r,x}\) and
+\(\mu_r\) of Proposition~\ref{prop:occupations} are rational numbers whose
+denominators may be large. For every integer rounding scale \(K\ge1\), this
+section rounds \(K\) times the expected transition counts of each row to
+integers that keep every state balanced exactly, as the row
+identities~\eqref{eq:row-flow} do. Then
+every tensor factor that one relation produces is consumed by another, apart
+from \(K\) copies of \(S^+_{a,a}\) that are only consumed and \(K\) copies of
+\(\MM_2\) that are only produced (Proposition~\ref{prop:rounded-ledger}). The
+price, at every scale, is a rounding loss of at most \(4J_a\), where
+\(J_a=O(a^3)\) is the number of transition coordinates
+(Proposition~\ref{prop:entropy-loss}). Clearing the denominators of the exact
+certificate of Appendix~\ref{sec:exact-certificate} would instead require a
+scale that grows at least exponentially.
 
-The following integrality fact is classical: it follows from the total
-unimodularity of a directed incidence matrix and the integer-bound theorem
-of \citet[Theorem~2]{HK56}. The return-edge reduction and rounding by
-fractional-cycle cancellation are described by
-\citet[Sections~2.2--3.1]{KangPayor15}. We give a residual-flow construction
-to specify the rounded counts used in the tensor maps. The estimate
-needed for our construction is the uniform weighted entropy loss for the
-chosen occupation flow, proved below.
+\subsection{Rounding a circulation}
+\label{subsec:circulation-rounding}
+
+A \emph{circulation} on a finite directed multigraph assigns a nonnegative
+value to each edge so that at every vertex the values of the entering edges
+and of the leaving edges have the same sum; a self-loop both enters and
+leaves its vertex. The following lemma is classical: it follows from
+\citet[Theorem~2]{HK56}, since the incidence matrix of a directed graph is
+totally unimodular, and rounding through a return edge is described by
+\citet[Sections~2.2--3.1]{KangPayor15}. We include a short proof because it
+fixes the counts used in the tensor maps and allows self-loops and opposing
+edges.
 
 \begin{lemma}[Rounding a circulation]\label{lem:circulation-rounding}
-Let \(\phi_e\) be a nonnegative rational circulation on a finite directed
-multigraph. There is an effective construction of an integer circulation
-\(n_e\) satisfying
+Let \(\varphi\) be a circulation with rational values on a finite directed
+multigraph, which may have self-loops and opposing edges. There is an
+integer circulation \(n\) on the same multigraph with
 \[
- \lfloor\phi_e\rfloor\le n_e\le\lceil\phi_e\rceil
- \quad\text{for every edge }e.
+ \lfloor\varphi_e\rfloor\le n_e\le\lceil\varphi_e\rceil
+ \quad\text{for every edge }e,
 \]
-Thus \(|n_e-\phi_e|<1\), and every edge with an integer target is
-unchanged. Self-loops and parallel or opposing edges are allowed.
+and it can be computed with exact rational and integer arithmetic. In
+particular, \(|n_e-\varphi_e|<1\) for every edge, and
+\(n_e=\varphi_e\) whenever \(\varphi_e\) is an integer.
 \end{lemma}
-\begin{proof}
-Put \(\ell_e=\lfloor\phi_e\rfloor\), and at each vertex set
-\[
- b_v=\sum_{e\text{ entering }v}\ell_e
-       -\sum_{e\text{ leaving }v}\ell_e.
-\]
-The fractional parts \(f_e=\phi_e-\ell_e\) have outgoing minus incoming
-balance \(b_v\). Discard loops for this step, since they have zero
-incidence. Give each nonintegral non-loop edge capacity one, in its
-original direction. Add an edge from a new source to each vertex with
-\(b_v>0\), of capacity \(b_v\), and an edge from each vertex with
-\(b_v<0\) to a new sink, of capacity \(-b_v\). The fractional parts, together with the added
-edges at full capacity, give a feasible flow of value
-\(B=\sum_{b_v>0}b_v\).
 
-An augmenting-path algorithm starting from zero finds an integral flow
-of this value. Indeed all residual capacities are integers, so each
-augmentation increases the value by a positive integer. If it stopped
-at a value below \(B\), the vertices reachable from the source would
-define a cut of capacity below \(B\), contradicting the feasible
-fractional flow. Add the resulting zero-or-one value on each original
-edge to its floor. Keep integer-target edges and loops at their floors.
-The source and sink edges are saturated, so the increments have balance
-\(b_v\), and the new original counts have balance zero. Distinct edges
-and their residual reverse arcs are kept separately; therefore parallel
-and opposing edges cause no identification. This proves the claim and
-gives an algorithm using exact rational and integer arithmetic.
+\begin{proof}
+Put \(\eta_e=\varphi_e-\lfloor\varphi_e\rfloor\in[0,1)\). Since \(\varphi\)
+is a circulation, the out-minus-in balance \(\beta_v\) of the \(\eta_e\) at
+a vertex \(v\), to which self-loops contribute nothing, equals the
+in-minus-out balance of the integer parts \(\lfloor\varphi_e\rfloor\), so
+\(\beta_v\) is an integer. Form a network with a new source \(v_+\) and a
+new sink \(v_-\): each nonintegral edge with distinct endpoints becomes its
+own arc of capacity one, and we add an arc \(v_+\to v\) of capacity
+\(\beta_v\) when \(\beta_v>0\) and an arc \(v\to v_-\) of capacity
+\(-\beta_v\) when \(\beta_v<0\). The values \(\eta_e\), with the added arcs
+saturated, form a flow of value
+\(\beta_{\mathrm{tot}}=\sum_{v:\,\beta_v>0}\beta_v\), because at each
+vertex \(v\) the arc from \(v_+\) or to \(v_-\) supplies or absorbs the
+balance \(\beta_v\); since \(\sum_v\beta_v=0\), \(\beta_{\mathrm{tot}}\) is
+also the total capacity of the arcs at \(v_+\), and of those at \(v_-\).
+Since all capacities are integers, an augmenting-path algorithm started at the zero
+flow raises the value by a positive integer at every step and stops after at
+most \(\beta_{\mathrm{tot}}\) steps with an integral flow \(g\). When it
+stops, the vertices reachable from \(v_+\) in the residual network form a
+cut of capacity equal to the value of \(g\); this capacity is at least the
+value \(\beta_{\mathrm{tot}}\) of the fractional flow, so \(g\) saturates
+all arcs at \(v_+\) and \(v_-\). Set \(n_e=\lfloor\varphi_e\rfloor+g_e\),
+where \(g_e\in\{0,1\}\) is the flow of \(g\) on the arc of \(e\), and
+\(g_e=0\) for integral edges and self-loops. At every vertex the \(g_e\) have
+out-minus-in balance \(\beta_v\) and the integer parts have balance
+\(-\beta_v\), so \(n\) is an integer circulation with the required bounds.
+Every step uses exact rational and integer arithmetic.
 \end{proof}
 
-Fix \(a\ge2\) and any integer \(K\ge1\). Use the row notation of
-Section~\ref{sec:flows}. In row \(r\), assign target count
-\(K\lambda_{r,x}q_{r,x,y}\) to the transition \(x\to y\), and target
-count \(K\mu_r\) to the reset \(n_r\to1\). Equation~\eqref{eq:row-flow}
-says that their outgoing minus incoming balance is
-\(K(e_{i_r}-e_0)\). Add a return edge \(0\to i_r\) of value \(K\).
-The augmented counts are a circulation, and this return edge remains
-exactly \(K\) under Lemma~\ref{lem:circulation-rounding}.
-Remove it after rounding. Write the remaining integer counts as
-\(n_{r,x,y}\) and \(z_r\), and put
-\[
- w_{r,x}=\sum_y n_{r,x,y},\qquad
- U=\sum_{r,x}w_{r,x},\qquad T=\sum_r z_r.
-\]
-They obey the exact row identities
+\subsection{The rounded counts}
+\label{subsec:rounded-counts}
+
+Fix \(a\ge2\) and \(K\ge1\), and use the notation of
+Section~\ref{sec:flows}; sums \(\sum_{r,x}\) run over \(2\le r\le a\) and
+\(1\le x\le3r-1\). We round one graph for each row. The \emph{graph of
+row \(r\)} has the states \(0,\ldots,3r\) as vertices and three kinds of
+edges, each with a \emph{scaled value}. For every interior state \(x\) and
+every child \(y\in\mathcal Y_{r,x}\) there is a \emph{transition edge}
+\(x\to y\) with scaled value \(K\lambda_{r,x}q_{r,x,y}\); it records the
+splits at \(x\) whose child is \(y\). The \emph{tripling edge} \(3r\to1\) has
+scaled value \(K\mu_r\) and records the triplings of row \(r\). The
+\emph{return edge} \(0\to\xin_r\) has scaled value \(K\); it returns the
+\(K\) units absorbed at state \(0\) to the injection state. These scaled
+values form a circulation: an edge from \(x\) to \(y\) with value \(\varphi\)
+contributes \(\varphi(\mathbf e_x-\mathbf e_y)\) to the out-minus-in
+balances, so, since \(\sum_yq_{r,x,y}=1\), the transition and tripling edges
+together contribute \(K\) times the left side of~\eqref{eq:row-flow}, which
+is \(K(\mathbf e_{\xin_r}-\mathbf e_0)\), and the return edge contributes
+\(K(\mathbf e_0-\mathbf e_{\xin_r})\). The graph has self-loops, at the
+states \(x\) with \(h_{r,x}\) even, and opposing edges, such as
+\(0\to\xin_r\) and \(\xin_r\to0\). A loop does not affect any balance,
+but its count is part of the number of splits at \(x\) and of their type,
+so it must be rounded too; for example, in row \(2\) with \(a=2\) the loop
+at state \(2\) has scaled value \(14K/15\).
+
+Apply Lemma~\ref{lem:circulation-rounding} to the graph of each row
+separately. The return edge has the integer value \(K\), so it keeps this
+value; we remove it after rounding. Let \(n_{r,x,y}\) be the rounded count
+on the transition edge \(x\to y\), which is the number of splits at state
+\(x\) of row \(r\) with child \(y\), and let \(z_r\) be the rounded count on
+the tripling edge, which is the number of triplings in row \(r\). Put
+\(w_{r,x}=\sum_{y\in\mathcal Y_{r,x}}n_{r,x,y}\), the number of splits at
+\((r,x)\), and \(\bar w=\sum_{r,x}w_{r,x}\) and \(\bar z=\sum_{r=2}^az_r\).
+Together with the return edge, the rounded counts form a circulation, so
+they satisfy the rounded row identities
 \begin{equation}\label{eq:rounded-row-flow}
- \sum_{x=1}^{n_r-1}
- \left(w_{r,x}e_x-\sum_y n_{r,x,y}e_y\right)
- +z_r(e_{n_r}-e_1)=K(e_{i_r}-e_0),
+ \sum_{x=1}^{3r-1}
+ \Bigl(w_{r,x}\mathbf e_x
+       -\sum_{y\in\mathcal Y_{r,x}}n_{r,x,y}\mathbf e_y\Bigr)
+ +z_r(\mathbf e_{3r}-\mathbf e_1)
+ =K(\mathbf e_{\xin_r}-\mathbf e_0)
+ \qquad(2\le r\le a).
 \end{equation}
-and the strict error bounds
+The lemma gives the first two of the strict error bounds
 \begin{equation}\label{eq:rounded-edge-errors}
  |n_{r,x,y}-K\lambda_{r,x}q_{r,x,y}|<1,
  \qquad |z_r-K\mu_r|<1,
- \qquad |w_{r,x}-K\lambda_{r,x}|<d_{r,x}.
+ \qquad |w_{r,x}-K\lambda_{r,x}|<d_{r,x},
 \end{equation}
-An edge with zero target stays zero. In particular, an action with
-\(\lambda_{r,x}=0\) has \(w_{r,x}=0\). Zero-weight actions are omitted
-when constructing tensor maps. No divisibility condition is imposed on
-\(z_r\).
+and the third follows by adding the first over the \(d_{r,x}\) children of
+\(x\), since \(\sum_yq_{r,x,y}=1\).
 
-\subsection{The signed resource ledger}
+An edge with scaled value zero keeps the count zero, so \(w_{r,x}=0\)
+whenever \(\lambda_{r,x}=0\). The split at \((r,x)\) is \emph{active} if
+\(w_{r,x}>0\); only active splits are used in the tensor maps. The count
+\(z_r\) may be any nonnegative integer, since Lemma~\ref{lem:tripling}
+imposes no divisibility condition. Every rule for choosing augmenting paths
+gives counts with these properties; Theorem~\ref{thm:effective} fixes one.
 
-Put \(b_r(x)=r-1+x\) and \(\sigma_r=(-1)^{a-r}\). We record convolution
-factors using formal symbols \([\sigma;r,b]\), with the identifications
-\[
+\subsection{The ledger}
+\label{subsec:ledger}
+
+To see that the relations of all rows fit together, we record in one
+formal sum, the \emph{ledger}, every tensor factor that a relation consumes,
+with a plus sign, and every factor that it produces, with a minus sign. It
+shows that all intermediate factors cancel, and it determines the catalyst:
+the factors that are both consumed and produced. Recall the sign
+\(\sigma_r=(-1)^{a-r}\) of row \(r\) (Section~\ref{sec:flows}), and write \(b_r(x)=r-1+x\) for the column of
+state \(x\); thus state \(x\) of row \(r\) stands for the tensor
+\(S^{\sigma_r}_{r,b_r(x)}\). We record tensor factors by formal symbols
+\([\sigma;r,b]\), one for each tensor \(S^\sigma_{r,b}\), subject to the
+identifications
+\begin{equation}\label{eq:symbol-identifications}
  [\sigma;r,b]=[-\sigma;b,r],\qquad
  [+;r,r]=[-;r,r],\qquad
- [\sigma;1,b]=[\MM_b].
-\]
-These are the legwise isomorphisms for the threefold tensors
-\(S^\sigma_{r,b}\). The symbols belong to a free abelian group after
-these identifications; they record multiplicities of tensor factors.
+ [\sigma;1,b]=[\MM_b],
+\end{equation}
+which follow the isomorphisms \(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\),
+\(S^+_{r,r}\cong S^-_{r,r}\) and \(S^\sigma_{1,b}\cong\MM_b\)
+of~\eqref{eq:cyclic-identities}; the second is the case \(b=r\) of the
+first. We work in the free abelian group generated by the resulting
+equivalence classes, which we still call symbols. The classes \([\MM_b]\)
+are the \emph{boundary symbols}.
 
-\begin{proposition}[Exact rounded ledger]\label{prop:rounded-ledger}
+In row \(r\), a split at state \(x\) consumes the symbol
+\([\sigma_r;r,b_r(x)]\) and produces \([\sigma_r;r,b_r(y)]\) for its child
+\(y\) (Lemma~\ref{lem:multiway}); a tripling consumes
+\([\sigma_r;r,4r-1]\) and produces \([\sigma_r;r,r]\)
+(Lemma~\ref{lem:tripling} and~\eqref{eq:cyclic-tripling-balance}). The
+\emph{source multiplicity} \(\operatorname{src}[\sigma;r,b]\) and the
+\emph{output multiplicity} \(\operatorname{out}[\sigma;r,b]\) of a symbol
+are the numbers of times it is consumed and produced: the \(w_{r,x}\) splits
+at \((r,x)\) add \(w_{r,x}\) to \(\operatorname{src}[\sigma_r;r,b_r(x)]\),
+and those among them with child \(y\) add \(n_{r,x,y}\) to
+\(\operatorname{out}[\sigma_r;r,b_r(y)]\); the \(z_r\) triplings of row
+\(r\) add \(z_r\) to \(\operatorname{src}[\sigma_r;r,4r-1]\) and to
+\(\operatorname{out}[\sigma_r;r,r]\). Summed over all symbols, both
+multiplicities give \(\bar w+\bar z\). The \emph{catalyst multiplicities}
+and the \emph{catalyst} are
+\begin{equation}\label{eq:rounded-catalyst}
+ c_{\sigma,r,b}=\min\bigl(\operatorname{src}[\sigma;r,b],
+                          \operatorname{out}[\sigma;r,b]\bigr),
+ \qquad
+ \Cat=\bigotimes_{\sigma,r,b}(S^\sigma_{r,b})^{\otimes c_{\sigma,r,b}},
+ \qquad \Cat_N=\Cat^{\otimes N}.
+\end{equation}
+Here the product, like every sum over \((\sigma,r,b)\) below, runs over the
+symbols, with one representative \((\sigma,r,b)\) chosen in each class;
+by~\eqref{eq:cyclic-identities}, another choice changes \(\Cat\) only by an
+isomorphism.
+
+\begin{proposition}[Rounded ledger]\label{prop:rounded-ledger}
 The rounded counts satisfy
 \begin{align}
- &\sum_{r=2}^a\sum_{x=1}^{n_r-1}
- \left(w_{r,x}[\sigma_r;r,b_r(x)]
-       -\sum_y n_{r,x,y}[\sigma_r;r,b_r(y)]\right)\notag\\
- &\qquad +\sum_{r=2}^a z_r
-   \left([\sigma_r;r,4r-1]-[\sigma_r;r,r]\right)
+ &\sum_{r=2}^a\sum_{x=1}^{3r-1}
+ \Bigl(w_{r,x}[\sigma_r;r,b_r(x)]
+       -\sum_{y\in\mathcal Y_{r,x}}n_{r,x,y}[\sigma_r;r,b_r(y)]\Bigr)
+ \notag\\
+ &\qquad+\sum_{r=2}^az_r
+   \bigl([\sigma_r;r,4r-1]-[\sigma_r;r,r]\bigr)
  =K[+;a,a]-K[\MM_2].\label{eq:rounded-ledger}
 \end{align}
-Let \(i_{\sigma,r,b}\) and \(o_{\sigma,r,b}\) be the total source and
-output multiplicities after choosing representatives for the identified
-symbols, and set
-\(c_{\sigma,r,b}=\min(i_{\sigma,r,b},o_{\sigma,r,b})\). Then
-\begin{equation}\label{eq:rounded-catalyst}
- \Cat=\bigotimes_{\sigma,r,b}
-       (S^\sigma_{r,b})^{\otimes c_{\sigma,r,b}},
- \qquad \Cat_N=\Cat^{\otimes N},
- \qquad \sum_{\sigma,r,b}c_{\sigma,r,b}=U+T-K.
+Consequently, the source and output multiplicities agree for every symbol
+except two: the source multiplicity of \([+;a,a]\) exceeds its output
+multiplicity by \(K\), and \([\MM_2]\), the only boundary symbol that
+occurs, is never consumed and is produced \(K\) times. Hence its catalyst
+multiplicity is zero, the catalyst \(\Cat\) is a tensor product of factors
+\(S^\sigma_{r,b}\) with \(r,b\ge2\), and
+\begin{equation}\label{eq:catalyst-size}
+ \sum_{\sigma,r,b}c_{\sigma,r,b}=\bar w+\bar z-K.
 \end{equation}
-Boundary factors in this product are interpreted as \(\MM_b\).
+In tensor terms, the relations together consume
+\(\Cat\otimes(S^+_{a,a})^{\otimes K}\) and produce
+\(\Cat\otimes(S^{\sigma_2}_{2,1})^{\otimes K}\cong\Cat\otimes\MM_{2^K}\).
 \end{proposition}
+
 \begin{proof}
-Replace the vectors in \eqref{eq:rounded-row-flow} by the corresponding
-symbols. The final row, whose injection is at \(i_a=1\), leaves
-\(K([+;a,a]-[+;a,a-1])\). A lower row has injection at \(i_r=2\)
-and leaves
-\(K([\sigma_r;r,r+1]-[\sigma_r;r,r-1])\).
-Since \(\sigma_{r+1}=-\sigma_r\), its positive boundary equals the
-negative boundary of row \(r+1\). The sum therefore leaves
-\(K[+;a,a]-K[\sigma_2;2,1]\), which is
-\eqref{eq:rounded-ledger}. Before removing common multiplicities, both
-the source and output totals are \(U+T\). Their difference has just
-the two distinct residual symbols in \eqref{eq:rounded-ledger}, each
-of multiplicity \(K\). The sum of the coordinatewise minima is thus
-\(U+T-K\).
+\emph{Step 1: the ledger identity.} In row \(r\), map each basis vector
+\(\mathbf e_x\) to the symbol \([\sigma_r;r,b_r(x)]\) and extend linearly.
+Since \(b_r(3r)=4r-1\) and \(b_r(1)=r\), this map sends the left side
+of~\eqref{eq:rounded-row-flow} to the terms of row \(r\) on the left side
+of~\eqref{eq:rounded-ledger}, and it sends the right side to
+\(K([\sigma_r;r,b_r(\xin_r)]-[\sigma_r;r,r-1])\). In the final row,
+\(\xin_a=1\) and \(\sigma_a=+\), so this is \(K([+;a,a]-[+;a,a-1])\). A
+lower row has \(\xin_r=2\) and gives
+\(K([\sigma_r;r,r+1]-[\sigma_r;r,r-1])\). Because
+\(\sigma_{r+1}=-\sigma_r\), the first identification
+in~\eqref{eq:symbol-identifications} gives
+\([\sigma_r;r,r+1]=[\sigma_{r+1};r+1,r]\); thus, for \(2\le r<a\), the
+positive term of row \(r\) cancels the negative term of row \(r+1\). Apart
+from naming \([+;a,a]=[-;a,a]\), the proof uses the signs only through this
+alternation (Section~\ref{subsec:orientations}). Summing over all rows
+leaves \(K[+;a,a]-K[\sigma_2;2,1]\), and
+\([\sigma_2;2,1]=[-\sigma_2;1,2]=[\MM_2]\). This
+proves~\eqref{eq:rounded-ledger}.
+
+\emph{Step 2: the multiplicities.} By their definition, the left side
+of~\eqref{eq:rounded-ledger} equals
+\(\sum_{\sigma,r,b}(\operatorname{src}[\sigma;r,b]
+ -\operatorname{out}[\sigma;r,b])\,[\sigma;r,b]\). Since \(a\ge2\), the
+symbols \([+;a,a]\) and \([\MM_2]\) are distinct, so comparing coefficients
+gives equal multiplicities for every other symbol, and differences \(K\) for
+\([+;a,a]\) and \(-K\) for \([\MM_2]\). A consumed symbol is
+\([\sigma_r;r,b]\) with \(r\ge2\) and \(b\ge r\) (either \(b=b_r(x)\) for an
+interior state \(x\), or \(b=4r-1\)); it and every symbol identified with
+it have both indices at least \(2\). Hence
+\(\operatorname{src}[\MM_2]=0\) and \(\operatorname{out}[\MM_2]=K\). A
+produced symbol is \([\sigma_r;r,b_r(y)]\) or \([\sigma_r;r,r]\), with
+\(r\ge2\) and \(b_r(y)\ge r-1\), so an index \(1\) occurs only for \(r=2\)
+and \(y=0\), which gives \([\sigma_2;2,1]=[\MM_2]\).
+
+\emph{Step 3: the catalyst.} By Step~2, the catalyst multiplicity equals
+the source multiplicity for every symbol except \([+;a,a]\), where it is
+\(\operatorname{out}[+;a,a]=\operatorname{src}[+;a,a]-K\), and it equals
+the output multiplicity for every symbol except \([\MM_2]\), where it is
+\(\min(0,K)=0\). Hence every symbol with positive catalyst multiplicity is
+consumed, so its indices are at least \(2\); summing over all symbols gives
+\(\sum_{\sigma,r,b}c_{\sigma,r,b}=\bar w+\bar z-K\); and the consumed
+symbols, counted with multiplicity, are those of \(\Cat\) and \(K\) copies
+of \([+;a,a]\), while the produced ones are those of \(\Cat\) and \(K\)
+copies of \([\MM_2]\). The tensor statement follows
+by~\eqref{eq:cyclic-identities} and \(\MM_2^{\otimes K}\cong\MM_{2^K}\).
 \end{proof}
 
-This is bookkeeping for actual source and output products. The common
-factors in \eqref{eq:rounded-catalyst} remain on both sides of the
-eventual tensor relation. They are not canceled from a restriction.
-The auxiliary factors of the determinant relations are charged separately.
+For \(2\le r<a\), the symbol \([\sigma_r;r,r+1]=[\sigma_{r+1};r+1,r]\) of
+Step~1 belongs to state \(2\) of row \(r\) and to state \(0\) of row
+\(r+1\); a comparison of
+the column ranges \([r-1,4r-1]\) shows that different rows share no other
+symbol. The auxiliary matrix factors are not ledger symbols;
+Section~\ref{sec:extraction} accounts for them separately.
 
-\subsection{Entropy loss without a minimum occupation bound}
+\subsection{The rounding loss}
+\label{subsec:entropy-loss}
 
-For a probability vector \(p\), let \(H(p)=-\sum_y p_y\log p_y\),
-where \(0\log0=0\). For positive \(q\), write
-\(D(p\Vert q)=\sum_{p_y>0}p_y\log(p_y/q_y)\).
-This quantity is nonnegative: applying \(\log t\le t-1\) to
-\(q_y/p_y\) and summing gives \(-D(p\Vert q)\le0\).
-For an active action put \(p_{r,x,y}=n_{r,x,y}/w_{r,x}\). Inactive
-actions contribute zero to all the sums below.
+Rounding changes the frequencies with which each split produces its
+children, and so it changes the gain of the construction, which we measure
+by the rounded potential \(G\) below: \(NG\) approximates the logarithm
+\(\Delta_N\) of the ratio of the one-step target side to the one-step source
+side of Section~\ref{sec:extraction}, by~\eqref{eq:type-error}. The term
+\(K\log2\) of \(G\) comes from the output \(\MM_{2^{NK}}\); the term of a
+split at \((r,x)\) compares the roughly \(\exp(Nw_{r,x}H(\hat q_{r,x}))\)
+sectors of its \(Nw_{r,x}\) uses with their auxiliary side
+\(d_{r,x}^{Nw_{r,x}}\); and \(z_r\log3\) counts the roughly \(3^{Nz_r}\)
+sectors of the triplings of row \(r\).
 
-For fixed-total probability approximation,
-\citet[Section~IV.D, Eq.~(42)]{BoechererGeiger16} bound the relative
-entropy of the minimizing \(M\)-type approximation by
-\(1/(Mq_{\min})\). Here an \(M\)-type has probabilities that are
-integer multiples of \(1/M\). Thus \(q_{\min}\ge1/(3d)\) gives weighted
-loss at most \(3d\) for that optimum. The empirical probabilities
-produced by our flow rounding need not minimize relative entropy, and
-the action total \(w\) may differ from its ideal total \(K\lambda\).
-We prove the required estimate directly, including actions whose rounded
-counts are all zero.
+For probability vectors \(\hat q\) and \(q\) on
+the same finite set, with \(q\) positive, let
+\(H(\hat q)=-\sum_y\hat q_y\log\hat q_y\), with \(0\log0=0\), be the
+entropy, and let
+\(D(\hat q\Vert q)=\sum_{y:\,\hat q_y>0}\hat q_y\log(\hat q_y/q_y)\) be the
+relative entropy, which is nonnegative (Gibbs' inequality). For an active
+split at \((r,x)\), let \(\hat q_{r,x}=(\hat q_{r,x,y})_y\), with
+\(\hat q_{r,x,y}=n_{r,x,y}/w_{r,x}\), be its empirical distribution of
+children, and let \(q_{r,x}=(q_{r,x,y})_y\). The \emph{rounded potential}
+and the \emph{rounding loss} are
+\begin{equation}\label{eq:rounded-gain}
+ G=K\log2+\sum_{r,x:\,w_{r,x}>0}
+   w_{r,x}\bigl(H(\hat q_{r,x})-\log d_{r,x}\bigr)+\bar z\log3,
+ \qquad
+ \mathcal L=\sum_{r,x:\,w_{r,x}>0}w_{r,x}D(\hat q_{r,x}\Vert q_{r,x}).
+\end{equation}
+Finally, let \(J_a\) be the number of transition coordinates, that is, the
+number of transition edges in all row graphs, loops included:
+\begin{equation}\label{eq:coordinate-count}
+ \begin{split}
+ J_a&=\sum_{r=2}^a\sum_{x=1}^{3r-1}d_{r,x}
+     =\sum_{r=2}^a\Bigl(\Bigl\lfloor\frac{9r^2}{4}\Bigr\rfloor+3r-1\Bigr)\\
+    &=\frac{12a^3+42a^2+12a-65+(-1)^a}{16}=O(a^3).
+ \end{split}
+\end{equation}
+The second equality holds because
+\(\sum_{x=1}^{3r-1}\min(x,3r-x)=\lfloor9r^2/4\rfloor\). The third follows by
+summing over \(r\), using \(\lfloor9r^2/4\rfloor=9r^2/4\) for even \(r\) and
+\(\lfloor9r^2/4\rfloor=(9r^2-1)/4\) for odd \(r\).
 
 \begin{proposition}[Uniform entropy loss]\label{prop:entropy-loss}
-Define
-\begin{align}
- G&=K\log2+\sum_{r,x:w_{r,x}>0}
- w_{r,x}\bigl(H(p_{r,x})-\log d_{r,x}\bigr)+T\log3,\notag\\
- \mathcal L&=\sum_{r,x:w_{r,x}>0}
-       w_{r,x}D(p_{r,x}\Vert q_{r,x}).\notag
-\end{align}
-Then
+For every rounding scale \(K\ge1\), the rounded potential and the rounding
+loss of~\eqref{eq:rounded-gain} satisfy
 \begin{equation}\label{eq:rounded-entropy}
  G=K\log F(a,a)-\mathcal L,
- \qquad 0\le\mathcal L\le4J_a,
+ \qquad 0\le\mathcal L\le4J_a.
 \end{equation}
-where the number of candidate transition coordinates is
-\begin{align}
- J_a&=\sum_{r=2}^a\sum_{x=1}^{3r-1}d_{r,x}
-     =\sum_{r=2}^a\left(\left\lfloor\frac{9r^2}{4}\right\rfloor+3r-1\right)
-     \notag\\
- &=\frac{12a^3+42a^2+12a-65+(-1)^a}{16}=O(a^3).
- \label{eq:coordinate-count}
-\end{align}
-The bound holds for every positive integer \(K\).
 \end{proposition}
+
 \begin{proof}
-First we give a uniform lower bound for the harmonic probabilities.
-In one row write \(n=3r\), \(c=3(r-1)/2\), \(f(x)=c+x\),
-\(h=\min(x,n-x)\), and \(d=h+1\). The smallest child has
-\(y=x-h\). For \(x\le n/2\), the ratio \(f(x-h)/f(x)=c/(c+x)\)
-decreases with \(x\). For \(x\ge n/2\), the ratio
-\((c+2x-n)/(c+x)\) increases with \(x\). Comparing both with the
-continuous midpoint, whether or not it is an integer, gives
+The identity comes from evaluating the potential \(\log F\) on the ledger.
+The bound comes from comparing each empirical distribution with the
+transition probabilities edge by edge, using that no child probability is
+smaller than \(1/(3d_{r,x})\).
+
+\emph{Step 1: a lower bound for the child probabilities.} Fix a row \(r\)
+and an interior state \(x\), and write \(h=h_{r,x}\) and \(d=d_{r,x}\).
+By~\eqref{eq:multiway-probabilities},
+\(q_{r,x,y}=f_r(y)/(d\,f_r(x))\), where \(f_r(y)=\frac{3(r-1)}2+y\) is
+increasing; so the smallest probability belongs to the smallest child
+\(x-h\) and equals \(f_r(x-h)/(d\,f_r(x))\). If \(x\le3r/2\), then \(h=x\),
+and the ratio \(f_r(0)/f_r(x)\) decreases with \(x\). If \(x\ge3r/2\), then
+\(h=3r-x\), and the ratio
+\(f_r(2x-3r)/f_r(x)=2-(f_r(0)+3r)/f_r(x)\) increases with \(x\). Both
+expressions, read as functions of a real variable \(x\), take the common
+value \(f_r(0)/f_r(3r/2)=(r-1)/(2r-1)\) at \(x=3r/2\), whether or not \(3r/2\)
+is an integer. Therefore every child \(y\) of \(x\) satisfies
 \begin{equation}\label{eq:child-probability-bound}
- q_{r,x,y}\ge\frac{c}{d(c+n/2)}
- =\frac{r-1}{(2r-1)d}\ge\frac1{3d}.
+ q_{r,x,y}\ge\frac{f_r(0)}{d_{r,x}f_r(3r/2)}
+ =\frac{r-1}{(2r-1)d_{r,x}}\ge\frac1{3d_{r,x}},
 \end{equation}
+where the last step uses \(r\ge2\). The bound is attained for \(r=2\) and
+\(x=3\), where \(q_{2,3,0}=1/12\).
 
-For an active action abbreviate \(V=K\lambda_{r,x}\),
-\(w=w_{r,x}\), and \(p=p_{r,x}\). By
-\eqref{eq:rounded-edge-errors}, \(|w-V|<d\), and hence, for each
-positive \(n_y\),
+\emph{Step 2: the loss of one split.} Fix an active split at \((r,x)\). In
+this step we omit the subscripts \(r,x\): thus \(\lambda=\lambda_{r,x}\),
+\(w=w_{r,x}\) and \(d=d_{r,x}\), and \(n_y\), \(\hat q_y\), \(q_y\) stand
+for \(n_{r,x,y}\), \(\hat q_{r,x,y}\), \(q_{r,x,y}\).
+By~\eqref{eq:rounded-edge-errors}, \(n_y<K\lambda q_y+1\) for every child
+\(y\), and \(K\lambda<w+d\); by~\eqref{eq:child-probability-bound},
+\(1/q_y\le3d\). Hence every child with \(n_y>0\) satisfies
 \[
- \frac{p_y}{q_y}
- <\frac{V}{w}+\frac1{wq_y}
- \le1+\frac{4d}{w}.
+ \frac{\hat q_y}{q_y}=\frac{n_y}{wq_y}
+ <\frac{K\lambda}{w}+\frac1{wq_y}
+ <1+\frac dw+\frac{3d}w=1+\frac{4d}w.
 \]
-It follows that
+Averaging the logarithm of this inequality with the weights \(\hat q_y\)
+gives \(D(\hat q_{r,x}\Vert q_{r,x})\le\log(1+4d/w)\), and therefore
 \[
- wD(p\Vert q)\le w\log(1+4d/w)\le4d.
+ w\,D(\hat q_{r,x}\Vert q_{r,x})\le w\log\Bigl(1+\frac{4d}w\Bigr)\le4d.
 \]
-This argument divides only by the positive integer \(w\), never by
-the occupation \(\lambda_{r,x}\). If \(w=0\), the action's loss is
-zero. If \(\lambda_{r,x}=0\), its counts are all zero by construction.
-Summing over the candidate actions proves \(\mathcal L\le4J_a\).
-The expression for \(J_a\) follows by summing
-\(\sum_{x=1}^{3r-1}(1+\min(x,3r-x))
- =\lfloor9r^2/4\rfloor+3r-1\).
+The argument divides only by the positive integer \(w\), never by the
+occupation \(\lambda\), so the bound holds at every scale \(K\), even when
+some occupations are tiny or zero. Summing over the active splits, and
+using \(D\ge0\), gives \(0\le\mathcal L\le\sum_{r,x}4d_{r,x}=4J_a\).
 
-For the identity in \eqref{eq:rounded-entropy}, use
-\(q_{r,x,y}=F(r,b_r(y))/(d_{r,x}F(r,b_r(x)))\). Each active action
-satisfies
-\begin{align*}
- &w_{r,x}\log F(r,b_r(x))
-       -\sum_y n_{r,x,y}\log F(r,b_r(y))\\
- &\qquad=w_{r,x}\bigl(H(p_{r,x})-\log d_{r,x}\bigr)
-       +w_{r,x}D(p_{r,x}\Vert q_{r,x}).
-\end{align*}
-The same equality reads \(0=0\) for an inactive action. Each reset
-contributes \(z_r\log3\), because
-\(F(r,4r-1)=3F(r,r)\). Apply the symmetric potential \(\log F\)
-to \eqref{eq:rounded-ledger}. Its total is
-\(K\log F(a,a)-K\log2\), proving the identity. The reset counts
-therefore cause no additional entropy error.
+\emph{Step 3: the identity.} By~\eqref{eq:affine-row},
+\(F(r,b_r(y))=s_rf_r(y)\) for \(0\le y\le3r\). Hence the transition
+probabilities~\eqref{eq:multiway-probabilities} are ratios of profile values,
+\[
+ q_{r,x,y}=\frac{F(r,b_r(y))}{d_{r,x}F(r,b_r(x))},
+ \quad\text{that is,}\quad
+ \log F(r,b_r(y))=\log F(r,b_r(x))+\log d_{r,x}+\log q_{r,x,y}.
+\]
+Multiply by \(n_{r,x,y}\) and sum over the children. For an active split,
+\(\sum_yn_{r,x,y}=w_{r,x}\), and the definitions of \(H\) and \(D\) give
+\(-\sum_{y:\,n_{r,x,y}>0}\hat q_{r,x,y}\log q_{r,x,y}
+ =H(\hat q_{r,x})+D(\hat q_{r,x}\Vert q_{r,x})\). Hence
+\begin{equation}\label{eq:split-potential}
+ w_{r,x}\log F(r,b_r(x))-\sum_yn_{r,x,y}\log F(r,b_r(y))
+ =w_{r,x}\bigl(H(\hat q_{r,x})-\log d_{r,x}\bigr)
+  +w_{r,x}D(\hat q_{r,x}\Vert q_{r,x}).
+\end{equation}
+For an inactive split both sides are zero. For a tripling,
+\(F(r,4r-1)=3F(r,r)\) (Step~1 of the proof of
+Theorem~\ref{thm:least-profile}), so
+\begin{equation}\label{eq:tripling-potential}
+ z_r\bigl(\log F(r,4r-1)-\log F(r,r)\bigr)=z_r\log3.
+\end{equation}
+Now assign to each symbol \([\sigma;r,b]\) the value \(\log F(r,b)\). This
+is well defined, because \(F\) is symmetric, the value does not depend on
+\(\sigma\), and \(F(1,b)=b\), so that the boundary symbol
+\([\MM_b]=[\sigma;1,b]\) receives \(\log b\). Extend the assignment
+linearly and apply it to~\eqref{eq:rounded-ledger}.
+By~\eqref{eq:split-potential} and~\eqref{eq:tripling-potential}, the left
+side becomes
+\[
+ \sum_{r,x:\,w_{r,x}>0}w_{r,x}\bigl(H(\hat q_{r,x})-\log d_{r,x}\bigr)
+ +\mathcal L+\bar z\log3,
+\]
+while the right side becomes \(K\log F(a,a)-K\log2\). Adding \(K\log2\) to
+both sides gives \(G=K\log F(a,a)-\mathcal L\).
 \end{proof}
 
-The same rounding supplies the bounds needed to charge auxiliary
-dimensions and interpolation. Put
-\(W=\sum_{r,x}w_{r,x}\log d_{r,x}\) and
-\(C_a=105+180(a-2)\). Proposition~\ref{prop:occupations} bounds
-both \(\sum_{r,x}\lambda_{r,x}\log d_{r,x}\) and
-\(\sum_{r,x}\lambda_{r,x}\) by \(C_a\). These two bounds and
-\eqref{eq:rounded-edge-errors} give
+Thus \(w_{r,x}D(\hat q_{r,x}\Vert q_{r,x})\) is the price of producing
+children with the frequencies \(\hat q_{r,x}\) instead of \(q_{r,x}\); it
+vanishes if \(K\) clears the denominators of all scaled values. For a
+distribution \(\hat p\) with entries in \(\frac1{w_{r,x}}\mathbb Z\) that
+minimizes \(D(\hat p\Vert q_{r,x})\), the bound of \citet[Section~IV.D, Eq.~(42)]{BoechererGeiger16}
+and~\eqref{eq:child-probability-bound} give \(3d_{r,x}\) in place of
+\(4d_{r,x}\), and so does Step~2 when \(w_{r,x}\ge K\lambda_{r,x}\); the extra
+\(d_{r,x}\) pays for the splits with \(w_{r,x}<K\lambda_{r,x}\).
+
+\begin{remark}[Size of the loss in examples]\label{rem:observed-loss}
+The bound \(4J_a\) is far from tight. A floating-point evaluation for the
+rounding rule of Theorem~\ref{thm:effective}, with \(2\le a\le12\) and
+\(K\in\{1,2,7,a^3,a^3\lceil\log_2a\rceil\}\), gives
+\(\mathcal L/(4J_a)<0.029\) in every case. The largest ratio occurs at
+\(a=2\) and \(K=1\), where \(\mathcal L=\log5\) and \(4J_2=56\). For
+\(a=12\) and the scale \(K=a^3\lceil\log_2a\rceil=6912\) of
+Theorem~\ref{thm:quantitative} (Section~\ref{sec:costs} uses a larger
+\(K\)), \(\mathcal L\approx3.96\), against \(4J_{12}=6716\).
+\end{remark}
+
+\subsection{Bounds on the rounded counts}
+\label{subsec:count-bounds}
+
+Put \(W=\sum_{r,x}w_{r,x}\log d_{r,x}\); at type scale \(N\), the source
+auxiliary matrix factor of all splits has side \(\exp(NW)\). Recall
+from~\eqref{eq:occupation-bounds} that \(\sum_{r,x}\lambda_{r,x}\) and
+\(\sum_{r,x}\lambda_{r,x}\log d_{r,x}\) are both at most \(\Gamma_a\), and
+from Proposition~\ref{prop:occupations} that
+\(\lambda_{r,x}\log d_{r,x}\le180\) for every split. These bounds
+and~\eqref{eq:rounded-edge-errors} give
 \begin{equation}\label{eq:rounded-count-bounds}
  \begin{split}
- W&\le KC_a+J_a\log(2a),\qquad U\le KC_a+J_a,\\
- T&\le(2K+1)(a-1),\\
+ W&\le K\Gamma_a+J_a\log(2a),\qquad \bar w\le K\Gamma_a+J_a,\\
+ \bar z&\le(2K+1)(a-1),\\
  w_{r,x}\log d_{r,x}&\le180K+2a\log(2a).
  \end{split}
 \end{equation}
-Indeed \(d_{r,x}\le\lfloor3a/2\rfloor+1\le2a\), so summing
-\(w_{r,x}<K\lambda_{r,x}+d_{r,x}\) proves the first two bounds.
-The exact reset occupations obey \(\mu_r\le2\), whence
-\(z_r<2K+1\). Finally, the nonnegative ideal charge of an individual
-action is at most its row's charge, which is at most \(180\).
-Multiplying its rounding bound by \(\log d_{r,x}\) proves the last
-inequality. This individual bound will control the largest sector count;
-the total bound for \(W\) alone would be weaker by a factor of order
-\(a\).
+Indeed, \(d_{r,x}\le\lfloor3a/2\rfloor+1\le2a\). Summing
+\(w_{r,x}<K\lambda_{r,x}+d_{r,x}\) over all splits gives
+\(\bar w<K\sum_{r,x}\lambda_{r,x}+J_a\). Multiplying the inequality \(w_{r,x}<K\lambda_{r,x}+d_{r,x}\) of a single
+split by \(\log d_{r,x}\le\log(2a)\) gives
+\(w_{r,x}\log d_{r,x}<K\lambda_{r,x}\log d_{r,x}+d_{r,x}\log(2a)\); with
+\(\lambda_{r,x}\log d_{r,x}\le180\) this proves the last bound, and summing
+over all splits proves the bound for \(W\). By~\eqref{eq:reset-weights},
+\(\mu_r\le2\), so \(z_r<2K+1\) in each of the \(a-1\) rows. The bound for a
+single split controls the largest sector count in Section~\ref{sec:rate};
+the bound for \(W\) alone would be weaker by a factor of order \(a\).

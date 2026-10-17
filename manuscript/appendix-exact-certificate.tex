@@ -1,207 +1,500 @@
 \section{The exact binary certificate and its denominator scale}
 \label{sec:exact-certificate}
 
-This appendix records a closed certificate that uses the neighboring-length
-relations with their exact tangent probabilities. It gives a useful
-comparison with the conserved rounding in Section~\ref{sec:rounding}.
-The exponential denominator bound below concerns this exact certificate;
-it is not a lower bound for rounded or multiway constructions.
+This appendix explains why the construction rounds its counts instead of
+clearing denominators. A \emph{certificate} is a set of positive rational
+weights on finitely many profile relations whose weighted sum telescopes;
+scaled to integers, the weights count how often each relation is used in
+a tensor construction. The certificate below uses only binary splits
+(splits of width one) and triplings, and it weights the two children of
+each split by their tangent probabilities. It reproves the diagonal bound
+\(P(a,a)\ge F(a,a)\) of Theorem~\ref{thm:least-profile}
+(Proposition~\ref{prop:dual}), but the least scale \(K_a\) that clears
+its denominators grows at least exponentially in \(a\)
+(Theorem~\ref{thm:normalization}), and the source of the corresponding
+tensor relation at least doubly exponentially. The rounding of
+Section~\ref{sec:rounding} avoids these exponential denominators: it
+keeps every row identity exact at every scale \(K\ge1\), at the cost of a
+rounding loss of at most \(4J_a=O(a^3)\)
+(Proposition~\ref{prop:entropy-loss}). The main construction does not
+use this appendix.
 
-Throughout this appendix, \(K,U,T\), the split counts, and the catalyst
-refer only to the exact binary certificate. They are distinct from the
-rounded quantities in the main construction.
+Quantities of the certificate that correspond to quantities of
+Sections~\ref{sec:flows} and~\ref{sec:rounding} carry the superscript
+\(\mathrm{ex}\); the tangent probabilities \(q^\pm_{r,x}\) and the counts
+\(w^\pm_{r,x}\) take the place of \(q_{r,x,y}\) and \(n_{r,x,y}\), and the
+tripling weights \(\mu_r\) are those of~\eqref{eq:reset-weights}.
 
-\subsection{A certificate with fixed rational probabilities}
+\subsection{Binary splits with tangent probabilities}
 
-For a fixed target index \(a\ge2\), use rows \(2\le r\le a\) and
-columns \(r\le b\le4r-2\). The affine formula in
-\eqref{eq:profile-formula} holds in row \(r\) throughout \(b\ge r-1\):
-at its left endpoint this follows from
-\(s_r/s_{r-1}=(3r-2)/(3r-3)\).
-Set
+Fix a target index \(a\ge2\). As in Section~\ref{sec:flows}, state \(x\)
+of row \(r\) (\(2\le r\le a\), \(0\le x\le3r\)) corresponds to column
+\(b=r-1+x\). By~\eqref{eq:affine-row}, \(F(r,r-1+x)=s_rf_r(x)\), where
+\(f_r(x)=\frac{3(r-1)}2+x\) has slope one in \(x\). Hence
+\(2F(r,b)=F(r,b-1)+F(r,b+1)\) for \(r\le b\le4r-2\): on these columns
+the concavity inequality~\eqref{eq:concavity} holds for \(F\) with
+equality.
+
+A binary split at an interior state \(1\le x\le3r-1\) is the relation of
+Lemma~\ref{lem:multiway} with width one: it consumes \(C(r,b)B_X(2)\),
+where \(b=r-1+x\), and produces the children \(C(r,b\pm1)\) at the
+states \(x\pm1\). Its \emph{tangent probabilities} are the shares of the
+two children in the concavity equality for \(F\):
 \begin{equation}\label{eq:probabilities}
- q_{r,b}^{\pm}=\frac{2b+r-1\pm2}{2(2b+r-1)}.
+ q^\pm_{r,x}=\frac{F(r,b\pm1)}{2F(r,b)}=\frac{f_r(x\pm1)}{2f_r(x)}
+ =\frac{3r-3+2x\pm2}{2(3r-3+2x)}.
 \end{equation}
-These positive rational probabilities equal the neighboring values of
-\(F\) divided by \(2F(r,b)\).
-Put \(y_{r,b}=\log(P(r,b)/F(r,b))\). Weighted arithmetic--geometric
-mean applied to \eqref{eq:concavity} yields
-\begin{equation}\label{eq:log-concavity}
- y_{r,b}-q^-_{r,b}y_{r,b-1}-q^+_{r,b}y_{r,b+1}\ge0.
-\end{equation}
-Indeed the normalized concavity inequality is
-\[
- \frac{P(r,b)}{F(r,b)}\ge
- q^-_{r,b}\frac{P(r,b-1)}{F(r,b-1)}+
- q^+_{r,b}\frac{P(r,b+1)}{F(r,b+1)}
- \ge \exp\bigl(q^-_{r,b}y_{r,b-1}+q^+_{r,b}y_{r,b+1}\bigr).
-\]
-We will also use the equality
-\(H(q)+\sum q^\pm\log F(r,b\pm1)=\log(2F(r,b))\),
-where \(H(q)=-\sum q^\pm\log q^\pm\).
-Tripling at \(h=r\) gives
-\(y_{r,4r-1}-y_{r,r}\ge0\).
+They are positive rationals, since \(f_r(x-1)\ge f_r(0)=3(r-1)/2>0\),
+and \(q^+_{r,x}+q^-_{r,x}=1\) because \(f_r(x+1)+f_r(x-1)=2f_r(x)\).
+They are the probabilities that~\eqref{eq:multiway-probabilities} gives
+when the width \(h_{r,x}\) is replaced by one, that is, with auxiliary
+dimension two and children \(x\pm1\).
 
-Put \(L=4r-1\) and \(D_r=3r-1\). In the final row \(r=a\), set
+The certificate applies to an arbitrary profile \(P\). Put
+\(\eta_{r,b}=\log(P(r,b)/F(r,b))\). These logarithmic ratios are
+symmetric, \(\eta_{r,b}=\eta_{b,r}\), because \(P\) and \(F\) are, and
+normalization~\eqref{eq:normalization} together with \(F(1,b)=b\) gives
+\(\eta_{1,b}=0\); in particular \(\eta_{1,2}=0\). For \(1\le x\le3r-1\)
+and \(b=r-1+x\), the concavity inequality takes the form
+\begin{equation}\label{eq:log-concavity}
+ \eta_{r,b}-q^-_{r,x}\eta_{r,b-1}-q^+_{r,x}\eta_{r,b+1}\ge0.
+\end{equation}
+Indeed \(b\ge2\), so~\eqref{eq:concavity} applies, and dividing it by
+\(2F(r,b)\) gives
+\(e^{\eta_{r,b}}\ge q^-_{r,x}e^{\eta_{r,b-1}}+q^+_{r,x}e^{\eta_{r,b+1}}\);
+the weighted arithmetic--geometric mean inequality bounds the right side
+below by \(\exp(q^-_{r,x}\eta_{r,b-1}+q^+_{r,x}\eta_{r,b+1})\), and taking
+logarithms proves~\eqref{eq:log-concavity}. The instance of
+the tripling inequality~\eqref{eq:tripling} whose right side is
+\(3P(r,r)\) reads \(P(r,4r-1)\ge3P(r,r)\). Since \(f_r(3r)=3f_r(1)\), we
+have \(F(r,4r-1)=3F(r,r)\), and therefore
+\begin{equation}\label{eq:log-tripling}
+ \eta_{r,4r-1}-\eta_{r,r}\ge0.
+\end{equation}
+
+The certificate multiplies each inequality~\eqref{eq:log-concavity} by a
+weight \(\lambda^{\mathrm{ex}}_{r,x}\) and each
+inequality~\eqref{eq:log-tripling} by a weight \(\mu_r\). In the final
+row \(r=a\), put
 \begin{equation}\label{eq:final-weights}
- \lambda_{r,b}=\frac{2(2b+r-1)(L-b)}{3(r-1)D_r},\qquad
- \mu_r=\frac1{r-1}.
+ \lambda^{\mathrm{ex}}_{a,x}=\frac{4f_a(x)(3a-x)}{3(a-1)(3a-1)}
+ \quad(1\le x\le3a-1),\qquad
+ \mu_a=\frac1{a-1}.
 \end{equation}
-In each lower row \(r<a\), set
+In each lower row \(2\le r\le a-1\), put
 \begin{equation}\label{eq:lower-weights}
- \begin{split}
- \lambda_{r,r}&=\frac{2D_r}{3(r-1)},\\
- \lambda_{r,b}&=\frac{4(2b+r-1)(L-b)}{3(r-1)(3r+1)}\quad(b>r),\\
- \mu_r&=\frac{2D_r}{(r-1)(3r+1)}.
- \end{split}
+ \lambda^{\mathrm{ex}}_{r,1}=\frac{2(3r-1)}{3(r-1)},\quad
+ \lambda^{\mathrm{ex}}_{r,x}=\frac{8f_r(x)(3r-x)}{3(r-1)(3r+1)}
+ \ (2\le x\le3r-1),\quad
+ \mu_r=\frac{2(3r-1)}{(r-1)(3r+1)}.
 \end{equation}
+These weights are the occupations of the row walk of
+Section~\ref{sec:flows} with every width replaced by one: the proof of
+Proposition~\ref{prop:dual} shows that they satisfy the row
+identity~\eqref{eq:row-flow} of this walk, which determines them because
+the walk reaches state \(0\) from every state (as in the proof of
+Proposition~\ref{prop:occupations}). We call the numbers
+\(\lambda^{\mathrm{ex}}_{r,x}q^+_{r,x}\),
+\(\lambda^{\mathrm{ex}}_{r,x}q^-_{r,x}\) and \(\mu_r/3\) the \emph{type
+weights}; Section~\ref{subsec:types} explains the division by three.
 
 \begin{proposition}[Rational telescoping]\label{prop:dual}
-Weight \eqref{eq:log-concavity} by \(\lambda_{r,b}\) and tripling by
-\(\mu_r\). Their sum over all specified rows and columns is exactly
-\(y_{a,a}-y_{1,2}\ge0\). All weights and all split weights
-\(\lambda q^\pm\), \(\mu/3\) are positive rationals.
+Multiply~\eqref{eq:log-concavity} at each state \(1\le x\le3r-1\) of each
+row \(2\le r\le a\) by \(\lambda^{\mathrm{ex}}_{r,x}\), and
+multiply~\eqref{eq:log-tripling} for each row by \(\mu_r\). As a linear
+form in the variables \(\eta_{r,b}=\eta_{b,r}\), the sum of the resulting
+left sides is exactly \(\eta_{a,a}-\eta_{1,2}\). In particular
+\(\eta_{a,a}-\eta_{1,2}\ge0\) for every profile \(P\). All weights
+\(\lambda^{\mathrm{ex}}_{r,x},\mu_r\) and all type weights are positive
+rationals.
 \end{proposition}
-\begin{proof}
-Write \(h_b=2b+r-1\) and \(f_b=\lambda_{r,b}/h_b\).
-At an interior column the concavity contribution is
-\(h_b(f_b-(f_{b-1}+f_{b+1})/2)\).
-In the final row \(f_b=2(L-b)/(3(r-1)D_r)\) is affine.
-The left external coefficient is
-\(-h_{r-1}f_r/2=-1\). At \(r\), the concavity contribution is
-\(r/(r-1)\); subtracting \(\mu_r=1/(r-1)\) leaves \(1\).
-The terminal coefficient is
-\(-h_Lf_{L-1}/2+\mu_r=0\).
-Thus this row leaves \(y_{r,r}-y_{r,r-1}\).
 
-In a lower row, \(f_b\) is affine for \(b>r\) and
-\(f_r=2/(3(r-1))\). Its affine extension from \(b>r\) differs at
-\(r\) by \(2/(3r+1)\). The second difference therefore leaves
-coefficient \(1\) at \(r+1\). The left external coefficient remains
-\(-1\); the concavity coefficient at \(r\) is
-\(2(3r-1)/((r-1)(3r+1))=\mu_r\), which cancels with \(-\mu_r\), and
-the terminal coefficient cancels with \(\mu_r\).
-This row leaves \(y_{r,r+1}-y_{r,r-1}\).
-Symmetry identifies \(y_{r,r+1}=y_{r+1,r}\), so all row boundaries
-cancel except \(y_{a,a}-y_{2,1}=y_{a,a}-y_{1,2}\).
+\begin{proof}
+The idea is that within each row the weights cancel the coefficient of
+every column except column \(r-1\) and the column of the injection state;
+the terms left over by adjacent rows then cancel by symmetry.
+
+Fix a row \(r\). Write \(f=f_r\) and \(\eta_x=\eta_{r,r-1+x}\) for
+\(0\le x\le3r\); put \(g(x)=\lambda^{\mathrm{ex}}_{r,x}/f(x)\) for
+\(1\le x\le3r-1\), and \(g(x)=0\) for all other integers \(x\). The
+weighted sum for this row is
+\[
+ R_r=\sum_{x=1}^{3r-1}\lambda^{\mathrm{ex}}_{r,x}
+ \bigl(\eta_x-q^-_{r,x}\eta_{x-1}-q^+_{r,x}\eta_{x+1}\bigr)
+ +\mu_r(\eta_{3r}-\eta_1).
+\]
+By~\eqref{eq:probabilities},
+\(\lambda^{\mathrm{ex}}_{r,x}q^\pm_{r,x}=g(x)f(x\pm1)/2\). The variable
+\(\eta_x\) occurs in the split at \(x\), as its source, in the splits at
+\(x-1\) and \(x+1\), as a child (for those of these states that are
+interior), and, if \(x=1\) or \(x=3r\), in the tripling. Since \(g\)
+vanishes outside \(1\le x\le3r-1\), the coefficient of \(\eta_x\) in
+\(R_r\) is
+\begin{equation}\label{eq:interior-coefficient}
+ \beta_x=f(x)\Bigl(g(x)-\frac{g(x-1)+g(x+1)}2\Bigr)
+ -\mu_r[x=1]+\mu_r[x=3r]
+ \qquad(0\le x\le3r),
+\end{equation}
+where \([\cdot]\) is \(1\) if the condition holds and \(0\) otherwise.
+In particular
+\(\beta_x=0\) whenever \(x\ne1,3r\) and \(g\) is affine on
+\(\{x-1,x,x+1\}\). We use the values \(f(0)=3(r-1)/2\),
+\(f(1)=(3r-1)/2\), \(f(2)=(3r+1)/2\) and \(f(3r)=3(3r-1)/2\).
+
+\emph{The final row \(r=a\).} Here \(g(x)=4(3a-x)/(3(a-1)(3a-1))\) for
+\(1\le x\le3a\), including \(x=3a\), where both sides vanish; so \(g\) is
+affine on \(\{1,\ldots,3a\}\), and \(\beta_x=0\) for
+\(2\le x\le3a-1\). The affine formula takes the value
+\(4a/((a-1)(3a-1))\) at \(x=0\), so \(g(1)-g(2)/2=2a/((a-1)(3a-1))\);
+moreover \(g(1)=4/(3(a-1))\) and \(g(3a-1)f(3a)/2=1/(a-1)\). Therefore
+\(\beta_0=-g(1)f(0)/2=-1\),
+\(\beta_1=f(1)(g(1)-g(2)/2)-\mu_a=a/(a-1)-1/(a-1)=1\) and
+\(\beta_{3a}=\mu_a-g(3a-1)f(3a)/2=0\), so that
+\(R_a=\eta_1-\eta_0=\eta_{a,a}-\eta_{a,a-1}\).
+
+\emph{A lower row \(r<a\).} Here \(g(1)=4/(3(r-1))\), while
+\(g(x)=8(3r-x)/(3(r-1)(3r+1))\) for \(2\le x\le3r\) is affine, so
+\(\beta_x=0\) for \(3\le x\le3r-1\). The affine formula takes the value
+\(g(1)+4/(3r+1)\) at \(x=1\), so~\eqref{eq:interior-coefficient} gives
+\(\beta_2=\frac{f(2)}2\cdot\frac4{3r+1}=1\). Next,
+\(g(1)-g(2)/2=4/((r-1)(3r+1))\) and
+\(g(3r-1)f(3r)/2=2(3r-1)/((r-1)(3r+1))=\mu_r\). Therefore
+\(\beta_0=-g(1)f(0)/2=-1\),
+\(\beta_1=2(3r-1)/((r-1)(3r+1))-\mu_r=0\) and
+\(\beta_{3r}=\mu_r-\mu_r=0\), so that
+\(R_r=\eta_2-\eta_0=\eta_{r,r+1}-\eta_{r,r-1}\).
+
+In both cases \(R_r=\eta_{\xin_r}-\eta_0\). With \(\eta_x\) replaced by
+the basis vector \(\mathbf e_x\), this is the row
+identity~\eqref{eq:row-flow} for the walk of width one.
+
+\emph{Summing the rows.} By symmetry, \(\eta_{r,r-1}=\eta_{r-1,r}\), so
+the term \(-\eta_{r,r-1}\) left by row \(r\) cancels the term
+\(+\eta_{r-1,r}\) left by row \(r-1\), and the sum of \(R_r\) over
+\(2\le r\le a\) is \(\eta_{a,a}-\eta_{2,1}=\eta_{a,a}-\eta_{1,2}\). Only
+coefficient identities and the symmetry \(\eta_{r,b}=\eta_{b,r}\) were
+used, so this is an identity of linear forms; since each weighted
+inequality is nonnegative, \(\eta_{a,a}-\eta_{1,2}\ge0\). Finally,
+\(\lambda^{\mathrm{ex}}_{r,x}>0\) because \(f_r(x)>0\) and \(3r-x>0\), the weights \(\mu_r\) are positive,
+and \(q^\pm_{r,x}>0\) by~\eqref{eq:probabilities}; hence all weights and
+type weights are positive rationals.
 \end{proof}
 
-The probabilities in this certificate are fixed by \(F\), not by the
-unknown values of \(P\). This fact is what permits an exact finite
-tensor construction.
+Since \(\eta_{1,2}=0\), Proposition~\ref{prop:dual} gives
+\(P(a,a)\ge F(a,a)\) for every profile \(P\), the diagonal bound of
+Theorem~\ref{thm:least-profile}. Since the weights depend only on \(F\),
+they can be realized by tensor maps with fixed types once the type
+weights are scaled to integers.
 
 \subsection{Integer types and their entropy identity}
 \label{subsec:types}
 
-Let \(K=K_a\) be the least common multiple of the denominators of all
-\(\lambda q^+\), \(\lambda q^-\), and \(\mu/3\), in lowest terms.
-For each concavity relation write
-\[
- w=K\lambda,\qquad u=K\lambda q^+,\qquad d=K\lambda q^-;
- \qquad w=u+d.
-\]
-For each tripling relation write \(z=K\mu\); then \(3\mid z\).
-Let
-\begin{equation}\label{eq:type-totals}
- U=\sum w,\quad T=\sum z,\quad
- I_c=\frac{3a^2+a-4}{2},\quad I_t=a-1,\quad I=\frac{3(a+2)(a-1)}2.
-\end{equation}
-The sums run over concavity and tripling relations, respectively.
-There are \(I_c\) and \(I_t\) such relations.
+A tensor realization of the certificate uses every relation at its
+tangent distribution. For a split at state \(x\) of row \(r\), this is
+the type that sends the fractions \(q^+_{r,x}\) and \(q^-_{r,x}\) of the
+factors to the children at states \(x+1\) and \(x-1\). For a tripling,
+it is the uniform distribution on the three label classes (left, middle
+and right) of Lemma~\ref{lem:tripling}: on a tensor power
+\(C(r,4r-1)^{\otimes n}\) with \(3\mid n\), take the sectors of
+Lemma~\ref{lem:tripling} with \(n/3\) middle labels and keep only those
+whose outer labels are \(n/3\) left and \(n/3\) right labels; this is
+again a coordinate restriction, with \(n!/((n/3)!)^3\) sectors. Because
+the certificate prescribes this uniform type for every tripling, the
+count of every tripling must be divisible by three; this is why
+\(\mu_r/3\), rather than \(\mu_r\), is a type weight.
 
-For a formal symbol \([r,b]=[b,r]\), Proposition~\ref{prop:dual} gives
-the exact integer identity
-\begin{equation}\label{eq:formal-ledger}
- \sum_{r,b}\bigl(w[r,b]-u[r,b+1]-d[r,b-1]\bigr)
- +\sum_r z\bigl([r,4r-1]-[r,r]\bigr)
- =K[a,a]-K[1,2].
+Let \(K_a\) be the least positive integer for which all the numbers
+\(K_a\lambda^{\mathrm{ex}}_{r,x}q^\pm_{r,x}\) and \(K_a\mu_r/3\) are
+integers, that is, the least common multiple of the denominators of all
+type weights in lowest terms. The counts and their totals
+\begin{equation}\label{eq:type-totals}
+ w^{\mathrm{ex}}_{r,x}=K_a\lambda^{\mathrm{ex}}_{r,x},\quad
+ w^\pm_{r,x}=K_a\lambda^{\mathrm{ex}}_{r,x}q^\pm_{r,x},\quad
+ z^{\mathrm{ex}}_r=K_a\mu_r,\quad
+ \bar w^{\mathrm{ex}}=\textstyle\sum_{r,x}w^{\mathrm{ex}}_{r,x},\quad
+ \bar z^{\mathrm{ex}}=\sum_rz^{\mathrm{ex}}_r
 \end{equation}
-This is an identity of exponent vectors, not an identity of sums of tensors.
-Let \(i_{r,b}\) and \(o_{r,b}\) be the nonnegative source and output
-counts on its left, after identifying symmetric pairs. Put
-\(c_{r,b}=\min(i_{r,b},o_{r,b})\) and
+are integers, with \(w^{\mathrm{ex}}_{r,x}=w^+_{r,x}+w^-_{r,x}\) and
+\(3\mid z^{\mathrm{ex}}_r\).
+Since every weight is positive, the certificate uses all
+\(\sum_{r=2}^a(3r-1)=(3a^2+a-4)/2\) splits and all \(a-1\) triplings,
+\(3(a+2)(a-1)/2\) relations in total.
+
+We record tensor factors by formal symbols in a free abelian group, as in
+Section~\ref{subsec:ledger}, but with one symbol \([r,b]=[b,r]\) for each
+unordered pair of positive integers, standing for the sixfold product
+\(Q_{r,b}\) of~\eqref{eq:balanced}; the identification is the
+isomorphism \(Q_{r,b}\cong Q_{b,r}\) of~\eqref{eq:balanced-properties},
+and a coefficient \(n\) on \([r,b]\) stands for \(Q_{r,b}^{\otimes n}\).
+Since Proposition~\ref{prop:dual} is an identity of linear forms in
+variables subject only to \(\eta_{r,b}=\eta_{b,r}\), multiplying it by
+\(K_a\) and replacing each \(\eta_{r,b}\) by \([r,b]\) gives the integer
+identity
+\begin{equation}\label{eq:formal-ledger}
+ \begin{split}
+ &\sum_{r=2}^a\sum_{x=1}^{3r-1}
+ \bigl(w^{\mathrm{ex}}_{r,x}[r,r-1+x]-w^+_{r,x}[r,r+x]
+ -w^-_{r,x}[r,r-2+x]\bigr)\\
+ &\qquad+\sum_{r=2}^az^{\mathrm{ex}}_r\bigl([r,4r-1]-[r,r]\bigr)
+ =K_a[a,a]-K_a[1,2].
+ \end{split}
+\end{equation}
+As in the signed ledger~\eqref{eq:rounded-ledger}, the split at state
+\(x\) of row \(r\) consumes \(w^{\mathrm{ex}}_{r,x}\) factors of its
+column and produces \(w^\pm_{r,x}\) factors of its children at \(x\pm1\),
+and the tripling of row \(r\) consumes \(z^{\mathrm{ex}}_r\) factors of
+column \(4r-1\) and produces as many of column \(r\).
+
+For example, let \(a=2\): there is one row, with states \(0,\ldots,6\)
+and columns \(1,\ldots,7\). The weights are
+\(\lambda^{\mathrm{ex}}_{2,x}=10/3,\,56/15,\,18/5,\,44/15,\,26/15\) for
+\(x=1,\ldots,5\) and \(\mu_2=1\), so \(K_2=15\); the counts
+\((w^+_{2,x},w^-_{2,x})\) are \((35,15)\), \((36,20)\), \((33,21)\),
+\((26,18)\) and \((15,11)\), \(z^{\mathrm{ex}}_2=15\),
+\(\bar w^{\mathrm{ex}}=230\) and \(\bar z^{\mathrm{ex}}=15\).
+In~\eqref{eq:formal-ledger}, column \(2\) is consumed \(50\) times (by
+the split at state \(1\)) and produced \(20+15=35\) times (by the split
+at state \(2\) and the tripling), each of the columns \(3,\ldots,7\) is
+consumed and produced equally often, and column \(1\) is produced \(15\)
+times; since \([2,1]=[1,2]\), the left side reduces to
+\(15[2,2]-15[1,2]\).
+
+As in~\eqref{eq:rounded-catalyst}, the factors common to the consumed
+and the produced side form a catalyst: for \(r\le b\), let
+\(c^{\mathrm{ex}}_{r,b}\) be the smaller of the total coefficients of
+\([r,b]\) in the positive and in the negative terms on the left
+of~\eqref{eq:formal-ledger}, and put
 \begin{equation}\label{eq:catalyst}
- \Cat^{\mathrm{ex}}=\bigotimes_{r\le b}Q_{r,b}^{\otimes c_{r,b}},\qquad
+ \Cat^{\mathrm{ex}}=\bigotimes_{r\le b}Q_{r,b}^{\otimes c^{\mathrm{ex}}_{r,b}},
+ \qquad
  \Cat^{\mathrm{ex}}_N=(\Cat^{\mathrm{ex}})^{\otimes N}.
 \end{equation}
-Thus \(\sum c_{r,b}=U+T-K\). The common factors are retained as the
-catalyst \(\Cat^{\mathrm{ex}}\); they are not formally canceled from a restriction.
+Both kinds of terms have total coefficient
+\(\bar w^{\mathrm{ex}}+\bar z^{\mathrm{ex}}\), because every relation
+produces as many factors as it consumes, and by~\eqref{eq:formal-ledger}
+they agree symbol by symbol except at \([a,a]\), which is consumed
+\(K_a\) more times than it is produced, and at \([1,2]\), which is
+produced \(K_a\) times and never consumed. Hence
+\(\sum_{r\le b}c^{\mathrm{ex}}_{r,b}=\bar w^{\mathrm{ex}}
++\bar z^{\mathrm{ex}}-K_a\).
 
-Tightness of each entropy relation at \(F\) also gives
+The certificate describes a tensor relation, built with the maps of
+Section~\ref{sec:maps} at type scale \(N\) as in
+Section~\ref{sec:extraction}, but with every relation used in all six
+leg orientations \(\pi\in S_3\), so that no row signs are needed; each
+split applies Lemma~\ref{lem:multiway} with width one and type
+\((Nw^+_{r,x},Nw^-_{r,x})\), and each tripling the three-class
+restriction above. By~\eqref{eq:coset-dot-products}, the six orientations
+of the auxiliary \(B_X(2)^{\otimes Nw^{\mathrm{ex}}_{r,x}}\) of a split
+combine into \(\MM_{4^{Nw^{\mathrm{ex}}_{r,x}}}\), so the source auxiliary
+is \(\MM_{2^{2N\bar w^{\mathrm{ex}}}}\). By~\eqref{eq:formal-ledger}, the
+relation consumes the convolution factors
+\(\Cat^{\mathrm{ex}}_N\,Q_{a,a}^{\otimes NK_a}\) and produces
+\(\Cat^{\mathrm{ex}}_N\,Q_{1,2}^{\otimes NK_a}\cong
+\Cat^{\mathrm{ex}}_N\,\MM_{4^{NK_a}}\), retaining the catalyst as in
+Section~\ref{sec:extraction}.
+
+Because every relation is used at its tangent distribution, the
+certificate loses nothing in the potential \(K_a\log F(a,a)\). In
+multiplicative form, this is the identity
 \begin{equation}\label{eq:entropy-identity}
- 2^{K-U}3^T\prod_{\text{concavity relations}}
- \frac{w^w}{u^u d^d}=F(a,a)^K.
+ 2^{K_a-\bar w^{\mathrm{ex}}}\,3^{\bar z^{\mathrm{ex}}}
+ \prod_{r,x}\frac{(w^{\mathrm{ex}}_{r,x})^{w^{\mathrm{ex}}_{r,x}}}
+ {(w^+_{r,x})^{w^+_{r,x}}(w^-_{r,x})^{w^-_{r,x}}}
+ =F(a,a)^{K_a},
 \end{equation}
-To check the identity, multiply
-\((2F(r,b))^w=(w^w/(u^ud^d))F(r,b+1)^uF(r,b-1)^d\)
-and \(F(r,4r-1)^z=3^zF(r,r)^z\) over the relations.
-Use \eqref{eq:formal-ledger} and \(F(1,2)=2\).
-This derivation proves the identity over the rationals, without a numerical
-entropy calculation.
+where the product runs over all splits. To prove it, fix a split at
+state \(x\) of row \(r\) and put \(b=r-1+x\). By~\eqref{eq:probabilities}
+and \(w^\pm_{r,x}=w^{\mathrm{ex}}_{r,x}q^\pm_{r,x}\), we have
+\(F(r,b\pm1)=2F(r,b)\,w^\pm_{r,x}/w^{\mathrm{ex}}_{r,x}\), and hence
+\[
+ (2F(r,b))^{w^{\mathrm{ex}}_{r,x}}=
+ \frac{(w^{\mathrm{ex}}_{r,x})^{w^{\mathrm{ex}}_{r,x}}}
+ {(w^+_{r,x})^{w^+_{r,x}}(w^-_{r,x})^{w^-_{r,x}}}
+ \,F(r,b+1)^{w^+_{r,x}}F(r,b-1)^{w^-_{r,x}}.
+\]
+Each tripling gives
+\(F(r,4r-1)^{z^{\mathrm{ex}}_r}=3^{z^{\mathrm{ex}}_r}F(r,r)^{z^{\mathrm{ex}}_r}\).
+Multiply these identities over all relations. The map
+\([r,b]\mapsto\log F(r,b)\) is well defined because \(F\) is symmetric;
+applied to~\eqref{eq:formal-ledger}, it shows that the profile values
+cancel between the two sides except for \(F(a,a)^{K_a}\) on the consumed
+side and \(F(1,2)^{K_a}=2^{K_a}\) on the produced side, which
+gives~\eqref{eq:entropy-identity}. In logarithmic form,
+\eqref{eq:entropy-identity} is the analogue, for the walk of width one,
+of~\eqref{eq:rounded-entropy} with \(\mathcal L=0\): every empirical
+distribution \((w^+_{r,x},w^-_{r,x})/w^{\mathrm{ex}}_{r,x}\) equals its
+tangent distribution \((q^+_{r,x},q^-_{r,x})\).
 
 \subsection{The minimal denominator scale}
 
-
-\begin{theorem}[Exact normalization]\label{thm:normalization}
-The least integer scale in Section~\ref{subsec:types} is
+\begin{theorem}[Minimal denominator scale]\label{thm:normalization}
+The scale \(K_a\) of Section~\ref{subsec:types} has the closed form
 \begin{equation}\label{eq:minimal-scale}
  K_a=\lcm\left(
  \frac{3(a-1)(3a-1)}{\gcd(3a-1,4)},\quad
- \left\{\frac{3t(3t+4)}{\gcd(t,2)^2}:1\le t\le a-2\right\}
+ \left\{\frac{3(r-1)(3r+1)}{\gcd(r-1,2)^2}:2\le r\le a-1\right\}
  \right).
 \end{equation}
 In particular,
-\begin{equation}\label{eq:scale-divisibility}
+\begin{gather}
  3\lcm(1,\ldots,a-1)\mid 2K_a,
- \qquad K_a\mid3\lcm(1,\ldots,3a-1),
-\end{equation}
-and
-\begin{equation}\label{eq:scale-growth}
- K_a\ge\frac32\lcm(1,\ldots,a-1)\ge\frac{3\,2^{a-2}}a.
-\end{equation}
+ \qquad K_a\mid3\lcm(1,\ldots,3a-1),\label{eq:scale-divisibility}\\
+ K_a\ge\frac32\lcm(1,\ldots,a-1)\ge\frac{3\cdot2^{a-2}}a.
+ \label{eq:scale-growth}
+\end{gather}
 \end{theorem}
+
+For example, \(K_2=15\), \(K_3=84\), \(K_4=3465\), \(K_6=1113840\) and
+\(K_{10}=5956750800\).
+
 \begin{proof}
-In the final row put \(t=a-1\), \(D_r=3t+2\), and \(b=a+h\).
-All split weights have common denominator \(3tD_r\).
-Their integer numerators are \(D_r\), from \(\mu/3\), and
-\((D_r+2h\pm2)(D_r-h)\) for \(0\le h\le D_r-1\).
-Modulo \(D_r\), the latter products are \(-2h(h\pm1)\), all divisible
-by four. The case \(h=1\) with the plus sign is congruent to \(-4\).
-Thus the joint gcd of the denominator and all numerators is exactly
-\(\gcd(D_r,4)\). This gives the first entry in \eqref{eq:minimal-scale}.
+The idea is to compute, row by row, the least common multiple of the
+reduced denominators of the type weights, by putting them over one
+common denominator and finding the greatest common divisor of that
+denominator and all numerators.
 
-In a lower row put \(t=r-1\) and \(V=3t+4\).
-Use common denominator \(3tV\). At \(b=r\), the two split numerators
-are \(V^2\) and \(3tV\); the tripling split numerator is \(2(3t+2)\).
-For \(b=r+h>r\), the split numerators are
-\(2(3t+2+2h\pm2)(3t+2-h)\).
-An odd prime dividing both \(V^2\) and \(2(3t+2)\) would divide the
-difference between \(V\) and \(3t+2\), namely two, which is impossible.
-If \(t\) is odd, \(V^2\) is odd, so the joint gcd is one.
-If \(t\) is even, all numerators and the denominator are divisible
-by four. When \(t\equiv2\pmod4\), \(V^2\) has exactly two factors
-of two; when \(t\equiv0\pmod4\), \(2(3t+2)\) has exactly two.
-Thus the joint gcd is exactly four. This proves the remaining entries.
+\emph{Step 1: from numerators to a row denominator.} If the type
+weights of row \(r\) are the numbers \(\nu/\delta\) with \(\nu\) in a
+finite set \(\mathcal N\) of positive integers, their reduced
+denominators \(\delta/\gcd(\delta,\nu)\) have the least common multiple
+\(\rho_r=\delta/\gcd(\delta,\mathcal N)\), where
+\(\gcd(\delta,\mathcal N)\) is the greatest common divisor of \(\delta\)
+and all elements of \(\mathcal N\). Indeed, for every prime
+\(\mathfrak p\), with \(v\) the exponent of \(\mathfrak p\), both numbers
+have exponent \(v(\delta)-\min(v(\delta),\min_{\nu\in\mathcal N}v(\nu))\).
+Hence \(K_a=\lcm_{2\le r\le a}\rho_r\), and it remains to compute
+\(\gcd(\delta,\mathcal N)\) in each row.
 
-Each row denominator is either \(3\lcm(t,3t+c)\) or half that number,
-with \(c=2\) for the final row and \(c=4\) for lower rows.
-The integers involved lie between one and \(3a-1\); twice each row
-denominator is divisible by \(3t\). Taking least common multiples
-proves \eqref{eq:scale-divisibility}.
+\emph{Step 2: the final row.} The type weights of row \(a\) have the
+common denominator \(\delta=3(a-1)(3a-1)\). The numerator of
+\(\mu_a/3=1/(3(a-1))\) is \(3a-1\). By~\eqref{eq:final-weights}
+and~\eqref{eq:probabilities},
+\(\lambda^{\mathrm{ex}}_{a,x}q^\pm_{a,x}=2f_a(x\pm1)(3a-x)/\delta
+=(3a-3+2x\pm2)(3a-x)/\delta\) for \(1\le x\le3a-1\). Since the numerator \(3a-1\) divides \(\delta\), the number
+\(\gcd(\delta,\mathcal N)\) equals the greatest common divisor of
+\(3a-1\) and the other numerators, which may be reduced modulo \(3a-1\).
+Modulo \(3a-1\) we have \(3a-3+2x\pm2\equiv2x-2\pm2\) and
+\(3a-x\equiv-(x-1)\), so the products are congruent to \(-2x(x-1)\) for
+the plus sign and to \(-2(x-1)(x-2)\) for the minus sign. Each is \(-2\)
+times a product of two consecutive integers and is therefore divisible by
+four, and the plus sign at \(x=2\) gives \(-4\). Hence
+\(\gcd(\delta,\mathcal N)=\gcd(3a-1,4)\) and
+\(\rho_a=3(a-1)(3a-1)/\gcd(3a-1,4)\), the first entry
+of~\eqref{eq:minimal-scale}.
 
-For completeness, every binomial coefficient \(\binom nh\) divides
-\(\lcm(1,\ldots,n)\). In its factorial valuation at a prime \(p\),
-each power \(p^j\le n\) contributes zero or one, so its valuation
-is at most \(\lfloor\log_p n\rfloor\).
-The largest binomial coefficient in row \(n\) is at least
-\(2^n/(n+1)\). Apply this with \(n=a-1\) and use
-\eqref{eq:scale-divisibility} to obtain \eqref{eq:scale-growth}.
+\emph{Step 3: a lower row.} Let \(2\le r\le a-1\) and use the common
+denominator \(\delta=3(r-1)(3r+1)\). By~\eqref{eq:lower-weights}
+and~\eqref{eq:probabilities}, the state \(x=1\) contributes
+\(\lambda^{\mathrm{ex}}_{r,1}q^+_{r,1}=(3r+1)/(3(r-1))\) and
+\(\lambda^{\mathrm{ex}}_{r,1}q^-_{r,1}=1\), with numerators \((3r+1)^2\)
+and \(3(r-1)(3r+1)\). The tripling contributes \(\mu_r/3\), with
+numerator \(2(3r-1)\), and the states \(2\le x\le3r-1\) contribute the
+numerators \(2(3r-3+2x\pm2)(3r-x)\). An odd prime dividing both
+\((3r+1)^2\) and \(2(3r-1)\) would divide \(3r+1\) and \(3r-1\), hence
+their difference \(2\), which is impossible; so
+\(\gcd(\delta,\mathcal N)\) is a power of two. If \(r\) is even,
+\((3r+1)^2\) is odd and \(\gcd(\delta,\mathcal N)=1\). If \(r\) is odd,
+then \(r-1\), \(3r+1\), \(3r-1\) and \(3r-3+2x\pm2\) are even, so
+\(\delta\) and every numerator are divisible by four. Moreover
+\((3r+1)^2\) has exactly two factors of two when \(r\equiv3\pmod4\), and
+\(2(3r-1)\) has exactly two when \(r\equiv1\pmod4\); so
+\(\gcd(\delta,\mathcal N)=4\). In both cases
+\(\gcd(\delta,\mathcal N)=\gcd(r-1,2)^2\), and
+\(\rho_r=3(r-1)(3r+1)/\gcd(r-1,2)^2\). These are the remaining entries
+of~\eqref{eq:minimal-scale}.
+
+\emph{Step 4: divisibility.} Since \(3a-1=3(a-1)+2\) and
+\(3r+1=3(r-1)+4\), we have \(\gcd(a-1,3a-1)=\gcd(a-1,2)\) and
+\(\gcd(r-1,3r+1)=\gcd(r-1,4)\). By Steps 2 and 3,
+\[
+ \rho_a=3\lcm(a-1,3a-1)\,\frac{\gcd(a-1,2)}{\gcd(3a-1,4)},\qquad
+ \rho_r=3\lcm(r-1,3r+1)\,\frac{\gcd(r-1,4)}{\gcd(r-1,2)^2}
+ \quad(r<a).
+\]
+Each ratio of greatest common divisors is \(1\) or \(1/2\): it is \(1\)
+when \(a\) (respectively \(r\)) is even, and otherwise it is
+\(2/\gcd(3a-1,4)\) (respectively \(\gcd(r-1,4)/4\)), where the greatest
+common divisor is \(2\) or \(4\). The integers \(a-1\), \(3a-1\), \(r-1\)
+and \(3r+1\) lie between one and \(3a-1\), so every \(\rho_r\) divides
+\(3\lcm(1,\ldots,3a-1)\), and so does \(K_a\). In every row, \(2\rho_r\)
+is a multiple of the corresponding \(3\lcm(\cdot,\cdot)\), hence of
+\(3(r-1)\). As \(r\) runs from \(2\) to \(a\), the number \(r-1\) runs
+through \(1,\ldots,a-1\), so \(3\lcm(1,\ldots,a-1)\) divides \(2K_a\).
+This proves~\eqref{eq:scale-divisibility}.
+
+\emph{Step 5: growth.} The first divisibility gives
+\(2K_a\ge3\lcm(1,\ldots,a-1)\). Every binomial coefficient
+\(\binom n\alpha\) divides \(\lcm(1,\ldots,n)\): by Legendre's formula,
+the exponent of a prime \(\mathfrak p\) in \(\binom n\alpha\) is the sum
+over \(e\ge1\) of
+\(\lfloor n/\mathfrak p^e\rfloor-\lfloor\alpha/\mathfrak p^e\rfloor
+-\lfloor(n-\alpha)/\mathfrak p^e\rfloor\in\{0,1\}\), whose terms vanish
+for \(\mathfrak p^e>n\); so it is at most the exponent of \(\mathfrak p\)
+in \(\lcm(1,\ldots,n)\), the largest \(e\) with \(\mathfrak p^e\le n\).
+The \(n+1\) binomial
+coefficients \(\binom n\alpha\) sum to \(2^n\), so the largest of them is
+at least \(2^n/(n+1)\). With \(n=a-1\) this gives
+\(\lcm(1,\ldots,a-1)\ge2^{a-1}/a\), and~\eqref{eq:scale-growth} follows.
 \end{proof}
 
-The scale is minimal for these exact rational split weights. Approximate
-types, different weights, or different tensor maps need not obey this
-bound. Since \(U\ge K_a\), already the sixfold binary source dimension
-\(2^{2NU}\) grows at least doubly exponentially in \(a\) under
-this bound. The inequality \(U\ge K_a\) also follows directly from
-\eqref{eq:formal-ledger}: the net consumption of \([a,a]\) is \(K_a\),
-and all its source occurrences belong to concavity relations.
+The scale \(K_a\) also bounds the size of the tensor relation of
+Section~\ref{subsec:types} from below. By~\eqref{eq:formal-ledger}, the
+symbol \([a,a]\) has net coefficient \(K_a\), and it is consumed only by
+the split at state \(1\) of row \(a\), because a consumed symbol
+\([r,r-1+x]\) or \([r,4r-1]\) equals \([a,a]\) only when \(r=a\) and
+\(x=1\). Hence \(\bar w^{\mathrm{ex}}\ge w^{\mathrm{ex}}_{a,1}\ge K_a\),
+and the source auxiliary \(\MM_{2^{2N\bar w^{\mathrm{ex}}}}\) has side at
+least \(2^{2NK_a}\), which by~\eqref{eq:scale-growth} grows at least
+doubly exponentially in \(a\).
+
+\subsection{Comparison with the main construction}
+\label{subsec:exact-normalization}
+
+The splits of larger width reduce the auxiliary cost. If the rounded
+counts \(w_{r,x}\) are replaced by the scaled occupations
+\(K\lambda_{r,x}\), then \(\log A_1\) becomes
+\(NK\sum_{r,x}\lambda_{r,x}\log d_{r,x}\), and
+Proposition~\ref{prop:occupations} bounds this sum by
+\(\Gamma_a=105+180(a-2)\). With splits of width one, every auxiliary
+dimension is \(2\), and the weights~\eqref{eq:final-weights}
+and~\eqref{eq:lower-weights} add up to \(5a+O(1)\) in the final row and
+to \(10r+O(1)\) in each lower row \(r\), so the corresponding sum
+\(\log2\sum_{r,x}\lambda^{\mathrm{ex}}_{r,x}\) is \((5\log2+o(1))a^2\).
+The auxiliary cost of order \(a\) and the polynomial rounding scale give
+the bound \(\log A=O(a^5(\log a)^2)\) of Theorem~\ref{thm:quantitative}.
+
+The \emph{sixfold construction} uses every relation in all six leg
+orientations, that is, \(Q_{r,b}=S^+_{r,b}S^-_{r,b}\) in place of
+\(S^\sigma_{r,b}\), as the certificate above does; since
+\(Q_{r,b}\cong Q_{b,r}\), it needs no row signs. For the same integer
+counts it has the same ledger and catalyst multiplicities as the signed
+ledger of Section~\ref{subsec:ledger}: a symbol of row \(r\) involves a
+pair \(\{r,b\}\) with \(r-1\le b\le4r-1\), so two rows \(r<r'\) share a
+symbol only if \(r'=r+1\), and then only \([r,r+1]=[r+1,r]\), which the
+signed ledger identifies as well,
+\([\sigma_r;r,r+1]=[\sigma_{r+1};r+1,r]\). Every factor is squared:
+\(A_1\), because the six orientations of \(B_X(d_i)^{\otimes Nw_i}\) give
+\(\MM_{d_i^{2Nw_i}}\) by~\eqref{eq:coset-dot-products}, and likewise
+\(B_1\), \(L\), \(M^3\) and \(\kappa_N\); the source factor
+\(Q_{a,a}^{\otimes NK}\) has rank at most \((2a-1)^{6NK}\); and the degree
+becomes \(2D\), since each relation has six separators. Hence the sixfold
+construction with interpolation power \(k\) has \(E=2kD+1\) and, for every
+reuse count \(j\), gives through Proposition~\ref{prop:relative} the same
+\(r_*\), \(m_*\), \(A\) and \(B\) as the threefold construction of
+Section~\ref{sec:extraction} with power \(2k\). With the other parameters
+fixed, \(k\) enters~\eqref{eq:pooled-exponent}
+and~\eqref{eq:finite-exponent} only through \((\log(kD+1))/k\) and
+\((\log2)/(kj)\), which do not increase with \(k\) because
+\(\log(1+u)/u\) decreases for \(u>0\). So the threefold construction
+gives smaller dimensions at a given interpolation power, but with power
+\(k\) its pooled exponent is never smaller than that of the sixfold
+construction with power
+\(\lceil k/2\rceil\).
+
+Finally, the source side \(A\) is a property of the specified relative
+scheme, not a lower bound for schemes derived from it with the same
+exponent: tensoring \(r_*\MM_A\restr m_*\MM_B\) with \(\MM_2\) gives
+\(r_*\MM_{2A}\restr m_*\MM_{2B}\) by~\eqref{eq:matrix-products}, with the
+same exponent and source side \(2A\), and restricting the factor \(\MM_2\)
+to a single coefficient recovers a scheme with source side \(A\).

@@ -1,0 +1,23 @@
+The exponent \(\omega\) of matrix multiplication is the least real number
+such that, for every \(\eps>0\), two \(n\times n\) matrices can be
+multiplied with \(O(n^{\omega+\eps})\) arithmetic operations. A preprint
+posted by OpenAI in October 2026 announced the bound \(\omega\le9/4\).
+Its proof concludes through an existence argument for tensor characters
+and does not specify an algorithm. Building on
+the convolution relations and the shared-leg separator of that preprint,
+we give a self-contained construction by explicit tensor maps: for every
+rational \(\eps>0\), a terminating procedure outputs an exact bilinear
+algorithm with rational coefficients whose exponent is below
+\(9/4+\eps\). The construction uses two kinds of tensor relations among
+products of polynomial multiplication tensors (splits and triplings).
+How often each relation is applied is given by the expected visit counts
+of a random walk whose transition probabilities come from the least
+solution of the inequalities that these relations impose. These
+frequencies are rounded to integers without breaking the balance of any
+tensor factor. For every integer \(a\ge2^{64}\) we obtain a scheme that
+computes several products of \(B\times B\) matrices from products of
+smaller \(A\times A\) matrices; its recursive use has exponent below
+\(9/4+900/\log a\) (natural logarithm), and
+\(\log A\le181a^5\lceil\log_2a\rceil^2\). We give no bound on the size of
+the final algorithm or on the time needed to construct it, and all
+results concern exact arithmetic.

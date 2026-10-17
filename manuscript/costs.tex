@@ -1,140 +1,275 @@
-\section{Finite examples and the scope of the size bounds}
+\section{Finite examples}
 \label{sec:costs}
 
-The explicit family in Theorem~\ref{thm:quantitative} proves convergence
-with every finite charge retained. Its constants are conservative, and
-its guaranteed indices are far beyond useful sizes. Smaller fixed indices
-can be evaluated directly from their rounded counts. This section gives certified finite examples and explains their
-verification by exact-arithmetic enclosures.
+Theorem~\ref{thm:quantitative} applies only to target indices
+\(a\ge2^{64}\), and its bound is weak for moderate \(a\)
+(Remark~\ref{rem:calibration}). For a small fixed index we can instead
+compute the rounded counts and bound the exponent directly. This section
+does so for \(a=4\), \(8\) and \(12\); no theorem of the paper depends on
+it. The examples are computer-assisted. The bounds \(\overline\Phi\) and
+digit counts in Table~\ref{tab:finite-multiway}, and the other bounds
+quoted from the report, are certified by exact rational interval
+arithmetic (Section~\ref{subsec:log-enclosures}) and recorded in the
+report \path|results/multiway-finite-costs.json|. The column \(\Phi\)
+and the other derived values (\(\tau_a\), the terms of
+\(\overline\Phi\), differences and percentages) are floating-point
+evaluations. The supplementary script \path|finite_table_checks.py|
+reproduces every number of this section from the report.
 
-\subsection{Bounds for evaluating finite types}
+\subsection{An upper expression for the exponent}
+\label{subsec:sector-bounds}
 
-The entropy bounds in Section~\ref{sec:extraction} can be sharpened
-without evaluating large factorials. Put \(c_0=(1+\log2)/2\).
-For every integer \(t\ge1\),
+Let \(\Delta_N>0\), so that Proposition~\ref{prop:relative} gives a
+relative scheme with pooled exponent \(p\) as in
+\eqref{eq:pooled-exponent}. The examples bound the slightly larger
+\emph{fixed-batch bound}
+\begin{equation}\label{eq:finite-exponent}
+ \Phi=\frac1{\Delta_N}\left(3NK\log(2a-1)+\log\frac{L}{M^3}
+   +\frac{\log E}{k}+\frac{\log\kappa_N}{j}+\frac{\log2}{kj}\right)
+ =p+\frac{\log2}{kj\Delta_N},
+\end{equation}
+which also bounds the exponent of the recursion without pooling. Indeed,
+if the \(r_*\) products created by one batch of \(m_*\) products of
+side \(n\) are batched only among themselves, they have side
+\(A\lceil n/B\rceil\) and fill \(\beta_0=\lceil r_*/m_*\rceil\) batches, the
+last one completed by zero products, so the cost of one batch
+satisfies
+\(\operatorname{cost}(n)\le \beta_0\operatorname{cost}(A\lceil n/B\rceil)+O(n^2)\),
+where \(O(n^2)\) accounts for the linear maps of the scheme. The estimate
+in the proof of Lemma~\ref{lem:batch}, with \(\beta_0\) in place of
+\(r_*/m_*\), gives the exponent \((\log \beta_0)/\log(B/A)\). Since
+\(r_*/m_*\ge(B/A)^2>1\) by Step~1 of that proof, \(\beta_0\le2r_*/m_*\), and
+this exponent is at most \(\Phi\).
+
+The sector counts \eqref{eq:sector-counts} enter \(\Phi\) through
+\(\Delta_N\), the number \(E\) of interpolation points and the copy
+overhead \(\log(L/M^3)\). Rather than computing the large integers
+\(M_i\), we bound \(\log M_i\). Lemma~\ref{lem:types} gives such bounds
+with an error of at most \(\log(Nw_i+1)\) for each used child beyond the
+first; the following factorial bounds are usually sharper, and we use the
+intersection of both.
+
+\begin{lemma}[Elementary factorial bounds]\label{lem:factorial}
+Put \(c_0=(1+\log2)/2\). For every integer \(\nu\ge1\),
 \begin{equation}\label{eq:elementary-factorial}
- (t+\tfrac12)\log t-t+c_0
- \le\log(t!)\le(t+\tfrac12)\log t-t+1.
+ (\nu+\tfrac12)\log\nu-\nu+c_0
+ \le\log(\nu!)\le(\nu+\tfrac12)\log\nu-\nu+1.
 \end{equation}
-For the upper bound, the trapezoidal sum of the concave function
-\(\log x\) on \([1,t]\) is at most its integral. For the lower
-bound, Jensen's inequality on each interval
-\([i-1/2,i+1/2]\) bounds its integral by \(\log i\).
-Sum over \(i=1,\ldots,t\), evaluate the integral, and use
-\((t+1/2)\log(1+1/(2t))\ge1/2\), a consequence of
-\(\log(1+x)\ge x/(1+x)\). This proves both inequalities.
+\end{lemma}
 
-For an action with \(s\) positive child counts, let
+\begin{proof}
+Since \(\log\) is concave, its chord over \([m,m+1]\) lies below its
+graph, so
+\(\frac12(\log m+\log(m+1))\le\int_m^{m+1}\log\xi\,d\xi\). Summing over
+\(1\le m<\nu\) gives the trapezoid inequality
 \[
- C_i=\frac12\log(Nw_i)
-       -\frac12\sum_{y:n_{i,y}>0}\log(Nn_{i,y}).
+ \log(\nu!)-\tfrac12\log\nu
+ \le\int_1^{\nu}\log\xi\,d\xi=\nu\log\nu-\nu+1,
 \]
-Subtracting the factorial bounds gives
+which is the upper bound. By Jensen's inequality,
+\(\int_{m-1/2}^{m+1/2}\log\xi\,d\xi\le\log m\); summing over
+\(1\le m\le\nu\) gives
+\[
+ \log(\nu!)\ge\int_{1/2}^{\nu+1/2}\log\xi\,d\xi
+ =(\nu+\tfrac12)\log(\nu+\tfrac12)-\nu+\tfrac12\log2 .
+\]
+Finally, \((\nu+\frac12)\log(\nu+\frac12)-(\nu+\frac12)\log\nu
+=(\nu+\frac12)\log(1+\frac1{2\nu})\ge\frac12\) by
+\(\log(1+\delta)\ge\delta/(1+\delta)\), and \(\frac12+\frac12\log2=c_0\).
+\end{proof}
+
+Now let \(\nu_y\), \(y\in\mathcal Y\), be positive integers with sum
+\(\nu\). Applying the lower bound of \eqref{eq:elementary-factorial} to
+\(\nu!\) and the upper bound to each \(\nu_y!\), and then the other way
+round, we obtain, since the linear terms cancel,
 \begin{equation}\label{eq:finite-multinomial}
- NH_i+C_i+c_0-s\le\log M_i
-       \le NH_i+C_i+1-sc_0.
+ c_0-|\mathcal Y|
+ \le\log\frac{\nu!}{\prod_{y}\nu_y!}
+   -\nu H\bigl((\nu_y/\nu)_{y}\bigr)
+   -\frac12\log\frac{\nu}{\prod_{y}\nu_y}
+ \le1-|\mathcal Y|c_0 ,
 \end{equation}
-Intersect these bounds with Lemma~\ref{lem:types} and with
-\(\log M_i\ge0\). A type with one positive child count has
-\(\log M_i=0\) exactly. For a reset apply
-\eqref{eq:finite-multinomial} to the two counts
-\((m_r,Nz_r-m_r)\), omitting any zero count, then add \((Nz_r-m_r)\log2\).
-Intersect the result with
-\([Nz_r\log3-\log(Nz_r+1),\,Nz_r\log3]\).
-This uses the actual modal integer \(m_r\), without replacing it
-by \(Nz_r/3\).
+where \(\nu H((\nu_y/\nu)_y)=\nu\log\nu-\sum_y\nu_y\log\nu_y\).
 
-These sector bounds give a lower bound for \(\Delta_N\) and an
-upper bound for \(\log E\). Together with the actual signed
-catalyst in \eqref{eq:kappa} and
-\(\log(S/H)<3I\log2\), they give a sufficient upper bound for
-\(\Phi\). All expressions involve logarithms of integer counts and
-small rank bases. They do not require the factorials, sector words, or
-coefficient arrays to be materialized.
+We apply \eqref{eq:finite-multinomial} to each relation separately. For a
+split \(i\in\mathcal I_c\), take \(\mathcal Y=\mathcal Y_i^+=\{y:n_{i,y}>0\}\)
+and \(\nu_y=Nn_{i,y}\); children with \(n_{i,y}=0\) contribute \(0!=1\).
+Then \(\nu=Nw_i\) and \(\nu H((\nu_y/\nu)_y)=NH_i\), where
+\(H_i=w_iH(\hat q_i)\) is the entropy charge. We intersect the resulting
+interval for \(\log M_i\) with the interval
+\([NH_i-(|\mathcal Y_i^+|-1)\log(Nw_i+1),\,NH_i]\) of
+Lemma~\ref{lem:types} and with \([0,\infty)\); if
+\(|\mathcal Y_i^+|=1\), then \(M_i=1\) and we use \(\log M_i=0\). For
+the tripling of row \(r\in\mathcal I_t\), with
+\(M_r=\binom{Nz_r}{m_r}2^{Nz_r-m_r}\), we bound the logarithm of the
+binomial coefficient in the same way, using the two counts \(m_r\) and
+\(Nz_r-m_r\) (if \(m_r=0\), the coefficient is \(1\)), add
+\((Nz_r-m_r)\log2\), and intersect with
+\([Nz_r\log3-\log(Nz_r+1),\,Nz_r\log3]\). The lower end of this interval
+is \eqref{eq:tripling-mode}; the upper end holds because the numbers
+\(M_{\mathrm t}(Nz_r,m)\), \(0\le m\le Nz_r\), add up to \(3^{Nz_r}\).
 
-\subsection{Saved finite certificates}
+For each relation \(i\in\mathcal J\), write
+\([\underline\eta_i,\overline\eta_i]\) for the interval obtained in this way,
+so that \(\underline\eta_i\le\log M_i\le\overline\eta_i\). Put
+\begin{equation}\label{eq:lower-contraction}
+ \underline\Delta_N=NK\log2-N\sum_{i\in\mathcal I_c}w_i\log d_i
+ +\sum_{i\in\mathcal J}\underline\eta_i
+\end{equation}
+and define the \emph{sufficient upper expression}
+\begin{equation}\label{eq:sufficient-expression}
+ \overline\Phi=\frac{3NK\log(2a-1)+3I\log2
+ +\frac1k\bigl(\log(3kI+1)+2\max_{i\in\mathcal J}\overline\eta_i\bigr)
+ +\frac1j\log\kappa_N+\frac{\log2}{kj}}{\underline\Delta_N},
+\end{equation}
+where \(\log\kappa_N=3N\sum_{\sigma,r,b}c_{\sigma,r,b}\log(r+b-1)\) is
+computed from the catalyst multiplicities, as in \eqref{eq:kappa}.
 
-Table~\ref{tab:finite-multiway} records three fixed comparisons at the
-larger rounding scale
-\(K=a^3\lceil\log_2a\rceil^2\), \(N=1\), \(k=32\), and
-\(j=128a\lceil\log_2a\rceil\). Increasing \(j\) amortizes
-catalyst supply; increasing \(k\) amortizes interpolation. Both also
-increase the source dimension \(A=u^{kj}\).
+\begin{lemma}[A sufficient upper expression]
+\label{lem:sufficient-expression}
+We have \(\underline\Delta_N\le\Delta_N\). If \(\underline\Delta_N>0\),
+then \(B>A\) and \(p<\Phi\le\overline\Phi\).
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:delta-N} and \(\log M_i\ge\underline\eta_i\),
+\(\underline\Delta_N\le\Delta_N\). If \(\underline\Delta_N>0\), then
+\(B/A=(B_1/A_1)^{kj}>1\), and \(p<\Phi\) by \eqref{eq:finite-exponent}.
+We compare the numerators of \(\Phi\) and \(\overline\Phi\) term by term.
+The copy overhead is below \(3I\log2\) by \eqref{eq:finite-cost-bounds}.
+Since every \(M_i\ge1\), we have
+\(E=1+3k\sum_{i\in\mathcal J}(M_i-1)^2\le(3kI+1)\max_iM_i^2\), so
+\(\log E\le\log(3kI+1)+2\max_i\overline\eta_i\). The other terms agree.
+Hence the numerator of \(\overline\Phi\) is at least that of \(\Phi\).
+Both numerators are positive, so replacing \(\Delta_N\) by the smaller
+positive number \(\underline\Delta_N\) can only increase the quotient.
+\end{proof}
+
+\subsection{Three examples}
+\label{subsec:finite-examples}
+
+Table~\ref{tab:finite-multiway} reports \(\overline\Phi\) for
+\(a=4,8,12\), with the parameters
+\[
+ K=a^3\ell_a^2,\qquad N=1,\qquad k=32,\qquad j=128\,a\ell_a,
+\]
+where \(\ell_a=\lceil\log_2a\rceil\); thus \(K=256\), \(4\,608\),
+\(27\,648\) and \(j=1\,024\), \(3\,072\), \(6\,144\). For each \(a\), the
+occupations of Proposition~\ref{prop:occupations} were computed exactly
+and rounded at scale \(K\) by the deterministic rule of
+Theorem~\ref{thm:effective}; other roundings allowed by
+Lemma~\ref{lem:circulation-rounding} give other counts. The report lists
+the counts \(n_{r,x,y}\) and \(z_r\) and the catalyst multiplicities
+\(c_{\sigma,r,b}\) of Proposition~\ref{prop:rounded-ledger}.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{rrrrr}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rlllllllr}
 \toprule
-\(a\)&\(K\)&\(j\)&upper bound for \(\Phi\)&decimal digits of \(A\)\\
+&&\multicolumn{4}{c}{terms of \(\overline\Phi\), divided by
+ \(\underline\Delta_N\)}&&&\\
+\cmidrule(lr){3-6}
+\(a\)&\(\tau_a\)&main&copy&interp.&catalyst
+ &bound \(\overline\Phi\)&\(\Phi\) (computed)&digits of \(A\)\\
 \midrule
-4&256&1\,024&3.628926097&84\,456\,434\\
-8&4\,608&3\,072&2.848599165&11\,877\,489\,885\\
-12&27\,648&6\,144&2.675820359&234\,905\,651\,862\\
+4&2.5923&3.3267&0.0926&0.1397&0.0699&3.628926097&3.5754691
+ &84\,456\,434\\
+8&2.5116&2.7169&0.0119&0.0822&0.0376&2.848599165&2.8406393
+ &11\,877\,489\,885\\
+12&2.4790&2.5786&0.0036&0.0674&0.0262&2.675820359&2.6728401
+ &234\,905\,651\,862\\
 \bottomrule
 \end{tabular}
-\caption{Certified sufficient exponent bounds at fixed small indices.
-Here \(N=1\) and \(k=32\). Each exponent is rounded upwards from
-its rational interval. The digit counts refer to the recursive source
-side, not to a stored or executed matrix.}
+\caption{Examples with \(N=1\), \(k=32\), \(K=a^3\ell_a^2\) and
+\(j=128\,a\ell_a\). Column \(\overline\Phi\): upper end of a rational
+enclosure of \eqref{eq:sufficient-expression}, rounded upwards, hence a
+certified upper bound for \(\Phi\) and \(p\). The four columns before it:
+the main term \(3NK\log(2a-1)\), the copy bound \(3I\log2\), the
+interpolation bound and the catalyst overhead, each divided by
+\(\underline\Delta_N\); the last term
+\((\log2)/(kj\underline\Delta_N)\) is below \(10^{-7}\). Column \(\Phi\):
+floating-point value of \eqref{eq:finite-exponent}. Last column: number
+of decimal digits of the source side \(A\).}
 \label{tab:finite-multiway}
 \end{table}
 
-The last row proves that this finite relative scheme has pooled exponent
-less than \(2.675820359\). Its size also shows why this is a mathematical
-construction rather than an implementation result. The table does not
-bound the exact exponents from below, compare practical running times,
-or give the dimensions of the final rational seeds.
+In all three examples \(\underline\Delta_N>0\), so by
+Lemma~\ref{lem:sufficient-expression} each entry \(\overline\Phi\) bounds
+\(\Phi\) and hence \(p\), while \(p\ge\tau_a\)
+(Section~\ref{sec:extraction}). For
+example, the relative scheme with \(a=12\) has
+\(2.479<p<2.675820359\). The column \(\Phi\) is computed from the same
+counts, with \(\log M_i\) from the log-gamma function and with \(E\) and
+\(L/M^3\) from the actual sector counts. The relaxations in
+\(\overline\Phi\) raise the bound by about \(1.5\%\) at \(a=4\) and
+\(0.1\%\) at \(a=12\), and pooling lowers \(\Phi\) by
+\((\log2)/(kj\Delta_N)<10^{-7}\).
 
-The saved certificates use rational logarithm enclosures. For a positive
-integer write it as \(2^e y\), \(1\le y\le2\), and bracket
-\(y\) by adjacent rationals of denominator \(2^{80}\). For
-\(z=(y-1)/(y+1)\),
-\begin{equation}\label{eq:log-enclosure}
- 2\sum_{h=0}^{39}\frac{z^{2h+1}}{2h+1}
- \le\log y\le
- 2\sum_{h=0}^{39}\frac{z^{2h+1}}{2h+1}
- +\frac{2z^{81}}{81(1-z^2)}.
-\end{equation}
-The positive tail of the power series gives the remainder bound.
-Evaluate at the rational bracket endpoints, apply the same bound to
-\(\log2\), and combine the intervals with outward rounding.
-For a positive rational, subtract the denominator's logarithm interval
-from the numerator's. Digit counts follow by enclosing \(\log_{10}A\)
-strictly between consecutive integers.
-The supplementary report \texttt{results/multiway-finite-costs.json}
-contains the integer types, signed catalyst counts, charge intervals,
-and source hashes underlying the table.
+The parameters of Theorem~\ref{thm:quantitative}, \(K=a^3\ell_a\),
+\(k=1\) and \(j=a\ell_a\), suffice for large \(a\). For \(a\le12\),
+however, the overheads per unit of \(K\) are large compared with
+\(\log F(a,a)<3.8\), and the table amortizes them further: \(k=32\)
+divides the interpolation overhead by \(32\), the factor \(128\) in \(j\)
+divides the catalyst overhead by \(128\), and the extra factor \(\ell_a\)
+in \(K\) reduces the shares of the copy overhead, the rounding loss and
+the type penalty, which grow more slowly than \(K\). With the same \(K\)
+and \(N\), the report gives the bounds \(\overline\Phi\le16.826\),
+\(10.175\) and \(8.097\) for \(a=4,8,12\) when \((k,j)=(1,a\ell_a)\), and
+\(12.501\), \(7.629\) and \(6.009\) when \((k,j)=(32,a\ell_a)\). With
+\(k\) and \(j\) as in Theorem~\ref{thm:quantitative} (but the larger \(K\)
+of the table), the catalyst overhead is therefore the largest cost at
+these indices. Each increase enlarges the source side
+\(A=A_1^{kj}\), whose logarithm is linear in \(k\) and \(j\) and roughly
+linear in \(K\).
 
-\subsection{Comparison with exact normalization}
-
-Appendix~\ref{sec:exact-certificate} gives a closed binary certificate
-and its exact minimal denominator \(K_a\). It satisfies
+The main term would equal the profile exponent \(\tau_a\) if
+\(\underline\Delta_N\) were \(NK\log F(a,a)\). By
+Proposition~\ref{prop:entropy-loss}, the rounded potential satisfies
+\(NG=NK\log2-N\sum_{i\in\mathcal I_c}w_i\log d_i+N\sum_{i\in\mathcal J}H_i
+=NK\log F(a,a)-N\mathcal L\), and therefore
 \[
- K_a\ge\frac32\lcm(1,\ldots,a-1)\ge\frac{3\,2^{a-2}}a.
+ \underline\Delta_N=NK\log F(a,a)-N\mathcal L
+ -\sum_{i\in\mathcal J}(NH_i-\underline\eta_i).
 \]
-This is an obstruction to using those exact rational frequencies at a
-smaller scale. Conserved rounding avoids that requirement: its edge
-counts need only approximate the frequencies while preserving the entire
-resource identity. The bound \(\mathcal L\le4J_a\) measures the
-resulting loss. Multiway relations also reduce the ideal total auxiliary
-charge to \(O(a)\). Together these changes give the bound
-\(\log A=O(a^5(\log a)^2)\).
+The rounding loss \(N\mathcal L\) is below one in all three examples. The
+last sum bounds the type loss \(\sum_i(NH_i-\log M_i)\) of
+Section~\ref{subsec:cost-bounds} and is at most the type penalty
+\(\mathcal T_N\); it removes about \(22\%\), \(7.6\%\) and \(3.9\%\) of
+\(NK\log F(a,a)\) for \(a=4,8,12\). So the type loss is the largest
+finite cost, and interpolation is the largest overhead in the numerator.
+At \(a=12\), all finite costs together raise the bound by about
+\(0.197\) above \(\tau_{12}\), which is less than the remaining gap
+\(\tau_{12}-9/4\approx0.229\).
 
-Threefold balancing separately reduces the dimension charges relative to
-sixfold balancing at the same \(k\). It does not by itself halve an
-exponent: doubling \(k\) in the threefold construction recovers the
-same charged scalar counts as using \(k\) with sixfold balancing,
-when the underlying types agree. Likewise, increasing a sector count
-improves the target dimension but also increases the separator degree.
-The full expression \eqref{eq:pooled-exponent} is needed to assess either
-change.
+\subsection{Rational enclosures of logarithms}
+\label{subsec:log-enclosures}
 
-The dimension \(A\) belongs to the specified relative scheme. It is
-not a lower bound on all algorithms obtainable by restricting its source,
-or on all rational seeds with the same exponent. For example, tensoring
-a small scheme with \(\MM_C\) increases its displayed source side,
-while restricting that common factor to one coefficient recovers the
-small scheme. A source-size obstruction therefore needs a stated
-construction and reduction model. Neither the denominator benchmark nor
-the displayed finite examples imply a general size barrier for fast
-matrix multiplication.
+The report builds \(\overline\Phi\), the \(\underline\eta_i\) and
+\(\overline\eta_i\), and \(\log A\) from logarithms of positive integers by
+rational operations, maxima and minima. Write such an integer as
+\(\nu=2^e\theta\) with an integer \(e\ge0\) and \(1\le\theta<2\), and put
+\(\varrho=(\theta-1)/(\theta+1)\). For \(1\le\theta\le2\) we have
+\(0\le\varrho\le1/3\), and the series
+\(\log\theta=2\operatorname{artanh}\varrho=2(\varrho+\varrho^3/3+\cdots)\)
+has nonnegative terms, those after \(2\varrho^{79}/79\) adding up to at
+most \(2\varrho^{81}/(81(1-\varrho^2))\). Therefore
+\begin{equation}\label{eq:log-enclosure}
+ 2\Bigl(\varrho+\frac{\varrho^3}3+\cdots+\frac{\varrho^{79}}{79}\Bigr)
+ \le\log\theta\le
+ 2\Bigl(\varrho+\frac{\varrho^3}3+\cdots+\frac{\varrho^{79}}{79}\Bigr)
+ +\frac{2\varrho^{81}}{81(1-\varrho^2)},
+\end{equation}
+and the two sides differ by less than \(10^{-40}\). The report evaluates
+the lower and upper bounds at multiples \(\theta^-\le\theta\le\theta^+\)
+of \(2^{-80}\) in \([1,2]\) with \(\theta^+-\theta^-\le2^{-80}\), which
+encloses \(\log\theta\) because \(\log\) is increasing; it encloses
+\(\log2\) in the same way and puts \(\log\nu=e\log2+\log\theta\).
+Logarithms of rationals are differences of such enclosures. All further
+operations are interval arithmetic in exact rationals, and all roundings
+(of each logarithm to a multiple of \(2^{-160}\), and of printed values)
+are outward. Finally, \(A\) has
+\(\lfloor\log_{10}A\rfloor+1\) decimal digits, and the report encloses
+\(\log_{10}A=(\log A)/(\log10)\) in an interval whose endpoints have the
+same integer part.

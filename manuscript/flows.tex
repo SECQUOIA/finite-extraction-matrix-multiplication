@@ -1,207 +1,518 @@
-\section{Rational occupation flows with bounded auxiliary cost}
+\section{The row walk and its occupations}
 \label{sec:flows}
 
-We now choose how often to use each multiway relation. The choice must
-conserve all convolution factors and keep the product of the auxiliary
-dimensions small. Both requirements can be expressed through the
-occupation counts of a finite absorbing walk. Expected visits are obtained
-from the fundamental matrix of an absorbing chain
-\citep[Theorem~11.4]{GrinsteadSnell97}; the change of probabilities below
-is a Doob transform by a positive harmonic function
-\citep[Section~17.6.1]{LevinPeres17}. The bounds on this particular walk
-will be proved directly. The probabilities below
-are prescribed by the least profile; no optimization oracle is needed.
+This section decides how often to apply each split and each tripling of
+Section~\ref{sec:maps}. Apart from the copies of \(S^+_{a,a}\) that are
+fed in and the copies of \(\MM_2\) that come out, every tensor factor that
+one relation produces must be consumed by another relation, and
+conversely; in addition, the logarithms of the auxiliary dimensions,
+weighted by how often each split is used, must have a small sum, because
+the auxiliary dimensions multiply into the source side of the final
+scheme. We make these choices with a random walk in each row, the
+\emph{row walk}, whose expected numbers of visits, the
+\emph{occupations}, balance every factor exactly.
+Proposition~\ref{prop:occupations} proves this and bounds both the total
+occupation and the weighted sum of logarithms by
+\(\Gamma_a=105+180(a-2)\).
 
-Fix a target index \(a\ge2\). In row \(2\le r\le a\), put
-\[
- n_r=3r,\qquad x=b-r+1,\qquad
- f_r(x)=\frac{3(r-1)}2+x\quad(0\le x\le n_r).
-\]
-The profile formula extends to the left boundary:
+\subsection{States, splits and triplings}
+\label{subsec:row-walk}
+
+Fix the target index \(a\ge2\) and a row \(r\) with \(2\le r\le a\), and
+put \(\sigma_r=(-1)^{a-r}\). Row \(r\) consists of the tensors
+\(S^{\sigma_r}_{r,b}\) with columns \(r-1\le b\le4r-1\). We index them by
+the \emph{state} \(x=b-r+1\in\{0,\ldots,3r\}\), so that state \(x\) is
+column \(b=r-1+x\). With \(f_r(x)=\frac{3(r-1)}2+x\), the row-affine
+form~\eqref{eq:row-affine} of the least profile reads, in the state
+variable,
 \begin{equation}\label{eq:affine-row}
- F(r,r-1+x)=s_r f_r(x)\qquad(0\le x\le n_r).
+ F(r,r-1+x)=s_rf_r(x)\qquad(0\le x\le3r).
 \end{equation}
-For \(x\ge1\), this is \eqref{eq:profile-formula}. At \(x=0\),
-symmetry and \(s_r/s_{r-1}=(3r-2)/(3r-3)\) give
-\(F(r,r-1)=s_{r-1}(3r-2)/2=3(r-1)s_r/2\).
 
-For an interior state \(1\le x<n_r\), define
+The states \(1\le x\le3r-1\) are \emph{interior}. For an interior state
+\(x\) we define its \emph{width}, its auxiliary dimension, its
+\emph{children} and its transition probabilities by
 \begin{align}
- h_{r,x}&=\min(x,n_r-x),&d_{r,x}&=h_{r,x}+1,\notag\\
+ h_{r,x}&=\min(x,3r-x),&d_{r,x}&=h_{r,x}+1,\notag\\
  \mathcal Y_{r,x}&=\{x-h_{r,x},x-h_{r,x}+2,\ldots,x+h_{r,x}\},
  &q_{r,x,y}&=\frac{f_r(y)}{d_{r,x}f_r(x)}
  \quad(y\in\mathcal Y_{r,x}).\label{eq:multiway-probabilities}
 \end{align}
-The probabilities are positive rationals and sum to one, since the
-average of the children is \(x\) and \(f_r\) is affine. The determinant
-relation of Lemma~\ref{lem:multiway} uses auxiliary dimension
-\(d_{r,x}\) and these child columns. Its filtration index corresponding
-to child \(y\) is \((x+h_{r,x}-y)/2\).
-Its hypothesis holds: \(h_{r,x}\le x\) implies
-\(b=r-1+x\ge h_{r,x}+1\). Thus every child remains in the row interval
-\([r-1,4r-1]\).
+The \(d_{r,x}\) children are placed symmetrically about \(x\), so their
+average is \(x\). Since \(f_r\) is affine, it follows that
+\(\sum_{y\in\mathcal Y_{r,x}}f_r(y)=d_{r,x}f_r(x)\); hence the
+\(q_{r,x,y}\) are positive rationals with sum one. By
+\eqref{eq:affine-row}, a child is chosen with probability proportional to
+the profile value \(F(r,r-1+y)\) at its column; in other words,
+\((h+1)F(r,b)=\sum_{j=0}^hF(r,b+h-2j)\) for \(b=r-1+x\) and
+\(h=h_{r,x}\). This makes \(\log F\) a potential that telescopes along
+the walk (Proposition~\ref{prop:entropy-loss}).
 
-State zero absorbs. At state \(n_r\), the walk returns deterministically
-to state one, representing the tripling relation from column \(4r-1\)
-to column \(r\). Inject one unit at
-\[
- i_r=\begin{cases}1,&r=a,\\2,&r<a.\end{cases}
-\]
-Let \(e_0,\ldots,e_{n_r}\) be the standard coordinate vectors for the
-states of this row.
+Since \(h_{r,x}=\min(x,3r-x)\) is the largest \(h\) with \(0\le x-h\) and
+\(x+h\le3r\), every child satisfies \(0\le y\le3r\), so its column
+\(r-1+y\) lies in \([r-1,4r-1]\), and no wider split keeps all its
+children in the row. This maximal width makes the walk cross a row
+quickly, which keeps the cost of a row bounded
+(Proposition~\ref{prop:occupations}). Since \(r\ge2\) and
+\(h_{r,x}\le x\), the column of \(x\) satisfies
+\(b=r-1+x\ge h_{r,x}+1\), which is the hypothesis of
+Lemma~\ref{lem:multiway}.
 
-\begin{proposition}[Rational occupation flows]\label{prop:occupations}
-The walk is absorbed at zero in finite expected time, from every state.
-Its expected interior visit counts \(\lambda_{r,x}\) and expected reset
-count \(\mu_r\) are nonnegative rationals, determined by a nonsingular
-finite rational linear system. They satisfy the exact row identity
+The walk keeps track of tensor factors. State \(x\) of row \(r\) stands
+for the factor \(S^{\sigma_r}_{r,r-1+x}\). A step from an interior state
+\(x\) stands for one \emph{split} at \((r,x)\): the restriction of
+Lemma~\ref{lem:multiway} with \(b=r-1+x\), \(h=h_{r,x}\) and auxiliary
+\(B_X(d_{r,x})\), used in the three orientations of
+\(\mathcal A_{\sigma_r}\) as in Corollary~\ref{cor:oriented-relations},
+so that the three auxiliaries combine into \(\MM_{d_{r,x}}\)
+by~\eqref{eq:coset-dot-products}. Its block with filtration index
+\(j=(x+h_{r,x}-y)/2\) is \(S^{\sigma_r}_{r,r-1+y}\), the factor of the
+child \(y\). In a tensor power, each copy of the factor at \(x\) becomes
+one factor at some child, and the type of the restriction fixes how many
+copies go to each child; the walk moves from \(x\) to \(y\) with the
+frequency \(q_{r,x,y}\) that this type approximates
+(Section~\ref{sec:rounding}).
+
+The two end states have special roles. State \(3r\) is column \(4r-1\),
+and the step from it to state \(1\), column \(r\), stands for one
+\emph{tripling}: the restriction of Lemma~\ref{lem:tripling} in the three
+orientations of \(\mathcal A_{\sigma_r}\), which turns copies of
+\(S^{\sigma_r}_{r,4r-1}\) into sectors that each contain the same number
+of copies of \(S^{\sigma_r}_{r,r}\), by~\eqref{eq:cyclic-tripling-balance}.
+State \(0\) is column \(r-1\). By~\eqref{eq:cyclic-identities} and
+\(\sigma_{r-1}=-\sigma_r\), its factor
+\(S^{\sigma_r}_{r,r-1}\cong S^{\sigma_{r-1}}_{r-1,r}\) is the factor at
+state \(2\) of row \(r-1\) (Section~\ref{subsec:orientations}). A walk
+that reaches state \(0\) therefore leaves row \(r\) and continues in row
+\(r-1\) at state \(2\). Hence the walk of a lower row starts at state
+\(2\), whereas the walk of the top row starts at state \(1\), the diagonal
+factor \(S^{\sigma_a}_{a,a}=S^+_{a,a}\) whose powers are the input of the
+construction; accordingly, the \emph{injection state} of row \(r\) is
+\(\xin_r=1\) if \(r=a\) and \(\xin_r=2\) if \(r<a\). In row \(2\), state
+\(0\) is
+\(S^{\sigma_2}_{2,1}\cong S^{-\sigma_2}_{1,2}\cong\MM_2\), the output of
+the construction.
+
+\begin{definition}[Row walk and occupations]\label{def:row-walk}
+The \emph{row walk} of row \(r\) is the Markov chain
+\(X_0,X_1,X_2,\ldots\) on the states \(\{0,\ldots,3r\}\) with
+\(X_0=\xin_r\) and the following transitions. From an interior state
+\(x\), it moves to the child \(y\in\mathcal Y_{r,x}\) with probability
+\(q_{r,x,y}\); from state \(3r\), it moves to state \(1\); and state \(0\)
+is absorbing. The \emph{occupation} \(\lambda_{r,x}\) of an interior
+state \(x\) is the expected number of times \(\nu\ge0\) with
+\(X_\nu=x\), that is, the expected number of splits at \((r,x)\). The
+expected number of times \(\nu\) with \(X_\nu=3r\) is denoted by
+\(\mu_r\); it is the expected number of triplings in row \(r\).
+\end{definition}
+
+A priori these expectations lie in \([0,\infty]\);
+Proposition~\ref{prop:occupations} shows that they are finite and
+rational. Figure~\ref{fig:row-walk} and Example~\ref{ex:row-two} show the
+row walk of row \(2\).
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  x=2.25cm, y=1cm, >={Stealth[length=2mm]},
+  st/.style={circle,draw,thick,minimum size=7.5mm,inner sep=0pt},
+  un/.style={st,draw=black!45,text=black!55},
+  pr/.style={font=\footnotesize,inner sep=1pt,fill=white},
+  gpr/.style={pr,text=black!60},
+  tr/.style={->,thick},
+  gr/.style={->,draw=black!40}
+  ]
+  \node[st,double,double distance=1.2pt] (s0) at (0,0) {\(0\)};
+  \node[st] (s1) at (1,0) {\(1\)};
+  \node[st] (s2) at (2,0) {\(2\)};
+  \node[un] (s3) at (3,0) {\(3\)};
+  \node[st] (s4) at (4,0) {\(4\)};
+  \node[un] (s5) at (5,0) {\(5\)};
+  \node[st] (s6) at (6,0) {\(6\)};
+  % moves to the right (above the states)
+  \draw[tr] (s1) to[bend left=30] node[pr]{\(7/10\)} (s2);
+  \draw[tr] (s2) to[bend left=38] node[pr]{\(11/21\)} (s4);
+  \draw[tr] (s4) to[bend left=38] node[pr]{\(5/11\)} (s6);
+  \draw[gr] (s3) to[bend left=30] node[gpr]{\(11/36\)} (s4);
+  \draw[gr] (s3) to[bend left=45] node[gpr]{\(5/12\)} (s6);
+  \draw[gr] (s5) to[bend left=30] node[gpr]{\(15/26\)} (s6);
+  % moves to the same state
+  \draw[tr] (s2) to[out=115,in=65,looseness=6]
+    node[pr,above,fill=none]{\(1/3\)} (s2);
+  \draw[tr] (s4) to[out=115,in=65,looseness=6]
+    node[pr,above,fill=none]{\(1/3\)} (s4);
+  % moves to the left (below the states)
+  \draw[tr] (s1) to[bend left=30] node[pr]{\(3/10\)} (s0);
+  \draw[tr] (s2) to[bend left=38] node[pr]{\(1/7\)} (s0);
+  \draw[tr] (s4) to[bend left=38] node[pr]{\(7/33\)} (s2);
+  \draw[gr] (s3) to[bend left=45] node[gpr]{\(1/12\)} (s0);
+  \draw[gr] (s3) to[bend left=30] node[gpr]{\(7/36\)} (s2);
+  \draw[gr] (s5) to[bend left=30] node[gpr]{\(11/26\)} (s4);
+  % tripling and injection
+  \draw[->,thick,dashed] (s6) to[out=95,in=85,looseness=0.55]
+    node[pr,above,fill=none]{tripling} (s1);
+  \draw[->,very thick] (0.55,1.0)
+    node[pr,above left,fill=none]{injection if \(a=2\)} -- (s1);
+  \draw[->,very thick] (2,-2.0)
+    node[pr,below,fill=none]{injection if \(a>2\)} -- (s2);
+  % columns
+  \node[font=\footnotesize,anchor=east] at (-0.35,0) {state \(x\)};
+  \foreach \x/\b in {0/1,1/2,2/3,3/4,4/5,5/6,6/7}
+    \node[font=\footnotesize] at (\x,-2.9) {\(\b\)};
+  \node[font=\footnotesize,anchor=east] at (-0.35,-2.9) {column \(b\)};
+\end{tikzpicture}
+\caption{The row walk of row \(r=2\) (Example~\ref{ex:row-two}). Arcs
+above the states move right, arcs below move left, and loops stay; labels
+are the probabilities \(q_{2,x,y}\). Dashed: the tripling \(6\to1\).
+Double circle: the absorbing state \(0\), the factor
+\(S^{\sigma_2}_{2,1}\cong\MM_2\). Gray: states not reachable from the
+injection states.}
+\label{fig:row-walk}
+\end{figure}
+
+\begin{example}[Row \(r=2\)]\label{ex:row-two}
+Here \(s_2=4/3\) and \(f_2(x)=x+3/2\), so \(F(2,b)=\frac43(b+\frac12)\)
+for \(1\le b\le7\), and the states \(0,\ldots,6\) are the columns
+\(1,\ldots,7\). The widths of the interior states \(1,\ldots,5\) are
+\(1,2,3,2,1\). For instance, the children of state \(2\) are \(0,2,4\);
+their values of \(f_2\) are \(3/2,7/2,11/2\), whose sum is
+\(3f_2(2)=21/2\), so \(q_{2,2,0}=1/7\), \(q_{2,2,2}=1/3\) and
+\(q_{2,2,4}=11/21\). Figure~\ref{fig:row-walk} shows all transition
+probabilities. Every child in this row is even: a state \(x\le3\) has the
+children \(0,2,\ldots,2x\), and a state \(x\ge3\) has the children
+\(2x-6,\ldots,6\). Consequently a walk that starts at state \(1\) or
+\(2\) never visits states \(3\) and \(5\), and
+\(\lambda_{2,3}=\lambda_{2,5}=0\). For a state other than \(0\), the
+expected number of visits equals the number of starts there plus the
+expected number of arrivals. For the states \(1,2,4,6\) this gives
+\begin{align*}
+ \lambda_{2,1}&=\delta_{1,\xin_2}+\mu_2,&
+ \lambda_{2,2}&=\delta_{2,\xin_2}+\tfrac7{10}\lambda_{2,1}
+   +\tfrac13\lambda_{2,2}+\tfrac7{33}\lambda_{2,4},\\
+ \lambda_{2,4}&=\tfrac{11}{21}\lambda_{2,2}+\tfrac13\lambda_{2,4},&
+ \mu_2&=\tfrac5{11}\lambda_{2,4},
+\end{align*}
+where \(\delta\) is the Kronecker delta. These are the coordinates
+\(1,2,4,6\) of the row identity~\eqref{eq:row-flow} below.
+
+If \(a=2\), then \(\xin_2=1\), and the solution is \(\lambda_{2,1}=2\),
+\(\lambda_{2,2}=14/5\), \(\lambda_{2,4}=11/5\) and \(\mu_2=1\): the walk
+makes \(7\) splits on average, and
+\(\sum_x\lambda_{2,x}\log d_{2,x}=2\log2+5\log3\approx6.88\). If \(a>2\),
+then \(\xin_2=2\), and the solution is \(\lambda_{2,1}=10/7\),
+\(\lambda_{2,2}=4\), \(\lambda_{2,4}=22/7\) and \(\mu_2=10/7\): the walk
+makes \(60/7\approx8.57\) splits on average, and
+\(\sum_x\lambda_{2,x}\log d_{2,x}=\frac{10}7\log2+\frac{50}7\log3
+\approx8.84\). In both cases \(\mu_2\) agrees
+with~\eqref{eq:reset-weights}.
+\end{example}
+
+\subsection{Occupations}
+\label{subsec:occupations}
+
+Let \(\mathbf e_0,\ldots,\mathbf e_{3r}\) be the standard
+basis of \(\Q^{3r+1}\), indexed by the states of row \(r\).
+
+\begin{proposition}[Occupations]\label{prop:occupations}
+Let \(a\ge2\) and \(2\le r\le a\). The row walk of row \(r\), started at
+any state, is absorbed at state \(0\) in finite expected time. Its
+occupations
+\(\lambda_{r,x}\), for \(1\le x\le3r-1\), and \(\mu_r\) are nonnegative
+rationals. They are the unique solution of a nonsingular rational linear
+system, and they satisfy the row identity
 \begin{equation}\label{eq:row-flow}
- \sum_{x=1}^{n_r-1}\lambda_{r,x}
- \left(e_x-\sum_{y\in\mathcal Y_{r,x}}q_{r,x,y}e_y\right)
- +\mu_r(e_{n_r}-e_1)=e_{i_r}-e_0.
+ \sum_{x=1}^{3r-1}\lambda_{r,x}
+ \Bigl(\mathbf e_x-\sum_{y\in\mathcal Y_{r,x}}q_{r,x,y}\mathbf e_y\Bigr)
+ +\mu_r(\mathbf e_{3r}-\mathbf e_1)=\mathbf e_{\xin_r}-\mathbf e_0.
 \end{equation}
-The reset counts are
+The expected numbers of triplings are
 \begin{equation}\label{eq:reset-weights}
- \mu_r=
- \begin{cases}
-  \dfrac1{r-1},&r=a,\\[4pt]
-  \dfrac{2(3r-1)}{(r-1)(3r+1)},&r<a.
- \end{cases}
+ \mu_a=\frac1{a-1},\qquad
+ \mu_r=\frac{2(3r-1)}{(r-1)(3r+1)}\quad(r<a);
 \end{equation}
-In particular, \(\mu_r\le2\). Each of the two row sums
-\(\sum_x\lambda_{r,x}\) and
-\(\sum_x\lambda_{r,x}\log d_{r,x}\) is less than \(105\) in the
-final row and less than \(180\) in a lower row. Consequently, with
-\(C_a=105+180(a-2)\),
+in particular, \(\mu_r\le2\). Each of the two row sums
+\(\sum_x\lambda_{r,x}\) and \(\sum_x\lambda_{r,x}\log d_{r,x}\) is less
+than \(105\) if \(r=a\) and less than \(180\) if \(r<a\). Consequently,
+each \(\lambda_{r,x}\) and each \(\lambda_{r,x}\log d_{r,x}\) is less
+than \(180\), and, with \(\Gamma_a=105+180(a-2)\),
 \begin{equation}\label{eq:occupation-bounds}
- \sum_{r=2}^a\sum_{x=1}^{n_r-1}\lambda_{r,x}\le C_a,
+ \sum_{r=2}^a\sum_{x=1}^{3r-1}\lambda_{r,x}\le\Gamma_a,
  \qquad
- \sum_{r=2}^a\sum_{x=1}^{n_r-1}
-       \lambda_{r,x}\log d_{r,x}\le C_a.
+ \sum_{r=2}^a\sum_{x=1}^{3r-1}\lambda_{r,x}\log d_{r,x}\le\Gamma_a.
 \end{equation}
-In particular, every action satisfies
-\(\lambda_{r,x}\log d_{r,x}\le180\).
-Unreachable states may have zero occupation.
 \end{proposition}
 
+On the left side of~\eqref{eq:row-flow}, the coefficient of
+\(\mathbf e_y\) is the expected number of steps out of \(y\) minus the
+expected number of steps into \(y\); by the right side, it is \(1\) at
+\(\xin_r\), \(-1\) at state \(0\) and \(0\) elsewhere, so one unit enters
+the row at \(\xin_r\) and leaves it at state \(0\). In terms of tensor
+factors, the splits and triplings of row \(r\), used with these frequencies, consume
+one more copy of \(S^{\sigma_r}_{r,r-1+\xin_r}\) than they produce,
+produce one more copy of \(S^{\sigma_r}_{r,r-1}\) than they consume, and
+balance every other factor of the row.
+
 \begin{proof}
-Fix a row and suppress its subscript. First consider the walk that
-chooses each child in \(\mathcal Y_x\) with equal probability
-\(1/(h(x)+1)\), and stops at either endpoint. Write \(\tau\) for its
-first endpoint visit. This walk is a martingale. The nonnegative function
-\[
- g(x)=\sqrt{x}+\sqrt{n-x}-\sqrt n,
- \qquad \gamma=1-\frac{2\sqrt2}{3}>0
-\]
-has the drift bound
+The idea is to compare each excursion of the row walk between visits to
+the end states \(0\) and \(3r\) with the \emph{uniform walk}, which picks
+every child with equal probability. The uniform walk is a martingale, and
+the function \(g\) below decreases in expectation by at least
+\(\gamma\sqrt{h_{r,x}}\) at each step from \(x\); this bounds the
+expected number of splits in an excursion and the expected sum of
+\(\log d_{r,x}\) over them. Between visits to the end states, the row
+walk is the Doob transform of the uniform walk by the affine function
+\(f_r\) \citep[Section~17.6.1]{LevinPeres17}; this changes these
+expectations by at most the factor \(f_r(3r)/f_r(1)=3\). Finally,
+triplings chain the excursions together, and their number is
+geometrically distributed.
+
+\emph{Notation.} Fix the row and drop the index \(r\) from \(f_r\),
+\(h_{r,x}\), \(d_{r,x}\), \(\mathcal Y_{r,x}\), \(q_{r,x,y}\),
+\(\lambda_{r,x}\), \(\mu_r\) and \(\xin_r\). Let
+\(\theta_{\mathrm{ex}}=\min\{\nu\ge0:X_\nu\in\{0,3r\}\}\) be the exit
+time from the interior (\(\theta_{\mathrm{ex}}=\infty\) if there is no
+such \(\nu\)). We write \(\mathbb P^q_x\) and \(\mathbb E^q_x\) for the
+row walk started at \(x\), and \(\mathbb P^{\mathrm u}_x\) and
+\(\mathbb E^{\mathrm u}_x\) for the uniform walk started at \(x\), which
+moves from an interior state \(x\) to each child \(y\in\mathcal Y_x\)
+with probability \(1/d_x\) and stops at \(0\) and at \(3r\). An
+\emph{excursion} of the row walk runs from an \emph{entry} state (the
+starting state, or state \(1\) right after a tripling) up to the next
+visit to \(0\) or \(3r\). A \emph{charge} is a function \(\varphi\ge0\)
+on the interior states, and the charge of a path is
+\(\sum_{\nu<\theta_{\mathrm{ex}}}\varphi(X_\nu)\). We use \(\varphi=1\),
+which counts splits, and \(\varphi(x)=\log d_x\). Both satisfy
+\(\varphi(x)\le\sqrt{h_x}\) at interior states, the first because
+\(h_x\ge1\), and the second because \(\log(1+h)\le\sqrt h\) for
+\(h\ge1\): the difference \(\sqrt h-\log(1+h)\) is positive at \(h=1\),
+and its derivative \((\sqrt h-1)^2/\bigl(2\sqrt h\,(1+h)\bigr)\) is
+nonnegative.
+
+\emph{Step 1: a square-root drift.} Put
+\(g(x)=\sqrt x+\sqrt{3r-x}-\sqrt{3r}\) and \(\gamma=1-2\sqrt2/3>0\).
+Since the square root is subadditive, \(g\ge0\) on \([0,3r]\). We claim
+that
 \begin{equation}\label{eq:square-root-drift}
- g(x)-\mathbb E_0[g(X_{t+1})\mid X_t=x]
- \ge\gamma\sqrt{h(x)}\qquad(1\le x<n).
+ g(x)-\mathbb E^{\mathrm u}_x\,g(X_1)\ge\gamma\sqrt{h_x}
+ \qquad(1\le x\le3r-1).
 \end{equation}
-Here \(\mathbb E_0\) denotes expectation for the uniform walk. To prove
-the bound when \(x\le n/2\), its children are \(0,2,\ldots,2x\).
-Concavity of the square root, integrated on each unit interval, gives
+First let \(x\le3r/2\). Then \(h_x=x\), and the children are
+\(0,2,\ldots,2x\), each with probability \(1/(x+1)\). On each interval
+\([\ell-1,\ell]\), the concave square root lies above its chord, so
 \[
- \sum_{k=0}^{x}\sqrt{k}
- \le\frac23x^{3/2}+\frac12\sqrt{x}.
+ \sum_{\ell=0}^x\sqrt\ell-\frac{\sqrt x}2
+ =\sum_{\ell=1}^x\frac{\sqrt{\ell-1}+\sqrt\ell}2
+ \le\int_0^x\sqrt\xi\,d\xi=\frac23x^{3/2}.
 \]
-It follows that
-\(\mathbb E_0\sqrt{X_{t+1}}\le(2\sqrt2/3)\sqrt{x}\).
-Jensen's inequality gives
-\(\mathbb E_0\sqrt{n-X_{t+1}}\le\sqrt{n-x}\).
-These two inequalities prove \eqref{eq:square-root-drift}; reflection
-about \(n/2\) proves the other half.
+Dividing by \(x+1\) and using \(\frac23x+\frac12\le\frac23(x+1)\), we
+obtain
+\[
+ \mathbb E^{\mathrm u}_x\sqrt{X_1}
+ =\frac{\sqrt2}{x+1}\sum_{\ell=0}^x\sqrt\ell
+ \le\sqrt2\,\sqrt x\;\frac{\frac23x+\frac12}{x+1}
+ \le\frac{2\sqrt2}3\sqrt x.
+\]
+The children average to \(x\), so Jensen's inequality for the concave
+function \(\xi\mapsto\sqrt{3r-\xi}\) gives
+\(\mathbb E^{\mathrm u}_x\sqrt{3r-X_1}\le\sqrt{3r-x}\). Together,
+\[
+ g(x)-\mathbb E^{\mathrm u}_x\,g(X_1)
+ =\bigl(\sqrt x-\mathbb E^{\mathrm u}_x\sqrt{X_1}\bigr)
+  +\bigl(\sqrt{3r-x}-\mathbb E^{\mathrm u}_x\sqrt{3r-X_1}\bigr)
+ \ge\Bigl(1-\frac{2\sqrt2}3\Bigr)\sqrt x=\gamma\sqrt{h_x}.
+\]
+For \(x\ge3r/2\), the reflection \(\xi\mapsto3r-\xi\) maps
+\(\mathcal Y_x\) onto \(\mathcal Y_{3r-x}\), preserves the width, and
+leaves \(g\) unchanged. Hence the first case, applied to the state
+\(3r-x\le3r/2\), proves~\eqref{eq:square-root-drift} at \(x\).
 
-Stop this estimate at \(\tau\wedge T\), where \(T\) is a positive
-integer. Summing the conditional drift and using \(g\ge0\) gives
-\[
- \gamma\,\mathbb E_{0,i}
- \sum_{t<\tau\wedge T}\sqrt{h(X_t)}\le g(i).
-\]
-Monotone convergence therefore proves
+\emph{Step 2: excursions of the uniform walk.} We show that
 \begin{equation}\label{eq:uniform-excursion-bound}
- \mathbb E_{0,i}\sum_{t<\tau}\sqrt{h(X_t)}
- \le\frac{g(i)}\gamma\le\frac{\sqrt{i}}\gamma.
+ \mathbb E^{\mathrm u}_x\sum_{\nu<\theta_{\mathrm{ex}}}\sqrt{h_{X_\nu}}
+ \le\frac{g(x)}\gamma\le\frac{\sqrt x}\gamma
+ \qquad(1\le x\le3r-1).
 \end{equation}
-Since \(h(x)\ge1\) in the interior, this also proves finite expected
-absorption, without assuming it in the stopping argument. The inequality
-\(\log(1+h)\le\sqrt h\) for \(h\ge1\) follows because
-\(\sqrt h-\log(1+h)\) is positive at one and has nonnegative derivative.
-Thus
-\eqref{eq:uniform-excursion-bound} bounds both the number of steps and
-the sum of \(\log(h+1)\) during an excursion.
-
-Now use the probabilities \(q\), still stopping at the first endpoint.
-They are the transform of the uniform probabilities by the positive
-harmonic function \(f\). For a path from \(i\) to \(x_t\), the
-likelihood ratio telescopes to \(f(x_t)/f(i)\), including when the last
-state is an endpoint. For every interior entry \(i\ge1\),
+Fix an integer \(\bar\nu\ge1\). On the event
+\(\{\nu<\theta_{\mathrm{ex}}\}\) the state \(X_\nu\) is interior, so the
+Markov property and~\eqref{eq:square-root-drift} give
+\(\mathbb E^{\mathrm u}_x\bigl[g(X_\nu)-g(X_{\nu+1})\bigm|X_0,\ldots,X_\nu\bigr]
+\ge\gamma\sqrt{h_{X_\nu}}\) there. The event
+\(\{\nu<\theta_{\mathrm{ex}}\wedge\bar\nu\}\) is determined by
+\(X_0,\ldots,X_\nu\). Multiplying by its indicator, taking expectations
+and summing over \(\nu<\bar\nu\), we obtain
 \[
- \frac{f(x_t)}{f(i)}\le\frac{f(n)}{f(i)}
- \le\frac{f(n)}{f(1)}=3.
+ \gamma\,\mathbb E^{\mathrm u}_x\sum_{\nu<\theta_{\mathrm{ex}}\wedge\bar\nu}\sqrt{h_{X_\nu}}
+ \le\mathbb E^{\mathrm u}_x\sum_{\nu<\theta_{\mathrm{ex}}\wedge\bar\nu}
+   \bigl(g(X_\nu)-g(X_{\nu+1})\bigr)
+ =g(x)-\mathbb E^{\mathrm u}_x\,g(X_{\theta_{\mathrm{ex}}\wedge\bar\nu})\le g(x),
 \]
-Applying this bound at each time to nonnegative charges gives
+where the last step uses \(g\ge0\). Letting \(\bar\nu\to\infty\),
+monotone convergence gives the first inequality
+in~\eqref{eq:uniform-excursion-bound}, and \(\sqrt{3r-x}\le\sqrt{3r}\)
+gives the second. This argument does not assume that
+\(\theta_{\mathrm{ex}}\) is finite; since \(1\le\sqrt{h_x}\) and
+\(\varphi(x)\le\sqrt{h_x}\) at interior states, it gives
+\(\mathbb E^{\mathrm u}_x\theta_{\mathrm{ex}}\le\sqrt x/\gamma<\infty\)
+and \(\mathbb E^{\mathrm u}_x\sum_{\nu<\theta_{\mathrm{ex}}}\varphi(X_\nu)\le\sqrt x/\gamma\)
+for both charges.
+
+\emph{Step 3: excursions of the row walk.} The function \(f\) is positive,
+since \(f(0)=3(r-1)/2>0\), and harmonic for the uniform walk at every
+interior state, because the children average to \(x\) and \(f\) is
+affine. By~\eqref{eq:multiway-probabilities},
+\(q_{x,y}=d_x^{-1}f(y)/f(x)\) is the Doob transform of the uniform
+probabilities by \(f\). The tripling step \(3r\to1\) is not of this form,
+since \(f(1)\ne f(3r)\), so we transform only excursions: for every path
+\(x_0,x_1,\ldots,x_\nu\) whose states \(x_0,\ldots,x_{\nu-1}\) are
+interior, whether or not \(x_\nu\) is interior, the ratio of the path
+probabilities telescopes:
+\[
+ \mathbb P^q_{x_0}(X_1=x_1,\ldots,X_\nu=x_\nu)
+ =\prod_{\ell=1}^\nu\frac{f(x_\ell)}{d_{x_{\ell-1}}f(x_{\ell-1})}
+ =\frac{f(x_\nu)}{f(x_0)}\,
+  \mathbb P^{\mathrm u}_{x_0}(X_1=x_1,\ldots,X_\nu=x_\nu).
+\]
+Since \(f\) is increasing, every entry state \(x_0\ge1\) and every state
+\(x_\nu\le3r\) satisfy
+\(f(x_\nu)/f(x_0)\le f(3r)/f(1)=3\), because \(f(1)=(3r-1)/2\) and
+\(f(3r)=3(3r-1)/2\). For each \(\nu\), the event
+\(\{\nu<\theta_{\mathrm{ex}}\}\) consists of the paths whose states \(X_0,\ldots,X_\nu\) are all interior. Summing the
+path identity over these paths with \(x_0=x\) and applying the last bound
+gives
+\(\mathbb E^q_x\bigl[\varphi(X_\nu)\mathbf 1_{\{\nu<\theta_{\mathrm{ex}}\}}\bigr]
+\le3\,\mathbb E^{\mathrm u}_x\bigl[\varphi(X_\nu)\mathbf 1_{\{\nu<\theta_{\mathrm{ex}}\}}\bigr]\).
+We sum over \(\nu\) and use Step~2. The expected charge
+\(\psi_x=\mathbb E^q_x\sum_{\nu<\theta_{\mathrm{ex}}}\varphi(X_\nu)\) of
+an excursion of the row walk from the entry state \(x\) therefore
+satisfies
 \begin{equation}\label{eq:harmonic-excursion-bound}
- C_i\le\frac{3\sqrt i}\gamma,
+ \psi_x\le\frac{3\sqrt x}\gamma\qquad(1\le x\le3r-1)
 \end{equation}
-where \(C_i\) denotes either the expected number of interior visits or
-the expected sum of \(\log(h+1)\) in one \(q\)-excursion.
-In particular, these excursions also end in finite expected time.
+for both charges. With \(\varphi=1\), this gives
+\(\mathbb E^q_x\theta_{\mathrm{ex}}\le3\sqrt x/\gamma\), so every
+excursion of the row walk ends in finite expected time.
 
-The uniform walk exits at \(n\) with probability \(i/n\): apply the
-martingale identity at \(\tau\wedge T\), then use bounded convergence.
-The endpoint likelihood ratio therefore gives the \(q\)-exit probability
+\emph{Step 4: exit probabilities.} Under \(\mathbb P^{\mathrm u}_x\), the
+stopped process \(X_{\theta_{\mathrm{ex}}\wedge\nu}\) is a martingale with
+values in \([0,3r]\), since the children of an interior state average to
+that state. By Step~2, \(\theta_{\mathrm{ex}}<\infty\) almost surely, so
+bounded convergence gives
+\(\mathbb E^{\mathrm u}_xX_{\theta_{\mathrm{ex}}}=x\). As
+\(X_{\theta_{\mathrm{ex}}}\in\{0,3r\}\), the uniform walk leaves the
+interior at \(3r\) with probability \(x/(3r)\). Summing the path identity
+of Step~3 over the paths that first leave the interior at \(3r\), we find
+that the row walk started at \(x\) leaves the interior at \(3r\) with
+probability
 \begin{equation}\label{eq:exit-probability}
- p_i=\frac{i f(n)}{n f(i)},\qquad
- p_1=\frac1r,\qquad
- p_2=\frac{2(3r-1)}{r(3r+1)}<\frac2r.
+ \rho_x=\mathbb P^q_x(X_{\theta_{\mathrm{ex}}}=3r)=\frac{xf(3r)}{3rf(x)},\qquad
+ \rho_1=\frac1r,\qquad
+ \rho_2=\frac{2(3r-1)}{r(3r+1)}<\frac2r,
 \end{equation}
-After an exit at \(n\), the reset starts a new excursion at one.
-For either of the charges in \eqref{eq:harmonic-excursion-bound}, the
-total expectation from entry \(i\) is consequently
-\[
- C_i+\frac{p_i C_1}{1-p_1}.
-\]
-For entry one this is at most
-\[
- \frac6\gamma=54+36\sqrt2<105.
-\]
-For entry two it is at most
-\[
- \frac{3(\sqrt2+2)}\gamma=90+63\sqrt2<180.
-\]
-The expected number of resets is \(p_i/(1-p_1)\), which gives
-\eqref{eq:reset-weights}. The same formulas give finite expectations
-from every other interior entry; from state \(n\), there is one initial
-reset followed by entry at one. Thus absorption has finite expected time
-from every state of the full walk.
+where we used \(f(2)=(3r+1)/2\) and the values of \(f(1)\) and \(f(3r)\)
+from Step~3.
 
-Let \(P_{uv}\) be its one-step transition probability from \(u\) to
-\(v\), for \(u,v\in\{1,\ldots,n\}\). This transient matrix includes
-the reset state \(n\). Finite expected
-absorption implies that \(\sum_{t\ge0}P^t\) has finite entries and is
-the inverse of \(I-P\). The occupation vector is therefore the unique
-solution of
+\emph{Step 5: chaining the excursions.} Start the row walk at an interior
+state \(x\). Each excursion ends either at \(0\), where the walk is
+absorbed, or at \(3r\), after which a tripling moves the walk to state
+\(1\) and a new excursion starts there. By the strong Markov property at
+the exit times, each new excursion is independent of the past and has the
+law of an excursion under \(\mathbb P^q_1\); in particular, it ends at
+\(3r\) with probability \(\rho_1\). Hence the walk makes at least \(\ell\)
+triplings with probability \(\rho_x\rho_1^{\ell-1}\) for \(\ell\ge1\), so
+the expected number of triplings is \(\rho_x/(1-\rho_1)\). The excursion
+that follows the \(\ell\)-th tripling takes place exactly when at least
+\(\ell\) triplings occur, and its expected charge is then \(\psi_1\).
+Summing over \(\ell\), we find that the expected total charge of the row
+walk started at \(x\) is \(\psi_x+\rho_x\psi_1/(1-\rho_1)\).
+
+Now start at \(x=\xin\), so that the expected number of triplings is
+\(\mu\) and the expected total charge is
+\(\sum_{y=1}^{3r-1}\lambda_y\varphi(y)\). Since \(1-\rho_1=(r-1)/r\),
+\eqref{eq:exit-probability} gives \(\mu=\rho_1/(1-\rho_1)=1/(r-1)\) if
+\(r=a\), and \(\mu=\rho_2/(1-\rho_1)=2(3r-1)/\bigl((r-1)(3r+1)\bigr)\)
+if \(r<a\). This proves~\eqref{eq:reset-weights}, and both values are at
+most \(2/(r-1)\le2\). By~\eqref{eq:harmonic-excursion-bound},
+\(\psi_1\le3/\gamma\) and \(\psi_2\le3\sqrt2/\gamma\). Using \(r\ge2\),
+through \(r/(r-1)\le2\) and \(2/(r-1)\le2\), and
+\(1/\gamma=3/(3-2\sqrt2)=9+6\sqrt2\), we find that the expected total
+charge is
 \[
- (I-P^{\mathsf T})
- (\lambda_1,\ldots,\lambda_{n-1},\mu)^{\mathsf T}
- =(\mathbf1_{\{v=i\}})_{v=1}^{n}.
+ \begin{cases}
+  \psi_1+\dfrac{\rho_1\psi_1}{1-\rho_1}=\dfrac r{r-1}\,\psi_1
+  \le\dfrac6\gamma=54+36\sqrt2<105,&r=a,\\[10pt]
+  \psi_2+\dfrac{\rho_2\psi_1}{1-\rho_1}\le\psi_2+\dfrac2{r-1}\,\psi_1
+  \le\dfrac{3\sqrt2+6}\gamma=90+63\sqrt2<180,&r<a.
+ \end{cases}
 \]
-The matrix and right-hand side are rational, so this solution is rational
-and can be obtained by exact Gaussian elimination. To recover the
-coordinate at zero as well, sum the successive differences
-\(e_{X_t}-e_{X_{t+1}}\) up to absorption and take expectations. Their
-sum is \(e_i-e_0\), proving \eqref{eq:row-flow}. The row estimates give
-\eqref{eq:occupation-bounds}, and nonnegativity gives the individual
-action bound.
+Applied to the charges \(\varphi=1\) and \(\varphi=\log d\), these
+estimates prove the bounds on the two row sums.
+
+\emph{Step 6: absorption and the row identity.} Every visit to a state
+other than \(0\) is followed by exactly one step. Hence the absorption
+time \(\theta_{\mathrm{abs}}=\min\{\nu:X_\nu=0\}\) of the row walk
+started at an interior state \(x\) is the number of visits to interior
+states plus the number of triplings, and by Step~5 with \(\varphi=1\) its
+expectation is \(\psi_x+(1+\psi_1)\rho_x/(1-\rho_1)<\infty\). From state
+\(3r\) the walk first moves to state \(1\), so absorption has finite
+expected time from every state. Now start the walk at \(\xin\). The
+telescoping sum
+\(\sum_{\nu<\theta_{\mathrm{abs}}}(\mathbf e_{X_\nu}-\mathbf e_{X_{\nu+1}})
+=\mathbf e_{\xin}-\mathbf e_0\) has terms of \(\ell^1\)-norm at most
+\(2\), so the norms of its terms add up to at most
+\(2\theta_{\mathrm{abs}}\), which has finite expectation. Hence we may
+take expectations term by term:
+\(\mathbf e_{\xin}-\mathbf e_0=\sum_{\nu\ge0}\mathbb E^q_{\xin}
+\bigl[\mathbf 1_{\{\nu<\theta_{\mathrm{abs}}\}}(\mathbf e_{X_\nu}-\mathbf e_{X_{\nu+1}})\bigr]\).
+Given \(X_0,\ldots,X_\nu\) with \(X_\nu=x\ne0\), the conditional
+expectation of \(\mathbf e_{X_{\nu+1}}\) is
+\(\sum_{y\in\mathcal Y_x}q_{x,y}\mathbf e_y\) if \(x\) is interior and
+\(\mathbf e_1\) if \(x=3r\). The \(\nu\)-th term is therefore
+\[
+ \sum_{x=1}^{3r-1}\mathbb P^q_{\xin}(X_\nu=x)
+ \Bigl(\mathbf e_x-\sum_{y\in\mathcal Y_x}q_{x,y}\mathbf e_y\Bigr)
+ +\mathbb P^q_{\xin}(X_\nu=3r)(\mathbf e_{3r}-\mathbf e_1).
+\]
+Summing over \(\nu\) and using
+\(\sum_\nu\mathbb P^q_{\xin}(X_\nu=x)=\lambda_x\) and
+\(\sum_\nu\mathbb P^q_{\xin}(X_\nu=3r)=\mu\), we
+obtain~\eqref{eq:row-flow}.
+
+\emph{Step 7: the linear system.} Let \(\Pi\) be the matrix indexed by
+the states \(1,\ldots,3r\) with \(\Pi_{x,y}=q_{x,y}\) for interior \(x\)
+and \(y\in\mathcal Y_x\setminus\{0\}\), with \(\Pi_{3r,1}=1\), and with
+all other entries \(0\). Since state \(0\) is absorbing,
+\((\Pi^\nu)_{x,y}=\mathbb P^q_x(X_\nu=y)\) for \(x,y\ge1\), so the row
+sums of \(\sum_{\nu\ge0}\Pi^\nu\) are the expected absorption times,
+which are finite by Step~6. The series therefore converges, so
+\(\Pi^\nu\to0\), and letting \(\bar\nu\to\infty\) in
+\(\sum_{\nu=0}^{\bar\nu}\Pi^\nu(\mathrm{Id}-\Pi)=\mathrm{Id}-\Pi^{\bar\nu+1}\)
+shows that \(\mathrm{Id}-\Pi\) is nonsingular, with inverse the
+fundamental matrix \(\sum_{\nu\ge0}\Pi^\nu\)
+\citep[Theorem~11.4]{GrinsteadSnell97}.
+The coordinates \(1,\ldots,3r\) of~\eqref{eq:row-flow} state that
+\(\boldsymbol\lambda=(\lambda_1,\ldots,\lambda_{3r-1},\mu)\) satisfies
+\((\mathrm{Id}-\Pi^{\mathsf T})\boldsymbol\lambda=\mathbf e'_{\xin}\),
+where \(\mathbf e'_{\xin}\) is the standard basis vector of \(\Q^{3r}\)
+at \(\xin\). This nonsingular system has rational coefficients, so
+\(\boldsymbol\lambda\) is its unique solution and is rational, and
+Gaussian elimination in exact arithmetic computes it. The occupations are
+nonnegative as expected counts.
+
+\emph{Step 8: the totals.} The final row contributes less than \(105\) to
+each sum in~\eqref{eq:occupation-bounds}, and each of the \(a-2\) lower
+rows contributes less than \(180\). Both sums are therefore at most
+\(105+180(a-2)=\Gamma_a\). All terms of the row sums are nonnegative,
+since \(d_{r,x}\ge2\). Hence each \(\lambda_{r,x}\) and each
+\(\lambda_{r,x}\log d_{r,x}\) is at most its row sum, which is less than
+\(180\).
 \end{proof}
 
-The bound \eqref{eq:occupation-bounds} controls two different costs:
-the total relation count before integer scaling, and the logarithm of
-the source auxiliary dimension. Both grow at most linearly with the
-number of rows. There are nevertheless up to \(3r-1\) interior actions
-in row \(r\), each with up to \(\lfloor3r/2\rfloor+1\) children.
-Thus the whole construction has \(O(a^2)\) possible actions and
-\(O(a^3)\) child counts. Their rounding and finite-type costs must also
-be controlled. The next section does this while preserving the row
-identities exactly, rather than clearing the occupation denominators.
+\begin{remark}[The constants are conservative]\label{rem:occupation-constants}
+The constants \(105\) and \(180\) are far above the actual row sums. A
+floating-point evaluation of the occupations for \(2\le r\le120\) gives
+\(\sum_x\lambda_{r,x}\le7\) and \(\sum_x\lambda_{r,x}\log d_{r,x}<6.88\)
+in the final row, and \(\sum_x\lambda_{r,x}\le60/7<8.58\) and
+\(\sum_x\lambda_{r,x}\log d_{r,x}<9.98\) in a lower row. The first three
+maxima are attained at \(r=2\) (Example~\ref{ex:row-two}), and the last
+at \(r=18\).
+\end{remark}

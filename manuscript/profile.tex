@@ -1,104 +1,246 @@
-\section{The least scalar profile}
+\section{The least profile}
 \label{sec:profile}
 
-We first isolate the scalar problem. The connection to actual tensors will
-be proved by direct maps in Sections~\ref{sec:maps}--\ref{sec:extraction}.
-In particular, no assumption that the least scalar profile is a tensor
-character enters the construction.
+This section is purely scalar. A \emph{profile} is a positive symmetric
+function of two positive integers that satisfies three conditions, the
+profile axioms of Definition~\ref{def:profile}. We prove that the
+function \(F\) in \eqref{eq:profile-formula} is the least profile and that
+\(\log F(a,a)=\frac43\log a+O(1)\) (Theorem~\ref{thm:least-profile}).
+The construction of Sections~\ref{sec:maps}--\ref{sec:extraction} uses
+\(F\) as a potential (Remark~\ref{rem:profile-limit}), and the diagonal
+values of \(F\) determine the profile exponent
+\(\tau_a=3\log(2a-1)/\log F(a,a)\).
 
-\begin{definition}
-A profile is a positive symmetric function \(P:\N_{>0}^2\to\mathbb R\)
-satisfying
+\begin{definition}\label{def:profile}
+A \emph{profile} is a positive symmetric function
+\(P:\N_{>0}^2\to\mathbb R\) such that, for all positive integers
+\(r\) and \(b\),
 \begin{align}
  P(1,b)&=b,\label{eq:normalization}\\
- 2P(a,b)&\ge P(a,b-1)+P(a,b+1)\quad(b\ge2),\label{eq:concavity}\\
- P(a,3h+a-1)&\ge3P(a,h)\quad(h\ge1).\label{eq:tripling}
+ 2P(r,b)&\ge P(r,b-1)+P(r,b+1)\quad(b\ge2),\label{eq:concavity}\\
+ P(r,3b+r-1)&\ge3P(r,b).\label{eq:tripling}
 \end{align}
+We call these the normalization, concavity and tripling axioms.
 \end{definition}
 
-Define
+In the heuristic of Section~\ref{subsec:intro-heuristic}, \(P(r,b)\) is
+the matrix side that \(S^\sigma_{r,b}\) is worth. Normalization and
+symmetry then come from the isomorphisms \(S^\sigma_{1,b}\cong\MM_b\) and
+\(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\) of
+\eqref{eq:cyclic-identities}, concavity from the split of width one
+(Lemma~\ref{lem:multiway} with \(h=1\)), and the tripling axiom at column
+\(b=r\), that is, \(P(r,4r-1)\ge3P(r,r)\), from
+Lemma~\ref{lem:tripling}. Wider splits give no further inequality
+(Remark~\ref{rem:multiway-scalar}).
+
+For a positive integer \(m\) put
 \begin{equation}\label{eq:profile-formula}
  s_m=\prod_{h=1}^{m-1}\left(1+\frac1{3h}\right),\qquad
  F(m,n)=s_{\min(m,n)}\left(\max(m,n)+\frac{\min(m,n)-1}{2}\right).
 \end{equation}
-An empty product equals one.
+The empty product gives \(s_1=1\), and \(s_{m+1}/s_m=(3m+1)/(3m)\).
+Along each row \(r\), \(F\) is affine from column \(r-1\) on:
+\begin{equation}\label{eq:row-affine}
+ F(r,b)=s_r\,\frac{2b+r-1}{2}
+ \qquad(r\ge1,\ b\ge\max(1,r-1)).
+\end{equation}
+For \(b\ge r\) this is \eqref{eq:profile-formula}. For \(b=r-1\ge1\),
+symmetry gives \(F(r,r-1)=s_{r-1}(3r-2)/2\), and
+\(s_{r-1}=s_r(3r-3)/(3r-2)\) turns this into \(s_r(3r-3)/2\), which is
+\eqref{eq:row-affine} at \(b=r-1\). Thus every increment
+\(F(r,b+1)-F(r,b)\) with \(b\ge r-1\) equals \(s_r\), and
+\eqref{eq:row-affine} gives
+\(F(r,4r-1)=s_r(9r-3)/2=3s_r(3r-1)/2=3F(r,r)\).
 
 \begin{theorem}[Least profile]\label{thm:least-profile}
 The function \(F\) is a profile, and every profile \(P\) satisfies
-\(P(m,n)\ge F(m,n)\). Moreover,
+\(P(m,n)\ge F(m,n)\) for all positive integers \(m\) and \(n\). In
+addition,
 \begin{equation}\label{eq:profile-upper}
  F(m,n)\le(m+n-1)^{4/3},\qquad
  \log F(a,a)=\frac43\log a+O(1).
 \end{equation}
 The first inequality is strict when \(m=n>1\).
 \end{theorem}
-\begin{proof}
-Normalization and symmetry are immediate. Using
-\(s_{b+1}/s_b=(3b+1)/(3b)\) and
-\(s_{b-1}/s_b=(3b-3)/(3b-2)\), direct subtraction gives
-\[
- 2F(a,b)-F(a,b-1)-F(a,b+1)=
- \begin{cases}
- \dfrac{2(a-b)s_b}{3b(3b-2)},&2\le b\le a,\\[4pt]
- 0,&b>a.
- \end{cases}
-\]
-Thus each row is concave. Its affine tail has slope \(s_a\), so its
-extension bounds the row from above:
-\(F(a,h)\le s_a(h+(a-1)/2)\). Evaluating this affine tail at
-\(3h+a-1\ge a\) proves \eqref{eq:tripling} for \(F\).
 
-For minimality, write \(D_a=P(a,a)\),
-\(k_a=2D_a/(3a-1)\), and
-\(\Delta_{a,h}=P(a,h+1)-P(a,h)\).
-Tripling at \(h=a\) and decreasing increments imply
-\[
- 2D_a\le P(a,4a-1)-P(a,a)\le(3a-1)\Delta_{a,a}.
-\]
-By symmetry and concavity, for \(a\ge2\),
-\[
- D_a-D_{a-1}
- =\Delta_{a-1,a-1}+\Delta_{a,a-1}\ge k_{a-1}+k_a.
-\]
-It follows that \(k_a\ge(3a-2)k_{a-1}/(3a-3)\).
-Since \(k_1=1\), this proves \(k_a\ge s_a\) and the diagonal bound.
+The three axioms are the relations derived by \citet[eqs.~(4.5), (4.6)
+and~(4.9)]{OAI26} for a symmetrized convolution profile, with tripling
+proved there at every column \(b\ge1\) \citep[Lemma~4.2]{OAI26}; our
+tensor maps realize only \(b=r\). The diagonal bound
+\(P(a,a)\ge F(a,a)\) is also due to \citet{OAI26}: the proof of its
+Lemma~5.1 (Diagonal growth) establishes it as eq.~(5.2), in the form
+\(2P(a,a)/(3a-1)\ge s_a\), on the way to the bound \(P(a,a)\ge a^{4/3}\)
+stated there, and Step~2 below follows that proof. Steps~1, 3 and~4 are
+new.
 
-Fix \(m<n\). Starting with \(x_0=m\), put
-\(x_{j+1}=3x_j+m-1\), and choose \(j\) with \(x_j\ge n\).
-Then
-\[
- x_j-m=(3^j-1)(3m-1)/2,\qquad P(m,x_j)\ge3^jD_m.
-\]
-A concave sequence lies above the chord joining two of its entries.
-The chord from \(m\) to \(x_j\) therefore gives
-\[
- P(m,n)\ge D_m+\frac{n-m}{x_j-m}(3^j-1)D_m
- =\frac{2D_m}{3m-1}\left(n+\frac{m-1}{2}\right)\ge F(m,n).
-\]
-Only finitely many profile inequalities have been used.
+Besides the axioms, the proof uses two facts about a \emph{concave
+sequence}, that is, a sequence \(g(1),g(2),\ldots\) whose increments
+\(g(b+1)-g(b)\) are nonincreasing. Let \(b'<b''\). On \([b',b'']\) the
+sequence lies on or above the chord through \((b',g(b'))\) and
+\((b'',g(b''))\), and outside \([b',b'']\) it lies on or below the
+extension of that chord. Both facts follow by comparing average
+increments: for \(b'<b<b''\), the average increment over \([b',b]\) is
+at least that over \([b,b'']\); for \(b>b''\), the average over
+\([b',b'']\) is at least that over \([b'',b]\); the case \(b<b'\) is
+symmetric. By \eqref{eq:concavity},
+every row \(b\mapsto P(r,b)\) of a profile is a concave sequence.
 
-Induction gives \(s_a^3\le(3a-1)/2\), strictly for \(a>1\).
-The induction step reduces to
-\((3a+2)(3a)^3-(3a-1)(3a+1)^3=6a+1>0\).
-For \(m\le n\), both \((3m-1)/2\) and \(n+(m-1)/2\) are at most
-\(m+n-1\). Cubing \eqref{eq:profile-formula} proves
-\eqref{eq:profile-upper} and its strict diagonal version.
-Finally, \(\log(1+x)=x+O(x^2)\) and convergence of
-\(\sum h^{-2}\) give \(\log s_a=\frac13\log a+O(1)\).
+\begin{proof}[Proof of Theorem~\ref{thm:least-profile}]
+\emph{Step 1: \(F\) is a profile.}
+Positivity and symmetry are clear from \eqref{eq:profile-formula}, and
+\(F(1,b)=s_1b=b\) gives normalization. Fix a row \(r\). For every column
+\(b\le r+1\) we have \(F(r,b)=s_b(2r+b-1)/2\): for \(b\le r\) this is
+\eqref{eq:profile-formula}, and for \(b=r+1\) both sides equal
+\(s_r(3r+1)/2\) because \(s_{r+1}=s_r(3r+1)/(3r)\). Let
+\(2\le b\le r\). The columns \(b-1,b,b+1\) are at most \(r+1\), so
+substituting \(s_{b-1}=s_b(3b-3)/(3b-2)\) and \(s_{b+1}=s_b(3b+1)/(3b)\)
+gives
+\[
+ 2F(r,b)-F(r,b-1)-F(r,b+1)
+ =\frac{s_b}2\left(2(2r+b-1)-\frac{(3b-3)(2r+b-2)}{3b-2}
+   -\frac{(3b+1)(2r+b)}{3b}\right).
+\]
+Over the common denominator \(3b(3b-2)\), the numerator of the bracket is
+\[
+ 6b(3b-2)(2r+b-1)-3b(3b-3)(2r+b-2)-(3b-2)(3b+1)(2r+b)=4(r-b),
+\]
+because its coefficient of \(r\) is
+\(12b(3b-2)-6b(3b-3)-2(3b-2)(3b+1)=4\) and its remaining terms add up
+to \(-4b\). So the second difference equals
+\(2(r-b)s_b/\bigl(3b(3b-2)\bigr)\ge0\). For \(b>r\), the columns
+\(b-1,b,b+1\) are at least \(r\), where the row is affine by
+\eqref{eq:row-affine}, so the second difference vanishes. Hence every
+row of \(F\) is concave.
+
+For tripling, recall that the increments of row \(r\) equal \(s_r\)
+from column \(r-1\) on. The extension of the chord through columns \(r\)
+and \(r+1\) is therefore the line \(b\mapsto s_r(2b+r-1)/2\), and the
+second fact about concave sequences gives
+\(F(r,b)\le s_r(2b+r-1)/2\) for every \(b\ge1\). Since \(3b+r-1\ge r\),
+\eqref{eq:row-affine} and this bound give
+\[
+ F(r,3b+r-1)=s_r\,\frac{6b+3r-3}2=3s_r\,\frac{2b+r-1}2\ge3F(r,b),
+\]
+which is \eqref{eq:tripling} for \(F\), with equality when \(b\ge r-1\).
+
+\emph{Step 2: the diagonal bound.}
+Let \(P\) be a profile, and for \(a\ge1\) put
+\(\chi_a=2P(a,a)/(3a-1)\), so that \(P(a,a)=(3a-1)\chi_a/2\). Since
+\(F(a,a)=s_a(3a-1)/2\), the claim \(P(a,a)\ge F(a,a)\) is the
+inequality \(\chi_a\ge s_a\). The idea is the following. Tripling forces
+row \(a\) to rise by at least \(2P(a,a)\) over the \(3a-1\) columns after
+the diagonal, and by concavity the first of these increments is the
+largest, so it is at least \(\chi_a\). Symmetry then turns the
+increments next to the diagonal into the step from \(P(a-1,a-1)\) to
+\(P(a,a)\), which yields a recursion for \(\chi_a\) with the same
+factors as \(s_a\).
+
+Fix \(a\ge1\). The tripling axiom in row \(a\) at column \(a\) gives
+\(P(a,4a-1)\ge3P(a,a)\), so
+\[
+ 2P(a,a)\le P(a,4a-1)-P(a,a)
+ =\sum_{b=a}^{4a-2}\bigl(P(a,b+1)-P(a,b)\bigr)
+ \le(3a-1)\bigl(P(a,a+1)-P(a,a)\bigr),
+\]
+because the sum has \(3a-1\) increments and none exceeds the first.
+Dividing by \(3a-1\),
+\begin{equation}\label{eq:diagonal-increment}
+ P(a,a+1)-P(a,a)\ge\chi_a.
+\end{equation}
+
+Now let \(a\ge2\). Symmetry gives \(P(a,a-1)=P(a-1,a)\), so
+\[
+ P(a,a)-P(a-1,a-1)
+ =\bigl(P(a,a)-P(a,a-1)\bigr)+\bigl(P(a-1,a)-P(a-1,a-1)\bigr).
+\]
+By concavity of row \(a\), the first difference is at least
+\(P(a,a+1)-P(a,a)\), hence at least \(\chi_a\) by
+\eqref{eq:diagonal-increment}. The second difference is at least
+\(\chi_{a-1}\), by \eqref{eq:diagonal-increment} for \(a-1\). Thus
+\(P(a,a)-P(a-1,a-1)\ge\chi_a+\chi_{a-1}\). Substituting
+\(P(a,a)=(3a-1)\chi_a/2\) and \(P(a-1,a-1)=(3a-4)\chi_{a-1}/2\), and
+multiplying by \(2\), we obtain
+\[
+ (3a-1)\chi_a-(3a-4)\chi_{a-1}\ge2\chi_a+2\chi_{a-1},
+ \qquad\text{that is,}\qquad
+ (3a-3)\chi_a\ge(3a-2)\chi_{a-1}.
+\]
+The product \(s_a\) obeys the same recursion with equality:
+\(s_a/s_{a-1}=1+1/(3(a-1))=(3a-2)/(3a-3)\). Normalization gives
+\(\chi_1=P(1,1)=1=s_1\), and if \(\chi_{a-1}\ge s_{a-1}\), then
+\(\chi_a\ge(3a-2)\chi_{a-1}/(3a-3)\ge(3a-2)s_{a-1}/(3a-3)=s_a\).
+By induction \(\chi_a\ge s_a\), that is, \(P(a,a)\ge F(a,a)\), for
+every \(a\ge1\). This step uses tripling only at the column equal to the
+row index, the instances realized by Lemma~\ref{lem:tripling}.
+
+\emph{Step 3: the off-diagonal bound.}
+By symmetry it suffices to treat \(m<n\). The idea is to reach column
+\(n\) of row \(m\) from the diagonal by repeated tripling and to
+interpolate by concavity. Define columns \(b_0=m\) and
+\(b_{\nu+1}=3b_\nu+m-1\) for \(\nu\ge0\). Since \(b_0-m=0\) and
+\(b_{\nu+1}-m=3(b_\nu-m)+(3m-1)\), we have
+\(b_\nu-m=(3^\nu-1)(3m-1)/2\) for \(\nu\ge0\). Tripling in row \(m\) at
+column \(b_\nu\) gives \(P(m,b_{\nu+1})\ge3P(m,b_\nu)\), so
+\(P(m,b_\nu)\ge3^\nu P(m,m)\) for every \(\nu\ge0\). The columns
+\(b_\nu\) increase without bound, so we may fix \(\nu\ge1\) with
+\(b_\nu\ge n\). Column \(n\) then lies between \(m\) and \(b_\nu\), and
+the chord fact for the concave row \(b\mapsto P(m,b)\) gives
+\begin{align*}
+ P(m,n)&\ge P(m,m)+\frac{n-m}{b_\nu-m}\bigl(P(m,b_\nu)-P(m,m)\bigr)
+ \ge P(m,m)\left(1+\frac{2(n-m)}{3m-1}\right)\\
+ &=\frac{2P(m,m)}{3m-1}\left(n+\frac{m-1}2\right).
+\end{align*}
+By Step~2, \(2P(m,m)/(3m-1)=\chi_m\ge s_m\), so
+\(P(m,n)\ge s_m\bigl(n+(m-1)/2\bigr)=F(m,n)\). This step uses tripling
+at columns \(b_\nu\) beyond the row index, and for each pair \((m,n)\)
+only finitely many instances of the axioms.
+
+\emph{Step 4: the upper bounds.}
+First, \(s_a^3\le(3a-1)/2\) for every \(a\ge1\), with strict inequality
+for \(a>1\). Equality holds at \(a=1\). If \(s_a^3\le(3a-1)/2\), then
+\(s_{a+1}^3=s_a^3(3a+1)^3/(3a)^3\le(3a-1)(3a+1)^3/\bigl(2(3a)^3\bigr)
+<(3a+2)/2\), where the last inequality is equivalent to
+\((3a+2)(3a)^3-(3a-1)(3a+1)^3=6a+1>0\). Now let \(m\le n\). Both
+\((3m-1)/2\) and \(n+(m-1)/2\) are at most \(m+n-1\). Cubing
+\eqref{eq:profile-formula} therefore gives
+\(F(m,n)^3=s_m^3\bigl(n+(m-1)/2\bigr)^3
+\le\bigl((3m-1)/2\bigr)\bigl(n+(m-1)/2\bigr)^3\le(m+n-1)^4\),
+which proves the first part of \eqref{eq:profile-upper}. For
+\(m=n>1\) the middle inequality is strict. Finally, take logarithms in
+the product for \(s_a\). Since
+\(\log\bigl(1+1/(3h)\bigr)=1/(3h)+O(h^{-2})\) and the series
+\(\sum_hh^{-2}\) converges,
+\(\log s_a=\sum_{h=1}^{a-1}1/(3h)+O(1)=\frac13\log a+O(1)\).
+Together with \(\log\bigl((3a-1)/2\bigr)=\log a+O(1)\), this gives
+\(\log F(a,a)=\frac43\log a+O(1)\).
 \end{proof}
 
-The theorem makes precise a limitation of the scalar argument: these
-axioms, even together with \(P(a,b)\le(a+b-1)^{4/3}\), cannot force
-diagonal growth faster than \(a^{4/3}\). This is a statement about the
-scalar relaxation, not a claim that \(F\) comes from a tensor character.
-The off-diagonal minimality uses shifted tripling instances with
-\(h\) beyond the row index.
-The diagonal bound and the exact certificate in Appendix~\ref{sec:exact-certificate} need only the
-instances with \(h\) equal to the row index, which are the instances
-realized by our tensor maps.
+For \(a\ge2\) we have \(F(a,a)\ge(3a-1)/2>1\), since \(s_a\ge1\), and
+the strict case of \eqref{eq:profile-upper} gives
+\(0<\log F(a,a)<\frac43\log(2a-1)\). Hence the profile exponent
+satisfies \(\tau_a>9/4\), and \(\tau_a\to9/4\) by the asymptotic formula
+in \eqref{eq:profile-upper}.
 
-
-The affine rows of \(F\) will determine transition probabilities for the
-finite construction. The scalar theorem identifies the best possible
-diagonal growth under the stated axioms; no tensor character attaining
-\(F\) is assumed.
+\begin{remark}[How \(F\) is used, and what the axioms can certify]
+\label{rem:profile-limit}
+The construction of Sections~\ref{sec:maps}--\ref{sec:extraction}
+uses \(F\) only as a potential. The transition
+probabilities of Section~\ref{sec:flows} are ratios of values of \(F\)
+within one row, which sum to one because the row is affine
+\eqref{eq:row-affine}; the identity \(F(r,4r-1)=3F(r,r)\) makes each
+tripling contribute exactly \(\log3\); and the changes of \(\log F\)
+along the row walk telescope, so only \(\log F(a,a)\) enters the
+exponent (Proposition~\ref{prop:entropy-loss}). The lower bound
+\(P\ge F\) is not used. Together with the fact that \(F\) is itself a
+profile (Step~1), however, it shows that \(F(a,a)\) is the largest
+lower bound on \(P(a,a)\) that holds for every profile. Through the
+heuristic of Section~\ref{subsec:intro-heuristic}, the axioms therefore
+give the exponent \(\tau_a\) at target index \(a\) and nothing better,
+so \(9/4\) is the limit of this approach. This remains true when the axioms
+are combined with the upper bound \(P(m,n)\le(m+n-1)^{4/3}\), which
+\(F\) satisfies by \eqref{eq:profile-upper}. That bound is equivalent to
+\(P(m,n)^{9/4}\le(m+n-1)^3\), whose right side bounds the rank of
+\(S^\sigma_{m,n}\) by \eqref{eq:cyclic-identities};
+\citet[eq.~(4.5)]{OAI26} uses a bound of this kind, from the rank of
+\(C(m,n)\).
+\end{remark}

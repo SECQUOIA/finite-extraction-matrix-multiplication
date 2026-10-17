@@ -4,20 +4,24 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array}
 \usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{xurl}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
-\hypersetup{pdftitle={Explicit finite extraction from convolution profiles for matrix multiplication},
- pdfsubject={Finite tensor constructions and exact arithmetic complexity},
- pdfkeywords={matrix multiplication, tensor rank, convolution, finite construction}}
+\hypersetup{pdftitle={A finite construction of matrix multiplication algorithms with exponent approaching 9/4},
+ pdfsubject={Explicit tensor constructions and arithmetic complexity},
+ pdfkeywords={matrix multiplication, tensor rank, convolution, explicit construction}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\C}{\mathbb C}
 \newcommand{\N}{\mathbb N}
@@ -28,37 +32,18 @@
 \newcommand{\eps}{\varepsilon}
 \newcommand{\restr}{\succeq}
 \newcommand{\degen}{\unrhd}
+\newcommand{\xin}{x^{\mathrm{in}}}
 \DeclareMathOperator{\diag}{diag}
-\title{Explicit finite extraction from convolution profiles\\for matrix multiplication}
+\title{A finite construction of matrix multiplication algorithms\\with exponent approaching \(9/4\)}
 \author{}
 \date{}
 \begin{document}
 \maketitle
 \begin{abstract}
-We give a finite construction of matrix multiplication algorithms from
-convolution relations whose limiting exponent is \(9/4\).
-A determinant filtration gives exact restrictions with several output
-lengths. Rational occupation flows prescribe their frequencies with total
-logarithmic auxiliary cost linear in the profile index before integer
-scaling. Integral circulation rounding
-preserves every tensor balance and loses at most a cubic additive term in
-the logarithmic profile potential. Threefold balancing, a Fourier sector
-separator, exact interpolation, and repeated use of one catalyst then give
-an exact relative multiplication scheme. We retain all direct-sum
-multiplicities and finite costs. An explicit parameter family has recursive
-exponent less than \(9/4+900/\log a\) for \(a\ge2^{64}\), with
-\(\log A\le181a^5\lceil\log_2a\rceil^2\) for its recursive source
-side \(A\). Thus a prescribed integer parameter choice gives, for every
-positive rational \(\varepsilon\), a finite arithmetic algorithm of
-exponent below \(9/4+\varepsilon\). Coefficient descent also gives a
-terminating construction of a rational bilinear seed with that exponent
-allowance. We identify the least scalar profile and compare the rounded
-construction with an exact binary certificate whose denominators grow
-at least exponentially. The results concern finite mathematical
-construction; they give neither a fixed exponent-\(9/4\) seed nor a
-practical algorithm.
+\input{abstract}
 \end{abstract}
 
+\setcounter{tocdepth}{1}
 \tableofcontents
 \input{introduction}
 \input{preliminaries}
@@ -67,12 +52,14 @@ practical algorithm.
 \input{flows}
 \input{rounding}
 \input{extraction}
+\input{quantitative}
 \input{costs}
 \input{discussion}
 \appendix
 \input{appendix-exact-certificate}
 \input{appendix-composition}
 \input{appendix-separator}
+\input{appendix-notation}
 \bibliographystyle{plainnat}
 \bibliography{references}
 \end{document}

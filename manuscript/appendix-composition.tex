@@ -1,170 +1,290 @@
-\section{The full composed relation maps}
+\section{The composed relation maps}
 \label{sec:composed-maps}
 
-This appendix specifies the composition in
-\eqref{eq:complete-relation-map} on its full variable spaces. In
-particular, the sector-specific reindexing is a fixed linear map even
-on positive-degree terms, whose first-leg label need not agree with the
-other sector labels.
+This appendix supplies the full-space formulas behind
+Corollary~\ref{cor:oriented-relations} and
+Proposition~\ref{prop:catalytic}; it is not a second proof of either.
+Both proofs use Lemma~\ref{lem:composition}, which requires the maps
+applied after the separator to be fixed linear maps on all target
+variables, including those of terms of positive degree, whose first-leg
+label \(g'\) differs from the sector label \(g\) of the other two legs.
+For one relation we write out the separated polynomial with all of its
+terms, \eqref{eq:composed-relation-polynomial}, and the reindexing on the
+full target spaces, \eqref{eq:reindexing};
+Section~\ref{subsec:composed-orientations} checks the later regroupings.
 
-For a split action \(i\in\mathcal I_c\), write its row, source
-column, and width as \(r_i,b_i,h_i\), and put \(d_i=h_i+1\).
-Let \(w_i\) be its source count and \(n_{i,q}\) its child counts,
-ordered by decreasing length \(b_i+h_i-2q\), \(0\le q\le h_i\).
-Thus \(\sum_qn_{i,q}=w_i\). For a tripling relation in row \(r_i\),
-use \(w_i=z_{r_i}\) in the formulas below. At type scale \(N\), put
-\(\nu_i=Nw_i\); in the tripling case also put
-\(m_i=\lfloor(\nu_i+1)/3\rfloor\). The source and canonical sector
-tensors are
+\subsection{The data of one relation}
+
+We use the integer counts of Section~\ref{sec:rounding} at rounding scale
+\(K\), the type scale \(N\), and the set \(\mathcal J=\mathcal
+I_c\sqcup\mathcal I_t\) of active relations of
+Section~\ref{sec:extraction}. The row of a relation \(i\in\mathcal J\) is
+denoted \(r_i\).
+
+\emph{Splits.} A split \(i=(r,x)\in\mathcal I_c\) has row \(r_i=r\), source
+column \(b_i=r-1+x\), width \(h_i=h_{r,x}\) and auxiliary dimension
+\(d_i=h_i+1\), and it is applied \(w_i=w_{r,x}\) times. A child \(y\) of
+the split has column \(r-1+y=b_i+h_i-2j\) with \(j=(x+h_i-y)/2\), so it is
+the diagonal block of Lemma~\ref{lem:multiway} with filtration index
+\(j\). At type scale \(N\) the split uses the type
+\((n^{(i)}_0,\ldots,n^{(i)}_{h_i})\) given by
+\begin{equation}\label{eq:filtration-counts}
+ n^{(i)}_j=N\,n_{r,x,y}\quad\text{with }y=x+h_i-2j
+ \qquad(0\le j\le h_i),
+\end{equation}
+so that \(\sum_jn^{(i)}_j=Nw_i\) and the sector
+count~\eqref{eq:sector-counts} is \(M_i=(Nw_i)!/\prod_jn^{(i)}_j!\). These
+counts are indexed by filtration index, whereas the child counts
+\(n_{i,y}=n_{r,x,y}\) of Section~\ref{sec:extraction} are indexed by child
+state: for instance, \(n^{(i)}_0=Nn_{i,x+h_i}\) refers to the longest
+child, of column \(b_i+h_i\), whereas \(n_{i,0}\) refers to the child at
+state \(0\).
+
+\emph{Triplings.} A tripling \(i\in\mathcal I_t\) is applied
+\(z_{r_i}\) times. Its middle count is
+\(m_{r_i}=\lfloor(Nz_{r_i}+1)/3\rfloor\), and its sector count \(M_i\) is
+the count \(M_{r_i}\) of~\eqref{eq:sector-counts}, that is, the count
+\(M_{\mathrm t}(Nz_{r_i},m_{r_i})\) of Lemma~\ref{lem:tripling}.
+
+The \emph{source tensor} \(\mathcal U_i\) and the \emph{canonical sector
+tensor} \(\mathcal V_i\) of relation \(i\) are
 \[
  \mathcal U_i=
  \begin{cases}
- (C(r_i,b_i)B_X(d_i))^{\otimes \nu_i},&i\in\mathcal I_c,\\
- C(r_i,4r_i-1)^{\otimes \nu_i},&i\in\mathcal I_t,
+ \bigl(C(r_i,b_i)B_X(d_i)\bigr)^{\otimes Nw_i},&i\in\mathcal I_c,\\[2pt]
+ C(r_i,4r_i-1)^{\otimes Nz_{r_i}},&i\in\mathcal I_t,
  \end{cases}
-\]
-and
-\[
+ \qquad
  \mathcal V_i=
  \begin{cases}
- \displaystyle\prod_{q=0}^{h_i}
- C(r_i,b_i+h_i-2q)^{\otimes Nn_{i,q}},&i\in\mathcal I_c,\\
- C(r_i,r_i)^{\otimes(\nu_i-m_i)}
- (C(r_i,r_i)^{(23)})^{\otimes m_i},&i\in\mathcal I_t.
+ \prod_{j=0}^{h_i}
+ C(r_i,b_i+h_i-2j)^{\otimes n^{(i)}_j},&i\in\mathcal I_c,\\[2pt]
+ C(r_i,r_i)^{\otimes(Nz_{r_i}-m_{r_i})}
+ \bigl(C(r_i,r_i)^{(23)}\bigr)^{\otimes m_{r_i}},&i\in\mathcal I_t.
  \end{cases}
 \]
-The tripling sector is kept in this mixed orientation until the three
-permutations are combined.
+By Lemmas~\ref{lem:multiway} and~\ref{lem:tripling}, every sector of the
+type restriction of \(\mathcal U_i\) is isomorphic to \(\mathcal V_i\).
 
-Let \(\mathsf T_i\) be the exact type map of
-Lemma~\ref{lem:multiway} or Lemma~\ref{lem:tripling}. Enumerate its
-retained words lexicographically by \(s=0,\ldots,M_i-1\), and write
+\emph{Words and sectors.} Let \(\mathsf T_i\) be the type restriction of
+Lemma~\ref{lem:multiway} or Lemma~\ref{lem:tripling}, which acts on the
+second and third legs only, and index the tensor positions of
+\(\mathcal U_i\) by \(\theta\). The \(M_i\) retained words, of type
+\((n^{(i)}_j)_j\) for a split and with exactly \(m_{r_i}\) middle labels
+for a tripling, are numbered \(g=0,\ldots,M_i-1\) in lexicographic order,
+with letters ordered by filtration index for a split and as left, middle,
+right for a tripling; the coordinates whose word has number \(g\) form
+sector \(g\). By the proofs of the two lemmas, every term that survives the
+type restriction has the same retained word on its second and third legs.
+Hence
+\begin{equation}\label{eq:type-restricted-relation}
+ \mathsf T_i(\mathcal U_i)=\sum_{g=0}^{M_i-1}T_{i,g},\qquad
+ T_{i,g}=\sum_{\alpha,\beta,\gamma}T_{i,g}[\alpha,\beta,\gamma]\,
+ x_\alpha y_{g,\beta}z_{g,\gamma},
+\end{equation}
+where \(x_\alpha\) runs over the coordinates of the shared first leg
+\(X_i\), and \(y_{g,\beta}\) and \(z_{g,\gamma}\) over those of sector
+\(g\), which span \(Y_{i,g}\) and \(Z_{i,g}\); this is the form to which
+Proposition~\ref{prop:separator} applies.
+
+\emph{Coefficient arrays.} The indices are multi-indices
+\(\alpha=(\alpha_\theta)_\theta\), \(\beta=(\beta_\theta)_\theta\) and
+\(\gamma=(\gamma_\theta)_\theta\). For a split whose word \(g\) has letter
+\(j_\theta\) at position \(\theta\), in the determinant bases and before
+any positions are reordered, \(\alpha_\theta\) indexes a monomial of
+\(V_{r_i}\), and \(\beta_\theta\) and \(\gamma_\theta\) index basis vectors
+of filtration index \(j_\theta\) in the input and output spaces, with
+ranges
+\begin{equation}\label{eq:coefficient-ranges}
+ 0\le\alpha_\theta<r_i,\qquad
+ 0\le\beta_\theta<b_i+h_i-2j_\theta,\qquad
+ 0\le\gamma_\theta<r_i+b_i+h_i-2j_\theta-1,
+\end{equation}
+and the coefficients are
+\begin{equation}\label{eq:coefficient-array}
+ T_{i,g}[\alpha,\beta,\gamma]=\prod_\theta
+ \mathbf 1_{\{\gamma_\theta=\alpha_\theta+\beta_\theta\}}.
+\end{equation}
+Indeed, in a position with letter \(j\) the type restriction keeps exactly
+the diagonal block \(C(r_i,b_i+h_i-2j)\), and on this block multiplication
+by the monomial with index \(\alpha\) sends monomial index \(\beta\) to
+\(\beta+\alpha\) with coefficient one
+(Lemma~\ref{lem:determinant-basis}(b),(c) and the computation that
+follows it in Section~\ref{subsec:splits}). For a tripling,
+\eqref{eq:coefficient-array} holds with \(0\le\alpha_\theta<r_i\) when
+\(\beta_\theta\) and \(\gamma_\theta\) are the original coordinates of
+\(C(r_i,4r_i-1)\), restricted to the two intervals of the letter at
+position \(\theta\). The shifts of these interval coordinates and the
+reversal of the first index at middle positions are part of the
+reindexing \(\mathsf R_i\) below.
+
+\subsection{The separated polynomial of one relation}
+
+Put \(L_i=2M_i-1\) and \(\zeta=\zeta_{L_i}\), and let \(\mathsf S_i(t)\)
+be the substitutions of Proposition~\ref{prop:separator} for the \(M_i\)
+sectors in~\eqref{eq:type-restricted-relation}, with the phases of Step~1
+and the weights of Step~2 of its proof combined. We suppress the index
+\(i\) on the new variables \(X_{\alpha,g'}\), \(Y_{g,\beta,e}\) and
+\(Z_{g,\gamma,e'}\), where \(g',e,e'\in\{0,\ldots,M_i-1\}\). In source copy
+\(\ell\), \(0\le\ell\le L_i-1\), the substitutions are
 \[
- \mathsf T_i(\mathcal U_i)=
- \sum_{s=0}^{M_i-1}\sum_{\alpha,\beta,\gamma}
- c_{i,s}(\alpha,\beta,\gamma)x_\alpha y_{s,\beta}z_{s,\gamma}.
+ x_\alpha\mapsto\sum_{g'}\zeta^{\ell g'}t^{g'^2}X_{\alpha,g'},\quad
+ y_{g,\beta}\mapsto\sum_e\zeta^{\ell(e-g)}t^{2ge-g^2}Y_{g,\beta,e},\quad
+ z_{g,\gamma}\mapsto\frac1{L_i}\sum_{e'}\zeta^{-\ell e'}t^{-2ge'}
+ Z_{g,\gamma,e'}.
 \]
-The first variable space \(X_i\) is shared. The other two spaces are
-\(\bigoplus_sY_{i,s}\) and \(\bigoplus_sZ_{i,s}\), and the indices
-\(\beta,\gamma\) range over the coordinates of sector \(s\).
-
-Set \(L_i=2M_i-1\), and let \(\mathsf S_i(t)\) be the substitutions
-of Proposition~\ref{prop:separator} with \(K_0=M_i,c=1\).
-Applied after the type maps in the \(L_i\) source copies, they give
-exactly
-\begin{align}
- &\mathsf S_i(t)
-   \left(\bigoplus_{\ell=0}^{L_i-1}\mathsf T_i\right)
-   (L_i\mathcal U_i) \notag\\
- &\quad=
- \sum_{\substack{0\le s,g,u,v<M_i\\u-v+g-s=0}}
- t^{(g-s)^2}
+By Steps~1 and~2 of the proof of Proposition~\ref{prop:separator},
+\(\mathsf S_i(t)\), applied after the type restrictions in the \(L_i\)
+source copies, transforms \(L_i\mathcal U_i\) into exactly
+\begin{equation}\label{eq:composed-relation-polynomial}
+ \widetilde T_i(t)=
+ \sum_{\substack{0\le g,g',e,e'<M_i\\e-e'+g'-g=0}}
+ t^{(g'-g)^2}
  \sum_{\alpha,\beta,\gamma}
- c_{i,s}(\alpha,\beta,\gamma)
- X_{\alpha,g}Y_{s,\beta,u}Z_{s,\gamma,v}.
- \label{eq:composed-relation-polynomial}
-\end{align}
-This formula includes every positive-degree term. The Fourier sum
-imposes the equality \(u-v+g-s=0\), rather than merely a congruence,
-and the combined weight is \((g-s)^2\).
+ T_{i,g}[\alpha,\beta,\gamma]\,
+ X_{\alpha,g'}Y_{g,\beta,e}Z_{g,\gamma,e'},
+\end{equation}
+where \(\alpha,\beta,\gamma\) run over the ranges of word \(g\); with
+\eqref{eq:coefficient-array}, every coefficient is explicit, including
+those of the terms of positive degree. The exponents are
+\(\delta^2\) with \(\delta=|g'-g|\le M_i-1\), and we write
+\(\widetilde T_i(t)=\sum_{\delta=0}^{M_i-1}t^{\delta^2}
+\widetilde T_{i,\delta^2}\), where the coefficient
+\(\widetilde T_{i,\delta^2}\) of \(t^{\delta^2}\) collects the terms with
+\(|g'-g|=\delta\). The constant term consists of
+the terms with \(g'=g\), for which \(e=e'\), so
+\(\widetilde T_{i,0}=\bigoplus_{g=0}^{M_i-1}T_{i,g}B_X(M_i)\), with
+variables \(X_{\alpha,g}\), \(Y_{g,\beta,e}\) and \(Z_{g,\gamma,e}\).
 
-Here the coefficients are explicit integer arrays. For a split action,
-let \(\omega_i(s)\in\{0,\ldots,h_i\}^{\nu_i}\) be its retained word.
-In the determinant bases, before reordering positions,
-\[
- c_{i,s}(\boldsymbol\alpha,\boldsymbol\beta,\boldsymbol\gamma)
- =\prod_{\theta=1}^{\nu_i}
-   \mathbf1_{\{\gamma_\theta=\alpha_\theta+\beta_\theta\}}.
-\]
-At a position with label \(q=\omega_i(s)_\theta\), the coordinate ranges
-are
-\[
- 0\le\alpha_\theta<r_i,\quad
- 0\le\beta_\theta<b_i+h_i-2q,\quad
- 0\le\gamma_\theta<r_i+b_i+h_i-2q-1.
-\]
-Thus the coefficient of
-\(X_{\boldsymbol\alpha,g}Y_{s,\boldsymbol\beta,u}
-Z_{s,\boldsymbol\gamma,v}\) in
-\eqref{eq:composed-relation-polynomial} is
-\[
- \mathbf1_{\{u-v+g-s=0\}}\,t^{(g-s)^2}
- \prod_{\theta=1}^{\nu_i}
-   \mathbf1_{\{\gamma_\theta=\alpha_\theta+\beta_\theta\}}.
-\]
-For a tripling relation, the same product of indicators applies when
-\(\beta_\theta,\gamma_\theta\) are the original interval coordinates
-from Lemma~\ref{lem:tripling}. The word-specific shifts and first-index
-reversals are part of the subsequent map, not this coefficient array.
+\subsection{Reindexing on the full target spaces}
 
-The separator target spaces are
-\[
- \widetilde X_i=\bigoplus_gX_i^{(g)},\qquad
- \widetilde Y_i=\bigoplus_s(Y_{i,s}\otimes\C^{M_i}),\qquad
- \widetilde Z_i=\bigoplus_s(Z_{i,s}\otimes\C^{M_i}).
-\]
-For each word \(s\), let
-\((\mathsf R^X_{i,s},\mathsf R^Y_{i,s},\mathsf R^Z_{i,s})\)
-be the coordinate permutations identifying its sector tensor with
-\(\mathcal V_i\). For a split, they order positions by increasing
-filtration index, preserving the original order within each class. For
-tripling, they place all outer positions before all middle positions,
-again preserving their order; they shift the interval coordinates and
-reverse the first index at middle positions. Both outer labels have the
-same canonical block dimensions, so \(\mathcal V_i\) is independent
-of the numbers of left and right labels.
+The target spaces of the separator are
+\(\widetilde X_i=\bigoplus_{g'}X_i^{(g')}\), where \(X_i^{(g')}\) is the
+copy of \(X_i\) with coordinates \(X_{\alpha,g'}\), and
+\(\widetilde Y_i=\bigoplus_g(Y_{i,g}\otimes\C^{M_i})\) and
+\(\widetilde Z_i=\bigoplus_g(Z_{i,g}\otimes\C^{M_i})\), where the factor
+\(\C^{M_i}\) carries the index \(e\), respectively \(e'\).
 
-Define the reindexing on the full target spaces by
-\[
+For each sector \(g\), let \(\mathsf R^X_{i,g}\), \(\mathsf R^Y_{i,g}\)
+and \(\mathsf R^Z_{i,g}\) be the bijections of coordinates from \(X_i\),
+\(Y_{i,g}\) and \(Z_{i,g}\) to the three legs of \(\mathcal V_i\) that
+identify \(T_{i,g}\) with \(\mathcal V_i\). For a split, they reorder the
+positions by increasing filtration index in word \(g\), keeping the
+original order of positions with equal filtration index; after this
+reordering, \eqref{eq:coefficient-array} with the
+ranges~\eqref{eq:coefficient-ranges} is the coefficient array of
+\(\mathcal V_i\). For a tripling, they put all outer positions before all
+middle positions, again keeping the original order within each group;
+they subtract from \(\beta_\theta\) and \(\gamma_\theta\) the left
+endpoints of their intervals, and at middle positions they also reverse
+the first index, \(\alpha_\theta\mapsto r_i-1-\alpha_\theta\). By the
+proof of Lemma~\ref{lem:tripling}, this identifies every outer block with
+\(C(r_i,r_i)\) and every middle block with \(C(r_i,r_i)^{(23)}\); left and
+right blocks give the same canonical block. Define the reindexing on the
+full target spaces by
+\begin{equation}\label{eq:reindexing}
  \mathsf R_i=
- \left(
-  \bigoplus_g \mathsf R^X_{i,g},\quad
-  \bigoplus_s(\mathsf R^Y_{i,s}\otimes I_{M_i}),\quad
-  \bigoplus_s(\mathsf R^Z_{i,s}\otimes I_{M_i})
- \right).
-\]
-The first component uses the word indexed by \(g\), even in a
-monomial whose other sector label is \(s\ne g\). This defines a
-coordinate permutation on every target variable. Its behavior on those
-positive-degree monomials need not identify them with sector tensors;
-only the constant term has that form. All three maps are independent
-of \(t\).
+ \Bigl(
+  \bigoplus_{g'}\mathsf R^X_{i,g'},\
+  \bigoplus_g\bigl(\mathsf R^Y_{i,g}\otimes\mathrm{id}_{\C^{M_i}}\bigr),\
+  \bigoplus_g\bigl(\mathsf R^Z_{i,g}\otimes\mathrm{id}_{\C^{M_i}}\bigr)
+ \Bigr).
+\end{equation}
+The first component reorders the copy \(X_i^{(g')}\) according to word
+\(g'\), and the other two reorder sector \(g\) according to word \(g\). A
+monomial of positive degree has \(g'\ne g\), so its legs are reordered
+according to different words and its image is not in a copy of
+\(\mathcal V_i\); exactification removes such terms later. Nevertheless
+\(\mathsf R_i\) is a bijection between the coordinates of the full spaces
+and does not depend on \(t\), which is what Lemma~\ref{lem:composition}
+requires.
 
-Choose the row sign \(\sigma_i=(-1)^{a-r_i}\), and let
-\(\pi\in\mathcal A_{\sigma_i}\). The complete map
-\(\Psi_{i,\pi}(t)\) acts on \(L_i\mathcal U_i^\pi\); its separator
-uses the global leg occupied by the native first leg after permutation
-by \(\pi\). The constant term in
-\eqref{eq:composed-relation-polynomial} has \(g=s\) and \(u=v\), so
-\[
+For an orientation \(\pi\in\mathcal A_{\sigma_{r_i}}\), where
+\(\sigma_{r_i}=(-1)^{a-r_i}\) is the sign of row \(r_i\), the complete map
+of relation \(i\) is
+\begin{equation}\label{eq:complete-relation-map}
+ \Psi_{i,\pi}(t)=\mathsf R_i^\pi\circ\mathsf S_i(t)^\pi\circ
+ \Bigl(\bigoplus_{\ell=0}^{L_i-1}\mathsf T_i^\pi\Bigr).
+\end{equation}
+It acts on \(L_i\mathcal U_i^\pi\), and its separator uses as shared leg
+the global leg \(\pi(1)\), which contains leg~1 of \(\mathcal U_i\). By
+Lemma~\ref{lem:composition}, \(\mathsf R_i^\pi\) acts on
+\(\widetilde T_i(t)^\pi\) coefficient by coefficient. In the constant term
+every monomial has \(g'=g\), so \(\mathsf R_i\) reindexes block \(g\)
+according to the single word \(g\) and maps \(T_{i,g}B_X(M_i)\) onto
+\(\mathcal V_iB_X(M_i)\). Hence
+\begin{equation}\label{eq:relation-constant-term}
  \Psi_{i,\pi}(t)(L_i\mathcal U_i^\pi)
- =\bigoplus_{s=0}^{M_i-1}(\mathcal V_iB_X(M_i))^\pi
-   +\sum_{e=1}^{(M_i-1)^2}t^eG_{i,\pi,e}.
-\]
-The first term is a full direct sum on all three legs.
+ =\bigoplus_{g=0}^{M_i-1}\bigl(\mathcal V_iB_X(M_i)\bigr)^\pi
+ +\sum_{\delta=1}^{M_i-1}t^{\delta^2}
+   \bigl(\mathsf R_i(\widetilde T_{i,\delta^2})\bigr)^\pi,
+\end{equation}
+and the first term is a full direct sum on all three legs.
 
-Now tensor over the three \(\pi\in\mathcal A_{\sigma_i}\). A
-direct-sum block is indexed by a triple of independently chosen sector
-labels. In every such block the canonical tensor is the same product
-\(\bigotimes_\pi(\mathcal V_iB_X(M_i))^\pi\). Regrouping its factors
-balances the dot products into \(\MM_{M_i}\). For tripling, apply
-\eqref{eq:cyclic-tripling-balance} to its convolution factors. This is
-a fixed coordinate isomorphism of the canonical product spaces, applied
-separately on every block of each global leg. In particular it is also
-defined on positive-degree monomials whose three block labels differ.
-It introduces no degree or interpolation cost.
+\begin{example}[Two tensor positions]\label{ex:two-positions}
+Let \(i\) be a split of width \(h_i=1\) with type
+\(n^{(i)}_0=n^{(i)}_1=1\) (for instance \(N=1\) and \(w_i=2\), each child
+used once), and write \(r=r_i\) and \(b=b_i\ge2\). Then
+\(\mathcal U_i=(C(r,b)B_X(2))^{\otimes2}\),
+\(\mathcal V_i=C(r,b+1)C(r,b-1)\), and \(M_i=2\): sector \(0\) has the
+word \((0,1)\) and sector \(1\) the word \((1,0)\). By
+\eqref{eq:coefficient-ranges}, the array of \(T_{i,0}\) has ranges
+\(\beta_1<b+1\), \(\gamma_1<r+b\), \(\beta_2<b-1\), \(\gamma_2<r+b-2\), so
+it is the array of \(\mathcal V_i\), and the array of \(T_{i,1}\) is the
+same with the two positions exchanged. Hence
+\(\mathsf R^X_{i,0},\mathsf R^Y_{i,0},\mathsf R^Z_{i,0}\) are identities,
+and \(\mathsf R^X_{i,1},\mathsf R^Y_{i,1},\mathsf R^Z_{i,1}\) exchange the
+two positions.
 
-Finally tensor over all actions, using one parameter. The source and
-constant-term multiplicities are
+The separator uses \(L_i=3\) copies, and \(g',e,e'\in\{0,1\}\). The
+condition \(e-e'+g'-g=0\) leaves six index tuples \((g,g',e,e')\): the
+four with \(g'=g\) and \(e=e'\), which give
+\(T_{i,0}B_X(2)\oplus T_{i,1}B_X(2)\), mapped by \(\mathsf R_i\) onto
+\(2\,\mathcal V_iB_X(2)\); and \((0,1,0,1)\) and \((1,0,1,0)\), which give
+the terms of degree one
 \[
- \prod_iL_i^3=S,\qquad \prod_iM_i^3=H,
+ t\sum_{\alpha,\beta,\gamma}T_{i,0}[\alpha,\beta,\gamma]\,
+   X_{\alpha,1}Y_{0,\beta,0}Z_{0,\gamma,1}
+ +t\sum_{\alpha,\beta,\gamma}T_{i,1}[\alpha,\beta,\gamma]\,
+   X_{\alpha,0}Y_{1,\beta,1}Z_{1,\gamma,0}
 \]
-and Lemma~\ref{lem:composition} bounds the degree by
-\(3\sum_i(M_i-1)^2=D\). The signed ledger identifies common source
-and target convolution factors by the actual coordinate isomorphisms
-\(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\), then retains them as the
-catalyst. Combining the auxiliary factors by
-\eqref{eq:matrix-products} gives precisely
-\eqref{eq:catalytic-degeneration}. All final regroupings are fixed
-maps on the full spaces, not instructions defined only for the
-constant term.
+of~\eqref{eq:composed-relation-polynomial}. In the first of them the first
+leg has label \(g'=1\) and the other legs have label \(g=0\), so
+\(\mathsf R_i\) exchanges the two positions of \(\alpha\) but not those of
+\(\beta\) and \(\gamma\). The image pairs the first-leg factor of each
+position with the second- and third-leg factors of the other position; it
+is a well-defined term of degree one, but not a copy of \(\mathcal V_i\),
+and exactification removes it.
+\end{example}
+
+\subsection{Three orientations and all relations}
+\label{subsec:composed-orientations}
+
+Tensoring the maps \(\Psi_{i,\pi}(t)\) over \(\pi\in\mathcal A_\sigma\),
+where \(\sigma=\sigma_{r_i}\), makes every global leg of the target a
+direct sum of blocks indexed by triples \((g_\pi)_{\pi\in\mathcal
+A_\sigma}\) of independently chosen labels.
+By~\eqref{eq:relation-constant-term}, the constant term has \(M_i^3\) such
+blocks, each carrying \(\bigotimes_\pi(\mathcal V_iB_X(M_i))^\pi\). The
+proof of Corollary~\ref{cor:oriented-relations} identifies the source
+\(\bigotimes_\pi\mathcal U_i^\pi\) and each of these blocks with the two
+sides of~\eqref{eq:split-relation} or~\eqref{eq:tripling-relation}: it
+reorders tensor factors within each global leg, combines the three
+oriented dot products by~\eqref{eq:coset-dot-products}, and, for a
+tripling, uses~\eqref{eq:cyclic-tripling-balance}, including the diagonal
+isomorphism \(S^+_{r,r}\cong S^-_{r,r}\) of~\eqref{eq:cyclic-identities}.
+We apply each of these identifications as the same fixed coordinate map
+on every block of a global leg. It is therefore defined also on monomials
+of positive degree whose labels \(g_\pi\) differ, and it does not depend
+on \(t\). With Lemma~\ref{lem:composition}, each relation thus gives the
+degeneration of Corollary~\ref{cor:oriented-relations}, of degree at most
+\(3(M_i-1)^2\), with every map defined on the full variable spaces.
+
+The proof of Proposition~\ref{prop:catalytic} then tensors these maps over
+all \(i\in\mathcal J\) with one parameter \(t\), and identifies factors
+by the coordinate isomorphisms of~\eqref{eq:cyclic-identities} (at a row
+boundary, \(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\)) and
+of~\eqref{eq:matrix-products}, again applied identically on every block
+after all separators. Hence Lemma~\ref{lem:composition} applies to the
+complete composed map, which is the
+degeneration~\eqref{eq:catalytic-degeneration} of degree at most \(D\).

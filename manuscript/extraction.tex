@@ -1,23 +1,46 @@
-\section{The counted finite construction}
+\section{The finite construction}
 \label{sec:extraction}
 
-Fix a profile index \(a\ge2\) and a positive integer rounding scale
-\(K\). Use the integer counts of Proposition~\ref{prop:rounded-ledger}.
-Let \(\mathcal I_c\) index the actions with \(w_i>0\), and let
-\(\mathcal I_t\) index the resets with \(z_r>0\). Put
-\(\mathcal J=\mathcal I_c\sqcup\mathcal I_t\) and \(I=|\mathcal J|\).
-An action \(i=(r,x)\) has auxiliary dimension \(d_i=d_{r,x}\),
-child counts \(n_{i,y}\), and empirical distribution
-\(p_{i,y}=n_{i,y}/w_i\). Counts for children are assigned to the
-filtration index \((x+h_{r,x}-y)/2\).
+This section turns the integer counts of Section~\ref{sec:rounding} into a
+relative scheme and computes its exponent. Proposition~\ref{prop:catalytic}
+combines all splits and triplings into one catalytic degeneration, and
+Proposition~\ref{prop:relative} makes it exact and reuses the catalyst.
+Section~\ref{subsec:cost-bounds} bounds every term of the resulting
+exponent~\eqref{eq:pooled-exponent} by quantities computed from the counts
+and proves \(p\ge\tau_a>9/4\).
 
-The remaining parameters have distinct roles. A type scale \(N\)
-reduces the relative loss in counting sector words. A tensor power
-\(k\) amortizes interpolation, and the number \(j\) of exact reuses
-amortizes the catalyst. Unlike exact normalization of the binary
-certificate, the choice of \(K\) is unrestricted.
+\subsection{Parameters and sector counts}
+\label{subsec:parameters}
 
-At scale \(N\), define the sector counts
+Fix the target index \(a\ge2\) and a rounding scale \(K\ge1\), and let
+\(n_{r,x,y}\), \(w_{r,x}\) and \(z_r\) be the integer counts of
+Section~\ref{sec:rounding}. Only relations with a positive count are used.
+Let \(\mathcal I_c\) be the set of active splits, that is, of pairs
+\(i=(r,x)\) with \(w_i=w_{r,x}>0\), and let \(\mathcal I_t\) be the set of
+active triplings, each indexed by its row \(r\), so that \(z_r>0\). Put
+\(\mathcal J=\mathcal I_c\sqcup\mathcal I_t\) and \(I=|\mathcal J|\); we call
+an element of \(\mathcal J\) a relation. A split \(i=(r,x)\) has width
+\(h_{r,x}\), auxiliary dimension \(d_i=d_{r,x}\), child counts
+\(n_{i,y}=n_{r,x,y}\), and empirical distribution of children
+\(\hat q_i=\hat q_{r,x}\), with \(\hat q_{i,y}=n_{i,y}/w_i\). Its child
+\(y\) is column \(r-1+y\), which is the block of Lemma~\ref{lem:multiway}
+with filtration index \((x+h_{r,x}-y)/2\).
+
+Three further positive integers amortize finite overheads
+(Table~\ref{tab:overheads}): the type scale \(N\) multiplies all counts,
+the interpolation power \(k\) is the tensor power used in exactification,
+and the reuse count \(j\) is the number of uses of one copy of the
+catalyst. All results of Sections~\ref{sec:rate} and~\ref{sec:costs} take
+\(N=1\); a larger \(N\) matters only when \(K\) is held fixed, since it
+makes the type penalty and the copy overhead small compared with
+\(\Delta_N\).
+
+At type scale \(N\), a split \(i=(r,x)\) is applied to
+\((C(r,r-1+x)B_X(d_i))^{\otimes Nw_i}\) with the type
+\((Nn_{i,y})_y\), and a tripling \(r\) is applied to
+\(C(r,4r-1)^{\otimes Nz_r}\) with middle count \(m_r\). The numbers of
+sectors retained by Lemmas~\ref{lem:multiway} and~\ref{lem:tripling} are
+the sector counts
 \begin{equation}\label{eq:sector-counts}
  M_i=\frac{(Nw_i)!}{\prod_y(Nn_{i,y})!}\quad(i\in\mathcal I_c),
  \qquad
@@ -25,352 +48,407 @@ At scale \(N\), define the sector counts
  m_r=\left\lfloor\frac{Nz_r+1}{3}\right\rfloor
  \quad(r\in\mathcal I_t).
 \end{equation}
-Zero child counts contribute \(0!=1\). Put
+Zero child counts contribute \(0!=1\). The middle count \(m_r\) is the
+maximizing choice of Lemma~\ref{lem:tripling}, so
+\(M_r\ge3^{Nz_r}/(Nz_r+1)\) by \eqref{eq:tripling-mode}.
+
+Proposition~\ref{prop:catalytic} below applies the separator to
+\(L_i=2M_i-1\) copies of each relation \(i\) in each of three orientations.
+It turns \(L\) source copies into \(M^3\) output copies, with degree at
+most \(D\), the sum of the degree bounds \((M_i-1)^2\) of all separators.
+The one-step source side \(A_1\) collects the auxiliary dot products
+\(B_X(d_i)\) of the splits; the one-step target side \(B_1\) collects
+\(NK\) boundary factors \(\MM_2\) and the separator auxiliaries:
 \begin{align}
  M&=\prod_{i\in\mathcal J}M_i,&
- S&=\prod_{i\in\mathcal J}(2M_i-1)^3,&
- H&=M^3,\label{eq:copy-counts}\\
+ L&=\prod_{i\in\mathcal J}L_i^3,\quad L_i=2M_i-1,
+ \label{eq:copy-counts}\\
  D&=3\sum_{i\in\mathcal J}(M_i-1)^2,&
- u&=\prod_{i\in\mathcal I_c}d_i^{Nw_i},&
- v&=2^{NK}M.\label{eq:dimensions}
+ A_1&=\prod_{i\in\mathcal I_c}d_i^{Nw_i},\quad
+ B_1=2^{NK}M.
+ \label{eq:dimensions}
 \end{align}
-Here \(S\) is an integer multiplicity; the tensors
-\(S^\sigma_{r,b}\) always carry indices.
-Let \(\Cat_N\) be the catalyst in \eqref{eq:rounded-catalyst}.
+Finally, \(\Cat_N=\Cat^{\otimes N}\), where \(\Cat\) is the catalyst of
+\eqref{eq:rounded-catalyst}.
 
-\begin{proposition}[Counted catalytic degeneration]\label{prop:catalytic}
-The specified maps give a polynomial degeneration of degree at most \(D\):
+\subsection{The catalytic degeneration}
+\label{subsec:catalytic}
+
+\begin{proposition}[Catalytic degeneration]\label{prop:catalytic}
+The maps described in the proof give a degeneration of degree at most
+\(D\):
 \begin{equation}\label{eq:catalytic-degeneration}
- S\Cat_N(S^+_{a,a})^{\otimes NK}\MM_u
- \degen H\Cat_N\MM_v.
+ L\,\Cat_N(S^+_{a,a})^{\otimes NK}\MM_{A_1}
+ \degen M^3\,\Cat_N\MM_{B_1}.
 \end{equation}
 \end{proposition}
+
 \begin{proof}
-For each action use the fixed-type restriction of
-Lemma~\ref{lem:multiway}, and for each reset use the partial-middle
-restriction of Lemma~\ref{lem:tripling}. In row \(r\), take the three
-permutations in the coset with sign \(\sigma_r=(-1)^{a-r}\).
-For each such permutation apply the separator of
-Proposition~\ref{prop:separator}, with auxiliary dimension \(M_i\).
-It consumes \(2M_i-1\) source copies and produces \(M_i\)
-independent copies of the sector tensor, each with a dot product of
-dimension \(M_i\).
+The idea is to apply Corollary~\ref{cor:oriented-relations} to every
+relation, to tensor the results with one degeneration parameter, and to
+read off the factors on the two sides from the ledger.
 
-Write the type restriction as \(\mathsf T_i\), the separator map as
-\(\mathsf S_i(t)\), and the sector-specific coordinate maps after
-separation as \(\mathsf R_i\). The complete map for a permuted relation is
-\begin{equation}\label{eq:complete-relation-map}
- \Psi_{i,\pi}(t)=\mathsf R_i^\pi\circ\mathsf S_i(t)^\pi\circ
- \left(\bigoplus_{\ell=0}^{2M_i-2}\mathsf T_i^\pi\right).
-\end{equation}
-For a reset, group its three permuted factors before using the diagonal
-identity in \eqref{eq:cyclic-identities}. This identifies every separated
-sector with the same power of \(S^{\sigma_r}_{r,r}\), regardless of
-its outer labels. Appendix~\ref{sec:composed-maps} specifies these maps
-on the whole target spaces, including positive-degree terms.
+\emph{Step 1: one relation.} Let \(i=(r,x)\in\mathcal I_c\) be a split. Apply
+Corollary~\ref{cor:oriented-relations}(a) with \(\sigma=\sigma_r\),
+\(b=r-1+x\), \(h=h_{r,x}\), \(n=Nw_i\), and the type that has \(Nn_{i,y}\)
+positions of filtration index \((x+h_{r,x}-y)/2\) for every child \(y\).
+The hypotheses hold: the state \(x\) is interior, so \(h\ge1\), and
+\(b\ge x+1\ge h+1\) because \(r\ge2\). The multinomial coefficient of the
+corollary is \(M_i\), its auxiliary side is \((h+1)^n=d_i^{Nw_i}\), and the
+block of filtration index \((x+h-y)/2\) has column \(b+h-(x+h-y)=r-1+y\).
+Hence
+\[
+ L_i^3\,(S^{\sigma_r}_{r,r-1+x})^{\otimes Nw_i}\MM_{d_i^{Nw_i}}
+ \degen M_i^3\Bigl(\prod_y(S^{\sigma_r}_{r,r-1+y})^{\otimes Nn_{i,y}}\Bigr)
+ \MM_{M_i}.
+\]
+For a tripling \(r\in\mathcal I_t\) (so \(r\ge2\)), part~(b) with \(n=Nz_r\ge1\) and
+\(m=m_r\) gives
+\(L_r^3\,(S^{\sigma_r}_{r,4r-1})^{\otimes Nz_r}\degen
+M_r^3\,(S^{\sigma_r}_{r,r})^{\otimes Nz_r}\MM_{M_r}\). Each of these
+degenerations has degree at most \(3(M_i-1)^2\), and its maps before and
+after the separators are fixed linear maps of the full variable spaces that
+do not depend on \(t\); Appendix~\ref{sec:composed-maps} writes them out,
+including the terms of positive degree.
 
-Tensoring all relation maps gives the copy counts \(S\) and \(H\).
-The signed ledger \eqref{eq:rounded-ledger} identifies the convolution
-factors on the two sides with
-\(\Cat_N(S^+_{a,a})^{\otimes NK}\) and
-\(\Cat_N\MM_{2^{NK}}\), respectively. Each action contributes
-three dot products of dimension \(d_i^{Nw_i}\), one in each leg.
-Their product is \(\MM_u\). The separator outputs similarly contribute
-\(\MM_M\), giving \(\MM_v\).
-Use one common parameter for all separators. Their degrees add by
-Lemma~\ref{lem:composition}, giving \(D\). All preceding type maps and
-subsequent coordinate maps are independent of that parameter.
+\emph{Step 2: all relations with one parameter.} Tensor the degenerations
+of Step~1 over all \(i\in\mathcal J\), with one common parameter \(t\) for
+all separators. Tensor products distribute over direct sums, so the left
+side has \(\prod_iL_i^3=L\) copies and the constant term has
+\(\prod_iM_i^3=M^3\) copies. By Lemma~\ref{lem:composition}, the result
+is a polynomial in \(t\) of degree at most \(\sum_i3(M_i-1)^2=D\), and its
+constant term is the tensor product of the constant terms of Step~1.
+
+\emph{Step 3: the convolution factors.} In one source copy, every split
+\(i=(r,x)\) contributes \(Nw_i\) factors with symbol
+\([\sigma_r;r,r-1+x]\), and every tripling contributes \(Nz_r\) factors
+\([\sigma_r;r,4r-1]\); in one output copy, the splits contribute
+\(Nn_{i,y}\) factors \([\sigma_r;r,r-1+y]\) and the triplings \(Nz_r\)
+factors \([\sigma_r;r,r]\). These are \(N\) times the source and output
+multiplicities of the ledger~\eqref{eq:rounded-ledger}. By
+Proposition~\ref{prop:rounded-ledger}, the two multiplicities agree for
+every symbol except that \([+;a,a]\) has \(K\) more source than output
+copies and \([\MM_2]\) has \(K\) output copies and no source copy. Since
+the catalyst multiplicities~\eqref{eq:rounded-catalyst} are the minima of
+the two, the source factors form \(\Cat_N(S^+_{a,a})^{\otimes NK}\) and the
+output factors form \(\Cat_N\MM_2^{\otimes NK}\cong\Cat_N\MM_{2^{NK}}\).
+These identifications of symbols are the coordinate isomorphisms
+of~\eqref{eq:cyclic-identities}, applied within each global leg (on the
+source side before the type restrictions, on the output side after the
+separators); they do not depend on \(t\).
+
+\emph{Step 4: the auxiliary factors.} On the left, the auxiliary factors
+give \(\bigotimes_{i\in\mathcal I_c}\MM_{d_i^{Nw_i}}\cong\MM_{A_1}\). On
+the right, the separator auxiliaries give
+\(\bigotimes_{i\in\mathcal J}\MM_{M_i}\cong\MM_M\), and together with
+\(\MM_{2^{NK}}\) from Step~3 they give \(\MM_{2^{NK}M}=\MM_{B_1}\), by
+\eqref{eq:matrix-products}. This proves \eqref{eq:catalytic-degeneration}.
 \end{proof}
 
-The estimate \(1\le S/H<2^{3I}\) bounds a cost. Neither direct-sum
-multiplicity has been canceled.
+\begin{example}[The ledger for \(a=2\)]\label{ex:ledger-a2}
+For \(a=2\) there is one row, \(r=2\), with sign \(\sigma_2=+\) and
+injection state \(\xin_2=1\). Its occupations are \(\lambda_{2,1}=2\),
+\(\lambda_{2,2}=14/5\), \(\lambda_{2,4}=11/5\) and \(\mu_2=1\), and states
+3 and 5 are never visited (Example~\ref{ex:row-two}). For \(K=15\) all
+scaled values \(K\lambda_{2,x}q_{2,x,y}\) and \(K\mu_2\) are integers, so the
+rounding leaves them unchanged. The split at state 1 (column 2, width 1,
+\(d=2\)) has children \(0,2\) with counts \(9,21\); the split at state 2
+(column 3, width 2, \(d=3\)) has children \(0,2,4\) with counts
+\(6,14,22\); the split at state 4 (column 5, width 2, \(d=3\)) has children
+\(2,4,6\) with counts \(7,11,15\); and \(z_2=15\). Thus
+\(\bar w=30+42+33=105\) and \(\bar z=15\). Child \(y\) is column \(1+y\),
+and the tripling consumes column 7 and produces column 2. The ledger
+involves the symbols \([+;2,b]\) for \(b=1,2,3,5,7\), where
+\([+;2,1]=[-;1,2]=[\MM_2]\):
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+symbol & source multiplicity & output multiplicity
+ & \(c_{+,2,b}\)\\
+\midrule
+\([\MM_2]=[+;2,1]\) & \(0\) & \(9+6=15\) & \(0\)\\
+\([+;2,2]\) & \(30\) & \(15\) & \(15\)\\
+\([+;2,3]\) & \(42\) & \(21+14+7=42\) & \(42\)\\
+\([+;2,5]\) & \(33\) & \(22+11=33\) & \(33\)\\
+\([+;2,7]\) & \(15\) & \(15\) & \(15\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+The sources exceed the outputs by \(K=15\) copies of \([+;2,2]=[+;a,a]\),
+and the outputs exceed the sources by \(15\) copies of \([\MM_2]\). The
+catalyst is
+\[
+ \Cat=(S^+_{2,2})^{\otimes15}(S^+_{2,3})^{\otimes42}
+      (S^+_{2,5})^{\otimes33}(S^+_{2,7})^{\otimes15},
+\]
+with \(105=\bar w+\bar z-K\) factors. In
+Proposition~\ref{prop:catalytic}, \(A_1=2^{30N}3^{75N}\), and \(M\) is the
+product of the three multinomial sector counts of the splits and the
+sector count of the tripling~\eqref{eq:sector-counts}.
+\end{example}
 
 \subsection{Exactification and repeated use of one catalyst}
+\label{subsec:relative}
 
-Define the explicit rank bound
+The degeneration \eqref{eq:catalytic-degeneration} is approximate, and it
+needs the catalyst as an input. We make it exact by interpolation, use the
+resulting restriction \(j\) times while passing one copy of the catalyst
+from one use to the next, and supply that copy once from a rank
+decomposition, so that the catalyst is paid for once and not \(j\) times.
+Exactification comes first because restrictions compose
+freely, whereas iterating the degeneration would require a bound on the
+accumulated degree.
+
+The catalyst is supplied by tensoring the evaluation decompositions
+\eqref{eq:convolution-rank} of its convolution factors. Each factor
+\(S^\sigma_{r,b}\) has rank at most \((r+b-1)^3\) by
+\eqref{eq:cyclic-identities}, so
 \begin{equation}\label{eq:kappa}
  \kappa_N=\prod_{\sigma,r,b}(r+b-1)^{3Nc_{\sigma,r,b}}
- \ge\R(\Cat_N).
+ \ge\R(\Cat_N),
 \end{equation}
-It tensors the evaluation decompositions \eqref{eq:convolution-rank}.
-The boundary factor \(\MM_2\) has zero catalyst multiplicity, so this
-product uses only the remaining convolution factors.
-
-\begin{proposition}[An exact relative multiplication scheme]
-\label{prop:relative}
-For positive integers \(k,j\), put \(E=kD+1\),
-\(A=u^{kj}\), \(B=v^{kj}\), and
+where the product runs over the symbols, as in \eqref{eq:rounded-catalyst}.
+For positive integers \(k\) and \(j\), put \(E=kD+1\) (the number of
+interpolation points), \(A=A_1^{kj}\), \(B=B_1^{kj}\), and
 \begin{equation}\label{eq:relative-counts}
- r_* =\kappa_N^k E^j S^{kj}(2a-1)^{3NKkj},
- \qquad m_* =H^{kj}.
+ r_*=\kappa_N^kE^jL^{kj}(2a-1)^{3NKkj},
+ \qquad m_*=M^{3kj}.
 \end{equation}
-There is a specified exact restriction \(r_*\MM_A\restr m_*\MM_B\).
+
+\begin{proposition}[Relative scheme]\label{prop:relative}
+For all positive integers \(k\) and \(j\), the maps described in the proof
+give a restriction \(r_*\MM_A\restr m_*\MM_B\). When \(B>A\), it is a
+relative scheme (Definition~\ref{def:relative-scheme}).
 \end{proposition}
+
 \begin{proof}
-Apply Lemma~\ref{lem:exactification} to the \(k\)-th power of
-\eqref{eq:catalytic-degeneration}. Replace each source copy of
-\(S^+_{a,a}\) by its rank-\((2a-1)^3\) evaluation decomposition.
-Writing \(\alpha=ES^k(2a-1)^{3NKk}\) and \(\beta=H^k\), we obtain
+\emph{Step 1: exactification.} The substitutions of
+Proposition~\ref{prop:catalytic} transform the left side of
+\eqref{eq:catalytic-degeneration} into a polynomial in \(t\) of degree at
+most \(D\) whose constant term is the right side. Apply
+Lemma~\ref{lem:exactification} with parameter \(k\). Since tensor products
+distribute over direct sums and \(\MM_d\MM_e\cong\MM_{de}\) by
+\eqref{eq:matrix-products}, the result reads
 \[
- \alpha\Cat_N^{\otimes k}\MM_{u^k}
- \restr\beta\Cat_N^{\otimes k}\MM_{v^k}.
+ EL^k\,\Cat_N^{\otimes k}(S^+_{a,a})^{\otimes NKk}\MM_{A_1^k}
+ \restr M^{3k}\,\Cat_N^{\otimes k}\MM_{B_1^k}.
 \]
-Apply this exact restriction \(j\) times while retaining the same catalyst:
+
+\emph{Step 2: decomposing the source factors.} A rank decomposition of a
+tensor \(T\) with \(R\) terms is the same as a restriction
+\(R\,\MM_1\restr T\), where \(\MM_1\) is the \(1\times1\times1\) tensor:
+the \(s\)-th copy of \(\MM_1\) is sent to the \(s\)-th term. By
+\eqref{eq:cyclic-identities}, \(\R(S^+_{a,a})\le(2a-1)^3\), and hence
+\((2a-1)^{3NKk}\MM_1\restr(S^+_{a,a})^{\otimes NKk}\). Tensoring this with
+\(EL^k\,\Cat_N^{\otimes k}\MM_{A_1^k}\) and composing with Step~1 gives the
+one-step restriction
+\begin{equation}\label{eq:one-step}
+ \alpha\,\Cat_N^{\otimes k}\MM_{A_1^k}
+ \restr\beta\,\Cat_N^{\otimes k}\MM_{B_1^k},
+ \qquad \alpha=EL^k(2a-1)^{3NKk},\quad \beta=M^{3k}.
+\end{equation}
+
+\emph{Step 3: reuse.} We show by induction that, for every \(j'\ge1\),
 \[
- \alpha^j\Cat_N^{\otimes k}\MM_{u^{kj}}
- \restr\beta^j\Cat_N^{\otimes k}\MM_{v^{kj}}.
+ \alpha^{j'}\Cat_N^{\otimes k}\MM_{A_1^{kj'}}
+ \restr\beta^{j'}\Cat_N^{\otimes k}\MM_{B_1^{kj'}}.
 \]
-For the induction, tensor the preceding restriction with
-\(\alpha\MM_{u^k}\), then apply the one-step restriction to the
-retained catalyst in each output summand. The matrix factors combine by
-\eqref{eq:matrix-products}. The catalyst exponent stays \(k\).
-Supply its source using \(\kappa_N^k\) rank-one tensors and restrict
-the output catalyst to a coefficient equal to one. Such a coefficient
-is available by choosing a monomial in every convolution factor.
-This proves \eqref{eq:relative-counts}.
+The case \(j'=1\) is \eqref{eq:one-step}. For the induction step, tensor
+the restriction for \(j'\) with the identity on
+\(\alpha\MM_{A_1^k}\):
+\[
+ \alpha^{j'+1}\Cat_N^{\otimes k}\MM_{A_1^{k(j'+1)}}
+ \restr\beta^{j'}\bigl(\alpha\,\Cat_N^{\otimes k}\MM_{A_1^k}\bigr)
+ \MM_{B_1^{kj'}}.
+\]
+Each of the \(\beta^{j'}\) direct summands on the right is the left side
+of \eqref{eq:one-step} tensored with \(\MM_{B_1^{kj'}}\); in it,
+\(\Cat_N^{\otimes k}\) occurs once as a tensor factor. Apply
+\eqref{eq:one-step} inside each summand, with the identity on
+\(\MM_{B_1^{kj'}}\). The summand becomes
+\(\beta\,\Cat_N^{\otimes k}\MM_{B_1^k}\MM_{B_1^{kj'}}\cong
+\beta\,\Cat_N^{\otimes k}\MM_{B_1^{k(j'+1)}}\), which proves the claim for
+\(j'+1\). Since the one-step restriction acts summand by summand, every
+summand keeps the single tensor factor \(\Cat_N^{\otimes k}\); the catalyst
+is never raised to a higher tensor power.
+
+\emph{Step 4: supplying and removing the catalyst.} By \eqref{eq:kappa},
+\(\R(\Cat_N^{\otimes k})\le\kappa_N^k\), so
+\(\kappa_N^k\MM_1\restr\Cat_N^{\otimes k}\), and hence
+\(\kappa_N^k\alpha^j\MM_A\restr\alpha^j\Cat_N^{\otimes k}\MM_A\). On the
+right side, choose one monomial in every convolution factor of
+\(\Cat_N^{\otimes k}\). All coefficients of a convolution tensor are \(0\)
+or \(1\), so the product monomial has coefficient one, and setting all
+other variables to zero restricts \(\Cat_N^{\otimes k}\) to \(\MM_1\).
+Hence \(\beta^j\Cat_N^{\otimes k}\MM_B\restr\beta^j\MM_B\). Composing
+these two restrictions with Step~3 for \(j'=j\) gives
+\(r_*\MM_A\restr m_*\MM_B\) with \(r_*=\kappa_N^k\alpha^j\) and
+\(m_*=\beta^j\), which are the values in \eqref{eq:relative-counts}.
 \end{proof}
 
-Exactification precedes reuse. Iterating the degeneration itself would
-require a separate bound on the accumulated approximation degree.
+\subsection{The exponent of the relative scheme}
+\label{subsec:exponent}
 
-\subsection{Pooled recursion with padding}
-
-\begin{lemma}[Relative schemes give recursive algorithms]\label{lem:batch}
-Suppose an explicit restriction \(r\MM_A\restr m\MM_B\) is given,
-with positive integers \(B>A\). Set
+Lemma~\ref{lem:batch} turns a relative scheme into a recursive algorithm.
+For the restriction of Proposition~\ref{prop:relative}, put
+\begin{equation}\label{eq:delta-N}
+ \Delta_N=\log\frac{B_1}{A_1}
+ =NK\log2+\log M-N\sum_{i\in\mathcal I_c}w_i\log d_i,
+\end{equation}
+the logarithm of the ratio of the target side to the source side in one
+use of the catalytic degeneration. Since \(B/A=(B_1/A_1)^{kj}\), the
+restriction is a relative scheme exactly when \(\Delta_N>0\). In that
+case, by \eqref{eq:relative-counts},
 \[
- q=r/m,\qquad p=\frac{\log q}{\log(B/A)}.
+ \log\frac{r_*}{m_*}
+ =kj\left(3NK\log(2a-1)+\log\frac{L}{M^3}+\frac{\log E}{k}
+          +\frac{\log\kappa_N}{j}\right),
+ \qquad \log\frac BA=kj\,\Delta_N,
 \]
-Then \(p\ge2\). The restriction yields a fixed arithmetic algorithm
-with cost \(O(n^p)\) if \(p>2\), and \(O(n^2\log n)\) if \(p=2\).
-Every scalar product is a product of a linear form in the left input
-entries and a linear form in the right input entries.
-\end{lemma}
-\begin{proof}
-The first-leg flattenings have ranks \(rA^2\) and \(mB^2\).
-Rank cannot increase under restriction, so \(q\ge(B/A)^2>1\).
-
-Pool all products at a given recursion depth. If there are \(v_\ell\)
-products of side \(n_\ell\), group them in batches of \(m\), filling
-the last batch with zero products. Pad each input to side
-\(B\lceil n_\ell/B\rceil\), divide it into a \(B\times B\) array of blocks of side
-\(\lceil n_\ell/B\rceil\), and apply the restriction. This gives
-\[
- v_{\ell+1}=r\lceil v_\ell/m\rceil\le qv_\ell+r,
- \qquad n_{\ell+1}=A\lceil n_\ell/B\rceil.
-\]
-The scalar identity remains valid on matrix blocks: its products place a
-left-input factor before a right-input factor, and its coefficients are
-central scalars. Starting with \(v_0=1\), the count obeys
-\(v_\ell\le q^\ell(1+r/(q-1))\).
-There is a constant \(C\), depending only on the scheme, for which
-all transformations at this level take at most \(Cv_\ell n_\ell^2\)
-operations. To justify pooling across different parents, perform the
-input transformations in increasing depth, store their linear output
-maps, and perform the output combinations in reverse depth after computing
-the leaves. Products at the same depth can then be grouped together
-without changing any algebraic dependency.
-
-Put \(\rho=A/B\) and \(c=A/(1-\rho)\). Since
-\(n_{\ell+1}\le\rho n_\ell+A\),
-\(n_\ell\le c+\rho^\ell(n-c)\).
-Use classical multiplication at the fixed leaf threshold
-\(n_* =\lceil c\rceil+1\). There are at most
-\(\log_{1/\rho}n+O(1)\) levels. The total work is bounded by a
-constant times the sum of
-\(q^\ell(1+\rho^{2\ell}n^2)\) over these levels, including leaves.
-As \(q\rho^2\ge1\), this gives the two asserted bounds.
-At every stage the input transformations are separately linear in the
-original left and right entries. This remains true at the classical
-leaves and proves the last assertion.
-\end{proof}
-
-For the relative scheme above, write \(\Delta_N=\log(v/u)\).
-Whenever \(\Delta_N>0\), its pooled exponent is exactly
+so the pooled exponent \(p=\log(r_*/m_*)/\log(B/A)\) of the scheme is
 \begin{equation}\label{eq:pooled-exponent}
- p=\frac{3NK\log(2a-1)+\log(S/H)+\log E/k+\log\kappa_N/j}
- {\Delta_N}.
+ p=\frac1{\Delta_N}\left(3NK\log(2a-1)+\log\frac{L}{M^3}
+   +\frac{\log E}{k}+\frac{\log\kappa_N}{j}\right).
 \end{equation}
-For comparison with saved finite cost certificates, also define the
-slightly larger bound
-\begin{equation}\label{eq:finite-exponent}
- \Phi=\frac{3NK\log(2a-1)+\log(S/H)+\log E/k
-              +\log\kappa_N/j+\log2/(kj)}{\Delta_N}.
-\end{equation}
-To see the origin of the extra term, let \(\operatorname{cost}(n)\) be the cost of
-one batch of \(m_*\) products when each parent's children are grouped
-separately. With \(b_0=\lceil r_*/m_*\rceil\), this schedule obeys
-\[
- \operatorname{cost}(n)\le b_0\operatorname{cost}\bigl(A\lceil n/B\rceil\bigr)+O(n^2).
-\]
-The dimension estimate in Lemma~\ref{lem:batch} gives exponent
-\(\log b_0/\log(B/A)\), bounded by \(\Phi\) since
-\(b_0\le2r_*/m_*\). Pooling removes this last ceiling charge. Both expressions retain the actual
-copy, interpolation, and catalyst costs. The source \(\MM_A\) is
-the recursive operation; no fast decomposition of it has been assumed.
+The numerator consists of the main term \(3NK\log(2a-1)\), which pays for
+the rank of the \(NK\) source copies of \(S^+_{a,a}\), and of the copy
+overhead \(\log(L/M^3)\), the interpolation overhead \((\log E)/k\) and
+the catalyst overhead \((\log\kappa_N)/j\). The source \(\MM_A\) is the
+matrix product to which the recursion is applied again, so no decomposition
+of it enters the formula; its side \(A=A_1^{kj}\) comes from the auxiliary
+factor \(\MM_{A_1}\) of Proposition~\ref{prop:catalytic}.
+
+The condition \(\Delta_N>0\) is not automatic. For \(a=2\) and \(N=1\),
+every rounding allowed by Lemma~\ref{lem:circulation-rounding} gives
+\(B_1<A_1\), that is, \(\Delta_1<0\), for every \(K\le7\), as an
+exhaustive computation in exact integer arithmetic shows (script
+\path|extraction_a2_small_scale.py|; see the supporting files in
+Section~\ref{sec:discussion}). For the counts of
+Example~\ref{ex:ledger-a2} (\(K=15\)), a floating-point evaluation gives
+\(\Delta_1\approx7.28\). A proof of \(B>A\) therefore needs the lower
+bound on \(\Delta_N\) in \eqref{eq:type-error} below;
+Theorem~\ref{thm:quantitative} supplies such a proof for its parameters.
 
 \subsection{Type losses and finite cost bounds}
+\label{subsec:cost-bounds}
 
-\begin{lemma}[A quantitative type bound]\label{lem:types}
-Let \(n_1+\cdots+n_s=n\), with all \(n_i>0\), and put \(p_i=n_i/n\).
-Then
+The terms of \eqref{eq:pooled-exponent} involve the sector counts \(M_i\),
+which are large multinomial coefficients. This subsection bounds every
+term by quantities computed directly from the integer counts, starting
+with a comparison of multinomial coefficients and entropies.
+
+\begin{lemma}[Counting the words of one type]\label{lem:types}
+Let \(\mathcal Y\) be a finite nonempty set, let \(n_y\), for
+\(y\in\mathcal Y\), be positive integers with sum \(n\), and put
+\(\theta=(n_y/n)_{y\in\mathcal Y}\). Then
 \[
- \frac{\exp(nH(p))}{(n+1)^{s-1}}
- \le\frac{n!}{\prod_i n_i!}\le\exp(nH(p)),
- \qquad H(p)=-\sum_i p_i\log p_i.
+ \frac{\exp(nH(\theta))}{(n+1)^{|\mathcal Y|-1}}
+ \le\frac{n!}{\prod_{y\in\mathcal Y}n_y!}\le\exp(nH(\theta)).
 \]
 \end{lemma}
+
 \begin{proof}
-The multinomial probability of the type \((n_i)\) is its coefficient
-times \(\exp(-nH(p))\), and is at most one. It is also a mode:
-the factor \(n_i^h/h!\) is maximized at \(h=n_i\) or \(h=n_i-1\),
-as follows by comparing consecutive terms. The joint probability, up to
-a common factor, is the product of these factors. There are at most
-\((n+1)^{s-1}\) types, so a mode has probability at least their reciprocal.
+Draw \(n\) independent samples from the distribution \(\theta\) on
+\(\mathcal Y\). For nonnegative integers \(g_y\) with sum \(n\), the
+probability that each \(y\) is drawn exactly \(g_y\) times is
+\[
+ \mathbb P(g)=n!\prod_{y}\frac{\theta_y^{g_y}}{g_y!}
+     =\frac{n!}{n^n}\prod_y\frac{n_y^{g_y}}{g_y!}.
+\]
+Since \(\prod_y\theta_y^{n_y}=\exp(-nH(\theta))\), the probability of
+\(g=(n_y)_y\) equals the multinomial coefficient times
+\(\exp(-nH(\theta))\), and \(\mathbb P\le1\) gives the upper bound. The
+factor \(n_y^{g_y}/g_y!\) changes by the ratio \(n_y/(g_y+1)\) when
+\(g_y\) increases by one, so it is largest at \(g_y=n_y\), and
+\(g=(n_y)_y\) maximizes \(\mathbb P\). At most \((n+1)^{|\mathcal Y|-1}\) vectors \(g\)
+occur (all entries but one lie in \(\{0,\ldots,n\}\)), and their
+probabilities add up to one; so the largest is at least
+\((n+1)^{-(|\mathcal Y|-1)}\), which is the lower bound.
 \end{proof}
 
-For an action \(i\), let \(s_i=|\{y:n_{i,y}>0\}|\) and
-\(H_i=w_iH(p_i)\). For a reset put \(H_r=z_r\log3\).
-Define
-\begin{align}
- \mathcal T_N&=\sum_{i\in\mathcal I_c}(s_i-1)\log(Nw_i+1)
-             +\sum_{r\in\mathcal I_t}\log(Nz_r+1),\notag\\
- B_N&=N\max_{i\in\mathcal J}H_i.\label{eq:type-penalty}
-\end{align}
-Lemma~\ref{lem:types} and the modal estimate for partial-middle
-tripling give
+For a split \(i\), let \(\mathcal Y_i^+=\{y:n_{i,y}>0\}\) be the set of
+its children with positive count; its auxiliary dimension is \(d_i\) even
+when some children have count zero, because Lemma~\ref{lem:multiway} uses
+the whole factor \(B_X(d_i)\). The entropy charge of a relation is
+\(H_i=w_iH(\hat q_i)\) for a split and \(H_r=z_r\log3\) for a tripling.
+Define the type penalty \(\mathcal T_N\) and the largest scaled entropy
+charge \(\bar H_N\) by
+\begin{equation}\label{eq:type-penalty}
+ \begin{split}
+ \mathcal T_N&=\sum_{i\in\mathcal I_c}(|\mathcal Y_i^+|-1)\log(Nw_i+1)
+             +\sum_{r\in\mathcal I_t}\log(Nz_r+1),\\
+ \bar H_N&=N\max_{i\in\mathcal J}H_i.
+ \end{split}
+\end{equation}
+The type penalty bounds the distance of \(\Delta_N\) from its ideal value
+\(NG\), where \(G\) is the rounded potential and \(\mathcal L\) the
+rounding loss of \eqref{eq:rounded-gain}:
 \begin{equation}\label{eq:type-error}
  NG-\mathcal T_N\le\Delta_N\le NG,
  \qquad G=K\log F(a,a)-\mathcal L,
  \qquad 0\le\mathcal L\le4J_a.
 \end{equation}
-Only the number of used children enters the type penalty. The source
-auxiliary dimension remains \(d_i\), including when some children
-have count zero.
+Here \(J_a\) is the number of transition coordinates, and the second and
+third relations are \eqref{eq:rounded-entropy}.
 
-The other charges have the elementary bounds
+To prove the first relation, recall from \eqref{eq:rounded-gain} that
+\(G=K\log2+\sum_{i\in\mathcal I_c}w_i(H(\hat q_i)-\log d_i)+\bar z\log3\).
+Since \(\bar z\log3=\sum_{r\in\mathcal I_t}H_r\), comparison with
+\eqref{eq:delta-N} gives
+\[
+ \Delta_N-NG=\sum_{i\in\mathcal J}(\log M_i-NH_i).
+\]
+For a split, apply Lemma~\ref{lem:types} to the positive counts
+\(Nn_{i,y}\), \(y\in\mathcal Y_i^+\). Their sum is \(Nw_i\) and their
+distribution is \(\hat q_i\); zero counts change neither \(M_i\) nor
+\(H(\hat q_i)\). This gives
+\(-(|\mathcal Y_i^+|-1)\log(Nw_i+1)\le\log M_i-NH_i\le0\). For a tripling,
+\(M_r\le3^{Nz_r}\), because the numbers \(\binom nm2^{n-m}\),
+\(0\le m\le n\), add up to \(3^n\); together with
+\(M_r\ge3^{Nz_r}/(Nz_r+1)\) this gives
+\(-\log(Nz_r+1)\le\log M_r-NH_r\le0\). Summing over \(\mathcal J\) proves
+\eqref{eq:type-error}. We call the nonnegative difference
+\(NG-\Delta_N=\sum_{i\in\mathcal J}(NH_i-\log M_i)\) the \emph{type loss};
+the type penalty bounds it.
+
+In Example~\ref{ex:ledger-a2} with \(N=1\), every empirical distribution
+equals the transition probabilities, so \(\mathcal L=0\) and
+\(G=15\log(10/3)\approx18.06\); the type penalty is
+\(\mathcal T_1=\log31+2\log43+2\log34+\log16\approx20.78\), and
+\(\Delta_1\approx7.28\) lies between \(G-\mathcal T_1\approx-2.72\) and
+\(G\).
+
+The numerator terms of \eqref{eq:pooled-exponent} satisfy
 \begin{equation}\label{eq:finite-cost-bounds}
  \begin{split}
- 0&\le\log(S/H)<3I\log2,\\
- \log E&\le\log(3kI+1)+2B_N,\\
- \log\kappa_N&\le3N(U+T-K)\log(5a).
+ 0&\le\log(L/M^3)<3I\log2,\\
+ \log E&\le\log(3kI+1)+2\bar H_N,\\
+ \log\kappa_N&\le3N(\bar w+\bar z-K)\log(5a).
  \end{split}
 \end{equation}
-Indeed \(M_i\le\exp(NH_i)\), and
-\(E=1+3k\sum_i(M_i-1)^2\le(3kI+1)\exp(2B_N)\).
-Every rank base \(r+b-1\) is less than \(5a\); the catalyst count
-is \(U+T-K\). These bounds do not require expanding the sector words
-or writing out any tensor coefficients.
+For the first bound, \(L_i/M_i=2-1/M_i\) lies in \([1,2)\) for every
+relation, and \(L/M^3=\prod_i(L_i/M_i)^3\). For the second,
+Lemma~\ref{lem:types} and \(M_r\le3^{Nz_r}\) give
+\(M_i\le\exp(NH_i)\le\exp(\bar H_N)\) for every relation, and therefore
+\(E=1+3k\sum_i(M_i-1)^2\le1+3kI\exp(2\bar H_N)
+\le(3kI+1)\exp(2\bar H_N)\). For the third, the catalyst has
+\(\sum_{\sigma,r,b}c_{\sigma,r,b}=\bar w+\bar z-K\) factors by
+\eqref{eq:catalyst-size}. Every symbol with positive catalyst multiplicity
+is consumed by some relation (Proposition~\ref{prop:rounded-ledger}), so
+it has a representative \([\sigma_r;r,b]\) with
+\(2\le r\le a\) and \(r\le b\le4r-1\); hence the base of its rank bound
+\((r+b-1)^3\) satisfies \(r+b-1\le5a-2<5a\). These bounds use only the
+integer counts.
 
-The uncharged profile expression
+Without any overhead, and with \(\Delta_N\) equal to \(NK\log F(a,a)\),
+the formula \eqref{eq:pooled-exponent} would give the profile exponent
 \begin{equation}\label{eq:tau}
  \tau_a=\frac{3\log(2a-1)}{\log F(a,a)}
- \longrightarrow\frac94
+ \longrightarrow\frac94.
 \end{equation}
-remains useful for comparison. Since \(\Delta_N\le NK\log F(a,a)\)
-and all numerator charges in \eqref{eq:pooled-exponent} are nonnegative,
-every scheme here with \(B>A\) has \(p\ge\tau_a>9/4\).
-The finite construction therefore approaches the endpoint from above.
-
-\input{quantitative}
-
-\subsection{An effective algorithm over a specified field}
-
-\begin{theorem}[Effective finite extraction]\label{thm:effective}
-There is a terminating procedure that, given a positive rational
-\(\eps\), specifies a finite arithmetic algorithm for multiplying
-arbitrary complex \(n\times n\) matrices in
-\(O_\eps(n^{9/4+\eps})\) operations. All coefficients lie in an
-explicitly specified cyclotomic field. The procedure uses only finite
-integer and rational computations, coordinate permutations, tensor
-products, and the maps proved above.
-\end{theorem}
-\begin{proof}
-Choose \(a,K,N,k,j\) by Corollary~\ref{cor:explicit-allowance} and
-Theorem~\ref{thm:quantitative}. Compute the rational occupations by their
-finite linear systems, round their circulations using the integral
-max-flow procedure in Lemma~\ref{lem:circulation-rounding}, and form the
-integer counts and catalyst. Proposition~\ref{prop:relative} gives the
-exact relative scheme. Theorem~\ref{thm:quantitative} and
-Lemma~\ref{lem:batch} give an exponent strictly below \(9/4+\eps\).
-The possible quadratic-logarithmic term is also within this allowance.
-
-For a deterministic specification, order states, edges, tensor positions,
-and sector words lexicographically, and use the first available augmenting
-path at each max-flow step. Use the displayed determinant bases, interval
-sectors, Fourier substitutions, evaluation decompositions, and root
-averages. Separate sectors before applying their individual coordinate
-maps. Compose the maps in the order in the proofs of
-Propositions~\ref{prop:catalytic} and \ref{prop:relative}.
-Every root of unity has an explicitly known finite order. One may take
-\[
- L_* =\lcm\bigl(E,\,2a-1,\,
-       \{2M_i-1:i\in\mathcal J\},\,
-       \{r+b-1:c_{\sigma,r,b}>0\}\bigr).
-\]
-All coefficients lie in \(\Q(\zeta_{L_*})\), represented by the power
-basis modulo the cyclotomic polynomial. Catalyst reuse and recursion
-introduce no further roots of unity. Thus the procedure specifies finite
-coefficient arrays and their composition; expanding them is not needed
-for the proof of correctness.
-\end{proof}
-
-\subsection{Rational coefficients and an explicit square seed}
-
-The field issue does not require an existence theorem for algebraic
-solutions of rank equations.
-
-\begin{lemma}[Restriction of coefficients to the rationals]
-\label{lem:descent}
-Let \(T\) have rational coefficients, and suppose an explicit rank-\(R\)
-decomposition of \(T\) is given over a number field \(\mathbb K\) of degree
-\(d\). Then an explicit rational decomposition has length at most
-\(d^2R\).
-\end{lemma}
-\begin{proof}
-Choose a rational basis \(e_1=1,e_2,\ldots,e_d\) of \(\mathbb K\), and let
-\(\phi:\mathbb K\to\Q\) extract the coefficient of \(e_1\).
-For each summand write its first two linear forms as
-\(\sum_s e_s\alpha_s\) and \(\sum_t e_t\beta_t\), where the
-\(\alpha_s,\beta_t\) have rational coefficients, and call its third
-form \(\gamma\). Apply \(\phi\) coefficientwise to the tensor identity.
-This summand becomes
-\(\sum_{s,t}\alpha_s\beta_t\phi(e_se_t\gamma)\), a sum of at most
-\(d^2\) rational rank-one tensors. The target is unchanged because its
-coefficients are rational and \(\phi(1)=1\).
-All field operations are effective; for the field above, use the power
-basis modulo the cyclotomic polynomial.
-\end{proof}
-
-\begin{corollary}[Finite rational seeds]\label{cor:seed}
-For every positive rational \(\eps\), a terminating procedure produces
-an integer \(d_0\ge2\) and a rational rank decomposition of
-\(\MM_{d_0}\) of length \(R_{\mathrm{seed}}<d_0^{9/4+\eps}\).
-Consequently a fixed rational bilinear recursion attains an exponent
-strictly below \(9/4+\eps\).
-\end{corollary}
-\begin{proof}
-Apply Theorem~\ref{thm:effective} with \(\eps/2\).
-For each integer dimension \(n\), unroll its pooled recursion to
-classical leaves, and set the unused initial input pairs to zero.
-Lemma~\ref{lem:batch} gives a bilinear decomposition of \(\MM_n\).
-Its number of leaf products is at most its arithmetic cost, hence is
-\(O_\eps(n^{9/4+\eps/2})\). Its coefficient field is fixed independently
-of \(n\). Apply Lemma~\ref{lem:descent}; this multiplies the length
-by at most a fixed constant.
-
-Enumerate \(n=2,3,\ldots\), generate the finite recursion and its rational
-decomposition, and stop when its length \(R_n\) satisfies
-\(R_n^{\beta_\eps}<n^{\alpha_\eps}\), where the positive integers
-\(\alpha_\eps,\beta_\eps\) satisfy \(\alpha_\eps/\beta_\eps=9/4+\eps\).
-The strict gap in exponents proves termination, regardless of the fixed
-constants. This is a construction of identities by proved operations,
-not a search for solutions to unspecified rank equations.
-Ordinary block recursion on the resulting seed has exponent
-\(\log_n R_n<9/4+\eps\); its fixed linear maps cost quadratically per node.
-\end{proof}
-
-Every rational seed identity also holds over every field of characteristic
-zero. The preprocessing time of this procedure is finite for each fixed
-\(\eps\). No quantitative bound on preprocessing time or coefficient bit size is
-asserted.
+The overheads can only increase the exponent: since
+\(\Delta_N\le NG\le NK\log F(a,a)\) by \eqref{eq:type-error} and all three
+overheads in the numerator of \eqref{eq:pooled-exponent} are nonnegative,
+every scheme of this section with \(B>A\) satisfies \(p\ge\tau_a\).
+The strict bound \(F(a,a)<(2a-1)^{4/3}\) of
+Theorem~\ref{thm:least-profile} gives \(\tau_a>9/4\).

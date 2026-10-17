@@ -1,260 +1,627 @@
-\section{Exact type restrictions and separation of a shared leg}
+\section{Tensor maps for splits and triplings}
 \label{sec:maps}
 
-We realize the profile relations by finite tensor maps. Each local map
-first produces matched sectors on two legs, with the third leg still
-shared. A Fourier separator then makes the sectors independent on all
-three legs. More precisely, the intermediate tensor is
-\(\sum_\omega A_\omega\), where
-\(A_\omega\in X\otimes Y_\omega\otimes Z_\omega\), the spaces
-\(Y_\omega\) and \(Z_\omega\) are direct-sum blocks, and \(X\) is common
-to all sectors. A separate change of first-leg coordinates in each
-sector is valid only after separation.
+This section constructs the tensor maps behind the profile inequalities
+\((h+1)P(r,b)\ge\sum_{j=0}^hP(r,b+h-2j)\), a consequence of the concavity
+axiom~\eqref{eq:concavity} (Remark~\ref{rem:multiway-scalar}), and
+\(P(r,4r-1)\ge3P(r,r)\), the tripling axiom~\eqref{eq:tripling} at \(b=r\). A \emph{split} of width \(h\) converts the
+convolution tensor \(C(r,b)\), together with a dot product of dimension
+\(h+1\), into the convolution tensors \(C(r,b+h-2j)\), \(0\le j\le h\). A
+\emph{tripling} converts \(C(r,4r-1)\) into three copies of \(C(r,r)\), one
+of them with its second and third legs exchanged.
+Corollary~\ref{cor:oriented-relations} states both as relations among the
+symmetrized convolution tensors \(S^\sigma_{r,b}\) that also produce an
+auxiliary matrix multiplication tensor; Section~\ref{sec:extraction}
+applies it to every relation of the construction.
 
-\subsection{A determinant filtration}
+Each relation is built in three steps. First, a restriction of a tensor
+power (Sections~\ref{subsec:splits} and~\ref{subsec:tripling}) produces a
+sum \(T=\sum_{g=0}^{M-1}T_g\) of \(M\) \emph{sectors sharing the first
+leg}: \(T_g\in X\otimes Y_g\otimes Z_g\) with \(Y=\bigoplus_gY_g\) and
+\(Z=\bigoplus_gZ_g\). This is not a direct sum, because all sectors use the
+same first-leg variables, so a coordinate change that depends on the sector
+can be applied on the second and third legs but not yet on the first.
+Second, the separator (Section~\ref{subsec:separator}) gives each sector
+its own first leg. Third, the relation is applied in three orientations
+(Section~\ref{subsec:orientations}). The split, the tripling and the
+separator each adapt a construction of \citet{OAI26}; we state the
+correspondence after each result.
 
-The filtration used here is the integral Clebsch--Gordan filtration;
-see \citet[Lemma~2.5, Theorem~2.8, and Corollary~2.9]{Maakestad23}.
-We give its bases to identify the convolution slices and then obtain an
-exact restriction by matching types in tensor powers.
+\subsection{Splits from the determinant filtration}
+\label{subsec:splits}
 
-Let \(V_e=\Q[u,v]_e\) be the homogeneous binary forms of degree \(e\).
-For integers \(d\ge h\ge1\), put
+We obtain a split from a filtration, preserved by multiplication, of the
+input and output spaces of polynomial multiplication. Its successive
+quotients carry the tensors \(C(r,b+h-2j)\), so in adapted bases
+\(C(r,b)B_X(h+1)\) is block triangular with these blocks on the
+diagonal. For \(r\ge2\) the
+off-diagonal blocks are not zero (Example~\ref{ex:determinant-basis}), but
+in a tensor power they disappear when we keep only the coordinates with a
+prescribed number of factors from each quotient (Lemma~\ref{lem:multiway}).
+
+\paragraph{Binary forms.}
+For \(n\ge1\) let \(V_n=\Q[u,v]_{n-1}\) be the space of binary forms with
+\(n\) coefficients (indexed by dimension, not degree), with monomial basis
+\(u^{n-1-i}v^i\), \(0\le i<n\). The convolution
+tensor~\eqref{eq:convolution} is then the tensor of multiplication
+\(V_r\times V_b\to V_{r+b-1}\): the monomials with indices \(\alpha\) and
+\(\beta\) multiply to the monomial with index \(\alpha+\beta\), and
+\(z_\gamma\) reads the coefficient of the \(\gamma\)-th monomial of
+\(V_{r+b-1}\). Let \(V'_n=\Q[u',v']_{n-1}\) be a copy of \(V_n\)
+in new variables. Multiplication by \(f\in V_r\) on the first factor maps
+\(V_b\otimes V'_{h+1}\) to \(V_{r+b-1}\otimes V'_{h+1}\), and in monomial
+bases its tensor is \(C(r,b)B_X(h+1)\): the factor \(V'_{h+1}\) passes
+through unchanged, which is the dot product \(B_X(h+1)\) with its
+one-dimensional first leg.
+
+\paragraph{The filtration.}
+Put \(\Delta=uv'-vu'\). For integers \(h\ge0\) and \(c\ge h+1\), filter
+\(V_c\otimes V'_{h+1}\) by
 \[
- W_{d,h}=\Q[u,v]_d\otimes\Q[s,t]_h,\qquad \Delta=ut-vs.
+ \mathcal F^j(V_c\otimes V'_{h+1})=\Delta^j\,(V_{c-j}\otimes V'_{h+1-j})
+ \quad(0\le j\le h),\qquad
+ \mathcal F^{h+1}(V_c\otimes V'_{h+1})=0,
 \]
-Multiplication by a form in \(V_{r-1}\), leaving the auxiliary variables
-\(s,t\) unchanged, represents \(C(r,d+1)B_X(h+1)\). Its second-input
-and output spaces have the filtrations
-\[
- F^jW_{d,h}=\Delta^jW_{d-j,h-j}\quad(0\le j\le h),\qquad
- F^{h+1}W_{d,h}=0.
-\]
-After removal of \(\Delta^j\), diagonal substitution \((s,t)=(u,v)\)
-identifies
+where \(\Delta^j\) multiplies in \(\Q[u,v,u',v']\) and \(V'_1=\Q\). The
+letter \(c\) stands for a number of coefficients; we use \(c=b\) for the
+second leg and \(c=r+b-1\) for the output.
+Lemma~\ref{lem:determinant-basis} below shows that dividing by
+\(\Delta^j\) and substituting \((u',v')=(u,v)\) gives an isomorphism
 \begin{equation}\label{eq:filtration-quotient}
- F^jW_{d,h}/F^{j+1}W_{d,h}\cong V_{d+h-2j}.
+ \mathcal F^j/\mathcal F^{j+1}\cong V_{c+h-2j}.
 \end{equation}
-Here and below these are fixed-coordinate polynomial spaces; no
-representation-theoretic identification is needed.
+This is the universal Clebsch--Gordan filtration of
+\citet[Lemma~2.5, Theorem~2.8, Corollary~2.9 and Definition~2.10]{Maakestad23}
+for the symmetric powers of degrees \(h\) and \(c-1\) of a rank-two
+module; we construct the integer bases we need directly.
 
-We use an explicit integer basis for this filtration. Define
+For \(0\le i<c+h\), the \emph{lift} of the \(i\)-th monomial of
+\(V_{c+h}\) is
 \[
- L_{p,q}(i)=
+ L_{c,h}(i)=
  \begin{cases}
- u^{p-i}v^is^q,&0\le i\le p,\\
- v^ps^{q-(i-p)}t^{i-p},&p<i\le p+q,
+ u^{c-1-i}v^iu'^h,&0\le i\le c-1,\\
+ v^{c-1}u'^{c+h-1-i}v'^{i-c+1},&c-1<i<c+h.
  \end{cases}
 \]
-and take
+It lies in \(V_c\otimes V'_{h+1}\), its total exponent of \(v\) and \(v'\)
+is \(i\), and the substitution \((u',v')=(u,v)\) maps it to
+\(u^{c+h-1-i}v^i\). The \emph{determinant basis} of
+\(V_c\otimes V'_{h+1}\) consists of the vectors
 \begin{equation}\label{eq:determinant-basis}
- B_{j,i}=\Delta^jL_{d-j,h-j}(i),\qquad
- 0\le j\le h,\quad 0\le i\le d+h-2j.
+ \mathbf b_{j,i}=\Delta^jL_{c-j,h-j}(i),\qquad
+ 0\le j\le h,\quad 0\le i<c+h-2j.
 \end{equation}
-To verify both the basis and \eqref{eq:filtration-quotient}, repeatedly
-replace \(ut\) by \(vs+\Delta\). Modulo \(\Delta\), each monomial
-reduces to the unique displayed lift having the same total exponent of
-\(v,t\). The remainder is divisible by \(\Delta\); repeat in
-bidegree \((d-1,h-1)\). The quotient monomials at each stage are
-independent under diagonal substitution. This gives unique integer
-coordinates and terminates after at most \(h\) such steps. The number
-of basis vectors is
-\[
- \sum_{j=0}^h(d+h-2j+1)=(d+1)(h+1).
-\]
-Use the same construction in the output space \(W_{d+r-1,h}\).
-The third tensor leg uses the dual of this output basis; applying the
-input basis matrix to that leg would give the wrong tensor map.
+We call \(j\) the \emph{filtration index} of \(\mathbf b_{j,i}\), and we
+write \(\mathbf b^{(c)}_{j,i}\) when the space must be indicated.
 
-Multiplication commutes with \(\Delta\), so it never decreases the
-filtration index. On quotient \(j\), multiplication by
-\(u^{r-1-\alpha}v^\alpha\) sends monomial index \(i\) to
-\(i+\alpha\) with coefficient one. With \(d=b-1\), the diagonal
-blocks are therefore exactly
-\[
- C(r,b+h),\ C(r,b+h-2),\ \ldots,\ C(r,b-h).
-\]
-
-\begin{lemma}[Exact multiway types]\label{lem:multiway}\label{lem:determinant}
-Let \(r\ge1\), \(h\ge1\), and \(b\ge h+1\). For nonnegative
-integers \(n_0,\ldots,n_h\) with positive sum \(n\), a specified
-restriction of \((C(r,b)B_X(h+1))^{\otimes n}\) has
-\[
- M=\frac{n!}{\prod_{j=0}^h n_j!}
-\]
-matched sectors on its second and third legs. Each sector is isomorphic
-to \(\prod_{j=0}^hC(r,b+h-2j)^{\otimes n_j}\). The first leg is
-shared; the sector-specific reordering of its tensor positions is made
-only after separation.
+\begin{lemma}[Determinant basis]\label{lem:determinant-basis}
+Let \(h\ge0\) and \(c\ge h+1\).
+\begin{enumerate}
+\item[(a)] The vectors \eqref{eq:determinant-basis} form a basis of
+\(V_c\otimes V'_{h+1}\) in which every monomial has integer coordinates.
+Those with filtration index at least \(j\) form a basis of
+\(\mathcal F^j(V_c\otimes V'_{h+1})\).
+\item[(b)] Dividing by \(\Delta^j\) and substituting \((u',v')=(u,v)\)
+gives the isomorphism \eqref{eq:filtration-quotient}, which maps the
+class of \(\mathbf b_{j,i}\) to the \(i\)-th monomial
+\(u^{c+h-2j-1-i}v^i\) of \(V_{c+h-2j}\).
+\item[(c)] For \(r\ge1\) and \(f\in V_r\), multiplication by \(f\) maps
+\(\mathcal F^j(V_c\otimes V'_{h+1})\) into
+\(\mathcal F^j(V_{r+c-1}\otimes V'_{h+1})\). On the \(j\)-th quotients
+it induces multiplication by \(f\) from \(V_{c+h-2j}\) to
+\(V_{r+c+h-2j-1}\).
+\end{enumerate}
 \end{lemma}
+
 \begin{proof}
-Use \eqref{eq:determinant-basis} in each tensor position. Retain on both
-affected legs only the words containing \(n_j\) occurrences of
-filtration index \(j\). Every supported term has input indices
-\(j_\nu\) and output indices \(j'_\nu\) with
-\(j'_\nu\ge j_\nu\) in each position \(\nu\). Both retained words
-have total index \(\sum_jjn_j\), so every inequality is an equality.
-Thus all off-diagonal blocks disappear exactly. The remaining words
-agree positionwise; their number is the displayed multinomial
-coefficient. Their diagonal blocks give the claimed factors.
+\emph{Step 1: part (a).} We rewrite monomials with the relation
+\(uv'=vu'+\Delta\) until they become lifts. Let \(\psi\) be a monomial in
+\(V_c\otimes V'_{h+1}\) with total exponent \(i\) of \(v\) and \(v'\). If
+\(uv'\) divides \(\psi\), write \(\psi=\psi_1uv'=\psi_1vu'+\Delta\psi_1\)
+with \(\psi_1\in V_{c-1}\otimes V'_h\); the monomial \(\psi_1vu'\) has the
+same total exponent \(i\) and smaller exponents of \(u\) and \(v'\).
+Repeating this, we reach a monomial not divisible by \(uv'\), namely
+\(u^{c-1-i}v^iu'^h\) or \(v^{c-1}u'^{c+h-1-i}v'^{i-c+1}\), which is the
+lift \(L_{c,h}(i)\). Hence \(\psi=L_{c,h}(i)+\Delta\rho\), where \(\rho\) is
+an integer combination of monomials of \(V_{c-1}\otimes V'_h\); when
+\(h=0\), every monomial is already a lift and \(\rho=0\). Since
+\(c-1\ge h\), the monomials of \(\rho\) can be treated in the same way, and
+after at most \(h\) rounds every monomial of \(V_c\otimes V'_{h+1}\) is an
+integer combination of the vectors \(\mathbf b_{j,i}\). Their number is
+\(\sum_{j=0}^h(c+h-2j)=c(h+1)=\dim(V_c\otimes V'_{h+1})\), so they form a
+basis in which every monomial has integer coordinates. Applying this to
+\(V_{c-j}\otimes V'_{h+1-j}\) and multiplying by \(\Delta^j\), which is
+injective, shows that the \(\mathbf b_{j',i}\) with \(j'\ge j\) form a
+basis of \(\mathcal F^j\).
+
+\emph{Step 2: part (b).} The map \(\mathcal F^j\to V_{c+h-2j}\) that sends
+\(\Delta^j\rho\) to \(\rho(u,v,u,v)\) is well defined, because
+\(\Delta^j\rho\) determines \(\rho\). It sends \(\mathbf b_{j,i}\) to
+the \(i\)-th monomial, and \(\mathbf b_{j',i}\) with \(j'>j\) to zero,
+because \(\Delta\) vanishes when \((u',v')=(u,v)\). By~(a), it is
+surjective with kernel \(\mathcal F^{j+1}\).
+
+\emph{Step 3: part (c).} For \(\rho\in V_{c-j}\otimes V'_{h+1-j}\) we have
+\(f\Delta^j\rho=\Delta^j(f\rho)\) with
+\(f\rho\in V_{r+c-j-1}\otimes V'_{h+1-j}\), so multiplication by \(f\)
+preserves the filtration. Since
+\((f\rho)(u,v,u,v)=f\cdot\rho(u,v,u,v)\), the induced map on quotients is
+multiplication by \(f\).
 \end{proof}
 
-For \(h=1\), the two quotient blocks are \(C(r,b+1)\) and
-\(C(r,b-1)\), the neighboring-length relation. For larger \(h\),
-the auxiliary dimension is \(h+1\), whereas \(h\) repeated binary
-steps consume dimension \(2^h\). This changes the finite tensor cost.
-It does not strengthen scalar concavity: pairing lengths equally far
-from \(b\) already gives
-\((h+1)P(r,b)\ge\sum_{j=0}^hP(r,b+h-2j)\).
-The exact type restriction itself has no interpolation degree.
+\paragraph{The tensor in the determinant bases.}
+Let \(\Pi_c\) be the matrix whose columns are the vectors
+\(\mathbf b^{(c)}_{j,i}\) in monomial coordinates; by
+Lemma~\ref{lem:determinant-basis}(a), \(\Pi_c\) and \(\Pi_c^{-1}\) have
+integer entries. We keep the monomial basis \(u^{r-1-\alpha}v^\alpha\) of
+the first leg \(V_r\), with variables \(x_\alpha\), and change the bases of
+the other two legs. On the second leg, the input space
+\(V_b\otimes V'_{h+1}\), using the basis \(\mathbf b^{(b)}_{j,i}\) means
+substituting \(y=\Pi_by'\) for the vector \(y\) of second-leg variables.
+The third leg is the dual of the output space \(V_{r+b-1}\otimes V'_{h+1}\),
+since its variables read off the coordinates of an output, so changing the
+output basis to \(\mathbf b^{(r+b-1)}_{j,i}\) changes the third-leg
+variables contragrediently, by \(z=\Pi_{r+b-1}^{-\top}z'\). After these
+substitutions, the coefficient of \(x_\alpha y'_{(j,i)}z'_{(j',i')}\) is
+the coordinate along \(\mathbf b^{(r+b-1)}_{j',i'}\) of the product
+\(u^{r-1-\alpha}v^\alpha\,\mathbf b^{(b)}_{j,i}\). By
+Lemma~\ref{lem:determinant-basis}, this coefficient is zero when
+\(j'<j\), and for \(j'=j\) it is one if \(i'=i+\alpha\) and zero otherwise.
+Thus multiplication never decreases the filtration index, and the
+diagonal blocks of the tensor are exactly \(C(r,b+h)\), \(C(r,b+h-2)\),
+\ldots, \(C(r,b-h)\).
+
+\begin{example}\label{ex:determinant-basis}
+Take \(r=2\), \(b=3\) and \(h=1\), so that \(C(2,3)B_X(2)\) is
+multiplication by \(f\in V_2\) from \(V_3\otimes V'_2\) to
+\(V_4\otimes V'_2\). The determinant bases of these two spaces are as
+follows, with \(i=0,1,2,\ldots\) from left to right in each row:
+\[
+\begin{array}{c|l|l}
+ &\mathbf b^{(3)}_{j,i}\in V_3\otimes V'_2
+ &\mathbf b^{(4)}_{j,i}\in V_4\otimes V'_2\\ \hline
+ j=0&u^2u',\ uvu',\ v^2u',\ v^2v'
+    &u^3u',\ u^2vu',\ uv^2u',\ v^3u',\ v^3v'\\
+ j=1&u\Delta,\ v\Delta&u^2\Delta,\ uv\Delta,\ v^2\Delta
+\end{array}.
+\]
+The diagonal blocks are \(C(2,4)\) for filtration index \(0\) and
+\(C(2,2)\) for index \(1\). Most products of a basis vector with \(u\)
+or \(v\) are again basis vectors; for instance
+\(v\,\mathbf b^{(3)}_{0,3}=v^3v'=\mathbf b^{(4)}_{0,4}\) and
+\(u\,\mathbf b^{(3)}_{1,0}=u^2\Delta=\mathbf b^{(4)}_{1,0}\). The only
+exception is
+\(u\cdot v^2v'=v^3u'+v^2\Delta
+=\mathbf b^{(4)}_{0,3}+\mathbf b^{(4)}_{1,2}\).
+The first term is the diagonal entry \(x_0y'_{(0,3)}z'_{(0,3)}\), since
+\(u\) is the monomial with \(\alpha=0\) and \(i'=i+\alpha=3\). The second
+gives the single off-diagonal coefficient, at
+\(x_0y'_{(0,3)}z'_{(1,2)}\). In a tensor power, a term that uses this
+coefficient in some position has a larger total filtration index on the
+third leg than on the second, so the type restriction of
+Lemma~\ref{lem:multiway} removes it.
+\end{example}
+
+\paragraph{Words, types and sectors.}
+In the \(n\)-th tensor power we use on the second leg the product basis
+vectors \(\mathbf b_{j_1,i_1}\otimes\cdots\otimes\mathbf b_{j_n,i_n}\), and
+on the third leg the coordinates dual to the corresponding product basis
+of the output. The \emph{word} of such a basis vector, and of its
+coordinate, is the sequence of filtration indices
+\(\mathbf j=(j_1,\ldots,j_n)\in\{0,\ldots,h\}^n\). The \emph{type} of a
+word is its count vector \((n_0,\ldots,n_h)\), where \(n_j\) is the number
+of positions \(\theta\) with \(j_\theta=j\). A type restriction keeps, on the
+second and third legs, only the coordinates whose words have a prescribed
+type. If every surviving term has the same word on both legs, the
+surviving terms with word \(\mathbf j\) form the \emph{sector} of
+\(\mathbf j\), a tensor
+\(T_{\mathbf j}\in X\otimes Y_{\mathbf j}\otimes Z_{\mathbf j}\), where
+\(Y_{\mathbf j}\) and \(Z_{\mathbf j}\) are spanned by the coordinates
+with word \(\mathbf j\) and \(X\) is the whole first leg; we use the word,
+its coordinates and the tensor \(T_{\mathbf j}\) interchangeably. The
+sectors thus share the first leg.
+
+\begin{lemma}[Type restriction for a split]\label{lem:multiway}\label{lem:determinant}
+Let \(r\ge1\), \(h\ge1\) and \(b\ge h+1\), and let \(n_0,\ldots,n_h\) be
+nonnegative integers with positive sum \(n\). In the determinant bases on
+the second and third legs, keeping only the coordinates whose words have
+type \((n_0,\ldots,n_h)\) is a restriction of
+\((C(r,b)B_X(h+1))^{\otimes n}\) to a tensor with
+\(M=n!/\prod_{j=0}^hn_j!\) sectors sharing the first leg
+\(X=V_r^{\otimes n}\), one for each word of this type. After its tensor
+positions are reordered according to its word, each sector is
+\(\prod_{j=0}^hC(r,b+h-2j)^{\otimes n_j}\). On the shared first leg, this
+word-dependent reordering is made only after separation.
+\end{lemma}
+
+\begin{proof}
+Apply the coordinate change above in every tensor position. In
+product bases the coefficient of a term is the product of the
+coefficients in the \(n\) positions, so a term with second-leg word
+\(\mathbf j\) and third-leg word \(\mathbf j'\) can be nonzero only if
+\(j'_\theta\ge j_\theta\) for every position \(\theta\). Setting to zero every
+second- and third-leg coordinate whose word does not have type
+\((n_0,\ldots,n_h)\) is a restriction. For a surviving term both words have
+this type, so
+\(\sum_\theta j'_\theta=\sum_jjn_j=\sum_\theta j_\theta\), and with the
+positionwise inequalities this forces \(j'_\theta=j_\theta\) for every
+\(\theta\). Hence the restricted tensor is the sum of the sectors
+\(T_{\mathbf j}\) over the \(M\) words of the given type. In
+\(T_{\mathbf j}\) position \(\theta\) uses the diagonal block of index
+\(j_\theta\), so
+\(T_{\mathbf j}=\bigotimes_{\theta=1}^nC(r,b+h-2j_\theta)\), with the factors
+in the order of the positions. Reordering the positions so that their
+indices \(j_\theta\) increase gives the stated product.
+\end{proof}
+
+The restriction in Lemma~\ref{lem:multiway} involves no degeneration
+parameter, so it adds nothing to the interpolation degree. For \(h=1\),
+the same filtration and the same two diagonal blocks \(C(r,b+1)\) and
+\(C(r,b-1)\) appear in the proof of \citet[Lemma~4.1]{OAI26}, which
+removes the off-diagonal block by a degeneration that scales coordinates
+by powers of \(t\); here the type restriction removes it.
+
+\begin{remark}[Wider splits]\label{rem:multiway-scalar}
+A split of width \(h\) uses an auxiliary dot product of dimension
+\(h+1\), whereas producing the same lengths \(b+h-2j\) by \(h\) successive
+splits of width one would use dimension \(2^h\). Wider splits therefore
+lower the finite cost; the auxiliary dimension \(d_{r,x}=h_{r,x}+1\) enters
+through the occupation bounds of Section~\ref{sec:flows}. They give no new
+scalar inequality: since \(b+h-2j\) and \(b-h+2j\) lie symmetrically about
+\(b\), the concavity inequality~\eqref{eq:concavity} along the row gives
+\(P(r,b+h-2j)+P(r,b-h+2j)\le2P(r,b)\) for every profile \(P\), and summing
+over \(0\le j\le h\) gives \((h+1)P(r,b)\ge\sum_{j=0}^hP(r,b+h-2j)\).
+\end{remark}
 
 \subsection{Tripling with only the middle count fixed}
+\label{subsec:tripling}
 
-\begin{lemma}[Exact tripling types]\label{lem:tripling}
-Let \(r\ge2\), \(n\ge1\), and \(0\le m\le n\). A coordinate
-restriction of \(C(r,4r-1)^{\otimes n}\) has
+The coordinates of \(C(r,4r-1)\) fall into three blocks, two copies of
+\(C(r,r)\) and one of \(C(r,r)^{(23)}\). As in Section~\ref{subsec:splits},
+a restriction of a tensor power removes the terms that join the middle
+block to an outer one; it suffices to fix the number of middle labels in a
+word, which leaves at least \(3^n/(n+1)\) sectors in the \(n\)-th tensor
+power.
+
+Write the terms of \(C(r,4r-1)\) as \(x_\alpha y_\beta z_\gamma\) with
+\(0\le\alpha<r\), \(0\le\beta<4r-1\) and \(\gamma=\alpha+\beta\). Label
+each second-leg index \(\beta\) and each third-leg index \(\gamma\)
+\emph{left}, \emph{middle} or \emph{right} according to the following
+intervals, with endpoints included:
 \[
- M_{\mathrm t}(n,m)=\binom nm2^{n-m}
+\begin{array}{c|ccc}
+ &\text{left}&\text{middle}&\text{right}\\ \hline
+ \beta &[0,r-1]&[r,3r-2]&[3r-1,4r-2]\\
+ \gamma &[0,2r-2]&[2r-1,3r-2]&[3r-1,5r-3]
+\end{array}.
 \]
-matched sectors on its second and third legs. Each sector contains
-\(n-m\) factors isomorphic to \(C(r,r)\) and \(m\) factors
-isomorphic to \(C(r,r)^{(23)}\). The first leg remains shared.
-The choice \(m=\lfloor(n+1)/3\rfloor\) maximizes this count and gives
+Figure~\ref{fig:tripling} shows the case \(r=2\). A left label on the
+second leg forces a left label on the third, since \(\gamma\le2r-2\) when
+\(\beta\le r-1\). A right label on the second leg forces a right label on
+the third, since \(\gamma\ge\beta\). A middle label on the third leg
+forces a middle label on the second, since \(2r-1\le\gamma\le3r-2\) and
+\(0\le\alpha\le r-1\) give \(r\le\beta=\gamma-\alpha\le3r-2\). Hence
+every term whose two labels differ has a middle label on the second leg
+and an outer label on the third. In the \(n\)-th tensor power, the word of
+a second- or third-leg coordinate is its sequence of \(n\) labels.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[x=.64cm,y=.42cm,font=\small]
+ \node at (4,8.15) {third-leg index \(\gamma\)};
+ \foreach \g in {0,...,7}{\node at (\g+.5,7.45) {\(\g\)};}
+ \foreach \b in {0,...,6}{\node[anchor=east] at (-.1,6.5-\b) {\(\beta=\b\)};}
+ \fill[gray!20] (0,5) rectangle (3,7);
+ \fill[gray!20] (3,2) rectangle (5,5);
+ \fill[gray!20] (5,0) rectangle (8,2);
+ \draw[step=1,gray!60,thin] (0,0) grid (8,7);
+ \draw[thick] (0,5) rectangle (3,7);
+ \draw[thick] (3,2) rectangle (5,5);
+ \draw[thick] (5,0) rectangle (8,2);
+ \foreach \b in {0,...,6}{\foreach \a in {0,1}{
+  \pgfmathtruncatemacro{\g}{\b+\a}
+  \node at (\g+.5,6.5-\b) {\(x_{\a}\)};}}
+ \draw (2.1,4.1)--(2.9,4.9);
+ \draw (5.1,2.1)--(5.9,2.9);
+\end{tikzpicture}
+\caption{The terms of \(C(2,7)\) (Lemma~\ref{lem:tripling} with
+\(r=2\)): the cell \((\beta,\gamma)\) contains \(x_\alpha\) when
+\(\gamma=\alpha+\beta\). Labels: left for \(\beta\le1\), \(\gamma\le2\);
+middle for \(2\le\beta\le4\), \(3\le\gamma\le4\); right for \(\beta\ge5\),
+\(\gamma\ge5\). The shaded blocks are \(C(2,2)\), \(C(2,2)^{(23)}\) after
+reversal of the first index, and a translate of \(C(2,2)\). The two crossed
+terms have a middle second-leg label and an outer third-leg label; the
+restriction removes them.}
+\label{fig:tripling}
+\end{figure}
+
+\begin{lemma}[Type restriction for a tripling]\label{lem:tripling}
+Let \(r\ge2\), \(n\ge1\) and \(0\le m\le n\). Keeping on the second and
+third legs of \(C(r,4r-1)^{\otimes n}\) only the coordinates whose words
+have exactly \(m\) middle labels is a restriction to a tensor with
+\(M_{\mathrm t}(n,m)=\binom nm2^{n-m}\) sectors sharing the first leg, one
+for each such word. Each sector is a tensor product of \(n-m\) factors
+isomorphic to \(C(r,r)\) and \(m\) factors isomorphic to
+\(C(r,r)^{(23)}\). The choice \(m=\lfloor(n+1)/3\rfloor\) maximizes
+\(M_{\mathrm t}(n,m)\) and gives
 \begin{equation}\label{eq:tripling-mode}
  M_{\mathrm t}(n,m)\ge\frac{3^n}{n+1}.
 \end{equation}
 No divisibility condition on \(n\) is required.
 \end{lemma}
-\begin{proof}
-A supported term has \(0\le i<r\), \(0\le y<4r-1\), and
-\(z=i+y\). Partition the index sets into the following intervals,
-with endpoints included:
-\[
-\begin{array}{c|ccc}
- &\text{left}&\text{middle}&\text{right}\\ \hline
-Y &[0,r-1]&[r,3r-2]&[3r-1,4r-2]\\
-Z &[0,2r-2]&[2r-1,3r-2]&[3r-1,5r-3].
-\end{array}
-\]
-A left \(Y\)-index forces a left \(Z\)-index, and a right
-\(Y\)-index forces a right \(Z\)-index. Every mismatched term has
-a middle \(Y\)-label and an outer \(Z\)-label. Retain the words
-with exactly \(m\) middle labels on each leg, leaving their outer
-labels unrestricted. The number of middle labels cannot increase from
-input to output. Equality of their totals therefore removes every
-mismatched term. The surviving labels agree in every position, giving
-\(\binom nm\) choices of middle positions and \(2^{n-m}\) choices
-of outer labels.
 
-Each outer block is a translate of \(C(r,r)\). The middle block has
-terms
-\[
- x_{r-1-i}\,y_{r+i+j}\,z_{2r-1+j},\qquad 0\le i,j<r.
-\]
-Reversing the first index and shifting the interval coordinates identifies
-it with \(C(r,r)^{(23)}\). This identifies a tensor with permuted
-leg dimensions; it does not perform a leg exchange on just one part of
-a tensor. The word-specific first-leg reversal is deferred until
-separation.
+\begin{proof}
+In each position of a surviving term, a middle label on the third leg
+forces a middle label on the second leg. Hence the set of middle positions
+on the third leg is contained in that on the second leg; both sets have
+\(m\) elements, so they coincide. At the other \(n-m\) positions both
+labels are outer, and the second-leg label determines the third-leg label.
+Every surviving term therefore carries the same word on both legs, and the
+sectors are indexed by the words with \(m\) middle labels: there are
+\(\binom nm\) choices of the middle positions and \(2^{n-m}\) choices of
+the outer labels.
+
+A sector is the tensor product, over the \(n\) positions, of the blocks
+selected by the labels. The left block is \(C(r,r)\) itself, and the right
+block becomes \(C(r,r)\) after subtracting \(3r-1\) from \(\beta\) and
+\(\gamma\). In the middle block put \(\alpha'=r-1-\alpha\) and
+\(\gamma'=\gamma-(2r-1)\); its terms are then
+\(x_{r-1-\alpha'}\,y_{r+\alpha'+\gamma'}\,z_{2r-1+\gamma'}\) with
+\(0\le\alpha',\gamma'<r\). Reversing the first index and shifting the
+second and third indices by \(r\) and \(2r-1\) turns them into
+\(\sum_{\alpha',\gamma'}x_{\alpha'}y_{\alpha'+\gamma'}z_{\gamma'}\), which is
+\(C(r,r)^{(23)}\). These identifications are coordinate permutations
+within each leg. On the shared first leg, the reversal at the middle
+positions depends on the word, so, like the reordering of positions, it is
+applied only after separation.
 
 Finally,
-\(M_{\mathrm t}(n,m+1)/M_{\mathrm t}(n,m)=(n-m)/(2(m+1))\).
-These ratios show that \(\lfloor(n+1)/3\rfloor\) is a maximizing
-choice, with a possible tie. The \(n+1\) counts sum to \(3^n\),
-which proves \eqref{eq:tripling-mode}.
+\(M_{\mathrm t}(n,m+1)/M_{\mathrm t}(n,m)=(n-m)/(2(m+1))\), which is at
+least one exactly when \(m\le(n-2)/3\). Hence the counts do not decrease
+up to \(m=\lfloor(n+1)/3\rfloor\) and strictly decrease afterwards, so this
+\(m\) is a maximizer (tied with \(m-1\) when \(n\equiv2\pmod3\)). The
+\(n+1\) counts sum to \((1+2)^n=3^n\), which proves
+\eqref{eq:tripling-mode}.
 \end{proof}
 
-\subsection{A Fourier separator}
+The interval partition and the identification of the middle block are
+those of \citet[Lemma~4.2]{OAI26} with both of its parameters equal to
+\(r\). There the terms between blocks are removed by a degeneration that
+scales coordinates by powers of \(t\); here the type restriction removes
+them.
 
-The following form includes an auxiliary dimension and a phase slope.
-The main construction uses only \(K_0=M\), \(c=1\).
+\subsection{The separator}
+\label{subsec:separator}
 
-\begin{proposition}[Shared-leg separator]\label{prop:separator}
-Let
-\(A=\sum_{h=0}^{M-1}A_h\), with
-\(A_h\in X\otimes Y_h\otimes Z_h\), where the \(Y_h\) and \(Z_h\)
-are pairwise disjoint sectors. For positive integers \(K_0,c\), put
-\(L=K_0+c(M-1)\). There is an explicit degeneration
+The separator makes the \(M\) sectors of Lemmas~\ref{lem:multiway}
+and~\ref{lem:tripling} independent on all three legs, so that each sector
+can be reindexed on its own. The idea is to average over copies with
+Fourier phases. On the shared leg each variable receives a tentative
+sector label \(g'\), and on the other two legs the variables receive
+auxiliary indices \(e\) and \(e'\). The phases are chosen so that
+averaging over the \(2M-1\) copies keeps exactly the terms with
+\(e-e'+g'-g=0\), where \(g\) is the true sector label. Weights in the
+parameter \(t\) then multiply each such term by \(t^{(g'-g)^2}\). At
+\(t=0\) only \(g'=g\) survives, which forces \(e=e'\); the free index
+\(e=e'\) is the dot product.
+
+\begin{proposition}[Separator]\label{prop:separator}
+Let \(T=\sum_{g=0}^{M-1}T_g\) with \(T_g\in X\otimes Y_g\otimes Z_g\),
+where \(Y=\bigoplus_gY_g\) and \(Z=\bigoplus_gZ_g\). The substitutions
+in the proof give a degeneration
 \begin{equation}\label{eq:separator}
- L A\degen\bigoplus_{h=0}^{M-1}(A_h B_X(K_0)).
+ (2M-1)\,T\degen\bigoplus_{g=0}^{M-1}T_g\,B_X(M),
 \end{equation}
-Its polynomial has exponent support contained in
-\(\{cd^2:0\le d\le d_*\}\), where
-\(d_* =\min(M-1,\lfloor(K_0-1)/c\rfloor)\).
-In particular, \(K_0=M,c=1\) uses \(2M-1\) source copies and has
-degree at most \((M-1)^2\).
-Permuting all three legs gives the same statement with any chosen shared leg.
+in which each summand on the right has its own copy of \(X\). Its
+polynomial has degree at most \((M-1)^2\), and its exponents lie in
+\(\{\delta^2:0\le\delta\le M-1\}\). Permuting the three legs gives the
+same statement with any chosen shared leg.
 \end{proposition}
+
 \begin{proof}
-Choose a primitive \(L\)-th root \(\zeta\). In source copy \(\ell\),
-\(0\le\ell<L\), make the substitutions
+Choose bases and write
+\(T_g=\sum_{\alpha,\beta,\gamma}T_g[\alpha,\beta,\gamma]\,
+x_\alpha y_{g,\beta}z_{g,\gamma}\), where the \(x_\alpha\) are the
+coordinates of \(X\) and the \(y_{g,\beta}\) and \(z_{g,\gamma}\) those
+of \(Y_g\) and \(Z_g\); the ranges of \(\beta\) and \(\gamma\) may depend
+on \(g\). Put \(\zeta=\zeta_{2M-1}\), and index the source copies by
+\(\ell=0,\ldots,2M-2\). The target variables are \(X_{\alpha,g'}\),
+\(Y_{g,\beta,e}\) and \(Z_{g,\gamma,e'}\), with
+\(g',e,e'\in\{0,\ldots,M-1\}\).
+
+\emph{Step 1: Fourier averaging.} In copy \(\ell\) substitute
 \begin{align*}
- x_a^{(\ell)}&\longmapsto\sum_{g=0}^{M-1}\zeta^{\ell cg}X_{a,g},\\
- y_{h,b}^{(\ell)}&\longmapsto
-       \sum_{u=0}^{K_0-1}\zeta^{\ell(u-ch)}Y_{h,b,u},\\
- z_{h,d}^{(\ell)}&\longmapsto
-       L^{-1}\sum_{v=0}^{K_0-1}\zeta^{-\ell v}Z_{h,d,v}.
+ x_\alpha&\longmapsto\sum_{g'=0}^{M-1}\zeta^{\ell g'}X_{\alpha,g'},\qquad
+ y_{g,\beta}\longmapsto\sum_{e=0}^{M-1}\zeta^{\ell(e-g)}Y_{g,\beta,e},\\
+ z_{g,\gamma}&\longmapsto(2M-1)^{-1}\sum_{e'=0}^{M-1}\zeta^{-\ell e'}
+ Z_{g,\gamma,e'}.
 \end{align*}
-Summing the copies retains exactly
-\(u-v+c(g-h)\equiv0\pmod L\). Its absolute value is at most \(L-1\),
-so the congruence is the equality \(u-v+c(g-h)=0\).
-Multiply the new variables by the respective powers of \(t\)
+Each phase uses only indices visible on its own leg, since the second-
+and third-leg coordinates carry their sector label \(g\). All copies map
+into the same target variables, so the substitutions are linear on each
+leg of \((2M-1)T\). Summing over the copies, the term
+\(x_\alpha y_{g,\beta}z_{g,\gamma}\) becomes
 \[
- t^{cg^2},\qquad t^{2hu-ch^2},\qquad t^{-2hv}.
+ \sum_{g',e,e'}\biggl(\frac1{2M-1}\sum_{\ell=0}^{2M-2}
+ \zeta^{\ell(e-e'+g'-g)}\biggr)
+ X_{\alpha,g'}Y_{g,\beta,e}Z_{g,\gamma,e'}.
 \]
-Every surviving term has total exponent
-\(cg^2+2h(u-v)-ch^2=c(g-h)^2\).
-It is zero exactly when \(g=h\) and \(u=v\). These terms are precisely
-the target in \eqref{eq:separator}, whose first variables \(X_{a,h}\)
-are now independent for different \(h\).
-Moreover \(c|g-h|=|u-v|\le K_0-1\), proving the exponent support.
+The bracket is one if \(e-e'+g'-g\equiv0\pmod{2M-1}\) and zero otherwise.
+Since \(|e-e'+g'-g|\le2M-2\), the congruence is the equality
+\begin{equation}\label{eq:separator-fourier}
+ e-e'+g'-g=0.
+\end{equation}
+
+\emph{Step 2: weights.} Multiply \(X_{\alpha,g'}\) by \(t^{g'^2}\),
+\(Y_{g,\beta,e}\) by \(t^{2ge-g^2}\), and \(Z_{g,\gamma,e'}\) by
+\(t^{-2ge'}\). On a term satisfying~\eqref{eq:separator-fourier} we have
+\(e-e'=g-g'\), so the total exponent is
+\(g'^2+2g(e-e')-g^2=g'^2+2g(g-g')-g^2=(g'-g)^2\).
+The weights complete the square: the cross term \(-2gg'\) mixes the
+shared-leg label \(g'\) with the sector label \(g\), and no single leg
+sees both, but on~\eqref{eq:separator-fourier} it equals
+\(2g(e-e')-2g^2\), which splits between the second and third legs.
+Individual weights may be negative, but every surviving exponent is
+\((g'-g)^2\), so the transformed tensor is a polynomial in \(t\) of degree
+at most \((M-1)^2\) with exponents in \(\{\delta^2:0\le\delta\le M-1\}\).
+
+\emph{Step 3: the constant term.} The terms of exponent zero have
+\(g'=g\), and then~\eqref{eq:separator-fourier} gives \(e=e'\). The
+constant term is thus
+\[
+ \sum_{g=0}^{M-1}\ \sum_{\alpha,\beta,\gamma}T_g[\alpha,\beta,\gamma]
+ \sum_{e=0}^{M-1}X_{\alpha,g}Y_{g,\beta,e}Z_{g,\gamma,e}.
+\]
+For each \(g\) this is \(T_gB_X(M)\), with first-leg variables
+\(X_{\alpha,g}\), second-leg variables \(Y_{g,\beta,e}\) and third-leg
+variables \(Z_{g,\gamma,e}\). Different \(g\) use disjoint variables on
+all three legs, so the constant term is the direct
+sum~\eqref{eq:separator}.
 \end{proof}
 
-\subsection{Threefold balancing}
+The output of the separator has two multiplicities: the label \(g\)
+counts \(M\) direct summands, for which the source pays \(2M-1\) copies of
+\(T\), and the index \(e=e'\) is the dot product \(B_X(M)\) inside each
+summand, whose first leg is one-dimensional. This dot product carries the
+gain of a relation: in the three orientations of
+Section~\ref{subsec:orientations} it becomes the auxiliary tensor
+\(\MM_M\), whose side \(M\) is the number of sectors, namely the
+multinomial coefficient \(n!/\prod_jn_j!\) for a split and at least
+\(3^n/(n+1)\) for a tripling with the middle count of
+Lemma~\ref{lem:tripling}. For a split, this gain is set against the
+auxiliary \(\MM_{(h+1)^n}\) that the split consumes. The copies cost only
+a constant: the three orientations turn \((2M-1)^3\) source copies into
+\(M^3\) output summands (Corollary~\ref{cor:oriented-relations}), a ratio
+below \(8\) per relation that does not grow with \(n\).
 
-Products over the three cyclic leg permutations are an established
-balancing operation; see \citet[Section~3.3]{CVZ21}. We use the two
-parity classes of permutations to make this operation compatible with
-the row boundaries of the convolution construction.
+Proposition~\ref{prop:separator} is a variant of
+\citet[Proposition~3.1]{OAI26}, which uses \(5M\) source copies; with the
+phases above, the quantity in the Fourier condition has absolute value at
+most \(2M-2\), so \(2M-1\) copies suffice.
+Proposition~\ref{prop:separator-general} in Appendix~\ref{subsec:sparse}
+allows a dot product of another dimension and a general phase slope; the
+construction uses only Proposition~\ref{prop:separator}.
 
-Let \(\mathcal A_+\) and \(\mathcal A_-\) be the even and odd
-permutations of three legs, as in the definition of \(S^\sigma_{r,b}\).
-Apply a relation and its separator in each of the three orientations
-\(\pi\in\mathcal A_\sigma\). The shared leg is the image of the
-native first leg under \(\pi\); it occupies each global leg exactly
-once. Consequently the source auxiliary of a width-\(h\) relation
-becomes
-\[
- B_X(h+1)B_Y(h+1)B_Z(h+1)\cong\MM_{h+1},
-\]
-and its separated convolution factors combine into the required
-\(S^\sigma_{r,b+h-2j}\). The three separator auxiliaries likewise
-combine into \(\MM_M\).
+\subsection{Three orientations}
+\label{subsec:orientations}
 
-For tripling, put \(C=C(r,r)\) and \(\tau=(23)\). After separation,
-every retained word is put into the same order: the \(n-m\) outer
-positions, followed by the \(m\) middle positions. Thus independent
-sector choices in the three orientations all have the same canonical
-sector tensor \(C^{\otimes(n-m)}(C^\tau)^{\otimes m}\). Regrouping
-these factors gives
+We apply each relation in the three orientations
+\(\pi\in\mathcal A_\sigma\) of one parity class and tensor the results, as
+in the cyclic symmetrization of \citet[Section~3.2]{CVZ21}, with the class
+alternating between rows. In orientation \(\pi\) we apply
+Lemma~\ref{lem:multiway} or~\ref{lem:tripling} to the permuted tensor and
+the separator with shared leg \(\pi(1)\). We call the legs of a tensor
+product of oriented factors its \emph{global legs}; leg \(l\) of a factor
+\(T^\pi\) lies in global leg \(\pi(l)\). The orientations serve two
+purposes. First, they put the single-variable leg of a dot product
+\(B_X(d)\) on each global leg once, so that, up to the order of the
+factors within each global leg, the three oriented copies combine into
+\(\MM_d\) by~\eqref{eq:coset-dot-products}; this applies both to the
+auxiliary dot product of a split and to the dot product produced by the
+separator. Second, the symmetrized tensors satisfy
+\(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\) by~\eqref{eq:cyclic-identities},
+which links adjacent rows (see the end of this section).
+
+After separation, each sector receives its own coordinate permutation,
+which identifies it with a fixed \emph{canonical sector tensor}
+\(\mathcal V\), the same for all sectors of the relation. For a split,
+the positions are sorted by increasing filtration index, and
+\(\mathcal V=\prod_jC(r,b+h-2j)^{\otimes n_j}\). For a tripling, the
+\(n-m\) outer positions come first and the \(m\) middle positions follow,
+each group in its original order, and
+\(\mathcal V=C(r,r)^{\otimes(n-m)}(C(r,r)^{(23)})^{\otimes m}\); since the
+left and right blocks have the same dimensions, \(\mathcal V\) does not
+depend on the outer labels. Independent choices of sectors in the three
+orientations therefore all give the same tensor. For a tripling, the
+convolution factors of the three oriented copies of \(\mathcal V\)
+regroup as
 \begin{equation}\label{eq:cyclic-tripling-balance}
  \bigotimes_{\pi\in\mathcal A_\sigma}
- \left(C^{\otimes(n-m)}(C^\tau)^{\otimes m}\right)^\pi
- \cong(S^\sigma_{r,r})^{\otimes(n-m)}
-       (S^{-\sigma}_{r,r})^{\otimes m}
+ \Bigl(C(r,r)^{\otimes(n-m)}\bigl(C(r,r)^{(23)}\bigr)^{\otimes m}\Bigr)^\pi
+ \cong(S^\sigma_{r,r})^{\otimes(n-m)}(S^{-\sigma}_{r,r})^{\otimes m}
  \cong(S^\sigma_{r,r})^{\otimes n}.
 \end{equation}
-The first isomorphism reorders tensor factors within each global leg;
-the second uses the diagonal sign isomorphism
-\(S^+_{r,r}\cong S^-_{r,r}\). All sector-specific reversals have
-already been made on independent first-leg blocks. No individual factor
-undergoes an illicit exchange of two global legs.
+The first isomorphism reorders tensor factors within each global leg and
+uses \((C(r,r)^{(23)})^\pi=C(r,r)^{\pi(23)}\), where \(\pi(23)\) runs
+over \(\mathcal A_{-\sigma}\) as \(\pi\) runs over \(\mathcal A_\sigma\).
+The second applies the diagonal isomorphism
+\(S^+_{r,r}\cong S^-_{r,r}\) of~\eqref{eq:cyclic-identities} to the last
+\(m\) factors. Both are coordinate identifications within each global
+leg.
 
-Adjacent rows of the profile construction will use opposite signs.
-This makes their boundary factors agree under the actual isomorphism
-\(S^\sigma_{r,b}\cong S^{-\sigma}_{b,r}\); using one sign for all
-rows would not give that identification. The signed resource accounting
-is carried out in the construction below. Appendix~\ref{sec:composed-maps}
-specifies the complete relation maps, including their positive-degree
-terms. Further separator refinements appear in
-Appendix~\ref{subsec:sparse}; they are not needed for the main theorem.
+\begin{corollary}[Oriented relations]\label{cor:oriented-relations}
+Let \(\sigma\in\{+,-\}\).
+\begin{enumerate}
+\item[(a)] \emph{Split.} Let \(r\ge1\), \(h\ge1\) and \(b\ge h+1\), let
+\((n_0,\ldots,n_h)\) be a type with positive sum \(n\), and put
+\(M=n!/\prod_jn_j!\). Then
+\begin{equation}\label{eq:split-relation}
+ (2M-1)^3\,(S^\sigma_{r,b})^{\otimes n}\,\MM_{(h+1)^n}
+ \degen M^3\Bigl(\prod_{j=0}^h(S^\sigma_{r,b+h-2j})^{\otimes n_j}\Bigr)
+ \MM_M .
+\end{equation}
+\item[(b)] \emph{Tripling.} Let \(r\ge2\), \(n\ge1\) and \(0\le m\le n\),
+and put \(M=M_{\mathrm t}(n,m)\). Then
+\begin{equation}\label{eq:tripling-relation}
+ (2M-1)^3\,(S^\sigma_{r,4r-1})^{\otimes n}
+ \degen M^3\,(S^\sigma_{r,r})^{\otimes n}\,\MM_M .
+\end{equation}
+\end{enumerate}
+Both degenerations are composed of the maps of this section, and their
+polynomials have degree at most \(3(M-1)^2\).
+\end{corollary}
+
+\begin{proof}
+Let \(\mathcal U\) be \((C(r,b)B_X(h+1))^{\otimes n}\) or
+\(C(r,4r-1)^{\otimes n}\), and let \(\mathcal V\) be the canonical sector
+tensor. In each orientation \(\pi\in\mathcal A_\sigma\), the type
+restriction of Lemma~\ref{lem:multiway} or~\ref{lem:tripling}, the
+separator of Proposition~\ref{prop:separator} with shared leg \(\pi(1)\),
+and the sector-specific coordinate permutations give
+\((2M-1)\,\mathcal U^\pi\degen M\,(\mathcal V B_X(M))^\pi\). The coordinate
+permutations act after separation and do not involve \(t\). On the first
+leg they reindex the copy with tentative label \(g'\) according to the
+word of sector \(g'\), so they are defined on all target variables of the
+separator, including those of its terms of positive degree
+(see~\eqref{eq:reindexing} in Appendix~\ref{sec:composed-maps}), as
+Lemma~\ref{lem:composition} requires. Tensoring the three orientations
+with one common parameter \(t\) gives, by Lemma~\ref{lem:composition}, a
+degeneration
+\[
+ (2M-1)^3\bigotimes_{\pi\in\mathcal A_\sigma}\mathcal U^\pi
+ \degen M^3\bigotimes_{\pi\in\mathcal A_\sigma}
+ \bigl(\mathcal V B_X(M)\bigr)^\pi
+\]
+of degree at most \(3(M-1)^2\). It remains to identify both sides by
+coordinate permutations within each global leg; such fixed maps change
+neither the degree nor the constant term. For a split,
+\(B_X(h+1)^{\otimes n}\cong B_X((h+1)^n)\), so the source is
+\((S^\sigma_{r,b})^{\otimes n}\MM_{(h+1)^n}\) and each summand of the
+target is \(\prod_j(S^\sigma_{r,b+h-2j})^{\otimes n_j}\MM_M\). For a
+tripling, the source is \((S^\sigma_{r,4r-1})^{\otimes n}\), and
+\eqref{eq:cyclic-tripling-balance} identifies each summand of the target
+with \((S^\sigma_{r,r})^{\otimes n}\MM_M\).
+\end{proof}
+
+\paragraph{Alternating signs between rows.}
+Row \(r\) of the construction uses the class \(\mathcal A_{\sigma_r}\), where
+\(\sigma_r=(-1)^{a-r}\) is the row sign of Section~\ref{sec:flows}, so
+adjacent rows use opposite classes. The reason is the boundary between
+rows: the walk of row \(r\) ends at column \(r-1\), the factor
+\(S^{\sigma_r}_{r,r-1}\), and the walk of row \(r-1\) starts at column
+\(r\), the factor \(S^{\sigma_{r-1}}_{r-1,r}\).
+By~\eqref{eq:cyclic-identities} the first is isomorphic to
+\(S^{-\sigma_r}_{r-1,r}\), which is the second exactly when
+\(\sigma_{r-1}=-\sigma_r\). With one sign \(\sigma\) for all rows, the
+boundary factors would be \(S^\sigma_{r,r-1}\) and \(S^\sigma_{r-1,r}\);
+for \(r\ge3\) the identities~\eqref{eq:cyclic-identities}, the only ones the
+ledger of Proposition~\ref{prop:rounded-ledger} uses, do not relate them,
+and the ledger would not close. Alternation makes an isomorphism between
+\(S^+_{r,b}\) and \(S^-_{r,b}\) for \(r\ne b\) unnecessary, and the
+construction uses none. Only the alternation matters: the choice \(\sigma_a=+\) is only a normalization, since
+\(S^+_{a,a}\cong S^-_{a,a}\). Applying every relation in all six
+orientations, with the products \(Q_{r,b}=S^+_{r,b}S^-_{r,b}\cong Q_{b,r}\),
+would need no signs but squares all dimensions;
+Section~\ref{subsec:exact-normalization} compares this sixfold
+construction with the threefold one used here.
