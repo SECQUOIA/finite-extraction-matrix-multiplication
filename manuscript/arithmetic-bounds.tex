@@ -1,0 +1,239 @@
+\subsection{Recursion with a fixed rational seed}
+\label{subsec:seed-recursion}
+
+Here we fix one rational seed, for instance that of
+Corollary~\ref{cor:seed} or of Theorem~\ref{thm:bounded-seed}, and bound
+two other costs of block recursion with it: the bit operations needed
+for integer inputs (Proposition~\ref{prop:integer-bit-cost}) and a
+precision that suffices for a prescribed forward error
+(Proposition~\ref{prop:seed-error}). Let the seed have side
+\(d_0\ge2\) and \(R\) products, and put \(p_{\rm seed}=\log_{d_0}R\);
+this is not the pooled exponent \(p\). Write the seed as
+\[
+ \operatorname{vec}(XY)
+ =\mathsf W\bigl((\mathsf U\operatorname{vec}X)\odot
+   (\mathsf V\operatorname{vec}Y)\bigr),
+ \qquad \mathsf U,\mathsf V\in\Q^{R\times d_0^2},\quad
+ \mathsf W\in\Q^{d_0^2\times R},
+\]
+for \(d_0\times d_0\) matrices \(X\) and \(Y\), where \(\odot\) is the
+entrywise product. \emph{Block recursion} multiplies \(n\times n\)
+matrices by padding them with zeros to side \(d_0^\ell\), where
+\(\ell=\lceil\log_{d_0}n\rceil\), applying this identity to the
+\(d_0\times d_0\) arrays of blocks, computing the \(R\) block products
+recursively, and cropping the result to its leading \(n\times n\) block.
+Constants in \(O_{\rm seed}\) depend only on the seed.
+
+\begin{lemma}[Block recursion with a rational seed]\label{lem:seed-recursion}
+We have \(R>d_0^2\), and block recursion multiplies \(n\times n\)
+matrices with at most \(c_{\rm seed}n^{p_{\rm seed}}\) arithmetic
+operations, where \(c_{\rm seed}=(1+6Rd_0^2)R\).
+\end{lemma}
+
+\begin{proof}
+The rows of \(\mathsf U\) are the left forms of the seed, linear forms
+in the entries of \(X\). The flattening of \(\MM_{d_0}\) along leg~\(1\)
+has rank \(d_0^2\) (Step~1 of the proof of Lemma~\ref{lem:batch}), and
+its image lies in the span of the left forms, so \(R\ge d_0^2\). If
+equality held, the left forms would be a basis of the dual space, so
+some nonzero \(X\) would make \(\mathsf U\operatorname{vec}X\) the first
+unit vector. Then \(\operatorname{vec}(XY)\) would be a multiple of the
+first column of \(\mathsf W\) for every \(Y\), so the map \(Y\mapsto XY\)
+would have rank at most one, whereas its rank is
+\(d_0\operatorname{rank}(X)\ge d_0\ge2\). Hence \(R>d_0^2\).
+
+At a node of side \(N\), a multiple of \(d_0\), forming the \(R\) left
+and the \(R\) right block combinations costs at most
+\(2R(2d_0^2-1)(N/d_0)^2\) operations, and forming the \(d_0^2\) output
+blocks costs at most \(d_0^2(2R-1)(N/d_0)^2\); together this is less
+than \(6RN^2\). Let \(\theta_{\ell'}\) be the cost at side
+\(d_0^{\ell'}\). Then \(\theta_0=1\) and
+\(\theta_{\ell'}\le R\theta_{\ell'-1}+6Rd_0^{2\ell'}\), so, using
+\(R-d_0^2\ge1\),
+\[
+ \theta_\ell\le R^\ell+6Rd_0^{2\ell}\sum_{\ell'=0}^{\ell-1}
+ \Bigl(\frac R{d_0^2}\Bigr)^{\ell'}
+ \le(1+6Rd_0^2)R^\ell.
+\]
+Since \(d_0^\ell<d_0n\), we have
+\(R^\ell=(d_0^\ell)^{p_{\rm seed}}<(d_0n)^{p_{\rm seed}}
+=Rn^{p_{\rm seed}}\).
+\end{proof}
+
+For the integer bound, choose a positive integer \(c_{\rm den}\) that
+clears all denominators of \(\mathsf U\), \(\mathsf V\) and \(\mathsf W\),
+and put
+\begin{gather*}
+ c_{\rm coef}=\max\{1,\max|c_{\rm den}\mathsf U|,\max|c_{\rm den}\mathsf V|,
+   \max|c_{\rm den}\mathsf W|\},\\
+ c_{\rm in}=\lceil\log_2(d_0^2c_{\rm coef})\rceil,\qquad
+ c_{\rm out}=\lceil\log_2(Rc_{\rm coef})\rceil,
+\end{gather*}
+where \(\max|\cdot|\) is the largest absolute entry.
+
+\begin{proposition}[Integer bit complexity]\label{prop:integer-bit-cost}
+Let \(n\ge2\), \(\ell=\lceil\log_{d_0}n\rceil\) and \(b_{\rm in}\ge1\). Block
+recursion with the integer matrices \(c_{\rm den}\mathsf U\),
+\(c_{\rm den}\mathsf V\), \(c_{\rm den}\mathsf W\), followed by one exact
+division of every entry by \(c_{\rm den}^{3\ell}\), multiplies two
+\(n\times n\) integer matrices whose entries
+have absolute value below \(2^{b_{\rm in}}\) exactly, with intermediate
+integers of bit length at most
+\[
+ 2b_{\rm in}+\ell(2c_{\rm in}+c_{\rm out})+2,
+\]
+including a sign bit, and with
+\(O_{\rm seed}\bigl(n^{p_{\rm seed}}(b_{\rm in}+\log n)^2\bigr)\) bit
+operations, using schoolbook integer arithmetic. The cost of
+constructing the seed is not included.
+\end{proposition}
+
+\begin{proof}
+Use the integer matrices \(c_{\rm den}\mathsf U\), \(c_{\rm den}\mathsf V\),
+\(c_{\rm den}\mathsf W\) at every level, without intermediate divisions.
+One level then computes \(c_{\rm den}^3\) times the product, so by
+induction on the depth the root computes \(c_{\rm den}^{3\ell}XY\);
+divide every entry of the result by \(c_{\rm den}^{3\ell}\) at the end.
+These divisions are exact.
+
+The absolute row sums of \(c_{\rm den}\mathsf U\) and
+\(c_{\rm den}\mathsf V\) are at most \(d_0^2c_{\rm coef}\), so each
+input-transform level multiplies the largest absolute entry by at most
+\(d_0^2c_{\rm coef}\), and a leaf product has absolute value below
+\(2^{2b_{\rm in}}(d_0^2c_{\rm coef})^{2\ell}\). Each output-transform level
+multiplies the bound by at most \(Rc_{\rm coef}\). Hence every
+intermediate value, including partial sums and products by
+coefficients, has absolute value below
+\(2^{2b_{\rm in}}(d_0^2c_{\rm coef})^{2\ell}(Rc_{\rm coef})^\ell
+\le2^{2b_{\rm in}+\ell(2c_{\rm in}+c_{\rm out})}\), so the stated bit length
+suffices, with one bit to spare. Evaluating the one-level integer
+identity on all-one inputs gives
+\(c_{\rm den}^3d_0\le Rd_0^4c_{\rm coef}^3\), so the divisor
+\(c_{\rm den}^{3\ell}\) also has this bit length. By
+Lemma~\ref{lem:seed-recursion}, the recursion uses
+\(O_{\rm seed}(n^{p_{\rm seed}})\) integer operations, and forming the
+divisor and dividing take \(O(n^2+\ell)\) more. Since
+\(\ell=O(\log n)\), each operation costs
+\(O_{\rm seed}((b_{\rm in}+\log n)^2)\) bit operations.
+\end{proof}
+
+For entries with a bounded number of bits, the cost is
+\(O_{\rm seed}(n^{p_{\rm seed}}\log^2n)\). For the seed of
+Theorem~\ref{thm:bounded-seed} or Corollary~\ref{cor:seed} for a
+rational \(\eps>0\), we have \(p_{\rm seed}<9/4+\eps\), so such matrices
+are multiplied with \(O_\eps(n^{9/4+\eps})\) bit operations. Rational
+inputs can be handled by first clearing one common denominator for each
+matrix, with \(b_{\rm in}\) bounding the resulting integer entries; if the
+\(n^2\) entries have unrelated \(b_{\rm in}\)-bit denominators, this common
+denominator may need up to \(n^2b_{\rm in}\) bits.
+
+For the precision bound, write \(\|Z\|_{\max}\) for the largest absolute
+entry of a matrix \(Z\) and \(\|Z\|_\infty\) for its largest absolute
+row sum, and put
+\(\Upsilon=\|\mathsf U\|_\infty\|\mathsf V\|_\infty\|\mathsf W\|_\infty\).
+
+\begin{proposition}[A sufficient precision]\label{prop:seed-error}
+Let \(X\) and \(Y\) be \(n\times n\) matrices with \(n\ge2\), and put
+\[
+ \ell=\lceil\log_{d_0}n\rceil,\qquad
+ \chi=\ell(2d_0^2+R+3)+1,\qquad
+ \gamma_\chi=\frac{\chi u}{1-\chi u}.
+\]
+Compute \(XY\) by block recursion, evaluating every entry
+\(\sum_kc_kw_k\) of each linear combination by recursive summation
+\((\cdots((c_1w_1+c_2w_2)+c_3w_3)+\cdots)\) in a fixed order of \(k\),
+and the leaves as scalar products. Suppose that each arithmetic operation and
+each stored nonzero coefficient has relative error at most \(u\), that
+zeros are stored exactly, and that no operation underflows or
+overflows. If \(\chi u<1\), the computed product \(\widehat{XY}\)
+satisfies
+\begin{equation}\label{eq:seed-forward-error}
+ \|\widehat{XY}-XY\|_{\max}
+ \le\gamma_\chi\Upsilon^\ell\|X\|_{\max}\|Y\|_{\max}.
+\end{equation}
+Here \(X\) and \(Y\) are the stored inputs; errors in storing the
+original inputs are not counted.
+\end{proposition}
+
+\begin{proof}
+The idea is to expand each computed entry into bilinear monomials and to
+count the rounding factors along one path of the recursion. Expand a
+computed output entry into signed bilinear monomials in the entries of
+the padded inputs, each carrying the factors \(1+\delta\) of the
+operations that produced it. At each input-transform level, a monomial
+picks up one factor from storing a coefficient, one from multiplying by
+it, and at most \(d_0^2-1\) from additions, so its two input paths
+contribute at most \(2\ell(d_0^2+1)\) factors. Each output-transform
+level contributes at most \(R+1\) factors, and the leaf product one. The
+total is at most \(\chi\), also when a stored coefficient is reused, and
+a product of at most \(\chi\) factors \(1+\delta\) with \(|\delta|\le u\)
+differs from one by at most \(\gamma_\chi\). Applying the three row-sum
+bounds at each level shows that the absolute values of the exact
+monomials sum to at most \(\Upsilon^\ell\|X\|_{\max}\|Y\|_{\max}\). The
+triangle inequality proves \eqref{eq:seed-forward-error}.
+\end{proof}
+
+Applying the seed to all-one inputs shows \(\Upsilon\ge d_0\ge2\). Hence,
+for \(0<\vartheta\le1\), the condition
+\[
+ u\le\frac{\vartheta}{2\chi\Upsilon^\ell}
+\]
+gives \(\chi u\le1/4\) and an error of at most
+\(\vartheta\|X\|_{\max}\|Y\|_{\max}\). In binary floating point with
+\(t_{\rm sig}\) significand bits, including the leading bit, the unit
+roundoff is \(2^{-t_{\rm sig}}\) for round-to-nearest and at most
+\(2^{1-t_{\rm sig}}\) for directed
+rounding. Hence the condition holds with
+\[
+ \left\lceil\log_2\frac{2\chi}{\vartheta}\right\rceil
+ +\ell\lceil\log_2\Upsilon\rceil+2
+\]
+significand bits, that is, with
+\(O_{\rm seed}(\log n+\log(1/\vartheta))\) bits. \citet{DDHK07}, following \citet{BL80}, give a forward error
+analysis of this kind for a large class of recursive matrix
+multiplication algorithms; Proposition~\ref{prop:seed-error} states the
+bound with explicit constants for one rational seed and dot products
+evaluated from left to right.
+
+\subsection{One algorithm for all sizes}
+\label{subsec:uniform-setup}
+
+The algorithms of Section~\ref{subsec:relative-schemes} depend on a
+fixed allowance \(\eps\). Letting the allowance shrink with the input
+size, and counting the preprocessing, gives one algorithm for all sizes.
+
+\begin{corollary}[One algorithm for all sizes]\label{cor:uniform-setup}
+There is one algorithm that, for every \(n\), multiplies two
+\(n\times n\) matrices over a field of characteristic zero in
+\(n^{9/4+o(1)}\) steps, where a step is one step of a fixed multitape
+Turing machine during the preprocessing, or one addition, subtraction,
+multiplication or division in the field on matrix entries or seed
+coefficients.
+\end{corollary}
+
+\begin{proof}
+The idea is to try the allowances \(1/v\), \(v=1,2,\ldots\), within a
+preprocessing budget of \(n\) machine steps each, and to use the
+smallest allowance that succeeds. At side \(n\), for each integer
+\(1\le v\le\lfloor\log_2n\rfloor\), run a fixed Turing-machine
+implementation of the procedure of
+Theorem~\ref{thm:construction-resources} for the allowance \(1/v\) for
+at most \(n\) steps; within the same budget compute \(c_{\rm seed}\) of
+Lemma~\ref{lem:seed-recursion} for the resulting seed and test
+\(c_{\rm seed}^v\le n\). Interrupt any attempt that exceeds its budget.
+Use the seed of the largest successful \(v\), or classical
+multiplication if there is none. Including binary counters for the
+budgets, this preprocessing takes \(O(n(\log n)^2)\) steps. The
+coefficients of the selected seed have total bit length at most \(n\),
+so converting them to field elements by Horner's rule in base~\(2\) and
+one division each takes \(O(n)\) field operations.
+
+For every fixed \(v\), the procedure and the test finish within the
+budget once \(n\) is large enough, and then \(c_{\rm seed}^v\le n\).
+Hence the selected \(v=v(n)\) tends to infinity. Once some \(v\)
+succeeds, Theorem~\ref{thm:bounded-seed} gives
+\(p_{\rm seed}<9/4+1/v\), and Lemma~\ref{lem:seed-recursion} bounds the
+multiplication by
+\(c_{\rm seed}n^{p_{\rm seed}}\le n^{1/v}n^{9/4+1/v}=n^{9/4+2/v(n)}\)
+operations, which proves the claim.
+\end{proof}

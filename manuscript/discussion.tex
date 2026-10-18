@@ -56,8 +56,18 @@ stated in Section~\ref{subsec:exponent} in exact integer arithmetic, and
 evaluates the numbers of Example~\ref{ex:ledger-a2}. The scripts
 \path|flows_row_maxima.py| and \path|rounding_observed_loss.py| compute
 Example~\ref{ex:row-two} exactly and the floating-point values in
-Remarks~\ref{rem:occupation-constants} and~\ref{rem:observed-loss}. No
-theorem of this paper depends on these files.\par}
+Remarks~\ref{rem:occupation-constants} and~\ref{rem:observed-loss}. The
+script \path|rational_interpolation_audit.py| checks, on small cases, the
+interpolation weights of Lemma~\ref{lem:rational-interpolation}, the
+rational rank decompositions of \(C(r,b)\) and the pooled-recursion
+counts used in Theorem~\ref{thm:bounded-seed}. The script
+\path|rational_seed_arithmetic_checks.py| writes
+\path|results/rational-seed-arithmetic-checks.json|; it checks the
+denominator clearing, the intermediate bit lengths and the forward-error
+bound of Section~\ref{subsec:seed-recursion} for Strassen's seed with
+rescaled rational coefficients. Neither script constructs the seed of
+Theorem~\ref{thm:bounded-seed}. No theorem of this paper depends on
+these files.\par}
 
 \subsection*{Open questions}
 
@@ -92,11 +102,9 @@ this family has exponent below \(2.371339\), the bound on \(\omega\)
 proved by \citet{AD25}, only if \(a\ge188\). How small can the source
 side of such a scheme be made, in this family or in a variant of it?
 
-\item \emph{Uniform algorithms.} Theorem~\ref{thm:main} fixes the
-allowance \(\eps\) and the coefficient field before the input dimension
-grows. Can the running time of the procedure in
-Theorem~\ref{thm:effective} and the constant in Theorem~\ref{thm:main}
-be bounded explicitly in terms of \(\eps\)? Together with a convention
-for setup costs, such bounds would give a single algorithm that uses
-\(n^{9/4+o(1)}\) operations for every \(n\).
+\item \emph{Smaller seeds.} Theorems~\ref{thm:bounded-seed}
+and~\ref{thm:construction-resources} bound the seed side, the bit
+lengths of the coefficients and the preprocessing cost by explicit but
+enormous functions of \(\eps\). How far can these bounds be reduced, in
+this family or in a variant of it?
 \end{enumerate}

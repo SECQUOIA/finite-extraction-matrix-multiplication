@@ -1,0 +1,378 @@
+\section{Explicit bounds for a rational seed}
+\label{sec:seed-bounds}
+
+Corollary~\ref{cor:seed} finds its seed side by testing
+\(n=2,3,\ldots\) in turn, and it bounds neither the side nor the
+coefficients of the seed. This section makes both explicit for a
+variant of the construction with rational maps
+(Sections~\ref{subsec:rational-variant}--\ref{subsec:preprocessing-bounds}),
+then bounds the bit cost and the precision of recursion with any fixed
+rational seed (Section~\ref{subsec:seed-recursion}) and combines the
+results into one algorithm for all sizes
+(Section~\ref{subsec:uniform-setup}).
+
+\subsection{A rational variant of the construction}
+\label{subsec:rational-variant}
+
+The construction uses roots of unity in three places (Step~4 of the
+proof of Theorem~\ref{thm:effective}): the rank
+decompositions~\eqref{eq:convolution-rank} of convolution tensors, the
+separators, and exactification. Each of them extracts one coefficient
+of a polynomial, or of a Laurent polynomial, of bounded degree, and
+interpolation at the integer nodes \(1,2,\ldots\) extracts the same
+coefficient with rational weights. For positive integers \(n\) and
+\(1\le\ell\le n\), let
+\[
+ \varpi_{n,\ell,\gamma}
+ =[\xi^\gamma]\prod_{\substack{1\le\ell'\le n\\ \ell'\ne\ell}}
+   \frac{\xi-\ell'}{\ell-\ell'}
+ \qquad(0\le\gamma<n)
+\]
+be the coefficients of the \(\ell\)-th Lagrange basis polynomial of the
+nodes \(1,\ldots,n\), where \([\xi^\gamma]\) extracts the coefficient of
+\(\xi^\gamma\). Every polynomial \(f\) of degree less than \(n\), with
+coefficients in a vector space over \(\Q\), satisfies
+\(f(\xi)=\sum_{\ell=1}^nf(\ell)\sum_{\gamma}\varpi_{n,\ell,\gamma}\xi^\gamma\).
+
+\begin{lemma}[Rational interpolation]\label{lem:rational-interpolation}
+\leavevmode
+\begin{enumerate}
+\item[(a)] For positive integers \(r,b\) and \(n=r+b-1\),
+\begin{equation}\label{eq:rational-convolution-rank}
+ C(r,b)=\sum_{\ell=1}^{n}
+ \Bigl(\sum_{\alpha=0}^{r-1}\ell^\alpha x_\alpha\Bigr)
+ \Bigl(\sum_{\beta=0}^{b-1}\ell^\beta y_\beta\Bigr)
+ \Bigl(\sum_{\gamma=0}^{n-1}\varpi_{n,\ell,\gamma}z_\gamma\Bigr).
+\end{equation}
+\item[(b)] Let \(M\ge1\), and put
+\(\varpi_\ell=\ell^{2M-2}\varpi_{4M-3,\ell,2M-2}\) for
+\(1\le\ell\le4M-3\). In the proof of Proposition~\ref{prop:separator},
+use the source copies \(\ell=1,\ldots,4M-3\), replace the phases
+\(\zeta^{\ell g'}\), \(\zeta^{\ell(e-g)}\), \(\zeta^{-\ell e'}\) by
+\(\ell^{g'}\), \(\ell^{e-g}\), \(\ell^{-e'}\), and replace the scalar
+\((2M-1)^{-1}\) by \(\varpi_\ell\). These rational maps give
+\[
+ (4M-3)\,T\degen\bigoplus_{g=0}^{M-1}T_g\,B_X(M),
+\]
+with the same polynomial as in that proof; its degree is at most
+\((M-1)^2\), and its exponents lie in \(\{\delta^2:0\le\delta\le M-1\}\).
+\item[(c)] In Lemma~\ref{lem:exactification}, the restriction
+\(E\,T^{\otimes k}\restr\widetilde T_0^{\otimes k}\) is also given by
+the maps \(\Psi(\ell)^{\otimes k}\), \(1\le\ell\le E\), and the scalars
+\((-1)^{\ell-1}\binom E\ell\) in place of \(1/E\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The idea is that each identity extracts a coefficient of a polynomial
+whose degree is less than the number of nodes, which interpolation at
+the nodes does exactly.
+
+(a) The product
+\(P(\xi)=\bigl(\sum_\alpha x_\alpha\xi^\alpha\bigr)
+\bigl(\sum_\beta y_\beta\xi^\beta\bigr)\) has degree less than \(n\),
+and its coefficient of \(\xi^\gamma\) is
+\(\sum_{\alpha+\beta=\gamma}x_\alpha y_\beta\). Interpolation gives this
+coefficient as \(\sum_\ell P(\ell)\varpi_{n,\ell,\gamma}\). Multiplying by
+\(z_\gamma\) and summing over \(\gamma\) gives
+\eqref{eq:rational-convolution-rank}, by \eqref{eq:convolution}.
+
+(b) For an integer \(\eta\) with \(|\eta|\le2M-2\), the polynomial
+\(\xi^{\eta+2M-2}\) has degree between \(0\) and \(4M-4\).
+Interpolating it at the \(4M-3\) nodes and comparing the coefficients
+of \(\xi^{2M-2}\) gives
+\begin{equation}\label{eq:rational-separator-weights}
+ \sum_{\ell=1}^{4M-3}\varpi_\ell\,\ell^{\eta}
+ =\begin{cases}1,&\eta=0,\\0,&0<|\eta|\le2M-2.\end{cases}
+\end{equation}
+After summing over the copies, the term
+\(x_\alpha y_{g,\beta}z_{g,\gamma}\) becomes
+\[
+ \sum_{g',e,e'}\Bigl(\sum_\ell\varpi_\ell\,\ell^{e-e'+g'-g}\Bigr)
+ X_{\alpha,g'}Y_{g,\beta,e}Z_{g,\gamma,e'}.
+\]
+Since
+\(|e-e'+g'-g|\le2M-2\), the bracket is one if
+\eqref{eq:separator-fourier} holds and zero otherwise, exactly as in
+Step~1 of the proof of Proposition~\ref{prop:separator}. Steps~2 and~3
+of that proof use only this condition, so they apply unchanged.
+
+(c) For a polynomial \(f\) of degree less than \(E\), with coefficients
+in any vector space, the \(E\)-th finite difference
+\(\sum_{\ell=0}^E(-1)^\ell\binom E\ell f(\ell)\) vanishes, so
+\(f(0)=\sum_{\ell=1}^E(-1)^{\ell-1}\binom E\ell f(\ell)\). In the proof of
+Lemma~\ref{lem:exactification}, apply this identity to
+\(f=\widetilde T(t)^{\otimes k}\), which has degree at most \(kD=E-1\),
+in place of the average over the \(E\)-th roots of unity. The nodes are
+nonzero, so the Laurent entries of \(\Psi\) can be evaluated there, and
+the weights go on one leg of each copy.
+\end{proof}
+
+We now build the relative scheme of Proposition~\ref{prop:relative}
+with \(N=k=1\), as in Theorem~\ref{thm:quantitative}, but use part~(a)
+of Lemma~\ref{lem:rational-interpolation} for every rank decomposition
+of a convolution tensor (in Step~2 of the proof of
+Proposition~\ref{prop:relative} and for the catalyst~\eqref{eq:kappa}),
+part~(b) for every separator, and part~(c) for exactification. The
+separator of relation \(i\) then has \(L_i^{\Q}=4M_i-3\) source copies,
+and from these copies it produces the same
+polynomial~\eqref{eq:composed-relation-polynomial} as before. Hence the
+proofs of Propositions~\ref{prop:catalytic} and~\ref{prop:relative}
+apply with \(L\) replaced by \(L^{\Q}\), where
+\begin{equation}\label{eq:rational-counts}
+ L^{\Q}=\prod_{i\in\mathcal J}(L_i^{\Q})^3,\qquad
+ r_*^{\Q}=\kappa_1E^j(L^{\Q})^j(2a-1)^{3Kj},
+\end{equation}
+while \(m_*=M^{3j}\), \(A\), \(B\), \(E\), \(\kappa_1\) and the catalyst
+are unchanged. The ranks in part~(a) are those of
+\eqref{eq:convolution-rank}, and every other map of the construction
+has rational coefficients (Step~4 of the proof of
+Theorem~\ref{thm:effective}). Thus, when \(B>A\), the
+\emph{rational variant} is a relative scheme
+\(r_*^{\Q}\MM_A\restr m_*\MM_B\) with rational coefficients.
+
+Its pooled exponent differs from \eqref{eq:pooled-exponent} only in the
+copy overhead. Since \(L_i^{\Q}/M_i=4-3/M_i\) lies in \([1,4)\),
+\[
+ 0\le\log(L^{\Q}/M^3)<3I\log4.
+\]
+For the parameters of Theorem~\ref{thm:quantitative}, \(I\le2a^2\) and
+\(\log4<2\) give
+\(\log(L^{\Q}/M^3)/K<6\log4/(a\ell_a)<12/(a\ell_a)\le1\). This is the
+only consequence of Step~2 of the proof of
+Theorem~\ref{thm:quantitative} that Step~5 uses, and Steps~1, 3, 4
+and~6 do not involve the copy count. Hence \(B>A\), and the pooled
+exponent \(p\) and the source side \(A\) of the rational variant satisfy
+\begin{equation}\label{eq:rational-variant-rate}
+ \frac94<\tau_a\le p<\frac94+\frac{900}{\log a},\qquad
+ \log A\le181a^5\ell_a^2;
+\end{equation}
+the lower bound holds by the argument after \eqref{eq:tau}, since all
+overheads remain nonnegative. Elsewhere in the paper, including the
+examples of Section~\ref{sec:costs}, the separator keeps its
+\(2M_i-1\) source copies.
+
+\subsection{An explicit seed}
+\label{subsec:bounded-seed}
+
+We now unroll the rational variant at a side given by a formula. Let
+\(\eps\) be a positive rational, put \(\eps'=\min(\eps,1/2)\), and let
+\(a=2^{\ell_a}\), with \(\ell_a=\lceil3600/\eps'\rceil\ge7200\), be
+the index that Corollary~\ref{cor:explicit-allowance} assigns to the
+allowance \(\eps'/2\). The cap \(\eps'\le1/2\) makes the pooled
+exponent less than \(5/2\), which Section~\ref{subsec:preprocessing-bounds}
+uses. Build the rational variant
+\(r_*^{\Q}\MM_A\restr m_*\MM_B\) with the parameters of
+Theorem~\ref{thm:quantitative} for this \(a\), and with any rounding
+allowed by Lemma~\ref{lem:circulation-rounding}. Let
+\(n_*=\lceil AB/(B-A)\rceil+1\) be its leaf threshold
+(Lemma~\ref{lem:batch}), and put
+\begin{equation}\label{eq:bounded-seed-parameters}
+ \Xi=r_*^{\Q}(1+r_*^{\Q}m_*)\,n_*^3,\qquad
+ d_0=(\Xi+1)^{\lceil2/\eps'\rceil}.
+\end{equation}
+
+\begin{theorem}[An explicit seed]\label{thm:bounded-seed}
+Unrolling the pooled recursion of Lemma~\ref{lem:batch} for this scheme
+at side \(d_0\) gives a rational seed of side \(d_0\) with \(R\)
+products, where
+\[
+ R\le\Xi d_0^p<d_0^{9/4+\eps'}\le d_0^{9/4+\eps}.
+\]
+With the rounding rule fixed in Section~\ref{subsec:preprocessing-bounds}
+and block recursion (Lemma~\ref{lem:seed-recursion}), this gives a
+second proof of Theorem~\ref{thm:main}, with the seed side given by
+\eqref{eq:bounded-seed-parameters} instead of a search.
+\end{theorem}
+
+\begin{proof}
+The idea is that the unrolled seed has one rank-one term for each
+scalar product at the last depth of the pooled recursion, and Step~3 of
+the proof of Lemma~\ref{lem:batch} bounds their number. As in the proof
+of Corollary~\ref{cor:explicit-allowance}, \(\log a=\ell_a\log2>\ell_a/2\)
+gives \(900/\log a<1800/\ell_a\le\eps'/2\), so
+\eqref{eq:rational-variant-rate} gives \(p<9/4+\eps'/2\).
+
+Run the pooled recursion at side \(d_0\), put \(\rho=A/B\), and let
+\(\ell_{\max}\) be its last depth. Step~3 of the proof of
+Lemma~\ref{lem:batch} gives, also when \(\ell_{\max}=0\),
+\[
+ \nu_{\ell_{\max}}\le\Bigl(1+\frac{r_*^{\Q}m_*}{r_*^{\Q}-m_*}\Bigr)
+ \Bigl(\frac{r_*^{\Q}}{m_*}\Bigr)^{\ell_{\max}},
+ \qquad \rho^{\ell_{\max}}d_0>\rho .
+\]
+Since \(r_*^{\Q}/m_*=\rho^{-p}\), the second inequality gives
+\((r_*^{\Q}/m_*)^{\ell_{\max}}<(r_*^{\Q}/m_*)\,d_0^p\). With
+\(r_*^{\Q}-m_*\ge1\) and \(m_*\ge1\), it follows that
+\(\nu_{\ell_{\max}}<r_*^{\Q}(1+r_*^{\Q}m_*)\,d_0^p\). Every product at
+the last depth has side at most \(n_*\), and the classical algorithm
+computes it with at most \(n_*^3\) scalar products, each of a linear
+form in the left input by a linear form in the right input
+(Lemma~\ref{lem:batch}). As in the proof of Corollary~\ref{cor:seed},
+these products give a decomposition of \(\MM_{d_0}\) into
+\(R\le\nu_{\ell_{\max}}n_*^3\le\Xi d_0^p\) rank-one tensors, with
+rational coefficients because the scheme has rational coefficients.
+Finally, \(d_0^{\eps'/2}\ge\Xi+1>\Xi\) and \(p<9/4+\eps'/2\) give
+\(R<d_0^{9/4+\eps'}\).
+\end{proof}
+
+\subsection{The cost of computing the seed}
+\label{subsec:preprocessing-bounds}
+
+To make the seed of Theorem~\ref{thm:bounded-seed} a function of
+\(\eps\), we round by the rule of Step~2 of the proof of
+Theorem~\ref{thm:effective}. We count \emph{steps}: one step is an
+arithmetic operation or a comparison on two rational numbers, each
+stored as a reduced pair of binary integers, or one operation on an
+integer index or loop counter. Let \(b_\eps\) be the total bit
+length of the numerator and denominator of \(\eps\). It is not bounded
+by any function of the value of \(\eps\), and it enters the bounds
+through the bit lengths of the numbers computed from \(\eps\) (Step~5
+of the proof below). With the
+parameters of Section~\ref{subsec:bounded-seed}, put
+\begin{align*}
+ \mathfrak T&=\bar w+\bar z+K+I+1,\qquad
+ \mathfrak F=100(j+1)\mathfrak T,\\
+ \mathfrak W&=2+b_\eps+a+K+j+\bar w+\bar z+I+E+\kappa_1
+       +r_*^{\Q}+m_*+A+B+\sum_{i\in\mathcal J}(M_i+L_i^{\Q}),\\
+ \mathfrak H&=\mathfrak W^{\mathfrak F},\qquad
+ \mathfrak Q=\mathfrak H+d_0+2,\qquad
+ \mathfrak S=\mathfrak Q^{50}.
+\end{align*}
+These numbers are computed from \(\eps\) by the formulas above, the
+occupation systems of Proposition~\ref{prop:occupations} and the
+rounding rule.
+
+\begin{theorem}[Preprocessing cost]\label{thm:construction-resources}
+The dense implementation described in the proof computes the seed of
+Theorem~\ref{thm:bounded-seed} from \(\eps\) in at most
+\(\mathfrak S\) steps, and outputs its three rational coefficient
+arrays, which have at most \(3\Xi d_0^5\) entries. Every reduced
+numerator and denominator that it computes has bit length at most
+\(2^{2\mathfrak S}\). With schoolbook integer arithmetic, the whole
+computation, including writing the arrays, takes
+\(O(2^{8\mathfrak S})\) bit operations, with an absolute implied
+constant.
+\end{theorem}
+
+\begin{proof}
+The idea is to fix one simple implementation and to bound every count,
+dimension and exponent that it uses by \(\mathfrak W\), every array of
+the assembled scheme by \(\mathfrak H\), and the arrays of the unrolled
+recursion by \(\mathfrak Q^{14}\); the bit lengths then follow because
+one rational operation at most doubles them, plus one bit.
+
+\emph{Step 1: the implementation.} Store rational numbers as reduced
+pairs of binary integers. Use exact Gaussian elimination for the
+occupations and for basis changes, the rounding rule of
+Theorem~\ref{thm:effective} for the counts, repeated multiplication for
+factorials and binomial coefficients, and binary powering for integer
+powers. Compute the interpolation coefficients
+\(\varpi_{n,\ell,\gamma}\) and the weights of
+Lemma~\ref{lem:rational-interpolation} by polynomial multiplication,
+and the primitive map entries by evaluating Laurent monomials at the
+integer nodes. Form tensor products, direct sums, restrictions and
+compositions as dense arrays, expanding after every operation and
+exploiting no sparsity.
+
+\emph{Step 2: the primitive data.} There are \(a-1\) row systems, each
+of order at most \(3a\). By the proof of
+Lemma~\ref{lem:circulation-rounding}, the rounding of a row makes at
+most \(\beta_{\mathrm{tot}}\) augmentations. Since
+\(\beta_{\mathrm{tot}}\) is at most the sum of the fractional parts
+\(\eta_e\) of that proof, it is less than the number of nonintegral
+edges of the row, so each row needs at most \(J_a+1\) augmentations,
+each a breadth-first search over fewer than \(J_a+3a+3\) arcs. Every
+factorial or binomial argument (a split or tripling count, \(E\), or an
+interpolation size \(L_i^{\Q}\) or \(r+b-1\)) is at most \(\mathfrak W\),
+determinant-basis matrices have size at most \(10a^2\), and primitive
+Laurent exponents are at most \(2\max_iM_i^2\). Hence generating these
+data, and computing the numbers \(\mathfrak T,\ldots,\mathfrak S\),
+takes fewer than \(\mathfrak W^{20}\) steps.
+
+\emph{Step 3: dense assembly.} One catalytic use has
+\(3(\bar w+\bar z)\) convolution positions and \(3\bar w\) dot-product
+positions, at most \(6\mathfrak T\) primitive factors in total. Each leg
+of a primitive factor, including the combined spaces on which the
+determinant bases act, has dimension at most \(10a^2\le\mathfrak W^3\).
+The source-copy labels of the separators, the sector and auxiliary
+labels of their outputs, and the exactification label add at most
+\(3I+6I+1\le10\mathfrak T\) further factors, each of dimension at most
+\(\mathfrak W\). Counting all of them at once, every leg of a local
+intermediate array has dimension at most
+\(\mathfrak W^{18\mathfrak T+10\mathfrak T}=\mathfrak W^{28\mathfrak T}\).
+The rank decompositions of the source and of the catalyst have at most
+\(3\mathfrak T\) convolution positions and \(3\mathfrak T\) rank labels,
+so their legs, with the matrix and copy labels, have dimension at most
+\(\mathfrak W^{12\mathfrak T+3}\). During reuse the catalyst stays a
+single factor (Step~3 of the proof of Proposition~\ref{prop:relative}).
+The identity factors on matrix tensors add at most four powers of
+\(\mathfrak W\), since \(A^2B^2\le\mathfrak W^4\), and the copy counts
+add at most two more, since by \eqref{eq:one-step}, with \(L\) replaced
+by \(L^{\Q}\), they are at most
+\((r_*^{\Q}/\kappa_1)\,m_*\le r_*^{\Q}m_*\le\mathfrak W^2\). Hence every intermediate leg has
+dimension at most
+\(\mathfrak W^{28\mathfrak T+6}\le\mathfrak W^{34\mathfrak T}\).
+
+Before its direct-sum labels are expanded, one catalytic use takes at
+most \(40\mathfrak T\) dense assembly stages: two per primitive factor
+for basis changes and coordinate selection (at most \(12\mathfrak T\)),
+at most \(3I\) oriented separators, at most \(3I\) reindexings, at most
+\(16\mathfrak T\) tensor products or direct sums, which combine the
+primitive factors and the labels, and three stages for exactification
+and the ledger. Expanding the labels multiplies the number of stages by
+at most the number of summands, which is at most
+\(\mathfrak W^{34\mathfrak T}\). The \(j\) reuse steps and the source
+and catalyst decompositions therefore take at most
+\(40(j+1)\mathfrak T\,\mathfrak W^{34\mathfrak T}
+\le\mathfrak W^{40(j+1)\mathfrak T}\) stages. Both the dimensions and
+the number of stages are below
+\(\mathfrak H=\mathfrak W^{100(j+1)\mathfrak T}\), so the assembly,
+including generating and copying entries, takes fewer than
+\(\mathfrak H^{20}\) steps.
+
+\emph{Step 4: unrolling.} The assembled scheme is a restriction given
+by its maps, not yet a rank decomposition of \(\MM_{d_0}\), so we unroll
+the pooled recursion at side \(d_0\). We have
+\(n_*\le AB+2\le\mathfrak W^3\) and
+\(\Xi\le\mathfrak W^{13}\le\mathfrak H\). Since
+\(\nu_{\ell+1}=r_*^{\Q}\lceil\nu_\ell/m_*\rceil
+\ge(r_*^{\Q}/m_*)\nu_\ell>\nu_\ell\), every depth has at most
+\(\nu_{\ell_{\max}}<\Xi d_0^p\le\Xi d_0^3<\mathfrak Q^4\) products (proof
+of Theorem~\ref{thm:bounded-seed}), each of side at most \(d_0\). Above
+the leaf threshold the side strictly decreases, since
+\(A\lceil n/B\rceil<(A/B)n+A<n\) for \(n>AB/(B-A)\), so there are at most
+\(d_0\) depths. Padding adds at most \(m_*\) zero products per depth and
+at most \(B\) to each side. Hence each depth has at most
+\((\nu_\ell+m_*)(n_\ell+B)^2\le2\mathfrak Q^6\) coordinates per input
+matrix, and all coordinate spaces at one depth, including the
+intermediate source products, have dimension less than
+\(\mathfrak Q^{14}\). Propagate the linear forms of the two inputs
+downward, and the output forms upward, by dense matrix multiplication,
+as linear forms in the \(d_0^2\) entries of each original input; each
+depth costs at most a fixed multiple of \(\mathfrak Q^{42}\) steps. Each
+classical product at the last depth then selects two downward forms and
+a column of the upward map, which gives one rank-one term. The at most
+\(d_0\) depths, the assembly of Step~3, and writing the
+\(3Rd_0^2\le3\Xi d_0^5\) output entries take fewer than
+\(\mathfrak Q^{50}=\mathfrak S\) steps.
+
+\emph{Step 5: bit lengths.} Write \(\mathfrak b(\theta)\) for the
+larger of the bit lengths of the reduced numerator and denominator of a
+rational number \(\theta\). A sum, difference, product or defined
+quotient of two rational numbers \(\theta\) and \(\theta'\) has
+\(\mathfrak b\) at most
+\(2\max\{\mathfrak b(\theta),\mathfrak b(\theta')\}+1\). All
+initial integer literals, including \(\eps\), can be chosen with at most
+\(\mathfrak Q\) bits, since \(b_\eps\le\mathfrak W\);
+factorials, powers and interpolation coefficients are computed by the
+counted operations. After at most \(\mathfrak S\) steps, every rational
+number therefore has
+\[
+ \mathfrak b\le2^{\mathfrak S}(\mathfrak Q+1)-1\le2^{2\mathfrak S}.
+\]
+Schoolbook multiplication, division and Euclidean gcd on integers of
+this length cost \(O(2^{6\mathfrak S})\) bit operations per step.
+Including loop control, indexing and output, the total is
+\(O(2^{8\mathfrak S})\).
+\end{proof}

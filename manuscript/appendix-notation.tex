@@ -22,6 +22,25 @@ neither is related to the catalyst multiplicities \(c_{\sigma,r,b}\). The
 degree bound \(D\) and the relative entropy \(D(\cdot\Vert\cdot)\) are
 distinguished by their arguments.
 
+Section~\ref{sec:seed-bounds} uses local notation. The rational variant
+has interpolation coefficients \(\varpi_{n,\ell,\gamma}\), separator
+weights \(\varpi_\ell\), separator copy counts \(L_i^{\Q}=4M_i-3\),
+\(L^{\Q}=\prod_i(L_i^{\Q})^3\), and first count \(r_*^{\Q}\)
+(Section~\ref{subsec:rational-variant}). Theorem~\ref{thm:bounded-seed}
+uses the capped allowance \(\eps'=\min(\eps,1/2)\), the leaf threshold
+\(n_*\) of Lemma~\ref{lem:batch} and the rank constant \(\Xi\). The
+fraktur letters \(\mathfrak T,\mathfrak F,\mathfrak W,\mathfrak H,
+\mathfrak Q,\mathfrak S\) are size bounds used only in
+Theorem~\ref{thm:construction-resources}, where \(b_\eps\) is the
+bit length of \(\eps\) and \(\mathfrak b\) a bit length. For a fixed
+rational seed (Section~\ref{subsec:seed-recursion}),
+\(p_{\rm seed}=\log_{d_0}R\); the coefficient matrices are
+\(\mathsf U,\mathsf V,\mathsf W\), with common denominator
+\(c_{\rm den}\), cleared-coefficient bound \(c_{\rm coef}\) and bit
+lengths \(c_{\rm in},c_{\rm out}\); \(\ell\) is the recursion depth,
+\(b_{\rm in}\) the bit bound of the input entries, \(u\) the unit roundoff,
+\(\vartheta\) an error target, and \(\Upsilon,\chi\) enter the forward-error bound.
+
 \subsection*{Tensors and operations}
 \raggedright
 
@@ -153,7 +172,8 @@ distinguished by their arguments.
 \item[\(\eps\)] positive rational exponent allowance
  (Theorem~\ref{thm:main})
 \item[\(d_0\)] seed side: the side of a rational seed
- (\S\ref{subsec:intro-results})
+ (\S\ref{subsec:intro-results}); given by a formula in
+ Theorem~\ref{thm:bounded-seed}
 \item[\(N\), \(k\), \(j\)] type scale; interpolation power; reuse count,
  the number of uses of one copy of the catalyst
  (\S\ref{subsec:parameters})
@@ -204,6 +224,7 @@ distinguished by their arguments.
  \(N\max_{i\in\mathcal J}H_i\); type penalty \eqref{eq:type-penalty}
 \item[\(\ell_a\)] \(\lceil\log_2a\rceil\) (Theorem~\ref{thm:main-relative})
 \item[\(\Lambda\)] order of the cyclotomic field \(\Q(\zeta_\Lambda)\)
- that contains all coefficients (Theorem~\ref{thm:effective})
+ that contains all coefficients of the cyclotomic construction
+ (Theorem~\ref{thm:effective})
 \end{list}
 \par}

@@ -1,4 +1,4 @@
-"""Reproduce every number printed in Section 9 (finite examples) of the paper.
+"""Reproduce every number printed in the finite-examples section of the paper (Section 10 in version 4).
 
 Usage:
     python finite_table_checks.py [path/to/multiway-finite-costs.json]
@@ -177,7 +177,7 @@ def main():
         print(f"{a:3d} | K={K} j={j} | {tau:.4f} | " + " | ".join(f"{v:.4f}" for v in values)
               + f" | {phi_bar} | {phi:.7f} | {digits:,}")
 
-    # Section 10, open question 3: tau_a > 2.371339 for a <= 187 (floating point).
+    # Further remarks (Section 11 in version 4), open question 3: tau_a > 2.371339 for a <= 187 (floating point).
     taus = {a: 3 * math.log(2 * a - 1) / log_fraction(profile_diagonal(a)) for a in range(2, 189)}
     decreasing = all(taus[a] > taus[a + 1] for a in range(2, 188))
     print("\n=== Profile exponents tau_a = 3 log(2a-1) / log F(a,a), floating point")
