@@ -1,0 +1,20 @@
+{
+  "status": "all exact checks passed",
+  "scope": "prescribed three-orientation multiway extraction; arbitrary nonnegative integer conserved flows and legal widths",
+  "a2_split_edges_checked": 23,
+  "a2_triples_below_96_examined": 1608,
+  "a2_relaxed_conditions_minimum_side_lower_bound": "2^96",
+  "a2_relaxed_conditions_minimizer": {
+    "K": 2,
+    "z": 1,
+    "j": 16
+  },
+  "a3_side_lower_bound": "12^18",
+  "a_ge4_side_lower_bound": "18^9",
+  "a4_sharper_side_lower_bound": "18^20",
+  "a_ge5_side_lower_bound": "54^9",
+  "a5_sharper_side_lower_bound": "54^13",
+  "a_ge6_side_lower_bound": "162^9",
+  "all_a_subcubic_side_lower_bound": ">=12^18 (>2^64)",
+  "warning": "These are lower bounds for the prescribed extraction, not for matrix multiplication or other tensor maps."
+}

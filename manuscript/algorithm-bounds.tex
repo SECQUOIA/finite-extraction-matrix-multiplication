@@ -14,25 +14,27 @@ results into one algorithm for all sizes
 \subsection{A rational variant of the construction}
 \label{subsec:rational-variant}
 
-The construction uses roots of unity in three places (Step~4 of the
-proof of Theorem~\ref{thm:effective}): the rank
-decompositions~\eqref{eq:convolution-rank} of convolution tensors, the
-separators, and exactification. Each of them extracts one coefficient
-of a polynomial, or of a Laurent polynomial, of bounded degree, and
-interpolation at the integer nodes \(1,2,\ldots\) extracts the same
-coefficient with rational weights. For positive integers \(n\) and
+The construction uses roots of unity in the rank
+decompositions~\eqref{eq:convolution-rank} of convolution tensors, in
+the separators and in exactification (Step~4 of the proof of
+Theorem~\ref{thm:effective}). In the first and the last they extract one
+coefficient of a polynomial of bounded degree, which interpolation at
+the integer nodes \(1,2,\ldots\) extracts with rational weights. For
+the separators we use the polynomial separator of
+\citet[Proposition~2.1]{Lu26} (Remark~\ref{rem:polynomial-separator}),
+which has the same \(2M-1\) source copies as
+Proposition~\ref{prop:separator}. For positive integers \(n\) and
 \(1\le\ell\le n\), let
 \[
- \varpi_{n,\ell,\gamma}
- =[\xi^\gamma]\prod_{\substack{1\le\ell'\le n\\ \ell'\ne\ell}}
+ \varpi_{n,\ell}(\xi)=\prod_{\substack{1\le\ell'\le n\\ \ell'\ne\ell}}
    \frac{\xi-\ell'}{\ell-\ell'}
- \qquad(0\le\gamma<n)
+ =\sum_{\gamma=0}^{n-1}\varpi_{n,\ell,\gamma}\,\xi^\gamma
 \]
-be the coefficients of the \(\ell\)-th Lagrange basis polynomial of the
-nodes \(1,\ldots,n\), where \([\xi^\gamma]\) extracts the coefficient of
-\(\xi^\gamma\). Every polynomial \(f\) of degree less than \(n\), with
-coefficients in a vector space over \(\Q\), satisfies
-\(f(\xi)=\sum_{\ell=1}^nf(\ell)\sum_{\gamma}\varpi_{n,\ell,\gamma}\xi^\gamma\).
+be the \(\ell\)-th Lagrange basis polynomial of the nodes
+\(1,\ldots,n\), and write \([\xi^\gamma]\) for the coefficient of
+\(\xi^\gamma\). Thus \(f(\xi)=\sum_{\ell=1}^nf(\ell)\,\varpi_{n,\ell}(\xi)\)
+for every polynomial \(f\) of degree less than \(n\) with coefficients
+in a vector space over \(\Q\).
 
 \begin{lemma}[Rational interpolation]\label{lem:rational-interpolation}
 \leavevmode
@@ -44,18 +46,26 @@ coefficients in a vector space over \(\Q\), satisfies
  \Bigl(\sum_{\beta=0}^{b-1}\ell^\beta y_\beta\Bigr)
  \Bigl(\sum_{\gamma=0}^{n-1}\varpi_{n,\ell,\gamma}z_\gamma\Bigr).
 \end{equation}
-\item[(b)] Let \(M\ge1\), and put
-\(\varpi_\ell=\ell^{2M-2}\varpi_{4M-3,\ell,2M-2}\) for
-\(1\le\ell\le4M-3\). In the proof of Proposition~\ref{prop:separator},
-use the source copies \(\ell=1,\ldots,4M-3\), replace the phases
-\(\zeta^{\ell g'}\), \(\zeta^{\ell(e-g)}\), \(\zeta^{-\ell e'}\) by
-\(\ell^{g'}\), \(\ell^{e-g}\), \(\ell^{-e'}\), and replace the scalar
-\((2M-1)^{-1}\) by \(\varpi_\ell\). These rational maps give
+\item[(b)] \emph{(The separator of Remark~\ref{rem:polynomial-separator}
+for \(K_0=M\).)} Let \(M\ge1\), and let \(T=\sum_{g=0}^{M-1}T_g\) be as in
+Proposition~\ref{prop:separator}, with the coordinates and target
+variables of its proof. Index the source copies of \((2M-1)\,T\) by
+\(\ell=1,\ldots,2M-1\), and in copy \(\ell\) substitute, with
+\(0^0=1\),
+\begin{align*}
+ x_\alpha&\longmapsto\sum_{g'=0}^{M-1}\varpi_{M,g'+1}(\ell)\,X_{\alpha,g'},
+ \qquad
+ y_{g,\beta}\longmapsto\sum_{e=0}^{M-1}(\ell-g-1)^e\,t^{-e}\,Y_{g,\beta,e},\\
+ z_{g,\gamma}&\longmapsto\sum_{e'=0}^{M-1}
+ \bigl([\xi^{e'}]\,\varpi_{2M-1,\ell}(g+1+\xi)\bigr)\,t^{e'}\,Z_{g,\gamma,e'}.
+\end{align*}
+These maps have rational coefficients and give a degeneration
 \[
- (4M-3)\,T\degen\bigoplus_{g=0}^{M-1}T_g\,B_X(M),
+ (2M-1)\,T\degen\bigoplus_{g=0}^{M-1}T_g\,B_X(M)
 \]
-with the same polynomial as in that proof; its degree is at most
-\((M-1)^2\), and its exponents lie in \(\{\delta^2:0\le\delta\le M-1\}\).
+of degree at most \(M-1\), whose target variables and constant term are
+those of Proposition~\ref{prop:separator}. Permuting the three legs gives
+the same statement with any chosen shared leg.
 \item[(c)] In Lemma~\ref{lem:exactification}, the restriction
 \(E\,T^{\otimes k}\restr\widetilde T_0^{\otimes k}\) is also given by
 the maps \(\Psi(\ell)^{\otimes k}\), \(1\le\ell\le E\), and the scalars
@@ -64,9 +74,9 @@ the maps \(\Psi(\ell)^{\otimes k}\), \(1\le\ell\le E\), and the scalars
 \end{lemma}
 
 \begin{proof}
-The idea is that each identity extracts a coefficient of a polynomial
-whose degree is less than the number of nodes, which interpolation at
-the nodes does exactly.
+The idea is that each identity recovers a polynomial of degree less
+than the number of nodes, or one of its coefficients, from its values at
+the nodes, which interpolation does exactly.
 
 (a) The product
 \(P(\xi)=\bigl(\sum_\alpha x_\alpha\xi^\alpha\bigr)
@@ -77,25 +87,28 @@ coefficient as \(\sum_\ell P(\ell)\varpi_{n,\ell,\gamma}\). Multiplying by
 \(z_\gamma\) and summing over \(\gamma\) gives
 \eqref{eq:rational-convolution-rank}, by \eqref{eq:convolution}.
 
-(b) For an integer \(\eta\) with \(|\eta|\le2M-2\), the polynomial
-\(\xi^{\eta+2M-2}\) has degree between \(0\) and \(4M-4\).
-Interpolating it at the \(4M-3\) nodes and comparing the coefficients
-of \(\xi^{2M-2}\) gives
-\begin{equation}\label{eq:rational-separator-weights}
- \sum_{\ell=1}^{4M-3}\varpi_\ell\,\ell^{\eta}
- =\begin{cases}1,&\eta=0,\\0,&0<|\eta|\le2M-2.\end{cases}
-\end{equation}
-After summing over the copies, the term
+(b) We write the proof of \citet{Lu26} in our coordinates: copy
+\(\ell\) evaluates the shared leg at the node \(\ell\) through the
+Lagrange basis of the nodes \(1,\ldots,M\), and expands the other two
+legs around the node \(g+1\) of their sector, with \(t\) scaling the
+distance from that node. After summing over the copies, the term
 \(x_\alpha y_{g,\beta}z_{g,\gamma}\) becomes
 \[
- \sum_{g',e,e'}\Bigl(\sum_\ell\varpi_\ell\,\ell^{e-e'+g'-g}\Bigr)
- X_{\alpha,g'}Y_{g,\beta,e}Z_{g,\gamma,e'}.
+ \sum_{g',e,e'}t^{e'-e}\Bigl([\xi^{e'}]\sum_{\ell=1}^{2M-1}f(\ell)\,
+ \varpi_{2M-1,\ell}(g+1+\xi)\Bigr)X_{\alpha,g'}Y_{g,\beta,e}Z_{g,\gamma,e'},
 \]
-Since
-\(|e-e'+g'-g|\le2M-2\), the bracket is one if
-\eqref{eq:separator-fourier} holds and zero otherwise, exactly as in
-Step~1 of the proof of Proposition~\ref{prop:separator}. Steps~2 and~3
-of that proof use only this condition, so they apply unchanged.
+where \(f(\xi)=\varpi_{M,g'+1}(\xi)\,(\xi-g-1)^e\). Since \(f\) has
+degree at most \(2M-2\), interpolation at the nodes \(1,\ldots,2M-1\)
+gives \(\sum_\ell f(\ell)\varpi_{2M-1,\ell}(\xi)=f(\xi)\). Substituting
+\(g+1+\xi\) for \(\xi\) and using
+\(f(g+1+\xi)=\varpi_{M,g'+1}(g+1+\xi)\,\xi^e\), we find that the
+coefficient in parentheses is \([\xi^{e'-e}]\,\varpi_{M,g'+1}(g+1+\xi)\),
+which vanishes unless \(0\le e'-e\le M-1\), because \(\varpi_{M,g'+1}\)
+has degree \(M-1\). Hence the image of \((2M-1)\,T\) is a polynomial in
+\(t\) of degree at most \(M-1\). Its constant term consists of the terms
+with \(e'=e\), whose coefficient \(\varpi_{M,g'+1}(g+1)\) is one if
+\(g'=g\) and zero otherwise; this is the constant term of Step~3 of the
+proof of Proposition~\ref{prop:separator}.
 
 (c) For a polynomial \(f\) of degree less than \(E\), with coefficients
 in any vector space, the \(E\)-th finite difference
@@ -113,44 +126,34 @@ with \(N=k=1\), as in Theorem~\ref{thm:quantitative}, but use part~(a)
 of Lemma~\ref{lem:rational-interpolation} for every rank decomposition
 of a convolution tensor (in Step~2 of the proof of
 Proposition~\ref{prop:relative} and for the catalyst~\eqref{eq:kappa}),
-part~(b) for every separator, and part~(c) for exactification. The
-separator of relation \(i\) then has \(L_i^{\Q}=4M_i-3\) source copies,
-and from these copies it produces the same
-polynomial~\eqref{eq:composed-relation-polynomial} as before. Hence the
-proofs of Propositions~\ref{prop:catalytic} and~\ref{prop:relative}
-apply with \(L\) replaced by \(L^{\Q}\), where
-\begin{equation}\label{eq:rational-counts}
- L^{\Q}=\prod_{i\in\mathcal J}(L_i^{\Q})^3,\qquad
- r_*^{\Q}=\kappa_1E^j(L^{\Q})^j(2a-1)^{3Kj},
-\end{equation}
-while \(m_*=M^{3j}\), \(A\), \(B\), \(E\), \(\kappa_1\) and the catalyst
-are unchanged. The ranks in part~(a) are those of
-\eqref{eq:convolution-rank}, and every other map of the construction
-has rational coefficients (Step~4 of the proof of
-Theorem~\ref{thm:effective}). Thus, when \(B>A\), the
-\emph{rational variant} is a relative scheme
-\(r_*^{\Q}\MM_A\restr m_*\MM_B\) with rational coefficients.
-
-Its pooled exponent differs from \eqref{eq:pooled-exponent} only in the
-copy overhead. Since \(L_i^{\Q}/M_i=4-3/M_i\) lies in \([1,4)\),
-\[
- 0\le\log(L^{\Q}/M^3)<3I\log4.
-\]
-For the parameters of Theorem~\ref{thm:quantitative}, \(I\le2a^2\) and
-\(\log4<2\) give
-\(\log(L^{\Q}/M^3)/K<6\log4/(a\ell_a)<12/(a\ell_a)\le1\). This is the
-only consequence of Step~2 of the proof of
-Theorem~\ref{thm:quantitative} that Step~5 uses, and Steps~1, 3, 4
-and~6 do not involve the copy count. Hence \(B>A\), and the pooled
-exponent \(p\) and the source side \(A\) of the rational variant satisfy
-\begin{equation}\label{eq:rational-variant-rate}
- \frac94<\tau_a\le p<\frac94+\frac{900}{\log a},\qquad
- \log A\le181a^5\ell_a^2;
-\end{equation}
-the lower bound holds by the argument after \eqref{eq:tau}, since all
-overheads remain nonnegative. Elsewhere in the paper, including the
-examples of Section~\ref{sec:costs}, the separator keeps its
-\(2M_i-1\) source copies.
+part~(b) for every separator, and part~(c) for exactification. Part~(b)
+has the source, the target variables and the constant term of
+Proposition~\ref{prop:separator}, and the proofs of
+Corollary~\ref{cor:oriented-relations} and
+Proposition~\ref{prop:catalytic} use the separator only through these
+and its degree bound; in particular, the
+reindexing~\eqref{eq:reindexing} is defined on all target variables, as
+Lemma~\ref{lem:composition} requires. Appendix~\ref{sec:composed-maps}
+writes these maps out for Proposition~\ref{prop:separator}; with
+part~(b), terms of positive degree may also have \(g'=g\), and their
+exponents are \(1,\ldots,M-1\) instead of \(\delta^2\), but the same
+fixed coordinate maps apply to them. Since \(M-1\le(M-1)^2\), these
+proofs give~\eqref{eq:catalytic-degeneration} for the new maps with the same
+\(L\), \(M\) and \(D\) as in~\eqref{eq:copy-counts}
+and~\eqref{eq:dimensions}; \(D\) is now only an upper bound for the
+degree, which we keep so that the counts coincide. The proof of
+Proposition~\ref{prop:relative}, with \(E=D+1\) and with the
+decompositions of part~(a), which have the same numbers of terms
+as~\eqref{eq:convolution-rank}, then gives
+\(r_*\MM_A\restr m_*\MM_B\) with the counts~\eqref{eq:relative-counts},
+and every other map of the construction has rational coefficients
+(Step~4 of the proof of Theorem~\ref{thm:effective}). Thus the
+\emph{rational variant} has rational coefficients and, for the same
+rounded counts, the same \(r_*\), \(m_*\), \(A\) and \(B\) as the scheme
+of Theorem~\ref{thm:quantitative}; only its maps differ. Since \(p\) is a
+function of these numbers, Theorem~\ref{thm:quantitative} shows that
+the rational variant is a relative scheme whose pooled exponent \(p\)
+and source side \(A\) satisfy~\eqref{eq:explicit-rate}.
 
 \subsection{An explicit seed}
 \label{subsec:bounded-seed}
@@ -162,13 +165,13 @@ the index that Corollary~\ref{cor:explicit-allowance} assigns to the
 allowance \(\eps'/2\). The cap \(\eps'\le1/2\) makes the pooled
 exponent less than \(5/2\), which Section~\ref{subsec:preprocessing-bounds}
 uses. Build the rational variant
-\(r_*^{\Q}\MM_A\restr m_*\MM_B\) with the parameters of
+\(r_*\MM_A\restr m_*\MM_B\) with the parameters of
 Theorem~\ref{thm:quantitative} for this \(a\), and with any rounding
 allowed by Lemma~\ref{lem:circulation-rounding}. Let
 \(n_*=\lceil AB/(B-A)\rceil+1\) be its leaf threshold
 (Lemma~\ref{lem:batch}), and put
 \begin{equation}\label{eq:bounded-seed-parameters}
- \Xi=r_*^{\Q}(1+r_*^{\Q}m_*)\,n_*^3,\qquad
+ \Xi=r_*(1+r_*m_*)\,n_*^3,\qquad
  d_0=(\Xi+1)^{\lceil2/\eps'\rceil}.
 \end{equation}
 
@@ -191,20 +194,21 @@ scalar product at the last depth of the pooled recursion, and Step~3 of
 the proof of Lemma~\ref{lem:batch} bounds their number. As in the proof
 of Corollary~\ref{cor:explicit-allowance}, \(\log a=\ell_a\log2>\ell_a/2\)
 gives \(900/\log a<1800/\ell_a\le\eps'/2\), so
-\eqref{eq:rational-variant-rate} gives \(p<9/4+\eps'/2\).
+\eqref{eq:explicit-rate}, which holds for the rational variant
+(Section~\ref{subsec:rational-variant}), gives \(p<9/4+\eps'/2\).
 
 Run the pooled recursion at side \(d_0\), put \(\rho=A/B\), and let
 \(\ell_{\max}\) be its last depth. Step~3 of the proof of
 Lemma~\ref{lem:batch} gives, also when \(\ell_{\max}=0\),
 \[
- \nu_{\ell_{\max}}\le\Bigl(1+\frac{r_*^{\Q}m_*}{r_*^{\Q}-m_*}\Bigr)
- \Bigl(\frac{r_*^{\Q}}{m_*}\Bigr)^{\ell_{\max}},
+ \nu_{\ell_{\max}}\le\Bigl(1+\frac{r_*m_*}{r_*-m_*}\Bigr)
+ \Bigl(\frac{r_*}{m_*}\Bigr)^{\ell_{\max}},
  \qquad \rho^{\ell_{\max}}d_0>\rho .
 \]
-Since \(r_*^{\Q}/m_*=\rho^{-p}\), the second inequality gives
-\((r_*^{\Q}/m_*)^{\ell_{\max}}<(r_*^{\Q}/m_*)\,d_0^p\). With
-\(r_*^{\Q}-m_*\ge1\) and \(m_*\ge1\), it follows that
-\(\nu_{\ell_{\max}}<r_*^{\Q}(1+r_*^{\Q}m_*)\,d_0^p\). Every product at
+Since \(r_*/m_*=\rho^{-p}\), the second inequality gives
+\((r_*/m_*)^{\ell_{\max}}<(r_*/m_*)\,d_0^p\). With
+\(r_*-m_*\ge1\) and \(m_*\ge1\), it follows that
+\(\nu_{\ell_{\max}}<r_*(1+r_*m_*)\,d_0^p\). Every product at
 the last depth has side at most \(n_*\), and the classical algorithm
 computes it with at most \(n_*^3\) scalar products, each of a linear
 form in the left input by a linear form in the right input
@@ -234,7 +238,7 @@ parameters of Section~\ref{subsec:bounded-seed}, put
  \mathfrak T&=\bar w+\bar z+K+I+1,\qquad
  \mathfrak F=100(j+1)\mathfrak T,\\
  \mathfrak W&=2+b_\eps+a+K+j+\bar w+\bar z+I+E+\kappa_1
-       +r_*^{\Q}+m_*+A+B+\sum_{i\in\mathcal J}(M_i+L_i^{\Q}),\\
+       +r_*+m_*+A+B+\sum_{i\in\mathcal J}(M_i+L_i),\\
  \mathfrak H&=\mathfrak W^{\mathfrak F},\qquad
  \mathfrak Q=\mathfrak H+d_0+2,\qquad
  \mathfrak S=\mathfrak Q^{50}.
@@ -268,10 +272,13 @@ occupations and for basis changes, the rounding rule of
 Theorem~\ref{thm:effective} for the counts, repeated multiplication for
 factorials and binomial coefficients, and binary powering for integer
 powers. Compute the interpolation coefficients
-\(\varpi_{n,\ell,\gamma}\) and the weights of
-Lemma~\ref{lem:rational-interpolation} by polynomial multiplication,
-and the primitive map entries by evaluating Laurent monomials at the
-integer nodes. Form tensor products, direct sums, restrictions and
+\(\varpi_{n,\ell,\gamma}\) by polynomial multiplication, the separator
+coefficients of Lemma~\ref{lem:rational-interpolation}(b) from them by
+evaluation and by the identity
+\([\xi^{e'}]\varpi_{2M_i-1,\ell}(g+1+\xi)
+=\sum_{s\ge e'}\binom s{e'}(g+1)^{s-e'}\varpi_{2M_i-1,\ell,s}\), and the
+primitive map entries by evaluating Laurent monomials at the integer
+nodes. Form tensor products, direct sums, restrictions and
 compositions as dense arrays, expanding after every operation and
 exploiting no sparsity.
 
@@ -284,11 +291,14 @@ most \(\beta_{\mathrm{tot}}\) augmentations. Since
 edges of the row, so each row needs at most \(J_a+1\) augmentations,
 each a breadth-first search over fewer than \(J_a+3a+3\) arcs. Every
 factorial or binomial argument (a split or tripling count, \(E\), or an
-interpolation size \(L_i^{\Q}\) or \(r+b-1\)) is at most \(\mathfrak W\),
-determinant-basis matrices have size at most \(10a^2\), and primitive
-Laurent exponents are at most \(2\max_iM_i^2\). Hence generating these
-data, and computing the numbers \(\mathfrak T,\ldots,\mathfrak S\),
-takes fewer than \(\mathfrak W^{20}\) steps.
+interpolation size \(M_i\), \(L_i\) or \(r+b-1\)) is at most
+\(\mathfrak W\), determinant-basis matrices have size at most \(10a^2\),
+and primitive Laurent exponents are less than \(\max_iM_i\) in absolute
+value. The separator of relation \(i\) has
+\((2M_i-1)M_i(2M_i+1)<4M_i^3\) coefficients, computed in fewer than
+\(\mathfrak W^5\) steps. Hence generating these data, and computing the
+numbers \(\mathfrak T,\ldots,\mathfrak S\), takes fewer than
+\(\mathfrak W^{20}\) steps.
 
 \emph{Step 3: dense assembly.} One catalytic use has
 \(3(\bar w+\bar z)\) convolution positions and \(3\bar w\) dot-product
@@ -308,10 +318,9 @@ so their legs, with the matrix and copy labels, have dimension at most
 single factor (Step~3 of the proof of Proposition~\ref{prop:relative}).
 The identity factors on matrix tensors add at most four powers of
 \(\mathfrak W\), since \(A^2B^2\le\mathfrak W^4\), and the copy counts
-add at most two more, since by \eqref{eq:one-step}, with \(L\) replaced
-by \(L^{\Q}\), they are at most
-\((r_*^{\Q}/\kappa_1)\,m_*\le r_*^{\Q}m_*\le\mathfrak W^2\). Hence every intermediate leg has
-dimension at most
+add at most two more, since by \eqref{eq:one-step} they are at most
+\((r_*/\kappa_1)\,m_*\le r_*m_*\le\mathfrak W^2\). Hence every
+intermediate leg has dimension at most
 \(\mathfrak W^{28\mathfrak T+6}\le\mathfrak W^{34\mathfrak T}\).
 
 Before its direct-sum labels are expanded, one catalytic use takes at
@@ -336,8 +345,8 @@ by its maps, not yet a rank decomposition of \(\MM_{d_0}\), so we unroll
 the pooled recursion at side \(d_0\). We have
 \(n_*\le AB+2\le\mathfrak W^3\) and
 \(\Xi\le\mathfrak W^{13}\le\mathfrak H\). Since
-\(\nu_{\ell+1}=r_*^{\Q}\lceil\nu_\ell/m_*\rceil
-\ge(r_*^{\Q}/m_*)\nu_\ell>\nu_\ell\), every depth has at most
+\(\nu_{\ell+1}=r_*\lceil\nu_\ell/m_*\rceil
+\ge(r_*/m_*)\nu_\ell>\nu_\ell\), every depth has at most
 \(\nu_{\ell_{\max}}<\Xi d_0^p\le\Xi d_0^3<\mathfrak Q^4\) products (proof
 of Theorem~\ref{thm:bounded-seed}), each of side at most \(d_0\). Above
 the leaf threshold the side strictly decreases, since

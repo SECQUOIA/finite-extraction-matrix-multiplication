@@ -237,3 +237,125 @@ multiplication by
 \(c_{\rm seed}n^{p_{\rm seed}}\le n^{1/v}n^{9/4+1/v}=n^{9/4+2/v(n)}\)
 operations, which proves the claim.
 \end{proof}
+
+\begin{remark}[The rate of the \(o(1)\) term]\label{rem:uniform-rate}
+For a suitable implementation, the index \(v(n)\) selected in the proof
+of Corollary~\ref{cor:uniform-setup} grows like \(\log\log n\), which
+makes the term \(o(1)\) explicit. As there, the preprocessing is
+counted in steps of a multitape Turing machine; such a machine can
+carry out the at most \(\mathfrak S\) steps of
+Theorem~\ref{thm:construction-resources}, locating each operand by a
+scan of its memory, in at most a constant times the square of their bit
+operations. Step~3 of the proof of that theorem counts at most
+\(40(j+1)\mathfrak T\) assembly stages before the direct-sum labels are
+expanded. Suppose that the implementation performs each of these stages
+at once on the expanded arrays, forming every entry as a sum of at most
+\(\mathfrak H\) products of at most four previously formed numbers.
+Since every leg has dimension at most \(\mathfrak W^{34\mathfrak T}\),
+each stage then takes at most \(\mathfrak H^2\) steps in the sense of
+that theorem, so its bounds still hold. Then, for all sufficiently large \(n\),
+\begin{equation}\label{eq:uniform-index}
+ \frac{\log_2\log_2n}{273600}\le v(n)<\frac{\log_2\log_2n}{3600},
+\end{equation}
+and the algorithm uses \(O\bigl(n^{9/4+547200/\log_2\log_2n}\bigr)\)
+steps. The upper bound in~\eqref{eq:uniform-index} holds for every
+implementation, because it comes from the size of the seed alone. Hence
+the guarantee \(p_{\rm seed}<9/4+1/v(n)\) of
+Theorem~\ref{thm:bounded-seed} for the selected seed is never better
+than \(9/4+3600/\log_2\log_2n\), and for this argument the
+double-logarithmic rate is optimal up to the constant. With the
+bit-length bound \(2^{2\mathfrak S}\) of
+Theorem~\ref{thm:construction-resources} in place
+of~\eqref{eq:structural-height} below, the same argument gives only
+\(v(n)\ge\log_2\log_2\log_2n/172800\) and the exponent
+\(9/4+345600/\log_2\log_2\log_2n\).
+\end{remark}
+
+\begin{proof}[Sketch]
+The idea is that the seed for the allowance \(1/v\) has a side that is
+doubly exponential in \(v\), which gives the upper bound, and that a
+bit-length bound governed by the depth of the computation rather than
+by its length makes computing the seed doubly exponential in \(v\) as
+well, which gives the lower bound. The attempt for \(v\) uses
+\(\eps'=\min(1/v,1/2)\) and \(\ell_a=\lceil3600/\eps'\rceil\ge3600v\).
+
+\emph{Upper bound.} By Lemma~\ref{lem:seed-recursion} the seed has
+\(R>d_0^2\) products, so a successful attempt writes more than
+\(3d_0^4\) coefficients within \(n\) steps, and
+\(\log_2n\ge4\log_2d_0-O(1)\). As in Remark~\ref{rem:seed-size},
+\(A=A_1^j\ge2^j=2^{a\ell_a}\), and \(d_0>\Xi\ge n_*>A\)
+by~\eqref{eq:bounded-seed-parameters}. Hence
+\(\log_2\log_2n>\ell_a\ge3600v\).
+
+\emph{Sizes.} Now let \(v\ge2\), so that \(\eps'=1/v\),
+\(\ell_a=3600v\), \(a=2^{3600v}\) and \(b_\eps\le2+\log_2v\); the
+attempt for \(v=1\) builds the same seed as for \(v=2\). The rational
+variant has the counts of Section~\ref{sec:extraction}. Since \(p<3\)
+and \(m_*=M^{3j}\le B^3\) by~\eqref{eq:dimensions}
+and~\eqref{eq:relative-counts}, we have
+\(r_*=m_*(B/A)^p<m_*B^3\le B^6\); every other summand of
+\(\mathfrak W\) is also at most \(B^6\), so
+\(\mathfrak W\le15B^6\). By~\eqref{eq:explicit-rate},
+\eqref{eq:type-error} and \(F(a,a)<(2a-1)^{4/3}\),
+\(\log B=\log A+j\Delta_1\le181a^5\ell_a^2+jK\log F(a,a)
+<182a^5\ell_a^2\), so \(\log\mathfrak W<1100a^5\ell_a^2\).
+By~\eqref{eq:rounded-count-bounds}, as in Step~4 of the proof of
+Theorem~\ref{thm:quantitative}, \(\mathfrak T<185aK\), so
+\(\mathfrak F<2\cdot10^4a^5\ell_a^2\); and \(\Xi\le\mathfrak W^{13}\)
+(Step~4 of the proof of Theorem~\ref{thm:construction-resources}) gives
+\(\log d_0\le2v\log(\mathfrak W^{13}+1)<9a^5\ell_a^3\). As
+\(a=2^{\ell_a}\) with \(\ell_a\ge7200\), the numbers \(\mathfrak F\),
+\(\log\mathfrak W\) and \(\log d_0\) are less than \(a^6\). Since
+\(\log d_0<\mathfrak F\log\mathfrak W\), also
+\(\log\mathfrak S=50\log\mathfrak Q<50(\mathfrak F\log\mathfrak W+2)
+<2\cdot10^9a^{10}\ell_a^4<a^{11}\).
+
+\emph{Depth of the recursion.} By~\eqref{eq:quantitative-contraction},
+which holds for the rational variant because it has the same counts,
+\(\log(B/A)=j\Delta_1>\log2\). Hence \(\rho=A/B<1/2\), and
+\(\rho^{\ell_{\max}}d_0>\rho\) (Step~3 of the proof of
+Lemma~\ref{lem:batch}) gives \(\ell_{\max}\le\lceil\log_2d_0\rceil\);
+Step~4 of the proof of Theorem~\ref{thm:construction-resources} used
+only \(\ell_{\max}\le d_0\).
+
+\emph{Bit lengths.} If each factor has \(\mathfrak b\le\mathfrak b_0\),
+then a sum of at most \(\mathfrak H\) products of at most four factors,
+and each of its partial sums in any order, has
+\(\mathfrak b+1\le4\mathfrak H(\mathfrak b_0+1)\), because the product
+of the denominators of the terms is a common denominator with at most
+\(4\mathfrak H\mathfrak b_0\) bits. The data of Step~2 of the proof of
+Theorem~\ref{thm:construction-resources}, including the occupations, the
+inverse basis changes and the intermediate values of Gaussian
+elimination, which are ratios of minors, have
+\(\mathfrak b\le\mathfrak W^3\); the separator coefficients of
+Lemma~\ref{lem:rational-interpolation}(b), for instance, are ratios of
+integers of absolute value at most \((2M_i)^{2M_i}\). Each of the at most
+\(40(j+1)\mathfrak T\le\mathfrak F\) assembly stages forms every entry as
+a sum of at most \(\mathfrak H\) products of at most four numbers formed
+earlier, and each depth of Step~4 forms sums of at most
+\(\mathfrak Q^{14}\) products of a coefficient of the scheme and an
+entry of the previous depth. Hence every rational number of the
+computation satisfies
+\begin{equation}\label{eq:structural-height}
+ \mathfrak b<(4\mathfrak H)^{\mathfrak F}
+ (4\mathfrak Q^{14})^{\lceil\log_2d_0\rceil}(\mathfrak W^3+1)
+ \le\mathfrak Q^{2\mathfrak F+15\lceil\log_2d_0\rceil+3}\le2^{a^{18}},
+\end{equation}
+in place of \(\mathfrak b\le2^{2\mathfrak S}\).
+
+\emph{Lower bound.} With schoolbook arithmetic, each of the at most
+\(\mathfrak S<2^{2a^{11}}\) steps costs \(O(2^{3a^{18}})\) bit
+operations, so the attempt for \(v\), including its test, takes
+\(O(2^{a^{19}})=O(2^{2^{68400v}})\) Turing-machine steps, with an
+absolute implied constant. Also \(R<d_0^{11/4}\) gives \(c_{\rm seed}<7d_0^8\), so
+\(c_{\rm seed}^v<e^{a^7}\). Suppose \(\log_2\log_2n\ge273600\), and let
+\(v=\lfloor\log_2\log_2n/136800\rfloor\ge2\). Then
+\(a^7<2^{68400v}\le(\log_2n)^{1/2}\), so for large \(n\) the attempt
+for \(v\) succeeds, and
+\(v(n)\ge v\ge\log_2\log_2n/273600\); the multiplication then takes at
+most \(n^{9/4+2/v(n)}\) operations, as in the proof of
+Corollary~\ref{cor:uniform-setup}. With \(2^{2\mathfrak S}\) in place
+of~\eqref{eq:structural-height}, the attempt takes
+\(O(2^{16\mathfrak S})\subseteq O(2^{2^{a^{12}}})\) steps, and
+\(v=\lfloor\log_2\log_2\log_2n/86400\rfloor\) gives the weaker bound.
+\end{proof}

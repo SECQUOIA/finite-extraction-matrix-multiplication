@@ -1,5 +1,11 @@
 # Final algorithm bounds: resolution
 
+Status note (18 October 2026): in version 5 of the paper, Section 9.1 uses
+the polynomial separator of Lü (arXiv:2610.18914, Proposition 2.1) with
+`2M-1` rational source copies, so the `4M-3` separator and the copy-overhead
+bound described below refer to version 4. See
+[the v5 revision record](manuscript-v5-revision.md).
+
 Version 4 of the paper supplies the bounds that version 3 left open. Section 9
 of [finite-extraction.pdf](../../finite-extraction.pdf) adds a
 rational variant of the construction, an explicit seed side, bounds on the

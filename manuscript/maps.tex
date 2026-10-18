@@ -501,7 +501,30 @@ phases above, the quantity in the Fourier condition has absolute value at
 most \(2M-2\), so \(2M-1\) copies suffice.
 Proposition~\ref{prop:separator-general} in Appendix~\ref{subsec:sparse}
 allows a dot product of another dimension and a general phase slope; the
-construction uses only Proposition~\ref{prop:separator}.
+main construction uses only Proposition~\ref{prop:separator}.
+
+\begin{remark}[A polynomial separator]\label{rem:polynomial-separator}
+Independently of this work, \citet[Proposition~2.1]{Lu26} constructed a
+separator by polynomial evaluation and interpolation instead of Fourier
+phases. For \(M\) sectors and a dot product of dimension \(K_0\), it
+uses \(M+K_0-1\) source copies, as Proposition~\ref{prop:separator-general}
+does with \(c=1\); its polynomial has degree at most
+\(\min(M-1,K_0-1)\), as the end of L\"u's proof shows, instead of
+\(\min(M-1,K_0-1)^2\); and its maps are defined over every field with at
+least \(M+K_0-1\) elements. For \(K_0=M\) it gives~\eqref{eq:separator}
+over \(\Q\), with the target variables and the constant term of
+Proposition~\ref{prop:separator}. Lemma~\ref{lem:rational-interpolation}(b)
+writes it out in our coordinates and proves the degree bound, and the
+rational variant of Section~\ref{subsec:rational-variant} uses it.
+\citet[Lemma~2.5]{Fil26} gives another interpolation separator, with
+\(6M-5\) source copies, in every characteristic. We keep
+Proposition~\ref{prop:separator} in the main construction because
+Appendix~\ref{sec:composed-maps} writes out its composed maps,
+Appendix~\ref{subsec:sparse} generalizes it using its exponents
+\(\delta^2\), and Section~\ref{sec:costs} evaluates its degree bound;
+the smaller degree would lower only the interpolation overhead
+(Section~\ref{subsec:improvements}).
+\end{remark}
 
 \subsection{Three orientations}
 \label{subsec:orientations}

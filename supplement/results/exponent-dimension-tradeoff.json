@@ -1,0 +1,100 @@
+{
+  "scope": "All conserved integer flows and legal split widths, with prescribed source and catalyst rank decompositions and the pooled exponent cost model.",
+  "paper_modified": false,
+  "certificates": {
+    "induction_identity_samples": 256,
+    "odd_factor_pair_checks": 32385,
+    "max_index_checked": 256,
+    "proof_for_all_indices": "Symbolic identities and endpoint inequalities in companion Markdown; finite checks are regression checks only.",
+    "unconditional_exp_4c": "2187/1000",
+    "limiting_exp_4c": "10/3"
+  },
+  "necessary_bounds": [
+    {
+      "epsilon": "1/4",
+      "target_exponent": "5/2",
+      "necessary_index_at_least": "9",
+      "necessary_reuse_at_least": "32",
+      "source_side_strictly_above_2_power": "368",
+      "factorized_source_side_at_least": {
+        "power_of_2": "32",
+        "power_of_3": "224"
+      },
+      "bootstrap_indices": [
+        "2",
+        "5",
+        "8",
+        "9",
+        "9"
+      ],
+      "bootstrap_round_limit": 8,
+      "bootstrap_is_optimality_claim": false
+    },
+    {
+      "epsilon": "1/10",
+      "target_exponent": "47/20",
+      "necessary_index_at_least": "587",
+      "necessary_reuse_at_least": "6582",
+      "source_side_strictly_above_2_power": "5782287",
+      "factorized_source_side_at_least": {
+        "power_of_2": "6582",
+        "power_of_3": "3850470"
+      },
+      "bootstrap_indices": [
+        "2",
+        "51",
+        "547",
+        "587",
+        "587"
+      ],
+      "bootstrap_round_limit": 8,
+      "bootstrap_is_optimality_claim": false
+    },
+    {
+      "epsilon": "1/20",
+      "target_exponent": "23/10",
+      "necessary_index_at_least": "515312",
+      "necessary_reuse_at_least": "11594476",
+      "source_side_strictly_above_2_power": "8962135735816",
+      "factorized_source_side_at_least": {
+        "power_of_2": "11594476",
+        "power_of_3": "5974749427560"
+      },
+      "bootstrap_indices": [
+        "2",
+        "4049",
+        "514344",
+        "515312",
+        "515312"
+      ],
+      "bootstrap_round_limit": 8,
+      "bootstrap_is_optimality_claim": false
+    },
+    {
+      "epsilon": "1/100",
+      "target_exponent": "113/50",
+      "necessary_index_at_least": "174429169363903877246844517002",
+      "necessary_reuse_at_least": "19623281553439186190270008162501",
+      "source_side_strictly_above_2_power": "5134309052340621871212113107198754745805984457443695293688001",
+      "factorized_source_side_at_least": {
+        "power_of_2": "19623281553439186190270008162501",
+        "power_of_3": "3422872701560414580808075404786087642835030180835616857017000"
+      },
+      "bootstrap_indices": [
+        "2",
+        "7951082248547256135",
+        "174429169363903876420521109233",
+        "174429169363903877246844517002",
+        "174429169363903877246844517002"
+      ],
+      "bootstrap_round_limit": 8,
+      "bootstrap_is_optimality_claim": false
+    }
+  ],
+  "not_claimed": [
+    "Feasibility or optimality of displayed indices",
+    "An arbitrary-circuit rank lower bound",
+    "A wall-clock crossover",
+    "A limitation on other source or catalyst decompositions"
+  ]
+}

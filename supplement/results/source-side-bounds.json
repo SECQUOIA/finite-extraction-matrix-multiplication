@@ -1,0 +1,198 @@
+{
+  "description": "Checks for the source-side lower bounds of Section 11.2",
+  "potentials": {
+    "rows": [
+      2,
+      60
+    ],
+    "edges_checked": {
+      "paper_widths": 171491,
+      "all_widths": 4016726
+    },
+    "top_row_potential": "psi(0)=2, psi(x)=x; gains K log 2 + z_a log(3a) (top row) and z_r log(3r) (lower rows)",
+    "lower_row_potential": "psi(0)=3, psi(1)=3/2, psi(x)=x/2; gains K log 3 + z_r log r",
+    "row_two_potential_paper_widths": [
+      "2",
+      "1",
+      "2",
+      "6",
+      "6",
+      "9",
+      "18"
+    ],
+    "row_two_potential_all_widths": [
+      "2",
+      "1",
+      "2",
+      "4",
+      "6",
+      "12",
+      "16"
+    ],
+    "paper_row_two_potential_fails_for_other_widths_at_edge_x_h_y": [
+      2,
+      1,
+      3
+    ],
+    "all_conditions_hold": true
+  },
+  "example_ledger_a2": {
+    "a": 2,
+    "K": 15,
+    "zbar": 15,
+    "splits": 105,
+    "A1_equals_2^30_3^75": true,
+    "W_lower_two_holds": true,
+    "kappa_lower_holds": true
+  },
+  "integer_inequalities": {
+    "e_series_terms": 13,
+    "checks": {
+      "e_bounds": "e between 2.718 and 11/4; e < 3 gives log 3 > 1 and log 12 > 3/4",
+      "eta_values": "eta_2 = 10/9, eta_3 = 56/45, eta_4 = 110/81",
+      "a2_triplings": "(3/2)^3 > 3, so zbar/K > 1/3",
+      "a2_identity": "log 2 + (1/3) log 18 = (2/3) log 12",
+      "a2_reuse": "24*9^27 > 10^27",
+      "a3_triplings": "5^6 > 2^6*3^5, so zbar/K > 5/6",
+      "a3_reuse": "3^6*24^5*45^102 > 56^102, so j > 17",
+      "a3_W": "W >= log 6 + log 2 = log 12",
+      "a4_base": "24*(5!!) = 360 > eta_4^19",
+      "a4_step": "(13/12)^19 < 7",
+      "eta_ratio": "eta_{a+1}/eta_a = (3a+1)/(3a) * (6a^2+a-2)/(6a^2+a-1) < 13/12 (a in [4, 2000])",
+      "a_ge_4_induction_sanity": "24 (2a-3)!! > eta_a^19 evaluated for 4 <= a <= 200",
+      "a_ge_4_final": "20 log 18 > 18 log 12",
+      "twelve_power": "12^18 > 2^64",
+      "catalyst_base": "(2r-1)(5r-2) >= 24 for r >= 2, equality at r = 2 (increasing in r)",
+      "s_cubed": "s_a^3 <= (3a-1)/2 (Theorem thm:least-profile, Step 4), a <= 400",
+      "profile_strict": "F(a,a)^3 < (2a-1)^4 for 2 <= a <= 400",
+      "ratio_monotone": "(4a-2)/(3a-1) increases (difference of cross products is 2) from 6/5 at a = 2",
+      "index_at_least_4": "(6/5)^9 > 5, so (3a-1)/2 > 5 and a >= 4",
+      "pairing": "((2a-3)!!)^2 > (2a-1)^(a-2), checked for 3 <= a <= 300",
+      "six_a": "6(a-2) >= 3a-1 for a >= 4",
+      "log3_gt_1": "log 3 > 1, so log 3/(8 eps) > 1/2 for eps <= 1/4",
+      "cor_a_upper_range": "36 log 12 > 27 > (6/5)^18, so log(2 log A) > 18 log(6/5)",
+      "cor_b_lower": "(6/5)^90 > 2^5 e^12, so 18 log(6/5) - log 2 > 2.4",
+      "cor_b_upper": "2^500 < e^347, 181*7200^2 < e^72, 3.48*1801 < 6300",
+      "cor_c": "log 3 > 1",
+      "catalyst_free": "log 3/3 > 1/3",
+      "scope_a2_identity": "log 2 + (1/3) log 16 = (7/3) log 2",
+      "scope_a2_reuse": "24*9^30 > 10^30, so log 24/log(10/9) > 30",
+      "scope_a2_final": "70 log 2 > 18 log 12",
+      "q3_log3": "log 3 > 1.098",
+      "q3_part_b": "p < 2.371339 gives log A > (log 3/(8 eps)) (6/5)^37 > 950",
+      "q3_a188": "a >= 188 gives log A > 9 (a-2)^2 log 3/(8 eps) > 3*10^5",
+      "q3_later_bounds": "the later bounds near 2.371 are lower than 2.371339 by less than 3*10^-4"
+    },
+    "all_checks_passed": true
+  },
+  "case_analysis_box_sanity_check": {
+    "box": "2 <= a <= 6, 1 <= K <= 12, 0 <= zbar <= 24, 1 <= j <= 60",
+    "tuples_examined": 63480,
+    "tuples_satisfying_both_conditions": 18399,
+    "smallest_lower_bound_log2": 71,
+    "smallest_at_a_K_zbar_j": [
+      3,
+      1,
+      1,
+      20
+    ],
+    "all_at_least_12^18": true
+  },
+  "flattening_ranks": {
+    "convolution_tensors_full_flattening_rank": "C(r,b), 1 <= r, b <= 8",
+    "convolution_cases": 64,
+    "symmetrized_tensors_full_flattening_rank": [
+      [
+        "+",
+        2,
+        2,
+        12
+      ],
+      [
+        "-",
+        2,
+        2,
+        12
+      ],
+      [
+        "+",
+        2,
+        3,
+        24
+      ],
+      [
+        "-",
+        2,
+        3,
+        24
+      ],
+      [
+        "+",
+        3,
+        2,
+        24
+      ],
+      [
+        "-",
+        3,
+        2,
+        24
+      ],
+      [
+        "+",
+        2,
+        4,
+        40
+      ],
+      [
+        "-",
+        2,
+        4,
+        40
+      ],
+      [
+        "+",
+        3,
+        3,
+        45
+      ],
+      [
+        "-",
+        3,
+        3,
+        45
+      ]
+    ],
+    "rank_method": "Gaussian elimination modulo 2^61-1; full row rank modulo a prime implies full row rank over Q",
+    "split_leg_dimension_floor": "r^2 (2r-1) for columns b >= r",
+    "split_times_tripling_leg_dimension_at_r_2": 1344
+  },
+  "joint_decomposition_search": {
+    "conditions": "(i) 2^(3jK) 3^(3j zbar) > (a^2(2a-1))^(jK) (((a-1)!)^2 (2a-3)!!)^K 1344^zbar; (ii) F(a,a)^(3jK) > the same right side",
+    "source_lower_bound": "A >= max((2*3^(a-2))^K 2^zbar, 2^K 6^zbar, [a=2] 2^K 16^zbar)^j",
+    "box": {
+      "a": [
+        2,
+        16
+      ],
+      "jK_at_most": 24,
+      "j_zbar_at_most": 8,
+      "K_at_least": 1,
+      "j_at_least": 1,
+      "zbar_at_least": 0
+    },
+    "box_completeness": "A <= 2^24 forces jK <= 24, 6^(j zbar) <= 2^23 < 6^9 and 3^(a-2) <= 2^23 < 3^15",
+    "tuples_examined": 5490,
+    "feasible_tuples_with_bound_at_most_2^24_as_a_K_zbar_j_log2bound": [
+      [
+        2,
+        2,
+        1,
+        4,
+        24
+      ]
+    ],
+    "conclusion": "every such scheme with p < 3 has A >= 2^24; the bound of the relaxation is attained only at (a, K, zbar, j) = (2, 2, 1, 4)"
+  },
+  "all_checks_passed": true
+}

@@ -18,7 +18,10 @@ tensor factor. For every integer \(a\ge2^{64}\) we obtain a scheme that
 computes several products of \(B\times B\) matrices from products of
 smaller \(A\times A\) matrices; its recursive use has exponent below
 \(9/4+900/\log a\) (natural logarithm), and
-\(\log A\le181a^5\lceil\log_2a\rceil^2\). Replacing roots of unity by
+\(\log A\le181a^5\lceil\log_2a\rceil^2\). Within the construction, the
+least \(A\) that gives exponent at most \(9/4+\eps\) is
+\(\exp(\exp(\Theta(1/\eps)))\), and this family attains that order.
+Replacing roots of unity by
 rational interpolation nodes, we also give the seed side by a formula
 and bound the bit lengths of the coefficients and the bit cost of
 computing them; these bounds are computable from \(\eps\) and
@@ -28,4 +31,6 @@ exactly and the precision that suffices for a prescribed normwise
 forward error. Counting the computation of the seed as Turing-machine steps and the
 multiplication as field operations, one algorithm multiplies
 \(n\times n\) matrices over any field of characteristic zero in
-\(n^{9/4+o(1)}\) steps for every \(n\).
+\(n^{9/4+o(1)}\) steps for every \(n\). A Lean formalization of a
+simpler rational variant of the construction proves \(\omega\le9/4\) over every
+field of characteristic zero, without explicit constants.

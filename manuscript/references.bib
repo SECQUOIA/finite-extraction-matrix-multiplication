@@ -124,7 +124,7 @@
   eprint        = {2608.16884},
   archivePrefix = {arXiv},
   primaryClass  = {cs.DS},
-  note          = {arXiv preprint v1, posted 17 August 2026},
+  note          = {arXiv preprint v1, 17 August 2026},
   url           = {https://arxiv.org/abs/2608.16884v1}
 }
 
@@ -133,8 +133,128 @@
   title        = {An Upper Bound of $9/4$ for the Matrix Multiplication Exponent},
   year         = {2026},
   month        = oct,
-  note         = {Preprint posted 2 October 2026},
+  note         = {Preprint dated 2 October 2026, released 6 October 2026; unchanged through commit 1581d4c, 12 October 2026},
   url          = {https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Matrix-Multiplication-Nine-Fourths-October-2-2026/paper.pdf}
+}
+
+@misc{OAI26Stag,
+  author       = {{OpenAI}},
+  title        = {Staggered extraction for exact matrix multiplication over every field},
+  year         = {2026},
+  month        = oct,
+  note         = {Preprint dated 24 September 2026, released 6 October 2026},
+  url          = {https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026}
+}
+
+@misc{OAI26Comp,
+  author       = {{OpenAI}},
+  title        = {Complex Matrix Multiplication Below $2.258$ and Rectangular Bounds},
+  year         = {2026},
+  month        = oct,
+  note         = {Preprint dated 24 September 2026, released 6 October 2026},
+  url          = {https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026}
+}
+
+@misc{OAI26Lean,
+  author       = {{OpenAI}},
+  title        = {Matrix multiplication with exponent at most $9/4$},
+  year         = {2026},
+  month        = oct,
+  note         = {{Lean} formalization, family 107 of the openai/math collection, released 6 October 2026; theorem \texttt{OAI.MatrixMultiplication.complex\_omega\_le\_nine\_quarters}, over $\mathbb{C}$},
+  url          = {https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/OAI/LinearAlgebra/MatrixMultiplication}
+}
+
+@misc{Zad26,
+  author        = {Zadeh, Reza},
+  title         = {A faster matrix multiplication algorithm through structured optimization},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2610.10593},
+  eprint        = {2610.10593},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.DS},
+  url           = {https://arxiv.org/abs/2610.10593v1},
+  note          = {arXiv preprint v1, 6 October 2026}
+}
+
+@misc{Nav26a,
+  author = {Navot, Sela},
+  title  = {Matrix multiplication exponent at most $9/4$ over arbitrary fields: a {Lean} formalization},
+  year   = {2026},
+  doi    = {10.5281/zenodo.23219128},
+  url    = {https://doi.org/10.5281/zenodo.23219128},
+  note   = {Software, version 1.0.0, Zenodo, 7 October 2026}
+}
+
+@misc{Zui26,
+  author = {Zuiddam, Jeroen},
+  title  = {Lean proof that the matrix multiplication exponent is at most $9/4$ over every field},
+  year   = {2026},
+  url    = {https://github.com/jzuiddam/omega-nine-quarters-all-fields/tree/615b591cddd8792173c17b58558ef3b9f11a702c},
+  note   = {GitHub repository, 7 October 2026}
+}
+
+@misc{Uzn26,
+  author        = {Uzna{\'n}ski, Przemys{\l}aw},
+  title         = {Rectangular matrix multiplication from polynomial products},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2610.10494},
+  eprint        = {2610.10494},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.DS},
+  url           = {https://arxiv.org/abs/2610.10494v2},
+  note          = {arXiv preprint v2, 11 October 2026; v1 (7 October 2026) has the title \emph{Rectangular matrix multiplication from shared-leg entropy}}
+}
+
+@misc{Nav26b,
+  author = {Navot, Sela},
+  title  = {The Matrix Multiplication Bound $\omega\le9/4$ over Associative Rings},
+  year   = {2026},
+  doi    = {10.5281/zenodo.23268534},
+  url    = {https://doi.org/10.5281/zenodo.23268534},
+  note   = {Software with manuscript, version 0.1.0, Zenodo, 9 October 2026}
+}
+
+@misc{Lu26,
+  author        = {L{\"u}, Houxi},
+  title         = {Polynomial Separation of a Shared Tensor Leg and Matrix Multiplication in Arbitrary Characteristic},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2610.18914},
+  eprint        = {2610.18914},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CC},
+  url           = {https://arxiv.org/abs/2610.18914v1},
+  note          = {arXiv preprint v1, 12 October 2026}
+}
+
+@misc{Fil26,
+  author = {Filmus, Yuval},
+  title  = {Matrix multiplication from block identities},
+  year   = {2026},
+  month  = oct,
+  url    = {https://github.com/YuvalFilmus/matrix-multiplication-block-identities/tree/8e38460c2c04617692a64a826b09e8995ac8717d},
+  note   = {Manuscript with {Lean} formalization, repository commit 8e38460c, 17 October 2026; the manuscript has no byline; authorship as stated in the repository}
+}
+
+@inproceedings{Lean4,
+  author    = {de Moura, Leonardo and Ullrich, Sebastian},
+  title     = {The {Lean}~4 Theorem Prover and Programming Language},
+  booktitle = {Automated Deduction -- {CADE} 28},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {12699},
+  pages     = {625--635},
+  year      = {2021},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-030-79876-5_37}
+}
+
+@inproceedings{Mathlib,
+  author    = {{The mathlib Community}},
+  title     = {The {Lean} Mathematical Library},
+  booktitle = {Proceedings of the 9th {ACM} {SIGPLAN} International Conference on Certified Programs and Proofs ({CPP} 2020)},
+  pages     = {367--381},
+  year      = {2020},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/3372885.3373824}
 }
 
 @article{CVZ21,

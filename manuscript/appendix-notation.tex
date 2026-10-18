@@ -17,29 +17,47 @@ Appendix~\ref{subsec:sparse} and the heuristic of
 Section~\ref{subsec:intro-heuristic}, \(M\) is the sector count of a
 single relation. The lifts \(L_{c,h}(i)\) of Section~\ref{sec:maps} are
 unrelated to \(L_i\) and \(L\). In Section~\ref{sec:maps}, \(c\) counts
-coefficients, and in Appendix~\ref{subsec:sparse} it is a phase slope;
-neither is related to the catalyst multiplicities \(c_{\sigma,r,b}\). The
+coefficients, and in Appendix~\ref{subsec:sparse} and
+Remark~\ref{rem:polynomial-separator} it is a phase slope; neither is
+related to the catalyst multiplicities \(c_{\sigma,r,b}\). In
+Appendix~\ref{subsec:sparse}, Remark~\ref{rem:polynomial-separator} and
+Lemma~\ref{lem:rational-interpolation}(b), \(K_0\) is the dimension of
+a dot product, unrelated to the rounding scale \(K\). The
 degree bound \(D\) and the relative entropy \(D(\cdot\Vert\cdot)\) are
 distinguished by their arguments.
 
 Section~\ref{sec:seed-bounds} uses local notation. The rational variant
-has interpolation coefficients \(\varpi_{n,\ell,\gamma}\), separator
-weights \(\varpi_\ell\), separator copy counts \(L_i^{\Q}=4M_i-3\),
-\(L^{\Q}=\prod_i(L_i^{\Q})^3\), and first count \(r_*^{\Q}\)
-(Section~\ref{subsec:rational-variant}). Theorem~\ref{thm:bounded-seed}
+has the Lagrange basis polynomials \(\varpi_{n,\ell}(\xi)\) of the nodes
+\(1,\ldots,n\), with coefficients \(\varpi_{n,\ell,\gamma}\), and
+\([\xi^\gamma]\) takes the coefficient of \(\xi^\gamma\)
+(Section~\ref{subsec:rational-variant}); its counts \(L\), \(D\), \(E\),
+\(r_*\), \(m_*\), \(A\) and \(B\) are those of
+Section~\ref{sec:extraction}. Theorem~\ref{thm:bounded-seed}
 uses the capped allowance \(\eps'=\min(\eps,1/2)\), the leaf threshold
 \(n_*\) of Lemma~\ref{lem:batch} and the rank constant \(\Xi\). The
 fraktur letters \(\mathfrak T,\mathfrak F,\mathfrak W,\mathfrak H,
 \mathfrak Q,\mathfrak S\) are size bounds used only in
-Theorem~\ref{thm:construction-resources}, where \(b_\eps\) is the
-bit length of \(\eps\) and \(\mathfrak b\) a bit length. For a fixed
-rational seed (Section~\ref{subsec:seed-recursion}),
-\(p_{\rm seed}=\log_{d_0}R\); the coefficient matrices are
+Theorem~\ref{thm:construction-resources} and
+Remark~\ref{rem:uniform-rate}, where \(b_\eps\) is the bit length of
+\(\eps\), \(\mathfrak b\) a bit length and \(\mathfrak b_0\) a bound on
+the bit lengths of factors. For a fixed
+rational seed (Section~\ref{subsec:seed-recursion}) with \(R\)
+products, \(p_{\rm seed}=\log_{d_0}R\) and \(c_{\rm seed}\) is the
+constant of Lemma~\ref{lem:seed-recursion}; the coefficient matrices are
 \(\mathsf U,\mathsf V,\mathsf W\), with common denominator
 \(c_{\rm den}\), cleared-coefficient bound \(c_{\rm coef}\) and bit
 lengths \(c_{\rm in},c_{\rm out}\); \(\ell\) is the recursion depth,
 \(b_{\rm in}\) the bit bound of the input entries, \(u\) the unit roundoff,
 \(\vartheta\) an error target, and \(\Upsilon,\chi\) enter the forward-error bound.
+In Corollary~\ref{cor:uniform-setup} and Remark~\ref{rem:uniform-rate},
+\(1/v(n)\) is the allowance of the seed selected at input side \(n\).
+
+Section~\ref{subsec:limits} also uses local notation: the double
+factorial \((2a-3)!!=\prod_{r=2}^{a-1}(2r-1)\), a potential \(\psi\) on
+the states of a row, the ratio \(\eta_a=F(a,a)/(2a-1)\), the least
+source side \(A_{\min}(\eps)\) at allowance \(\eps\), and the number
+\(R\) of terms of a decomposition
+(Remark~\ref{rem:joint-decompositions}).
 
 \subsection*{Tensors and operations}
 \raggedright

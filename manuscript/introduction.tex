@@ -3,10 +3,11 @@
 
 The exponent \(\omega\) of matrix multiplication is the least real number
 such that, for every \(\eps>0\), two \(n\times n\) complex matrices can
-be multiplied with \(O(n^{\omega+\eps})\) arithmetic operations. On
-2 October 2026 OpenAI posted a preprint~\citep{OAI26} announcing
-\(\omega\le9/4\), well below the bounds near \(2.371\) obtained by the
-laser method~\citep{AD25,Dup26}. Its proof works with tensor characters:
+be multiplied with \(O(n^{\omega+\eps})\) arithmetic operations. In a
+preprint dated 2~October 2026 and released on 6~October~\citep{OAI26},
+OpenAI announced \(\omega\le9/4\), well below the bounds near \(2.371\)
+obtained by the laser method~\citep{AD25,Dup26,Zad26,OAI26Stag}. Its proof works
+with tensor characters:
 functions on tensors that add over direct sums, multiply over tensor
 products, do not increase under restriction, and take the value one on
 the unit tensor. These are the points of Strassen's asymptotic
@@ -53,7 +54,25 @@ zero with \(O_\eps(n^{9/4+\eps})\) arithmetic operations.
 
 We call such an algorithm a \emph{rational seed} with \emph{seed side}
 \(d_0\). In particular \(\omega\le9/4\): for a real \(\eps>0\), apply the
-theorem to a rational number in \((0,\eps)\).
+theorem to a rational number in \((0,\eps)\). Theorem~\ref{thm:main} is
+stated in characteristic zero, but a rational seed is also a bilinear
+algorithm, with the same number of multiplications, over every field
+whose characteristic divides none of the denominators of its
+coefficients. Other work proves
+\(\omega\le9/4\) over every field~\citep{Nav26a,Zui26,Fil26} and the
+corresponding operation count over every associative unital
+ring~\citep{Nav26b} (Section~\ref{subsec:intro-oai}).
+
+Termination alone
+would not require a construction: by \citet{Nav26b}, for every
+\(\eps>0\) some \(d\) admits a bilinear algorithm for \(d\times d\)
+matrices with integer coefficients and fewer than \(d^{9/4+\eps}\)
+multiplications, so an exhaustive search would also terminate (\citet[Remark~5.2]{OAI26} observes this for
+algebraic coefficients). What the construction adds is that
+prescribed tensor maps produce the seed and that its finite resources
+are bounded: the source side in Theorem~\ref{thm:main-relative}, and the
+seed side, the coefficients and the preprocessing cost in
+Theorems~\ref{thm:bounded-seed} and~\ref{thm:construction-resources}.
 
 The quantitative result is stated for relative schemes. Write \(\MM_d\)
 for the tensor of \(d\times d\) matrix multiplication, \(m\MM_d\) for the
@@ -110,10 +129,12 @@ restricts the coefficients to \(\Q\) (Lemma~\ref{lem:descent}), and
 stops at the first side \(d_0\) with fewer than \(d_0^{9/4+\eps}\)
 multiplications, which exists because of the gap \(\eps/2\).
 
-Replacing the roots of unity in the rank decompositions, the separators
-and exactification by rational interpolation nodes gives a variant of
-the construction with rational coefficients and the same bounds as in
-Theorem~\ref{thm:main-relative} (Section~\ref{subsec:rational-variant}).
+Replacing the roots of unity in the rank decompositions and in
+exactification by rational interpolation nodes, and the separator by the
+polynomial separator of \citet{Lu26}, gives a variant
+of the construction with rational coefficients and the same counts, hence
+the same bounds, as in Theorem~\ref{thm:main-relative}
+(Section~\ref{subsec:rational-variant}).
 It gives a second proof of Theorem~\ref{thm:main}, in which the seed
 side \(d_0\) is given by an explicit formula in the parameters of the
 construction instead of a search
@@ -124,7 +145,23 @@ Section~\ref{subsec:seed-recursion} bounds the bit cost of exact integer
 multiplication and the precision that suffices for a prescribed normwise
 forward error. Counting the preprocessing, one algorithm multiplies
 \(n\times n\) matrices in \(n^{9/4+o(1)}\) steps for every \(n\)
-(Corollary~\ref{cor:uniform-setup}).
+(Corollary~\ref{cor:uniform-setup}); Remark~\ref{rem:uniform-rate}
+sketches a proof that, for a suitable implementation of the
+preprocessing, the \(o(1)\) term is \(O(1/\log\log n)\).
+
+Within this construction the source side must be large
+(Section~\ref{subsec:limits}): every scheme it produces with pooled
+exponent below \(3\) has \(A\ge12^{18}\), and the least source side of
+a scheme with pooled exponent at most \(9/4+\eps\) is
+\(\exp(\exp(\Theta(1/\eps)))\), an order that the family of
+Theorem~\ref{thm:main-relative} attains. Section~\ref{subsec:lean}
+describes a formalization in Lean~4 with Mathlib~\citep{Lean4,Mathlib}
+of a simpler rational variant of the construction, which clears
+denominators instead of rounding. It formalizes the tensor maps for
+splits and triplings, the occupations and the relative scheme of
+Sections~\ref{sec:maps}, \ref{sec:flows} and~\ref{sec:extraction}, and
+derives \(\omega\le9/4\) over every field of characteristic zero,
+without explicit constants.
 
 \subsection{Where the exponent \texorpdfstring{\(9/4\)}{9/4} comes from}
 \label{subsec:intro-heuristic}
@@ -355,7 +392,7 @@ the other three overheads enter its numerator.}
 \label{tab:overheads}
 \end{table}
 
-\subsection{Relation to the OpenAI preprint}
+\subsection{Relation to the OpenAI preprint and later work}
 \label{subsec:intro-oai}
 
 The bound \(\omega\le9/4\) and the scalar framework behind it are due to
@@ -378,28 +415,42 @@ only degeneration. The tripling restriction fixes only the number of
 middle blocks, so it works for every tripling count without a
 divisibility condition. The splits have arbitrary width \(h\), with
 auxiliary dimension \(h+1\). The separator uses \(2M-1\) source copies
-instead of \(5M\). On the scalar side, we determine the least profile
-off the diagonal as well, show that \(F\) satisfies the axioms, so that
-the bound \(P\ge F\) is attained, and prove the upper bound
-\(F(m,n)\le(m+n-1)^{4/3}\), which is strict for \(m=n>1\). The finite
+instead of \(5M\), as did the first version of this paper
+(7~October 2026); \citet[Proposition~2.1]{Lu26} obtained this count
+independently with a polynomial separator of smaller degree
+(Remark~\ref{rem:polynomial-separator}). On the scalar
+side, we determine the least profile off the diagonal as well, show that
+\(F\) satisfies the axioms, so that the bound \(P\ge F\) is attained,
+and prove the upper bound \(F(m,n)\le(m+n-1)^{4/3}\), which is strict
+for \(m=n>1\). \citet[Section~4.3]{Fil26}, who cites an earlier version
+of this paper, obtains \(F/2\) on rows \(2,\ldots,a\) as an optimal
+solution of a finite linear program; the factor \(1/2\) comes from his
+normalization. The finite
 analysis is new: the occupations of the row walk and their uniform
 bounds, the integer rounding that keeps every balance exact and its
 uniform bound on the rounding loss, the bounds on all overheads
 (Table~\ref{tab:overheads}), the rate of
-Theorem~\ref{thm:main-relative}, and the rational seeds of
-Theorem~\ref{thm:main}.
-
-The termination statement in Theorem~\ref{thm:main} would not by itself
-require a construction. As \citet[Remark~5.2]{OAI26} observes, the
-equations of an exact rank decomposition have rational coefficients, so
-a complex solution implies an algebraic one; once \(\omega\le9/4\) is
-known, an exhaustive search over algebraic candidates would therefore
-also terminate for each fixed \(\eps\). What the present construction
-adds is that the algorithm is generated by prescribed maps whose finite
-resources are bounded: the source side in
-Theorem~\ref{thm:main-relative}, and the seed side, the coefficients and
-the preprocessing cost in Theorems~\ref{thm:bounded-seed}
+Theorem~\ref{thm:main-relative}, the lower bounds of
+Section~\ref{subsec:limits}, and a procedure that constructs rational
+seeds, with the bounds of Theorems~\ref{thm:bounded-seed}
 and~\ref{thm:construction-resources}.
+
+Several works that appeared after the OpenAI preprint extend its
+results. \citet{Nav26a} and \citet{Zui26} proved in Lean that
+\(\omega\le9/4\) over every field, choosing a Fourier period that is
+invertible in the field and descending from the algebraic closure;
+\citet{Nav26b} extended the operation count to every associative unital
+ring through decompositions with integer coefficients. \citet{Lu26}
+used his separator to extend the OpenAI argument to algebraically closed
+fields of every characteristic, checking its other steps in outline.
+\citet{Fil26} proved a criterion that turns a
+finite family of shared-leg block identities with a nonnegative
+certificate into an exponent bound, using tensor value and asymptotic
+cancellation instead of characters, and reproved \(\omega\le9/4\) over
+every field, also in Lean. \citet{Uzn26} extended the analysis to
+rectangular products in characteristic zero, and \citet{Fil26} extended
+these rectangular bounds to every field. These works prove
+that algorithms exist; none of them specifies a seed or bounds its size.
 
 \subsection{Related work}
 \label{subsec:intro-related}
@@ -424,8 +475,14 @@ standard tools; \citet[Appendix~A of the full version]{LG14} gives a
 detailed example. \citet{AW21} refine the
 extraction of independent components, \citet{AD25} analyze powers of
 the Coppersmith--Winograd tensor asymmetrically and prove
-\(\omega<2.371339\), and \citet{Dup26} optimize that analysis
-numerically and report \(\omega<2.371177\).
+\(\omega<2.371339\), \citet{Dup26} optimize that analysis
+numerically and report \(\omega<2.371177\), \citet{Zad26} reports
+\(\omega<2.37115924\) in the same framework, and an OpenAI preprint
+dated 24~September 2026 and released with \citet{OAI26} proves
+\(\omega<2.371054887\) over every field~\citep{OAI26Stag}. A second
+OpenAI preprint of the same date, released at the same time, adjoins
+auxiliary group tensors to the extraction and proves \(\omega<2.258\)
+over every field of characteristic zero~\citep{OAI26Comp}.
 
 Strassen's asymptotic spectrum compares tensor powers through
 characters~\citep{Str88,CVZ}, and relative bilinear
@@ -437,7 +494,7 @@ symmetrization \(T\otimes T^{(123)}\otimes T^{(132)}\) that underlies
 
 The determinant filtration is a case of the universal Clebsch--Gordan
 filtration of \citet[Lemma~2.5, Theorem~2.8, Corollary~2.9 and
-Corollary~2.9]{Maakestad23}; we identify the multiplication induced on
+Definition~2.10]{Maakestad23}; we identify the multiplication induced on
 its quotients and the restrictions obtained by fixing types. Integer
 circulations between integral bounds exist by total
 unimodularity~\citep[Theorem~2]{HK56}, and rounding through a return
@@ -459,8 +516,10 @@ arithmetic operations on exact field elements for a fixed allowance
 All sizes are astronomically large: even the example with \(a=12\) in
 Section~\ref{sec:costs} has a source side \(A\) with about
 \(2.3\times10^{11}\) decimal digits, and the explicit bounds of
-Section~\ref{sec:seed-bounds} are far larger. Every pooled exponent of
-the family is strictly above \(9/4\), and for a seed we prove only an
+Section~\ref{sec:seed-bounds} are far larger. The lower bounds of
+Section~\ref{subsec:limits} concern only this construction; they are
+not lower bounds for matrix multiplication or for other constructions.
+Every pooled exponent of the family is strictly above \(9/4\), and for a seed we prove only an
 exponent below \(9/4+\eps\); so neither a fixed seed nor the algorithm
 of Corollary~\ref{cor:uniform-setup}, whose allowance shrinks with
 \(n\), is shown to use \(O(n^{9/4})\) operations. That algorithm uses
@@ -481,8 +540,11 @@ overheads (Section~\ref{sec:extraction}), and the rate and rational seeds
 rational variant, the explicit seed and its preprocessing cost, the bit
 complexity and precision of recursion with a fixed seed, and the
 algorithm for all sizes. Section~\ref{sec:costs} evaluates finite
-examples, and Section~\ref{sec:discussion} discusses limits and open
-questions. Appendices~\ref{sec:exact-certificate}--\ref{sec:notation}
-treat the exact binary certificate, the composed relation maps on their
+examples. Section~\ref{sec:discussion} discusses possible improvements,
+proves lower bounds on the source side within the construction
+(Section~\ref{subsec:limits}), describes the Lean formalization
+(Section~\ref{subsec:lean}), lists the supporting files and states open
+questions.
+Appendices~\ref{sec:exact-certificate}--\ref{sec:notation} treat the exact binary certificate, the composed relation maps on their
 full variable spaces, the separator with general parameters, and the
 notation.

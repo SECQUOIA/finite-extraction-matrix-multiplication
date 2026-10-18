@@ -1,8 +1,15 @@
-\section{Further remarks}
+\section{Limits, formalization and open questions}
 \label{sec:discussion}
 
-We end with reusable components, possible improvements and open
-questions.
+This section collects reusable components and possible improvements
+(Section~\ref{subsec:improvements}), proves lower bounds for the source
+side within the construction (Section~\ref{subsec:limits}), describes a
+Lean formalization of a rational variant (Section~\ref{subsec:lean}),
+lists the supporting files (Section~\ref{subsec:supporting-files}) and
+states open questions (Section~\ref{subsec:open-questions}).
+
+\subsection{Reusable components and possible improvements}
+\label{subsec:improvements}
 
 Several components can be used separately in other tensor arguments. The
 type restriction of Lemma~\ref{lem:multiway} turns a filtration that
@@ -20,19 +27,403 @@ leg.
 
 The exponent formula \eqref{eq:pooled-exponent} separates the overheads,
 so possible improvements can be judged one term at a time. A separator
-with fewer source copies or a smaller degree would reduce the copy and
-interpolation overheads (Appendix~\ref{subsec:sparse} discusses two
-refinements); a cheaper decomposition of the catalyst than the rank bound
-\(\kappa_N\) would reduce the catalyst overhead; and other transition
-rules might reduce the occupation and type costs.
+with fewer source copies would reduce the copy overhead, and one with a
+smaller degree the interpolation overhead: with the separator
+of \citet{Lu26} (Remark~\ref{rem:polynomial-separator}),
+\eqref{eq:dimensions} could use \(D=3\sum_i(M_i-1)\), which replaces
+\(2\bar H_N\) by \(\bar H_N\) in the bound on \(\log E\)
+in~\eqref{eq:finite-cost-bounds}; Appendix~\ref{subsec:sparse}
+discusses two refinements. A cheaper
+decomposition of the catalyst than the rank bound \(\kappa_N\) would
+reduce the catalyst overhead, and other transition rules might reduce
+the occupation and type costs.
 Section~\ref{subsec:finite-examples} shows which terms matter at small
 indices. Using all six leg orientations instead of three squares the dimensions
 at a given interpolation power \(k\) but gives no better exponent: the
 sixfold construction with power \(k\) coincides with the threefold one
-with power \(2k\) (Section~\ref{subsec:exact-normalization}). We know of no lower bound
-that excludes the improvements listed above.
+with power \(2k\) (Section~\ref{subsec:exact-normalization}).
+Section~\ref{subsec:limits} shows that within the construction the
+source side must be doubly exponential in \(1/\eps\), even with a free
+catalyst; we know of no lower bound that excludes the improvements of
+the overheads listed above.
 
-\subsection*{Supporting files}
+\subsection{Limits of the construction}
+\label{subsec:limits}
+
+The source sides in Sections~\ref{sec:rate}--\ref{sec:costs} are
+astronomically large. This subsection proves that within the
+construction they must be large: a pooled exponent below \(3\) needs
+\(A\ge12^{18}\), and a pooled exponent at most \(9/4+\eps\), with
+\(\eps\le1/4\), needs \(\log\log A>0.6/\eps\), so the order \(\log\log A=O(1/\eps)\) of
+Corollary~\ref{cor:explicit-allowance} is optimal up to the constant.
+
+A \emph{scheme of the construction} is a relative scheme
+\(r_*\MM_A\restr m_*\MM_B\) of Proposition~\ref{prop:relative} (so
+\(B>A\)), built for some target index \(a\ge2\) and positive integers
+\(K,N,k,j\) from the counts of any rounding that
+Lemma~\ref{lem:circulation-rounding} allows; \(p\) denotes its pooled
+exponent. The rational variant of Section~\ref{subsec:rational-variant}
+has the same \(r_*\), \(m_*\), \(A\) and \(B\) as the scheme built from
+the same counts, so the results below apply to it as well.
+By~\eqref{eq:dimensions} and \(A=A_1^{kj}\), we have \(\log A=NkjW\),
+with \(W=\sum_{r,x}w_{r,x}\log d_{r,x}\) as in
+Section~\ref{subsec:count-bounds}. We write
+\((2a-3)!!=\prod_{r=2}^{a-1}(2r-1)\), which is \(1\) for \(a=2\).
+
+\begin{proposition}[Lower bounds for the source side]
+\label{prop:source-lower}
+Let \(r_*\MM_A\restr m_*\MM_B\) be a scheme of the construction, with
+pooled exponent \(p\).
+\begin{enumerate}
+\item[(a)] If \(p<3\), then \(A\ge12^{18}>2^{64}\).
+\item[(b)] If \(p\le9/4+\eps\), where \(0<\eps\le1/4\), then
+\[
+ \frac{3a-1}2\ge\Bigl(\frac65\Bigr)^{9/(4\eps)},\qquad
+ j>\frac{9(a-2)}{8\eps},\qquad
+ \log A>\frac{\log3}{8\eps}\Bigl(\frac65\Bigr)^{9/(2\eps)}
+ >\frac12\Bigl(\frac65\Bigr)^{9/(2\eps)}.
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The row identities force splits and triplings, which enlarge \(W\). A
+small exponent forces a large gain \(\Delta_N\), which needs triplings,
+and a catalyst overhead that is small compared with the gain, which
+needs a large reuse count \(j\).
+
+\emph{Step 1: lower bounds for \(W\).} Fix a row \(r\) and a positive
+function \(\psi\) on the states \(0,\ldots,3r\) such that
+\(d_{r,x}\psi(x)\ge\psi(y)\) for every interior state \(x\) and every
+child \(y\in\mathcal Y_{r,x}\). Applying the linear map
+\(\mathbf e_x\mapsto\log\psi(x)\) to~\eqref{eq:rounded-row-flow}, as in
+Step~3 of the proof of Proposition~\ref{prop:entropy-loss}, gives
+\(\sum_{x,y}n_{r,x,y}\log(\psi(y)/\psi(x))
+=K\log(\psi(0)/\psi(\xin_r))+z_r\log(\psi(3r)/\psi(1))\). Every term on
+the left is at most \(n_{r,x,y}\log d_{r,x}\), so
+\begin{equation}\label{eq:potential-bound}
+ \sum_xw_{r,x}\log d_{r,x}
+ \ge K\log\frac{\psi(0)}{\psi(\xin_r)}+z_r\log\frac{\psi(3r)}{\psi(1)}.
+\end{equation}
+The children of \(x\) are \(x-h,x-h+2,\ldots,x+h\) with
+\(h=h_{r,x}\le x\); so a child \(y\ge1\) satisfies
+\(y\le x+h\le(h+1)x\), the child \(0\) occurs only if \(h=x\), and the
+child \(1\) only if \(h=x-1\). The function with \(\psi(0)=2\) and
+\(\psi(x)=x\) for \(x\ge1\) satisfies the condition, because
+\((x+1)x\ge2\); by~\eqref{eq:potential-bound} it gives
+\(K\log2+z_a\log(3a)\) in the top row, where \(\xin_a=1\), and
+\(z_r\log(3r)\) in a lower row, where \(\xin_r=2\). In a lower row, the
+function with \(\psi(0)=3\), \(\psi(1)=3/2\) and \(\psi(x)=x/2\) for
+\(x\ge2\) also satisfies the condition. At \(x=1\), whose children are
+\(0\) and \(2\), this is direct. For \(x\ge2\), the children \(y\ge2\),
+\(y=1\) and \(y=0\) satisfy it because \(x+h\le(h+1)x\), \(x^2\ge3\) and
+\(x(x+1)\ge6\), respectively. This potential gives
+\(K\log3+z_r\log r\). Summing over the rows,
+\begin{equation}\label{eq:W-lower}
+ W\ge K\log\bigl(2\cdot3^{a-2}\bigr)+\bar z\log2,
+ \qquad
+ W\ge K\log2+\bar z\log6.
+\end{equation}
+For \(a=2\), the states \(1,\ldots,5\) have the auxiliary dimensions
+\(2,3,4,3,2\) and the children \(\{0,2\}\), \(\{0,2,4\}\),
+\(\{0,2,4,6\}\), \(\{2,4,6\}\), \(\{4,6\}\) (Example~\ref{ex:row-two}),
+and \(\psi=(2,1,2,6,6,9,18)\) on the states \(0,\ldots,6\) satisfies the
+condition; hence
+\begin{equation}\label{eq:W-lower-two}
+ W\ge K\log2+\bar z\log18\qquad(a=2).
+\end{equation}
+Finally, state \(0\) is not interior and \(3r\notin\{0,\xin_r\}\), so the
+coefficients of \(\mathbf e_0\) and \(\mathbf e_{3r}\)
+in~\eqref{eq:rounded-row-flow} show that \(K\) splits of row \(r\) have
+the child \(0\) and \(z_r\) splits have the child \(3r\). Hence row
+\(r\) has at least \(K+z_r\) splits.
+
+\emph{Step 2: the catalyst.} By Step~3 of the proof of
+Proposition~\ref{prop:rounded-ledger}, every catalyst multiplicity equals
+the source multiplicity, except that of \([+;a,a]\), which is smaller by
+\(K\). The base \(r+b-1\) in~\eqref{eq:kappa} does not depend on the
+representative of a symbol. A split at \((r,x)\) consumes a symbol with
+base \(2r-2+x\ge2r-1\), a tripling of row \(r\) consumes one with base
+\(5r-2\), and \([+;a,a]\) has base \(2a-1\). By Step~1, and since
+\((2r-1)(5r-2)\ge24\) for \(r\ge2\),
+\begin{equation}\label{eq:kappa-lower}
+ \frac{\log\kappa_N}{3N}
+ \ge\sum_{r=2}^a\bigl((K+z_r)\log(2r-1)+z_r\log(5r-2)\bigr)-K\log(2a-1)
+ \ge K\log\bigl((2a-3)!!\bigr)+\bar z\log24 .
+\end{equation}
+
+\emph{Step 3: the gain.} In~\eqref{eq:rounded-gain},
+\(H(\hat q_{r,x})\le\log d_{r,x}\), because \(\hat q_{r,x}\) is a
+distribution on \(d_{r,x}\) children. With~\eqref{eq:type-error},
+\eqref{eq:rounded-entropy} and \(B>A\), this gives
+\begin{equation}\label{eq:delta-upper}
+ 0<\Delta_N\le NG\le N\min\bigl(K\log2+\bar z\log3,\;K\log F(a,a)\bigr).
+\end{equation}
+The three overheads in~\eqref{eq:pooled-exponent} are nonnegative
+(Section~\ref{subsec:cost-bounds}), so
+\begin{equation}\label{eq:p-lower}
+ p\Delta_N\ge3NK\log(2a-1)+\frac{\log\kappa_N}j .
+\end{equation}
+
+\emph{Step 4: part~(a).} Let \(p<3\), and put
+\(\eta_a=F(a,a)/(2a-1)\). By~\eqref{eq:p-lower}, both
+\(3NK\log(2a-1)\) and \((\log\kappa_N)/j+3NK\log(2a-1)\) are less than
+\(3\Delta_N\). By~\eqref{eq:delta-upper} and~\eqref{eq:kappa-lower},
+\begin{equation}\label{eq:subcubic-necessary}
+ \bar z\log3>K\log\frac{2a-1}2,\qquad
+ j\log\eta_a>\log\bigl((2a-3)!!\bigr)+\frac{\bar z}K\log24 .
+\end{equation}
+In particular \(\bar z\ge1\). Since \(\log A=NkjW\ge jW\), it suffices to
+show \(jW\ge18\log12\).
+
+If \(a=2\), then \(\eta_2=10/9\) and \((2a-3)!!=1\). Since
+\((3/2)^3>3\), the first inequality gives \(\bar z/K>1/3\), and the
+second gives \(jK\log(10/9)>\bar z\log24\ge\log24\).
+By~\eqref{eq:W-lower-two},
+\[
+ jW\ge jK\Bigl(\log2+\frac{\bar z}K\log18\Bigr)
+ >\frac{\log24}{\log(10/9)}\Bigl(\log2+\frac13\log18\Bigr)
+ =\frac23\cdot\frac{\log24}{\log(10/9)}\,\log12>18\log12,
+\]
+the last because \(24\cdot9^{27}>10^{27}\).
+
+If \(a=3\), then \(\eta_3=56/45\) and \((2a-3)!!=3\). Since
+\(5^6>2^6\cdot3^5\), the first inequality gives \(\bar z/K>5/6\), and the
+second gives \(j\log(56/45)>\log3+\frac56\log24>17\log(56/45)\), because
+\(3^6\cdot24^5\cdot45^{102}>56^{102}\). Hence \(j\ge18\),
+and~\eqref{eq:W-lower} with \(K,\bar z\ge1\) gives \(W\ge\log12\).
+
+If \(a\ge4\), then \((2a-1)/2>3\), so \(\bar z>K\), and the second
+inequality gives \(j\log\eta_a>\log(24\,(2a-3)!!)\). We claim
+\(24\,(2a-3)!!>\eta_a^{19}\). For \(a=4\), \((2a-3)!!=15\),
+\(\eta_4=110/81\) and \(360\cdot81^{19}>110^{19}\).
+By~\eqref{eq:profile-formula},
+\(\eta_{a+1}/\eta_a=(3a+1)(6a^2+a-2)/\bigl(3a(6a^2+a-1)\bigr)<13/12\)
+for \(a\ge4\), and \((13/12)^{19}<7\le2a-1=(2a-1)!!/(2a-3)!!\), which
+gives the induction step. Hence \(j>19\), and~\eqref{eq:W-lower} gives
+\(W\ge\log18\), so \(jW\ge20\log18>18\log12\).
+
+\emph{Step 5: part~(b).} Let \(p\le9/4+\eps\) with \(0<\eps\le1/4\).
+By~\eqref{eq:p-lower} and~\eqref{eq:delta-upper},
+\(p\ge3\log(2a-1)/\log F(a,a)=\tau_a\). Step~4 of the proof of
+Theorem~\ref{thm:least-profile} gives \(s_a^3\le(3a-1)/2\), that is,
+\(\log F(a,a)\le\frac43\log\frac{3a-1}2\). Hence
+\(\frac94+\eps\ge\frac94\log(2a-1)/\log\frac{3a-1}2\), that is,
+\[
+ \eps\log\frac{3a-1}2\ge\frac94\log\frac{4a-2}{3a-1}\ge\frac94\log\frac65,
+\]
+because \((4a-2)/(3a-1)\) increases with \(a\). This is the first
+inequality; with \(\eps\le1/4\) and \(6^9>5^{10}\) it gives
+\((3a-1)/2>5\), so \(a\ge4\).
+
+Next, \eqref{eq:p-lower}, \eqref{eq:delta-upper} and
+\(\log F(a,a)<\frac43\log(2a-1)\) (Theorem~\ref{thm:least-profile}) give
+\[
+ \frac{\log\kappa_N}j
+ \le\Bigl(\frac94+\eps\Bigr)NK\log F(a,a)-3NK\log(2a-1)
+ <\eps NK\log F(a,a)<\frac{4\eps}3NK\log(2a-1),
+\]
+and with~\eqref{eq:kappa-lower},
+\(j>9\log((2a-3)!!)/(4\eps\log(2a-1))\). Pairing the factors \(2r-1\) and
+\(2(a+1-r)-1\) gives
+\(((2a-3)!!)^2=\prod_{r=2}^{a-1}(2r-1)(2a+1-2r)\). Each factor is a
+concave function of \(r\) whose values at \(r=2\) and \(r=a-1\) equal
+\(3(2a-3)>2a-1\), so \(((2a-3)!!)^2>(2a-1)^{a-2}\). This gives the second
+inequality.
+
+Finally, \eqref{eq:W-lower} gives
+\(\log A\ge jW>j(a-2)\log3>9(a-2)^2\log3/(8\eps)\). Since
+\(a\ge4\), we have \(6(a-2)\ge3a-1\), so
+\((a-2)^2\ge((3a-1)/2)^2/9\ge(6/5)^{9/(2\eps)}/9\)
+by the first inequality. This gives the third inequality, and
+\(\log3/(8\eps)\ge(\log3)/2>1/2\).
+\end{proof}
+
+\begin{corollary}[Exponent against source side]\label{cor:source-tradeoff}
+\leavevmode
+\begin{enumerate}
+\item[(a)] Every scheme of the construction with \(p<3\) satisfies
+\(\displaystyle p>\frac94+\frac{9\log(6/5)}{2\log(2\log A)}\).
+\item[(b)] For rational \(\eps\in(0,1/4]\), the least source side
+\(A_{\min}(\eps)\) of a scheme of the construction with \(p\le9/4+\eps\)
+satisfies \(0.6/\eps<\log\log A_{\min}(\eps)<6300/\eps\). Thus
+\(A_{\min}(\eps)=\exp(\exp(\Theta(1/\eps)))\).
+\item[(c)] Let \(0<\eps\le1/2\). If the pooled recursion of a scheme of
+the construction with \(p\le9/4+\eps/2\), unrolled at a side \(d_0\) as
+in Corollary~\ref{cor:seed} or Theorem~\ref{thm:bounded-seed}, gives
+fewer than \(d_0^{9/4+\eps}\) products, then
+\(\log d_0>\frac12(6/5)^{9/\eps}\). This applies to the seeds of both
+results.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) If \(p\le5/2\), put \(\eps=p-9/4\). Then \(0<\eps\le1/4\), since
+\(p\ge\tau_a>9/4\) (Section~\ref{subsec:cost-bounds}), and
+Proposition~\ref{prop:source-lower}(b) gives
+\(2\log A>(6/5)^{9/(2\eps)}\), which is the claim. If \(5/2<p<3\),
+Proposition~\ref{prop:source-lower}(a) gives
+\(2\log A\ge36\log12>27>(6/5)^{18}\), so the right side is less than
+\(9/4+1/4<p\).
+
+(b) Corollary~\ref{cor:explicit-allowance} gives a scheme with
+\(p<9/4+\eps\), so \(A_{\min}(\eps)\) exists. By
+Proposition~\ref{prop:source-lower}(b) and \(\eps\le1/4\),
+\(\log\log A_{\min}(\eps)>(9/(2\eps))\log(6/5)-\log2
+\ge(18\log(6/5)-\log2)/(4\eps)>0.6/\eps\). Conversely, the
+scheme of Corollary~\ref{cor:explicit-allowance} has
+\(\log A\le181\cdot2^{5\ell}\ell^2\), where
+\(\ell=\lceil1800/\eps\rceil\ge7200\), so
+\(\log\log A_{\min}(\eps)\le\log181+5\ell\log2+2\log\ell<3.48\,\ell
+\le3.48\cdot1801/\eps<6300/\eps\).
+
+(c) Every side \(n\le A\) lies below the leaf threshold of
+Lemma~\ref{lem:batch}, where the unrolled algorithm is classical, with
+\(n^3\ge n^{9/4+\eps}\) products (Remark~\ref{rem:seed-size}); hence
+\(d_0>A\). Apply Proposition~\ref{prop:source-lower}(b) with
+\(\eps/2\le1/4\) in place of \(\eps\). Both results unroll schemes with
+\(p<9/4+\eps/2\); in Theorem~\ref{thm:bounded-seed}, \(\eps'=\eps\).
+\end{proof}
+
+The double exponential does not come from the catalyst. The first
+inequality of Proposition~\ref{prop:source-lower}(b) uses only
+\(p\ge\tau_a\), which holds whenever the three overheads are
+nonnegative, so it holds even if the catalyst costs nothing. Together
+with \(a\ge4\) (Step~5) and
+\(\log A\ge W>(a-2)\log3\ge((3a-1)/6)\log3\) it gives
+\(\log A>\frac13(6/5)^{9/(4\eps)}\); the bound on the reuse count \(j\)
+only doubles the exponent \(9/(4\eps)\). A cheaper decomposition of the
+catalyst therefore cannot make \(\log\log A\) smaller than of order
+\(1/\eps\).
+
+\begin{remark}[What the construction certifies]
+\label{rem:certificate-limit}
+Choose, for each input side \(n\), any scheme of the construction with
+\(p<3\) and \(A\le n\). By Corollary~\ref{cor:source-tradeoff}(a),
+\(n^p>n^{9/4}\exp\bigl(\tfrac92\log\tfrac65\cdot\log n/\log(2\log n)\bigr)\),
+and the last factor grows faster than every power of \(\log n\). So,
+even when the scheme depends on \(n\), the bounds \(n^p\) that
+Lemma~\ref{lem:batch} certifies in this way are not of the form
+\(O(n^{9/4}(\log n)^{O(1)})\). This concerns the certified bounds, not
+the operation counts of the algorithms; Remark~\ref{rem:uniform-rate}
+treats the algorithm of Corollary~\ref{cor:uniform-setup}.
+\end{remark}
+
+\begin{remark}[Scope of the lower bounds]\label{rem:limits-scope}
+The proofs use the separator only through its output and \(L\ge M^3\),
+the counts only through the row identities~\eqref{eq:rounded-row-flow},
+and the widths only through \(1\le h_{r,x}\le\min(x,3r-x)\), except
+in~\eqref{eq:W-lower-two}. For all such widths,
+\(\psi=(2,1,2,4,6,12,16)\) satisfies the condition of Step~1 in row two
+and gives \(\log16\) in place of \(\log18\) (the case \(a=2\) of Step~4
+then uses \(24\cdot9^{30}>10^{30}\) and \(2^{34}>3^{18}\)), and the
+identity of Proposition~\ref{prop:entropy-loss}, with \(\mathcal L\ge0\),
+holds for the transition probabilities \(f_r(y)/((h+1)f_r(x))\) of a
+split of any such width \(h\). Hence Proposition~\ref{prop:source-lower}
+and Corollary~\ref{cor:source-tradeoff}(a),(b) also hold for the schemes
+that the maps in the proofs of Propositions~\ref{prop:catalytic}
+and~\ref{prop:relative} build, with the separator of
+Proposition~\ref{prop:separator} or of
+Lemma~\ref{lem:rational-interpolation}(b), from any
+nonnegative integer solution of~\eqref{eq:rounded-row-flow} with any
+such widths, possibly several at one state. They say nothing about
+separators with other outputs, other relations among the tensors
+\(S^\sigma_{r,b}\), or decompositions of the source copies and the
+catalyst other than those of Proposition~\ref{prop:relative} (but see
+Remark~\ref{rem:joint-decompositions}).
+\end{remark}
+
+\begin{remark}[Arbitrary decompositions of the source and the catalyst]
+\label{rem:joint-decompositions}
+Suppose that, in Proposition~\ref{prop:relative}, the source factors
+\((S^+_{a,a})^{\otimes NKk}\) of the \(j\) uses are not decomposed one
+use at a time, and that
+\((S^+_{a,a})^{\otimes NKkj}\otimes\Cat_N^{\otimes k}\) is supplied by
+one arbitrary rank decomposition with \(R\) terms, possibly joint across
+all factors, so that \(r_*=RE^jL^{kj}\); the counts, the separator
+copies and the interpolation points are kept. On each leg of \(C(r,b)\), the rows of
+the variables are nonzero and have disjoint supports, as for leg~\(3\)
+in Section~\ref{subsec:prelim-tensors}; so every flattening rank of
+\(S^\sigma_{r,b}\) equals its leg dimension \(rb(r+b-1)\), and
+flattening ranks multiply under tensor products. Hence \(R\) is at least
+the leg dimension of this tensor, and Step~2 of the proof of
+Proposition~\ref{prop:source-lower}, with leg dimensions in place of
+rank bounds, gives
+\(R\ge\bigl(a^2(2a-1)\bigr)^{NKkj}
+\bigl(((a-1)!)^{2K}((2a-3)!!)^K1344^{\bar z}\bigr)^{Nk}\), where
+\(1344=12\cdot112\) is the product of the leg dimensions of
+\(S^\sigma_{2,2}\) and \(S^\sigma_{2,7}\). With \(E\ge1\), \(L\ge M^3\)
+and~\eqref{eq:delta-upper}, \(p<3\) then implies that both
+\(2^{3jK}3^{3j\bar z}\) and \(F(a,a)^{3jK}\) exceed
+\[
+ \bigl(a^2(2a-1)\bigr)^{jK}((a-1)!)^{2K}((2a-3)!!)^K1344^{\bar z}.
+\]
+If \(A\le2^{24}\), then \(jW\le24\log2\), and~\eqref{eq:W-lower} gives
+\(a\le16\), \(jK\le24\) and \(j\bar z\le8\). An exhaustive search over
+these tuples in exact integer arithmetic
+(Section~\ref{subsec:supporting-files}), with \(\log A\ge jW\),
+\eqref{eq:W-lower} and, for \(a=2\), the bound
+\(W\ge K\log2+\bar z\log16\) of Remark~\ref{rem:limits-scope}, finds
+that \((a,K,\bar z,j)=(2,2,1,4)\) is the only tuple that satisfies both
+conditions and whose lower bound for \(A\) is at most \(2^{24}\), and
+that this bound equals \(2^{24}\). Hence every such scheme with \(p<3\) has
+\(A\ge2^{24}\), also in the generality of
+Remark~\ref{rem:limits-scope}. This bound is much weaker than
+Proposition~\ref{prop:source-lower}(a).
+\end{remark}
+
+\subsection{A Lean formalization}
+\label{subsec:lean}
+
+The directory \path|formalization/| of the supplementary material
+contains a formalization in Lean~4 with
+Mathlib~\citep{Lean4,Mathlib} of a simpler rational variant of our
+construction.\footnote{Checked with Lean~4.35.0,
+Mathlib at commit \texttt{ccbef15e}, and the repository
+of~\citet{Fil26} at commit \texttt{8e38460c}.} Its final theorems,
+\texttt{algorithms\_with\_exponent\_slack} and
+\texttt{omega\_le\_nine\_fourths} in
+\path|RationalAlgorithmTransportBridge.lean|, state that, for every
+field of characteristic zero and every real \(\eps>0\), division-free
+straight-line programs over that field multiply two \(n\times n\)
+matrices with \(O_\eps(n^{9/4+\eps})\) additions, subtractions and
+multiplications for all \(n\ge1\), and that therefore
+\(\omega\le9/4\) over every such field. Programs, their cost and \(\omega\) are
+those of the arithmetic model in the Lean code of
+OpenAI~\citep{OAI26Lean}, as adapted by \citet{Nav26a} and distributed
+with \citet{Fil26}; from that library the proof uses only the model,
+generic program constructions and basic tensor definitions, not its
+proof of the bound. The formal proof follows Sections~\ref{sec:maps},
+\ref{sec:flows} and~\ref{sec:extraction} with rational maps as in
+Section~\ref{subsec:rational-variant}: it includes
+Lemmas~\ref{lem:determinant-basis}, \ref{lem:multiway}
+and~\ref{lem:tripling}, the occupations of
+Proposition~\ref{prop:occupations} as the unique nonnegative rational
+solution of their linear system, with the row
+identity~\eqref{eq:row-flow} (but not~\eqref{eq:reset-weights}
+or~\eqref{eq:occupation-bounds}), the three parts of
+Lemma~\ref{lem:rational-interpolation}, with the weights of part~(c)
+written as values of Lagrange basis polynomials, the restriction of
+Proposition~\ref{prop:relative}, and the pooled recursion of
+Lemma~\ref{lem:batch} for \(p>2\). It differs from the paper in three
+ways: it clears the denominators of the occupations instead of rounding
+them as in Section~\ref{sec:rounding}; it uses only the
+formula~\eqref{eq:profile-formula} and bounds on \(\log F(a,a)\), not
+Theorem~\ref{thm:least-profile}; and it reaches \(9/4\) through limits,
+so it gives no explicit constants, rates or seed sides. Apart from
+Lemma~\ref{lem:rational-interpolation}, nothing in
+Sections~\ref{sec:rate}--\ref{sec:costs} is formalized, in particular
+neither Theorem~\ref{thm:main-relative} nor the seeds of
+Theorem~\ref{thm:main}; nor are Proposition~\ref{prop:source-lower} and
+Corollary~\ref{cor:source-tradeoff}. Lean's kernel checks all proofs,
+which use only Lean's standard axioms (propositional extensionality,
+choice and quotient soundness). Other Lean developments prove
+\(\omega\le9/4\) over \(\C\)~\citep{OAI26Lean} and over every
+field~\citep{Nav26a,Zui26,Fil26}, and the corresponding operation count
+over every associative unital ring~\citep{Nav26b}.
+
+\subsection{Supporting files}
+\label{subsec:supporting-files}
 
 {\sloppy\renewcommand{\UrlBreaks}{\do\/\do\_}%
 The supplementary material contains scripts, most of them in exact arithmetic, in the
@@ -58,18 +449,29 @@ evaluates the numbers of Example~\ref{ex:ledger-a2}. The scripts
 Example~\ref{ex:row-two} exactly and the floating-point values in
 Remarks~\ref{rem:occupation-constants} and~\ref{rem:observed-loss}. The
 script \path|rational_interpolation_audit.py| checks, on small cases, the
-interpolation weights of Lemma~\ref{lem:rational-interpolation}, the
-rational rank decompositions of \(C(r,b)\) and the pooled-recursion
-counts used in Theorem~\ref{thm:bounded-seed}. The script
+three parts of Lemma~\ref{lem:rational-interpolation} and the
+pooled-recursion counts used in Theorem~\ref{thm:bounded-seed}. The script
 \path|rational_seed_arithmetic_checks.py| writes
 \path|results/rational-seed-arithmetic-checks.json|; it checks the
 denominator clearing, the intermediate bit lengths and the forward-error
 bound of Section~\ref{subsec:seed-recursion} for Strassen's seed with
-rescaled rational coefficients. Neither script constructs the seed of
-Theorem~\ref{thm:bounded-seed}. No theorem of this paper depends on
-these files.\par}
+rescaled rational coefficients. Neither of these two scripts constructs
+the seed of Theorem~\ref{thm:bounded-seed}. The script
+\path|source_side_bounds.py| (report
+\path|results/source-side-bounds.json|) checks the potentials of
+Step~1 of the proof of Proposition~\ref{prop:source-lower} on the rows
+\(r\le60\), also for all widths, and every inequality between fixed
+numbers in the proofs of Proposition~\ref{prop:source-lower} and
+Corollary~\ref{cor:source-tradeoff} and in open question~3; it evaluates those proved for all
+\(a\) on finite ranges, checks flattening ranks, and runs the search of
+Remark~\ref{rem:joint-decompositions}. The
+directory \path|formalization/| contains the Lean files of
+Section~\ref{subsec:lean}. No theorem, proposition or corollary of this
+paper depends on these files; Remark~\ref{rem:joint-decompositions}
+rests on the exact search of \path|source_side_bounds.py|.\par}
 
-\subsection*{Open questions}
+\subsection{Open questions}
+\label{subsec:open-questions}
 
 \begin{enumerate}
 \item \emph{New relations.} Are there tensor relations (restrictions or
@@ -79,32 +481,40 @@ inequalities to the profile axioms? By Theorem~\ref{thm:least-profile}
 and Remark~\ref{rem:profile-limit}, such relations are needed for a bound
 below \(9/4\) of the form \(3\log(2a-1)/\log P(a,a)\).
 
-\item \emph{Dependence on the allowance.} Every scheme of the family has
-\(p\ge\tau_a\), and the proof of Theorem~\ref{thm:least-profile} gives
-\(s_a^3\le(3a-1)/2\), hence
-\(\log F(a,a)\le\frac43\log\bigl((3a-1)/2\bigr)\) and
-\[
- \tau_a-\frac94
- \ge\frac94\cdot\frac{\log\bigl((4a-2)/(3a-1)\bigr)}
- {\log\bigl((3a-1)/2\bigr)}
- \ge\frac{9\log(6/5)}{4\log\bigl((3a-1)/2\bigr)}.
-\]
-So a scheme of the family with exponent below \(9/4+\eps\) has
-\(\log\bigl((3a-1)/2\bigr)>9\log(6/5)/(4\eps)\): its target index grows
-exponentially in \(1/\eps\), and so does the bound on \(\log A\) in
-Corollary~\ref{cor:explicit-allowance}. Is there a finite construction with exponent
-below \(9/4+\eps\) and with \(\log A\) bounded by a polynomial in
-\(1/\eps\)?
+\item \emph{Dependence on the allowance.} Within the construction, the
+least source side at allowance \(\eps\) is
+\(\exp(\exp(\Theta(1/\eps)))\)
+(Corollary~\ref{cor:source-tradeoff}(b)), and a cheaper catalyst cannot
+remove the double exponential (Section~\ref{subsec:limits}). Is there a
+different finite construction with exponent below \(9/4+\eps\) and with
+\(\log A\) bounded by a polynomial in \(1/\eps\)?
 
 \item \emph{Moderate sizes.} A floating-point evaluation gives
 \(\tau_a>2.371339\) for \(a\le187\). Since \(p\ge\tau_a\), a scheme of
-this family has exponent below \(2.371339\), the bound on \(\omega\)
-proved by \citet{AD25}, only if \(a\ge188\). How small can the source
-side of such a scheme be made, in this family or in a variant of it?
+the construction has exponent below \(2.371339\), the bound
+of \citet{AD25}, only if \(a\ge188\); the later bounds near \(2.371\) in
+Section~\ref{subsec:intro-related} are lower by less than
+\(3\cdot10^{-4}\). Every scheme with \(p<3\) has \(A\ge12^{18}\), and
+every scheme with \(p<2.371339\) has \(\log A>950\)
+(Proposition~\ref{prop:source-lower}(b) with \(\eps=0.121339\)); since
+such a scheme also has \(a\ge188\) by the evaluation above, the bound
+\(\log A>9(a-2)^2\log3/(8\eps)\) from the proof of part~(b) gives
+\(\log A>3\cdot10^5\). With arbitrary decompositions of the source and
+the catalyst we know only \(A\ge2^{24}\)
+(Remark~\ref{rem:joint-decompositions}). All these bounds are far below
+the sizes of Sections~\ref{sec:rate}--\ref{sec:costs}. How small
+can the source side of a scheme with exponent below \(2.371339\) be
+made, in this construction or in a variant of it?
 
 \item \emph{Smaller seeds.} Theorems~\ref{thm:bounded-seed}
 and~\ref{thm:construction-resources} bound the seed side, the bit
 lengths of the coefficients and the preprocessing cost by explicit but
-enormous functions of \(\eps\). How far can these bounds be reduced, in
-this family or in a variant of it?
+enormous functions of \(\eps\), and Remark~\ref{rem:uniform-rate}
+sketches how, for a suitable implementation, they give an explicit rate
+for the algorithm of Corollary~\ref{cor:uniform-setup}. Every seed
+obtained by unrolling a scheme of the construction as in
+Corollary~\ref{cor:source-tradeoff}(c) has a side doubly exponential in
+\(1/\eps\). How far can the other bounds,
+and the constants of Remark~\ref{rem:uniform-rate}, be reduced, in this
+construction or in a variant of it?
 \end{enumerate}
