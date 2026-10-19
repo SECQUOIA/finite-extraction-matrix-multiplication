@@ -2,3 +2,4 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 /manuscript/finite-extraction.pdf
+/manuscript-shifted-chains/shifted-chains.pdf

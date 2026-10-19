@@ -1,0 +1,22 @@
+An October 2026 preprint by OpenAI proved that the exponent of complex
+matrix multiplication is at most \(9/4\), without specifying algorithms.
+A subsequent construction gives exact rational algorithms with exponent
+below \(9/4+\eps\) for every rational \(\eps>0\), but the numbers of
+matrix products in its schemes and the sides of its seeds are doubly
+exponential in \(1/\eps\), necessarily so within that construction. Our
+construction makes them singly exponential. Its main ingredient, a
+shifted sum of polynomials, splits a polynomial multiplication tensor
+times a dot product into equal kernel parts and one quotient part, which
+a reset turns into shorter polynomial multiplications. The resulting
+stages, which shorten the polynomial multiplication and enlarge a matrix
+multiplication tensor, run in sequence, each exactified separately. For
+rational \(0<\eps\le1\), an explicit rational scheme computes \(m\)
+products of \(B\times B\) matrices from \(r\) products of \(A\times A\)
+matrices, with exponent between \(9/4\) and \(9/4+\eps/2\), and with
+\(\log m\), \(\log r\) and \(\log A\) below
+\(2.7\cdot10^{10}\eps^{-9/2}\log^3(4096/\eps)\). It yields rational seeds
+of side \(n_0\) with \(\log n_0=O(\eps^{-11/2}\log^3(1/\eps))\), and one
+algorithm for all \(n\) with exponent
+\(9/4+O((\log\log n)^{6/11}(\log n)^{-2/11})\). Within the construction,
+the exponent exceeds \(9/4\), and \(\log r\) and \(\log m\) have the
+least possible order.

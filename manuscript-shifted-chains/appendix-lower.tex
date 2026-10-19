@@ -1,0 +1,687 @@
+\section{Proofs of the limits}
+\label{sec:lower-proof}
+
+This appendix contains the proofs deferred from Section~\ref{sec:limits}.
+For \(d\ge2\), let \(\mu_d\) be the positive root of
+\(d\mu^2-\mu-(d+2)=0\), as in Lemma~\ref{lem:bulk-potential}, and put
+\(g_d=\log\frac{d+2}d\) and \(\omega_d=3\log\mu_d/g_d\). Then
+\(\mu_d>1\) (Lemma~\ref{lem:bulk-potential}), and \(\lambda_d=1/\mu_d\)
+is the positive root of \(f_d(y)=(d+2)y^2+y-d\). The function \(f_d\)
+increases on \([0,\infty)\), as \(f_d'(y)=2(d+2)y+1>0\) there. We write
+\(\kappa_0=21/20\) and
+\[
+ \hat\Psi(r,b)=\Psi(r,b)+\tfrac56
+ =\bigl(r-\tfrac13\bigr)^2+4\bigl(r-\tfrac13\bigr)\bigl(b-\tfrac13\bigr)+\bigl(b-\tfrac13\bigr)^2 .
+\]
+Like \(\Psi\), the function \(\hat\Psi\) is symmetric and increasing in
+each argument for real \(r,b\ge1\) (Lemma~\ref{lem:hankel-potential}(a)).
+
+\subsection{Supplies}
+\label{subsec:proof-recycling}
+
+\begin{proof}[Proof of Lemma~\ref{lem:recycling}]
+\emph{Stage relations.} Fix \(i\), and let \((r,b)\to(c_i,r)\) be the
+legal stage of Definition~\ref{def:class}(b). For each block \(j\),
+Corollary~\ref{cor:exact-stage} with
+\((N,k,\tau)=(N_{ij},k_{ij},\tau_{ij})\) gives
+\[
+ E_{ij}(2M_{ij}-1)^{6k_{ij}}Q_{r,b}^{\otimes N_{ij}k_{ij}}\MM_{d_i^{2N_{ij}k_{ij}}}
+ \restr M_{ij}^{6k_{ij}}Q_{c_i,r}^{\otimes N_{ij}k_{ij}}\MM_{M_{ij}^{2k_{ij}}} .
+\]
+Tensor these restrictions over \(j\), and use \((mT)(m'T')\cong mm'(TT')\),
+\(\sum_jN_{ij}k_{ij}=W\) and~\eqref{eq:prelim-mm}. With
+\(X_i=\prod_jE_{ij}(2M_{ij}-1)^{6k_{ij}}\) and
+\(Y_i=\prod_jM_{ij}^{6k_{ij}}\), this gives
+\(X_iQ_{r,b}^{\otimes W}\MM_{U_i}\restr Y_iQ_{c_i,r}^{\otimes W}\MM_{V_i}\).
+Here \(Q_{r_i,b_i}\cong Q_{r,b}\) by~\eqref{eq:prelim-Q}. If
+\(c'\le c\) and \(r'\le r\), then \(C(c,r)\restr C(c',r')\): set to zero
+\(x_\alpha\) for \(\alpha\ge c'\), \(y_\eta\) for \(\eta\ge r'\) and
+\(z_\zeta\) for \(\zeta\ge c'+r'-1\); the surviving terms are those with
+\(\alpha<c'\) and \(\eta<r'\). Doing this in all six oriented factors
+gives \(Q_{c,r}\restr Q_{c',r'}\). Hence a crop and possibly an exchange give
+\(Q_{c_i,r}\restr Q_{r_{i+1},b_{i+1}}\), and
+\begin{equation}\label{eq:class-stage}
+ X_i\,Q_{r_i,b_i}^{\otimes W}\MM_{U_i}\restr
+ Y_i\,Q_{r_{i+1},b_{i+1}}^{\otimes W}\MM_{V_i}.
+\end{equation}
+
+\emph{Induction.} We show, for \(i=0,\ldots,J\), that
+\begin{equation}\label{eq:class-induction}
+ r_*\MM_A\restr\Bigl(\prod_{l\le i}Y_l\Bigr)\Bigl(\prod_{l>i}X_l\Bigr)
+ Q_{r_{i+1},b_{i+1}}^{\otimes W}\MM_{\mathfrak b_i} .
+\end{equation}
+Since \(r_*=s^{6W}\prod_lX_l\), and \(s^{6W}\MM_1\restr Q_{r_1,b_1}^{\otimes W}\)
+over \(\Q\) by~\eqref{eq:prelim-Q}, tensoring with \(\MM_A\) gives the
+case \(i=0\). Suppose~\eqref{eq:class-induction} holds for \(i-1\). Its
+right side is a direct sum of \((\prod_{l<i}Y_l)(\prod_{l>i}X_l)\)
+groups, each of \(X_i\) copies of
+\(Q_{r_i,b_i}^{\otimes W}\MM_{\mathfrak b_{i-1}}\). Setting to zero the
+variables of \(\MM_{\mathfrak b_{i-1}}\) with an index at least \(U_if_i\)
+restricts it to \(\MM_{U_if_i}\cong\MM_{U_i}\MM_{f_i}\), so each group
+restricts to \((X_iQ_{r_i,b_i}^{\otimes W}\MM_{U_i})\MM_{f_i}\). Apply
+\eqref{eq:class-stage}, tensored with \(\MM_{f_i}\), and use
+\(\MM_{V_i}\MM_{f_i}\cong\MM_{\mathfrak b_i}\). Each group becomes
+\(Y_iQ_{r_{i+1},b_{i+1}}^{\otimes W}\MM_{\mathfrak b_i}\), which
+proves~\eqref{eq:class-induction} for \(i\). Finally, a crop and
+possibly an exchange give \(Q_{r_{J+1},b_{J+1}}\restr Q_{1,t}\cong\MM_{t^2}\)
+by~\eqref{eq:prelim-Q}, so the case \(i=J\) gives
+\(r_*\MM_A\restr m_*\MM_{t^{2W}\mathfrak b_J}=m_*\MM_B\). All maps are
+restrictions with rational coefficients. No degeneration is composed
+with another, since each stage relation is already exact.
+
+(a) Since \(\mathfrak b_i=f_iV_i\le\mathfrak b_{i-1}V_i/U_i\), we get
+\(\mathfrak b_J\le A\prod_iV_i/U_i\), that is, \(B/A\le\bar B/\bar A\). For the
+source supply, induction on \(i\) gives
+\(\mathfrak b_{i-1}=\prod_{l\ge i}U_l\prod_{l<i}V_l=U_if_i\), so every
+inequality is an equality.
+
+(b) The first stage is legal, so \(b\ge c_1+1\ge2\) in
+Definition~\ref{def:class}(b), and \(s\ge2\). Hence
+\(r_*/m_*=s^{6W}\prod_{i,j}E_{ij}\bigl((2M_{ij}-1)/M_{ij}\bigr)^{6k_{ij}}\ge s^{6W}>1\).
+If \(B>A\), then \(\bar B/\bar A\ge B/A>1\) by (a), so both restrictions
+are chain schemes. Their pooled exponents have the same positive
+numerator \(\log(r_*/m_*)\), and \(\log(B/A)\le\log(\bar B/\bar A)\).
+
+(c) Let \(\tilde U\) be the maximum in the hypothesis. We show by
+induction on \(i=1,\ldots,J+1\) that
+\(\mathfrak b_{i-1}\ge\frac A2\prod_{l<i}(V_l/U_l)\), and that
+\(\mathfrak b_{i-1}\ge2JU_i\) if \(i\le J\). Suppose this holds for all
+smaller \(i\). Then \(f_l\ge1\) for \(l<i\), and, with
+\(y=\mathfrak b_{l-1}/U_l\), the bound \(\lfloor y\rfloor\ge y-1\) gives
+\(\mathfrak b_l\ge(\mathfrak b_{l-1}V_l/U_l)(1-U_l/\mathfrak b_{l-1})
+\ge(1-\frac1{2J})\mathfrak b_{l-1}V_l/U_l\) for \(l<i\).
+By Bernoulli's inequality,
+\((1-\frac1{2J})^{i-1}\ge1-\frac{i-1}{2J}\ge\frac12\), so
+\(\mathfrak b_{i-1}\ge\frac A2\prod_{l<i}(V_l/U_l)\). If \(i\le J\), this is
+at least \(2J\tilde U\prod_{l<i}(V_l/U_l)\ge2JU_i\), by the definition of
+\(\tilde U\). At \(i=J+1\) it gives \(B/A\ge\bar B/(2\bar A)\).
+\end{proof}
+
+\paragraph{The floors in Remark~\ref{rem:composition}.}
+Let \(n_\infty=AB/(B-A)\), as in Section~\ref{sec:seeds}, and let
+\(\mathfrak b_0=n\ge2n_\infty\) and
+\(\mathfrak b_{l+1}=\lfloor\mathfrak b_l/A\rfloor B\). Since
+\(\lfloor y\rfloor\ge y-1\), we have
+\(\mathfrak b_{l+1}\ge(B/A)\mathfrak b_l-B\), that is,
+\(\mathfrak b_{l+1}-n_\infty\ge(B/A)(\mathfrak b_l-n_\infty)\), so
+\(\mathfrak b_l\ge n_\infty+(B/A)^l(n-n_\infty)\ge n_\infty(1+(B/A)^l)\).
+As \(B>A\), we have \(n_\infty>A\), so every step can be applied. Moreover
+\(\mathfrak b_{l+1}\ge(B/A)\mathfrak b_l(1-u_l)\) with
+\(u_l=A/\mathfrak b_l\le(1-A/B)/(1+(B/A)^l)\), so \(u_l\le\frac12\)
+and \(u_l\le(1-A/B)(A/B)^l\). Since \(-\log(1-u)\le2u\) for
+\(0\le u\le\frac12\) and \(\sum_{l\ge0}(1-A/B)(A/B)^l=1\), we
+get \(\log\mathfrak b_j\ge\log n+j\log(B/A)-2\).
+
+\subsection{The Hankel lemmas}
+\label{subsec:proof-hankel}
+
+\begin{proof}[Proof of Lemma~\ref{lem:hankel-ranks}]
+For \(C(r,b)\), the entry at row \((\zeta,a)\) and column \((\eta,e)\)
+is \([\zeta=a+e+\eta]=\sum_{m=0}^{b+v-2}[\zeta=a+m][m=e+\eta]\).
+So \(\mathcal L_u(C(r,b))\) is a product of two matrices with inner
+dimension \(b+v-1\). Conversely, the rows \((m,0)\) and the columns
+\((\min(m,b-1),m-\min(m,b-1))\), for \(0\le m\le b+v-2\), form an
+identity submatrix; the rows exist because \(m\le b+r-2\), as
+\(v\le r\).
+
+For \(C^{\mathrm{mid}}(r,c)\), put \(a'=u-1-a\) and \(e'=v-1-e\). As
+\(r-1=(u-1)+(v-1)\), the entry is
+\([\eta=r-1-a-e+\zeta]=[\eta=\zeta+a'+e']
+=\sum_{m=0}^{c+u-2}[m=\zeta+a'][\eta=m+e']\), a product
+with inner dimension \(c+u-1\). The rows with
+\((\zeta,a')=(\min(m,c-1),m-\min(m,c-1))\) and the columns
+with \((\eta,e')=(m,0)\), for \(0\le m\le c+u-2\), form an
+identity submatrix; the columns exist because \(u\le r\). All matrices
+here have entries \(0\) and \(1\), so the ranks are the same over every
+field.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:hankel-gain}]
+If \(r\) is odd, take \(u=v=(r+1)/2\). Then
+\(c+u-1=c+v-1=(r+2c-1)/2\), and~\eqref{eq:hankel-bound} gives
+\(M/q\le(\hat b/\hat c)^N\) with \(\hat b=r+2b-1\ge\hat c=r+2c-1\ge2\).
+Since \(\hat b^2(\hat c^2-1)\le\hat c^2(\hat b^2-1)\), we get
+\(\hat b^2/\hat c^2\le\varphi_r(b)/\varphi_r(c)\). If \(r\) is even, write
+\eqref{eq:hankel-bound} for \((u,v)=(\frac r2,\frac r2+1)\) and for
+\((u,v)=(\frac r2+1,\frac r2)\), and put \(c_+=c+\frac r2\) and
+\(c_-=c+\frac r2-1\ge1\). The right sides are
+\(\sum_gc_+^{N-\nmid(g)}c_-^{\nmid(g)}\) and
+\(\sum_gc_-^{N-\nmid(g)}c_+^{\nmid(g)}\), and by the
+Cauchy--Schwarz inequality their product is at least
+\(M^2(c_+c_-)^N\). The product of the left sides is
+\(q^2\bigl((b+\frac r2)(b+\frac r2-1)\bigr)^N\). Finally
+\(4(y+\frac r2)(y+\frac r2-1)=\varphi_r(y)\).
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:hankel-potential}]
+(a) \(\partial_r\Psi=2r+4b-2>0\) and \(\partial_b\Psi=4r+2b-2>0\).
+
+(b) Fix \(r\) and put \(\psi(y)=\frac23\log\Psi(r,y)-\frac12\log\varphi_r(y)\)
+for real \(y\ge1\). With \(\hat y=r+2y-1\ge2\) and \(\delta=r-y\), we have
+\(\varphi_r(y)=\hat y^2-1\) and \(\varphi_r'(y)=4\hat y\), and expanding
+both sides shows
+\[
+ \tfrac23(4r+2y-2)\,\varphi_r(y)-2\hat y\,\Psi(r,y)=\tfrac13\bigl(2\hat y\delta^2-4\delta+\hat y\bigr).
+\]
+The left side is \(\Psi(r,y)\varphi_r(y)\psi'(y)\), and
+\(\hat y(2\hat y\delta^2-4\delta+\hat y)=2(\hat y\delta-1)^2+\hat y^2-2>0\). As \(\Psi\) and
+\(\varphi_r\) are positive, \(\psi\) is increasing, so
+\(\psi(b)>\psi(c)\).
+
+(c) With \(s=r+b-1\), we have \(\Psi=s^2-\frac76+2rb\) and
+\(rb\le(s+1)^2/4\), so \(\Psi\le\frac32s^2+s-\frac23\), and
+\(\frac{11}6s^2-(\frac32s^2+s-\frac23)=\frac13(s-1)(s-2)\ge0\) for
+\(s\ge2\). By (a), \(\Psi(r,b)\ge\Psi(1,b)\), and
+\((6\Psi(1,b))^2-121b^3=36(b-1)^4+167(b-1)^3+345(b-1)^2+165(b-1)\ge0\)
+as \(b\ge1\).
+\end{proof}
+
+\subsection{Contraction and endpoints}
+\label{subsec:lower-endpoint}
+
+\begin{lemma}[Contraction]\label{lem:lower-contraction}
+Every legal stage \((r,b)\to(c,r)\) of arity \(d\) satisfies
+\(\hat\Psi(c,r)\le\mu_d^{-2}\,\hat\Psi(r,b)\).
+\end{lemma}
+
+\begin{proof}
+Write \(\lambda=\lambda_d\) and \(\nu=\lambda+\frac1{d+2}\), so that
+\(\lambda\nu=\lambda^2+\frac\lambda{d+2}=\frac d{d+2}\). Put
+\(\tilde r=r-\frac13\), \(\tilde b=b-\frac13\) and
+\(c^*=(db-r+1)/(d+2)\). Legality gives \(c\le c^*\), and
+\(\tilde c^*=c^*-\frac13=(d\tilde b-\tilde r)/(d+2)\). Comparing the
+coefficients of \(\tilde r^2\), \(\tilde r\tilde b\) and \(\tilde b^2\),
+and using \(\lambda\nu=\frac d{d+2}\), shows
+\[
+ \lambda^2\hat\Psi(r,b)-\hat\Psi(c^*,r)
+ =\lambda^2(\tilde r^2+4\tilde r\tilde b+\tilde b^2)
+ -(\tilde c^{*2}+4\tilde c^*\tilde r+\tilde r^2)
+ =(1-\nu^2)(\tilde r-\lambda\tilde b)^2 .
+\]
+For instance, the coefficients of \(\tilde b^2\) are
+\(\lambda^2-\frac{d^2}{(d+2)^2}=\lambda^2(1-\nu^2)\). Since \(f_d\)
+increases on \([0,\infty)\), \(f_d(\lambda)=0\) and
+\(f_d(\frac{d+1}{d+2})=1\), we have \(\lambda<\frac{d+1}{d+2}\) and
+\(0<\nu<1\). Hence \(\hat\Psi(c,r)\le\hat\Psi(c^*,r)\le\lambda^2\hat\Psi(r,b)\).
+\end{proof}
+
+\begin{lemma}[Endpoints]\label{lem:lower-endpoint}
+All chain data satisfy
+\(\log s\ge\log\kappa_0+\sum_{i=1}^J\log\mu_{d_i}+\frac45\log t\).
+\end{lemma}
+
+\begin{proof}
+Let \((r,b)\to(c_i,r)\) be the stage of
+Definition~\ref{def:class}(b). By Lemma~\ref{lem:lower-contraction},
+symmetry and monotonicity,
+\(\hat\Psi(r_{i+1},b_{i+1})\le\hat\Psi(c_i,r)\le\mu_{d_i}^{-2}\hat\Psi(r_i,b_i)\).
+Also \(\hat\Psi(1,t)\le\hat\Psi(r_{J+1},b_{J+1})\). Hence
+\(\hat\Psi(1,t)\le\hat\Psi(r_1,b_1)\prod_i\mu_{d_i}^{-2}\).
+
+\emph{Start.} Since \(2xy\le\frac12(x+y)^2\), we have
+\(x^2+4xy+y^2=(x+y)^2+2xy\le\frac32(x+y)^2\) for real \(x,y\). With \(x+y=r_1+b_1-\frac23=s+\frac13\), this gives
+\(\hat\Psi(r_1,b_1)\le\frac32(s+\frac13)^2\le\frac94s^2\), because
+\(12\bigl(\frac94s^2-\frac32(s+\frac13)^2\bigr)=9s^2-12s-2=(s-2)(9s+6)+10>0\)
+for \(s\ge2\) (see the proof of Lemma~\ref{lem:recycling}(b)).
+
+\emph{End.} \(\hat\Psi(1,t)=t^2+2t-\frac13\). We show
+\(\hat\Psi(1,t)\ge\frac94\kappa_0^2t^{8/5}\), where
+\(\frac94\kappa_0^2=\frac{3969}{1600}\). For \(t=1\) this is
+\(\frac83\ge\frac{3969}{1600}\). For \(t\ge2\), we have
+\(2t-\frac13\ge\frac{11}6t\), and the weighted arithmetic--geometric
+mean inequality gives
+\[
+ t^2+\tfrac{11}6t=\tfrac35\cdot\tfrac53t^2+\tfrac25\cdot\tfrac{55}{12}t
+ \ge\bigl(\tfrac53\bigr)^{3/5}\bigl(\tfrac{55}{12}\bigr)^{2/5}t^{8/5}.
+\]
+Here
+\(\bigl(\frac53\bigr)^3\bigl(\frac{55}{12}\bigr)^2=\frac{378125}{3888}>97>94>\bigl(\frac{3969}{1600}\bigr)^5\).
+
+Combining, \(\frac94\kappa_0^2t^{8/5}\le\frac94s^2\prod_i\mu_{d_i}^{-2}\).
+Take half the logarithm.
+\end{proof}
+
+\begin{lemma}[Source and terminal]\label{lem:source-terminal}
+All chain data satisfy:
+\begin{enumerate}
+\item[(a)] \(t\le s\);
+\item[(b)] if \(d_i=d\) for some \(i\), then \(s\ge(1+\frac1d)t+\frac1d\);
+\item[(c)] \(s\ge\frac{40}{49}Zt+\frac{76}{147}Z-\frac13\ge\frac{40}{49}Zt\),
+where \(Z=\prod_i\mu_{d_i}\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) A legal stage \((r,b)\to(c,r)\) has \(c<b\), so the pair \((c,r)\)
+has a smaller sum of entries than \((r,b)\) and no larger entry; crops
+and exchanges increase neither. Hence
+\(t\le\max(r_{J+1},b_{J+1})\le\max(r_1,b_1)\le s\).
+
+(b) Let \((r,b)\to(c,r)\) be the stage of arity \(d\). By the proof
+of~(a), \(s\ge r+b-1\) and \(t\le\max(c,r)\). If \(t\le r\), then
+\(db\ge(d+2)c+r-1\ge r+d+1\), so \(s\ge(1+\frac1d)r+\frac1d\). If
+\(t\le c\), then \(s\ge b\ge(1+\frac2d)c\ge(1+\frac1d)c+\frac1d\).
+
+(c) The proof of Lemma~\ref{lem:lower-endpoint} gives
+\(\hat\Psi(r_1,b_1)\ge Z^2\hat\Psi(1,t)\) and
+\(\hat\Psi(r_1,b_1)\le\frac32(s+\frac13)^2\), so
+\(s+\frac13\ge Z\sqrt{\frac23\hat\Psi(1,t)}\). Also
+\(\frac23(t^2+2t-\frac13)-\bigl(\frac{40}{49}t+\frac{76}{147}\bigr)^2
+=\frac{2(t-1)(t+1763)}{7203}\ge0\). This gives the first inequality, and
+the second holds because \(Z\ge1\) and \(\frac{76}{147}>\frac13\).
+\end{proof}
+
+\subsection{The gap and the type counts}
+\label{subsec:lower-gap}
+
+\begin{lemma}[Gap]\label{lem:lower-gap}
+For \(d\ge2\), \(g_d\le2/d\) and
+\(\omega_d-\frac94\ge\frac1{24(d+2)^2}\ge\frac1{96d^2}\). In particular,
+\(\log\mu_d>\frac34g_d\).
+\end{lemma}
+
+\begin{proof}
+First, \(g_d=\log(1+\frac2d)\le\frac2d\). Put
+\(z=(d/(d+2))^{1/4}\in(0,1)\), so that \(d+2=2/(1-z^4)\) and
+\(g_d=-4\log z\). Substituting \(d=2z^4/(1-z^4)\) gives
+\[
+ (1-z^4)f_d(z^3)=2z^6+z^3(1-z^4)-2z^4=z^3(1-z)^2(1-z^2),
+\]
+so \(f_d(z^3)=z^3(1-z)^2/(1+z^2)>0\). Since \(f_d\) increases on
+\([0,\infty)\) and \(f_d(\lambda_d)=0\), we get \(\lambda_d<z^3\), and
+\[
+ \omega_d-\tfrac94=\frac{-3\log\lambda_d+9\log z}{g_d}=\frac3{g_d}\log\frac{z^3}{\lambda_d}.
+\]
+By the mean value theorem, \(f_d(z^3)=f_d(z^3)-f_d(\lambda_d)\le(2d+5)(z^3-\lambda_d)\),
+as \(f_d'(y)=2(d+2)y+1\le2d+5\) on \([0,1]\). With
+\(\log y\ge1-1/y\),
+\[
+ \log\frac{z^3}{\lambda_d}\ge\frac{z^3-\lambda_d}{z^3}
+ \ge\frac{(1-z)^2}{(1+z^2)(2d+5)} .
+\]
+Now \(1-z^4=(1-z)(1+z+z^2+z^3)\le4(1-z)\) gives
+\(1-z\ge\frac1{2(d+2)}\). With \(1+z^2\le2\), \(2d+5\le\frac92d\) and
+\(g_d\le\frac2d\), we get
+\(\omega_d-\frac94\ge3\cdot\frac1{4(d+2)^2}\cdot\frac1{2\cdot\frac92d\cdot\frac2d}=\frac1{24(d+2)^2}\).
+Finally \(d+2\le2d\), and \(\omega_d>\frac94\) is
+\(\log\mu_d>\frac34g_d\).
+\end{proof}
+
+\begin{lemma}[Type counts]\label{lem:lower-types}
+Let \(d\ge2\) and \(N\ge1\), and let \(M\) be the sector count of a type
+of width \(N\) at arity \(d\). Then:
+\begin{enumerate}
+\item[(a)] \(1\le M<(d+2)^N\);
+\item[(b)] if \(M>d^N\), then \(N\ge3\) and \(d\le2N\);
+\item[(c)] if \(N\ge3\) and \(d\le2N\), then \(M\le(d+2)^N/2\);
+\item[(d)] if \(N\ge2(d+2)\), then \(M<12(d+2)^{N+1}/N\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) is Lemma~\ref{lem:types}.
+
+(b) For \(N=1\) the counts are \(d-1\), \(2\) and \(1\), all at most
+\(d\). For \(N=2\) they are \((d-1)^2\), \(4(d-1)\), \(2(d-1)\), \(4\),
+\(4\) and \(1\), all at most \(d^2\), since \(d^2-4(d-1)=(d-2)^2\). If
+\(d\ge2N+1\), then for the type \((\nK,\nO,\nmid)\), using
+\(N!/\nK!\le N^{\nO+\nmid}\),
+\[
+ \frac M{(d-1)^N}\le\frac1{\nO!\,\nmid!}\Bigl(\frac{2N}{d-1}\Bigr)^{\nO}
+ \Bigl(\frac N{d-1}\Bigr)^{\nmid}\le1 ,
+\]
+so \(M\le(d-1)^N<d^N\).
+
+(c) Put \(p_{\mathrm K}=\frac{d-1}{d+2}\), \(p_{\mathrm O}=\frac2{d+2}\)
+and \(p_{\mathrm M}=\frac1{d+2}\). Then \(M/(d+2)^N\) is the probability
+that \(N\) independent trials with outcome probabilities
+\(p_{\mathrm K},p_{\mathrm O},p_{\mathrm M}\) produce the type. This is at
+most \(\pi(\nK)\), where
+\(\pi(a)=\binom Nap_{\mathrm K}^a(1-p_{\mathrm K})^{N-a}\) is the
+probability of \(a\) kernel outcomes. We have \(\pi(a+1)\ge\pi(a)\) if and
+only if \(a+1\le(N+1)p_{\mathrm K}\), and
+\(1\le(N+1)p_{\mathrm K}\le N\), because \(N(d-1)\ge3\) and
+\(d-1\le3N\). So \(\pi\) has a maximum at some \(a\) with
+\(1\le a\le N-1\) (if \((N+1)p_{\mathrm K}=N\), then \(\pi(N-1)=\pi(N)\)).
+At such an \(a\), the ratios \(\pi(a-1)/\pi(a)\) and \(\pi(a+1)/\pi(a)\)
+have product \(\frac a{a+1}\cdot\frac{N-a}{N-a+1}\ge\frac14\), hence sum
+at least \(1\). So \(2\pi(a)\le\pi(a-1)+\pi(a)+\pi(a+1)\le1\).
+
+(d) Let \(\tau=(\tau_{\mathrm K},\tau_{\mathrm O},\tau_{\mathrm M})\) be a
+type that maximizes the probability of (c), and let \(P_{\max}\) be this
+probability; then \(M/(d+2)^N\le P_{\max}\). Moving one trial from class
+\(j\) to class \(i\) multiplies the probability by
+\(\tau_jp_i/((\tau_i+1)p_j)\le1\), and \(\tau_jp_i\le(\tau_i+1)p_j\) holds
+trivially if \(\tau_j=0\). Summing over \(j\ne i\) gives
+\(p_i(N-\tau_i)\le(\tau_i+1)(1-p_i)\), that is,
+\(\tau_i\ge(N+1)p_i-1\). Since \(N\ge2d+4\), this gives
+\(\tau_{\mathrm K}\ge\frac{N+1}4-1\ge\frac N8\),
+\(\tau_{\mathrm O}\ge\frac N{d+2}\) and
+\(\tau_{\mathrm M}\ge\frac N{2(d+2)}\ge1\). For integers \(y\ge1\),
+\[
+ \sqrt y\,(y/e)^y\le y!\le e\sqrt y\,(y/e)^y .
+\]
+Indeed, \(\log\) is concave, so the midpoint rule gives
+\(\log y!\ge\int_{1/2}^{y+1/2}\log u\,du\ge y\log y-y+\frac12\log y\), and
+the trapezoid rule gives
+\(\log y!-\frac12\log y\le\int_1^y\log u\,du=y\log y-y+1\). Since
+\(\sum_i\tau_i=N\), these bounds and \(\log u\le u-1\) give
+\[
+ P_{\max}\le e\sqrt{\frac N{\tau_{\mathrm K}\tau_{\mathrm O}\tau_{\mathrm M}}}\,
+ \prod_i\Bigl(\frac{Np_i}{\tau_i}\Bigr)^{\tau_i}
+ \le e\sqrt{\frac N{\tau_{\mathrm K}\tau_{\mathrm O}\tau_{\mathrm M}}}
+ \le\frac{4e(d+2)}N<\frac{12(d+2)}N .\qedhere
+\]
+\end{proof}
+
+\subsection{The resource lower bound}
+\label{subsec:lower-main-proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lower}]
+Put \(\Lambda_1=\log(1/\eps)\), \(d_\eps=(96\eps)^{-1/2}\) and
+\(p_0=\frac94+\eps\). The hypothesis \(\eps<1/9216\) enters through four
+conditions that it implies: \(\eps\le\frac3{20}\), \(\eps\le\frac9{64}\),
+\(\eps\le\frac9{16384}\) and \(\eps<\frac1{9216}\) itself.
+
+\emph{Step 0: reduction.} Let \(p'\le p_0\) be the pooled exponent of
+the given chain scheme. By Lemma~\ref{lem:recycling}(b), the same chain
+data with the source supply give a chain scheme
+\(r_*\MM_{\bar A}\restr m_*\MM_{\bar B}\) with pooled exponent
+\(p\le p'\le p_0\). As \(\eps\le\frac3{20}\),
+\(p_0\le\frac{12}5<3\). The quantities \(r_*\), \(m_*\), \(W\), \(s\),
+\(t\) and \(d_i\) do not depend on the supply.
+
+\emph{Step 1: normalization.} Put \(w_{ij}=N_{ij}k_{ij}/W\), so that
+\(\sum_jw_{ij}=1\), and \(\delta_{ij}=N_{ij}\log(d_i+2)-\log M_{ij}\),
+which is positive by Lemma~\ref{lem:lower-types}(a). Taking logarithms
+in~\eqref{eq:class-counts} and dividing by \(2W\) gives
+\[
+ \frac{\log(\bar B/\bar A)}{2W}=\log t+\sum_{i,j}w_{ij}\Bigl(g_{d_i}-\frac{\delta_{ij}}{N_{ij}}\Bigr),
+ \qquad
+ \frac{\log(r_*/m_*)}{2W}\ge3\log s+\sum_{i,j}w_{ij}\frac{\log E_{ij}}{2N_{ij}k_{ij}},
+\]
+where the factors \((2M_{ij}-1)/M_{ij}\ge1\) were dropped.
+
+\emph{Step 2: the profit inequality.} Since \(p\le p_0\),
+\(\log(r_*/m_*)\le p_0\log(\bar B/\bar A)\). By
+Lemma~\ref{lem:lower-endpoint}, \(3\log\mu_d=\omega_dg_d\) and
+\(\sum_jw_{ij}=1\), we have
+\(3\log s\ge3\log\kappa_0+\sum_{i,j}w_{ij}\omega_{d_i}g_{d_i}+\frac{12}5\log t\).
+Inserting both into Step~1 gives
+\[
+ \sum_{i,j}w_{ij}\vartheta_{ij}\ge3\log\kappa_0+\bigl(\tfrac{12}5-p_0\bigr)\log t\ge3\log\kappa_0,
+ \qquad
+ \vartheta_{ij}=(p_0-\omega_{d_i})g_{d_i}-\frac{p_0\delta_{ij}}{N_{ij}}-\frac{\log E_{ij}}{2N_{ij}k_{ij}} .
+\]
+Since \(\omega_{d_i}>\frac94\) (Lemma~\ref{lem:lower-gap}),
+\(\delta_{ij}>0\) and \(E_{ij}\ge1\), every block has
+\begin{equation}\label{eq:lower-theta}
+ \vartheta_{ij}<(p_0-\omega_{d_i})g_{d_i}<\eps g_{d_i}.
+\end{equation}
+Let \(I\) be the set of blocks with \(\vartheta_{ij}>0\). Then
+\(\sum_{(i,j)\in I}w_{ij}\vartheta_{ij}\ge3\log\kappa_0>0\), so \(I\) is not
+empty.
+
+\emph{Step 3: a profitable block.} Fix \((i,j)\in I\), and write \(d\),
+\(N\), \(k\), \(M\), \(\delta\), \(E\), \(g\) and \(\omega\) for its
+quantities.
+\begin{itemize}
+\item By~\eqref{eq:lower-theta}, \(\omega<p_0\). By
+Lemma~\ref{lem:lower-gap}, \(\frac1{96d^2}\le\omega-\frac94<\eps\), so
+\(d>d_\eps\).
+\item As \(\vartheta>0\) and \(p_0-\omega<\eps\),
+\begin{equation}\label{eq:lower-star}
+ \frac{p_0\delta}N<\eps g\qquad\text{and}\qquad\frac{\log E}{2Nk}<\eps g .
+\end{equation}
+\item Hence \(\frac1N\log M=\log(d+2)-\frac\delta N>\log(d+2)-g=\log d\),
+since \(\eps<p_0\). So \(M>d^N\).
+\item By Lemma~\ref{lem:lower-types}(b) and~(c), \(\delta\ge\log2\). By
+\eqref{eq:lower-star} and \(g\le\frac2d\),
+\(N>\frac{p_0\delta}{\eps g}\ge\frac94\log2\cdot\frac d{2\eps}>\frac{9d}{16\eps}\).
+\item As \(\eps\le\frac9{64}\), \(N>4d\ge2(d+2)\), so
+Lemma~\ref{lem:lower-types}(d) applies. With \(d+2\le2d\), it gives
+\(\delta>\log\frac N{24d}>\log\frac3{128\eps}\ge\frac{\Lambda_1}2\), the last step
+because \(\eps\le\frac9{16384}\).
+\item By~\eqref{eq:lower-star} again,
+\(N>\frac{p_0\delta}{\eps g}>\frac94\cdot\frac{\Lambda_1}2\cdot\frac d{2\eps}=\frac{9d\Lambda_1}{16\eps}\).
+\item \(E=M+(6k-1)(M-1)\ge M>d^N\), so~\eqref{eq:lower-star} gives
+\(\frac{\log d}{2k}<\eps g\le\frac{2\eps}d\), that is,
+\(k>\frac{d\log d}{4\eps}\).
+\item As \(\eps<\frac1{9216}\), \(\log d_\eps=\frac12(\Lambda_1-\log96)>\frac{\Lambda_1}4\).
+Since \(d>d_\eps>1\) and \(y\log y\) increases for \(y\ge1\),
+\(d\log d>d_\eps\log d_\eps>\frac{d_\eps\Lambda_1}4\).
+\end{itemize}
+These are the bounds on \(d_i\), \(N_{ij}\) and \(k_{ij}\) in the theorem.
+Since \(W\ge Nk\) and \(d_\eps^2=\frac1{96\eps}\),
+\[
+ W>\frac{9d_\eps\Lambda_1}{16\eps}\cdot\frac{d_\eps\Lambda_1}{16\eps}=\frac{3\Lambda_1^2}{8192\,\eps^3}.
+\]
+
+\emph{Step 4: the profitable sum.} For \((i,j)\in I\),
+\eqref{eq:lower-theta} and Lemma~\ref{lem:lower-gap} give
+\(\vartheta_{ij}<\eps g_{d_i}\le\frac{2\eps}{d_i}<\frac{2\eps\log d_i}{d_\eps\log d_\eps}\),
+as \(d_i\log d_i>d_\eps\log d_\eps\). Weight by \(w_{ij}\) and sum over
+\(I\):
+\[
+ \Sigma_I=\sum_{(i,j)\in I}w_{ij}\log d_i
+ >\frac{3\log\kappa_0\,d_\eps\log d_\eps}{2\eps}>\frac{3\log\kappa_0\,d_\eps\Lambda_1}{8\eps}.
+\]
+
+\emph{Step 5: conclusion.} Since \(\sum_jw_{ij}=1\), Steps~3 and~4 give
+\[
+ \log\bar A=2W\sum_{i,j}w_{ij}\log d_i\ge2W\,\Sigma_I
+ >2\cdot\frac{3\Lambda_1^2}{8192\,\eps^3}\cdot\frac{3\log\kappa_0\,d_\eps\Lambda_1}{8\eps}
+ =\frac{9\log\kappa_0}{32768\sqrt{96}}\,\eps^{-9/2}\Lambda_1^3 .
+\]
+As \(\log(1+y)\ge y/(1+y)\), \(\log\kappa_0\ge\frac1{21}\), and
+\(\sqrt{96}<10\), so the coefficient exceeds
+\(\frac9{21\cdot32768\cdot10}>1.3\cdot10^{-6}\). Under the source
+supply, \(A=\bar A\), which proves~(c).
+
+For~(a), the proof of Lemma~\ref{lem:recycling}(b) gives \(r_*/m_*\ge s^{6W}>1\).
+Since \(p\le3\),
+\(\log(\bar B/\bar A)\ge\frac13\log(r_*/m_*)\ge2W\log s\). By
+\eqref{eq:class-counts}, \(\bar B=t^{2W}m_*^{1/3}\), so
+\(\frac13\log m_*\ge\log\bar A+2W\log(s/t)\). By
+Lemma~\ref{lem:source-terminal}(a), \(t\le s\), so
+\(\log m_*\ge3\log\bar A\). Finally
+\(3\cdot\frac9{21\cdot32768\cdot10}>3.9\cdot10^{-6}\).
+
+For~(b), Step~2 and~\eqref{eq:lower-theta} give
+\(3\log\kappa_0\le\sum_{i,j}w_{ij}\vartheta_{ij}<\eps\sum_ig_{d_i}\). By
+Lemmas~\ref{lem:lower-endpoint} and~\ref{lem:lower-gap}, with
+\(\log\kappa_0>0\) and \(t\ge1\),
+\(\log s\ge\sum_i\log\mu_{d_i}>\frac34\sum_ig_{d_i}>\frac{9\log\kappa_0}{4\eps}\).
+For the given scheme, \(p'\le p_0\le\frac{12}5\) gives
+\[
+ \log(B/A)=\frac{\log(r_*/m_*)}{p'}\ge\frac{\log(r_*/m_*)}{p_0}
+ \ge\frac{6W\log s}{12/5}>\frac{45\log\kappa_0}8\cdot\frac W\eps
+ >\frac{45}{8\cdot21}\cdot\frac{3\Lambda_1^2}{8192\,\eps^4},
+\]
+and \(\frac{135}{8\cdot21\cdot8192}=\frac{45}{458752}>9.8\cdot10^{-5}\).
+\end{proof}
+
+\begin{remark}[Joint exactification of one stage]\label{rem:joint-exactification}
+Suppose that the blocks of each stage are exactified together, so that
+the factors \(E_{ij}\) of \(r_*\) are replaced by
+\(E_i=1+\sum_j6k_{ij}(M_{ij}-1)\). Then Theorem~\ref{thm:lower} still
+holds, except for the bound on \(k_{ij}\). In the proof above, Step~1
+holds with \(\sum_i\log E_i/(2W)\) in place of
+\(\sum_{i,j}w_{ij}\log E_{ij}/(2N_{ij}k_{ij})\), and Step~2 gives
+\(\sum_i\vartheta_i\ge3\log\kappa_0\) with one profit term per stage,
+\[
+ \vartheta_i=\sum_jw_{ij}\Bigl((p_0-\omega_{d_i})g_{d_i}-\frac{p_0\delta_{ij}}{N_{ij}}\Bigr)-\frac{\log E_i}{2W}
+ <\eps g_{d_i}.
+\]
+If \(\vartheta_i>0\), then some block \(j\) of stage \(i\) has
+\((p_0-\omega_{d_i})g_{d_i}>p_0\delta_{ij}/N_{ij}\), and Step~3 gives the
+bounds on \(d_i\) and \(N_{ij}\) for this block. Moreover
+\(\log E_i/(2W)<\eps g_{d_i}\le2\eps/d_i\) and
+\(E_i\ge M_{ij}>d_i^{N_{ij}}\) give \(W>N_{ij}d_i\log d_i/(4\eps)\),
+which replaces \(W\ge N_{ij}k_{ij}\) in the bound on \(W\). Steps~4
+and~5 run over the stages with \(\vartheta_i>0\), with \(\Sigma_I\)
+replaced by the sum of \(\log d_i\) over these stages.
+\end{remark}
+
+\subsection{The recycled main construction}
+\label{subsec:lower-recycled-proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:recycled-main}]
+We use the notation of Theorem~\ref{thm:main} and its proof. Here
+\(A\) and \(B\) are the sides of Theorem~\ref{thm:main}, that is, of the
+source supply, \(W=Nk\), \(t=1\), every stage has one block with the
+largest sector count \(M_i\), and, as there, \(a_N=2\log(N+1)/N\) and
+\(\Lambda=\log(4096/\eps)\). Read forwards, the chain has \(L\ge1\) bulk
+stages of arity \(D\), followed by ramp stages, and every arity
+satisfies \(d_i\le24D-3\) (Lemma~\ref{lem:defect}). We use these facts
+from the proof of Theorem~\ref{thm:main}: \(N=k\ge256DH/\eps\ge4608/\eps\)
+(as \(D\ge2\) and \(H\ge9\)), \(a_N<3\eps/(128D)\) and
+\(Lg_D\ge64/\eps\) (Steps~0 and~1);
+\(\log(B/A)\ge\frac{497}{512}\cdot2NkG\) with \(G\ge64/\eps\)
+(Steps~1 and~4; see also~\eqref{eq:seeds-gain}); and \(D\le3\eps^{-1/2}\),
+\(J\le240\,\eps^{-3/2}\) and \(N\le2305\,\eps^{-3/2}\Lambda\) (Step~5).
+
+\emph{Funding.} By Lemma~\ref{lem:types},
+\(\log M_i\ge N\log(d_i+2)-2\log(N+1)\), so
+\(\gamma_i=\log(V_i/U_i)=2k\log M_i-2Nk\log d_i\ge2Nk(g_{d_i}-a_N)\).
+\begin{itemize}
+\item Every stage gains: \(g_{d_i}\ge\frac2{d_i+2}>\frac1{12D}\), as
+\(d_i+2<24D\), and \(a_N<\frac{3\eps}{128D}\le\frac3{128D}<\frac1{12D}\).
+So \(\gamma_i>0\).
+\item The bulk pays for the larger arities of the ramp:
+\(La_N<(\frac{64D}\eps+1)\frac{3\eps}{128D}\le\frac32+\frac3{256}<2\), so
+\(\sum_{i\le L}\gamma_i\ge2Nk(Lg_D-La_N)>2Nk(\frac{64}\eps-2)\ge124Nk\).
+\end{itemize}
+For \(i\le L\), \(U_i=D^{2Nk}\) and \(\prod_{l<i}U_l/V_l\le1\), with
+equality for \(i=1\). For \(i>L\), \(U_i\le(24D)^{2Nk}\) and
+\(\prod_{l<i}U_l/V_l<e^{-124Nk}<24^{-2Nk}\). Hence
+\(\max_iU_i\prod_{l<i}U_l/V_l=D^{2Nk}\), and
+Lemma~\ref{lem:recycling}(c) applies to \(A'=4JD^{2Nk}\): the recycling
+supply is a supply, and \(B'/A'\ge B/(2A)\). By
+Lemma~\ref{lem:recycling}(a), \(B'/A'\le B/A\).
+
+\emph{Exponent.} We have
+\(\log(B/A)\ge\frac{497}{512}\cdot\frac{128}\eps Nk>\frac{124Nk}\eps\ge\frac{124\cdot4608^2}\eps\),
+so \(\log(B'/A')\ge\log(B/A)-\log2>0\), and \(B'>A'\). The two pooled
+exponents have the same numerator \(p\log(B/A)\), so
+\[
+ p'-p\le\frac{p\log2}{\log(B/A)-\log2}
+ <\frac{\frac{11}4\log2}{124\cdot4608^2-1}\,\eps<10^{-9}\eps,
+\]
+using \(p<\frac{11}4\) and \(\eps\le1\). With
+\(p<\frac94+\frac{719}{1988}\eps\) (Theorem~\ref{thm:main}) and
+\(\frac{719}{1988}+10^{-9}<\frac12\), this gives
+\(p'<\frac94+\frac\eps2\). Also \(p'\ge p>\frac94\), by
+Lemma~\ref{lem:recycling}(b) and Theorem~\ref{thm:main}.
+
+\emph{Source side.} \(\log A'=\log(4J)+2Nk\log D\). Here
+\(4J\le960\,\eps^{-3/2}\le(4096/\eps)^{3/2}\), so
+\(\log(4J)\le\frac32\Lambda\); \(2\log D\le\log(9/\eps)\le\Lambda\); and
+\(Nk=N^2\le2305^2\eps^{-3}\Lambda^2\). As \(\Lambda\ge\log4096>8.3\),
+\(\frac32\Lambda<0.022\,\Lambda^3\). Hence
+\[
+ \log A'<(2305^2+0.022)\,\eps^{-3}\Lambda^3<5.32\cdot10^6\,\eps^{-3}\Lambda^3 .
+\]
+
+\emph{Target side.} Since \(M_i<(d_i+2)^N\) and \(t=1\),
+\(\log(B/A)<2NkG\), where \(G=\log F(R,R)+Lg_D\)
+(Lemma~\ref{lem:defect}). Here \(Lg_D\le(\frac{64D}\eps+1)\frac2D\le\frac{128}\eps+1\).
+By~\citep[(3.6)]{FinCon26}, \(\log F(R,R)\le\frac43\log(2R-1)\), and
+\(2R-1<16D\le48\,\eps^{-1/2}\); since \(48^4<4096^2\), this gives
+\(\log F(R,R)<\frac23\Lambda\). The function \(\eps\log(4096/\eps)\)
+increases on \((0,1]\), so \(\eps\Lambda\le\log4096<8.32\). Hence
+\[
+ \log(B/A)<Nk\bigl(\tfrac{256}\eps+2+\tfrac43\Lambda\bigr)
+ \le2305^2\eps^{-4}\Lambda^2\bigl(256+2\eps+\tfrac43\eps\Lambda\bigr)
+ <1.43\cdot10^9\,\eps^{-4}\Lambda^2 .
+\]
+By Lemma~\ref{lem:recycling}(a), \(\log B'\le\log A'+\log(B/A)\), and
+\(\log A'<5.32\cdot10^6\,\eps^{-3}\Lambda^3<4.5\cdot10^7\,\eps^{-4}\Lambda^2\),
+as \(\eps\Lambda<8.32\). So
+\(\log B'<1.5\cdot10^9\,\eps^{-4}\Lambda^2\).
+The restriction holds over \(\Q\) by Lemma~\ref{lem:recycling}, with the
+\(r_*\) and \(m_*\) of Theorem~\ref{thm:main}.
+\end{proof}
+
+\subsection{Small batches}
+\label{subsec:lower-small-proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:small-sources}]
+(a) For integers \(N,k\ge1\), \(d\ge2\) and \(M\ge1\), put
+\(E=1+6k(M-1)\) and
+\(\upsilon(N,d,k,M)=\frac1{2Nk}\log\bigl(d^{6Nk}(2M-1)^{6k}E/M^{12k}\bigr)\).
+Let \(\upsilon_{ij}=\upsilon(N_{ij},d_i,k_{ij},M_{ij})\) and let
+\(\bar\upsilon_i=\sum_j(N_{ij}k_{ij}/W)\upsilon_{ij}\), a weighted average. Under
+the source supply, \(\log A=\sum_{i,j}2N_{ij}k_{ij}\log d_i\), so
+\eqref{eq:class-counts} gives
+\begin{equation}\label{eq:small-margin}
+ \frac{\log(r_*/m_*)-3\log(B/A)}{2W}=3\log\frac st+\sum_i\bar\upsilon_i ,
+\end{equation}
+and \(p<3\) if and only if this is negative. If \(M\le d^N\), then
+\(\upsilon(N,d,k,M)\ge0\), because \(d^{6Nk}\ge M^{6k}\), \(2M-1\ge M\) and
+\(E\ge1\). If a type of width \(N\) has sector count \(M>d^N\), then
+\(N\ge3\) and \(d\le2N\) (Lemma~\ref{lem:lower-types}(b)).
+
+Suppose that \(p<3\) and \(m_*<M_0^{12}\), and let \(\mathcal K\) be the
+set of stages with \(\bar\upsilon_i<0\). For \(i\in\mathcal K\), let
+\(N,k,M\) be the width, power and sector count of a block of stage \(i\)
+with the least \(\upsilon_{ij}\), and \(\upsilon_i^\circ\) its \(\upsilon_{ij}\). Then
+\(\upsilon_i^\circ\le\bar\upsilon_i<0\), so \(M>d_i^N\), \(N\ge3\), \(d_i\le2N\),
+and \(M^{6k}\le m_*<M_0^{12}\). By~\eqref{eq:small-margin},
+\(0>3\log(s/t)+\sum_{i\in\mathcal K}\upsilon_i^\circ\). If
+\(\mathcal K=\emptyset\), this contradicts
+Lemma~\ref{lem:source-terminal}(a). If \(\mathcal K=\{i\}\) and
+\(d=d_i\), Lemma~\ref{lem:source-terminal}(b) gives \(s>(1+\frac1d)t\),
+so
+\[
+ 0>3\log\frac{d+1}d+\upsilon_i^\circ
+ =\frac1{2Nk}\log\frac{(d+1)^{6Nk}(2M-1)^{6k}E}{M^{12k}},
+\]
+which needs \(M>(d+1)^N\) (as above) and contradicts check~(i) below. If
+\(|\mathcal K|\ge2\), Lemma~\ref{lem:source-terminal}(c) and
+\(\mu_d>1\) give
+\(3\log(s/t)\ge3\log\frac{40}{49}+3\sum_{i\in\mathcal K}\log\mu_{d_i}\),
+and check~(ii) gives \(3\log\mu_{d_i}+\upsilon_i^\circ\ge\log\frac{34}{25}\).
+So \(0>3\log\frac{40}{49}+2\log\frac{34}{25}\), which is false, as
+\(34^2\cdot40^3=73\,984\,000>73\,530\,625=25^2\cdot49^3\).
+
+The two checks concern all \((N,d,k,M)\) with \(N\ge3\),
+\(2\le d\le2N\), \(k\ge1\), \(M\) a sector count of width \(N\) at arity
+\(d\), and \(M^{6k}<M_0^{12}\): (i) if \(M>(d+1)^N\), then
+\((d+1)^{6Nk}(2M-1)^{6k}E\ge M^{12k}\); (ii) if \(M>d^N\), then
+\(25^{2Nk}(vd)^{6Nk}(2M-1)^{6k}E\ge34^{2Nk}u^{6Nk}M^{12k}\), where
+\(u/v\ge\lambda_d\) is a rational number fixed for each \(d\). Since
+\(\log\mu_d\ge\log(v/u)\), (ii) gives the bound used above. Both lists
+are finite, since \(d^{6Nk}<M^{6k}<2^{495}\) gives \(N\le82\), and
+\(d\ge33\) would give \(N\ge17\) and \(d^{6N}\ge33^{102}>2^{495}\). The
+supplementary script \path|shifted_chains_check_small_sources.py|
+(Part~C) runs both checks in exact integer arithmetic, with \(u/v\) the
+upper end of an enclosure of \(\lambda_d\) from an integer square root,
+certified by \(f_d(u/v)\ge0\). All \(5\,792\) cases of (i) and
+\(31\,677\) cases of (ii) pass.
+
+(b) Every restriction \(r\MM_A\restr m\MM_B\) in the construction has
+\(r\ge m\) (for chain schemes since \(2M_{ij}-1\ge M_{ij}\)), and the
+operations preserve this. By induction on the construction, \(B>A\) and
+\(r/m<(B/A)^3\) imply \(m\ge M_0^{12}\). For chain schemes this is (a);
+classical restrictions have \(r/m=(B/A)^3\); and (i) keeps \(r\) and
+\(m\) and does not increase \(B/A\). Under (ii) and (iii),
+\(m=m^{(1)}m^{(2)}\), \(r/m=(r^{(1)}/m^{(1)})(r^{(2)}/m^{(2)})\) and
+\(B/A\le(B^{(1)}/A^{(1)})(B^{(2)}/A^{(2)})\), since
+\(f\le B^{(1)}/A^{(2)}\). So \(r/m<(B/A)^3\) gives
+\(r^{(l)}/m^{(l)}<(B^{(l)}/A^{(l)})^3\), hence \(B^{(l)}>A^{(l)}\) as
+\(r^{(l)}\ge m^{(l)}\), for some \(l\), and \(m\ge m^{(l)}\ge M_0^{12}\).
+The composition is a restriction by the construction of
+Remark~\ref{rem:composition}, which does not use \(B^{(l)}>A^{(l)}\).
+Finally, the maps of \(r\MM_A\restr m\MM_B\) replace each variable of
+\(r\MM_A\) by a linear form in the \(mB^2\) variables of the same leg of
+\(m\MM_B\), and each of these occurs in \(m\MM_B\), hence in some form.
+As \(B\ge2\), this gives at least \(mB^2\ge4M_0^{12}>2^{496}\) nonzero
+coefficients per leg.
+
+(c) The stage is legal, since \(4\le2\cdot182-361+1\), and \(s=542\).
+So \(A=2^{92}\), \(B=361^{92}M_0^4\),
+\(r_*=542^{276}(2M_0-1)^{12}(12M_0-11)\) and \(m_*=M_0^{12}\). The script
+checks \(r_*A^3<m_*B^3\), that is \(p<3\), in exact integer arithmetic,
+and its enclosures give \(p\in[2.999998425472,\,2.999998425473]\).
+\end{proof}

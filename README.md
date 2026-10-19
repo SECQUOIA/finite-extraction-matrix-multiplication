@@ -1,8 +1,19 @@
-**A finite construction of matrix multiplication algorithms with exponent approaching 9/4**
+**Matrix multiplication algorithms with exponent approaching 9/4**
 
-This repository contains an **AI-produced research paper** and its supporting
-materials. AI agents developed the mathematical arguments, manuscript,
-supporting calculations, and review records.
+This repository contains two **AI-produced research papers** and their
+supporting materials. AI agents developed the mathematical arguments,
+manuscripts, supporting calculations, and review records.
+
+- [finite-extraction.pdf](finite-extraction.pdf): *A finite construction of
+  matrix multiplication algorithms with exponent approaching 9/4*, version 5
+  (18 October 2026). It turns the OpenAI preprint's existence proof into
+  explicit algorithms.
+- [shifted-chains.pdf](shifted-chains.pdf): *A singly exponential
+  construction of matrix multiplication algorithms with exponent approaching
+  9/4* (19 October 2026). A follow-up paper whose construction makes the
+  sizes singly exponential in `1/epsilon` rather than doubly exponential.
+
+## A finite construction (version 5)
 
 OpenAI's preprint
 [An Upper Bound of 9/4 for the Matrix Multiplication Exponent](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Matrix-Multiplication-Nine-Fourths-October-2-2026/paper.pdf)
@@ -35,7 +46,7 @@ The paper does not give an algorithm with exponent exactly 9/4, an expanded
 coefficient certificate, or a practical implementation. All its dimensions
 and constants are astronomically large.
 
-## Version 5
+### Version 5
 
 Version 5 (18 October 2026) makes these changes:
 
@@ -62,7 +73,7 @@ Version 5 (18 October 2026) makes these changes:
 The paper has 79 pages. See the
 [revision record](supplement/docs/manuscript-v5-revision.md).
 
-## Version 4
+### Version 4
 
 Version 4 (17 October 2026) added Section 9, "Explicit bounds for a rational
 seed": the rational variant, the explicit seed side, the cost of computing
@@ -71,7 +82,7 @@ seed, and one algorithm for all sizes. It had 71 pages. See the
 [resolution record](supplement/docs/final-algorithm-bounds.md) and the
 [second check](supplement/docs/final-algorithm-bounds-check.md).
 
-## Version 3
+### Version 3
 
 Version 3 rewrote the paper for clarity. Its mathematics
 is that of version 2. The fixes made in
@@ -83,12 +94,59 @@ examples and figures. It had 62 pages; version 2 had 35. The
 [revision record](supplement/docs/manuscript-v3-revision.md) gives the
 details.
 
+## A singly exponential construction
+
+The follow-up paper answers the second open question of version 5 (v5
+below), which asks for a construction in which `log(A)` is bounded by a
+polynomial in `1/epsilon`.
+The source side `A` alone is not a robust measure, because composition with
+the classical algorithm reduces it to 1. The robust measures are the numbers
+`r` and `m` of source and target matrix products and the side `n_0` of the
+seed, all doubly exponential in `1/epsilon` within v5's construction. Here
+all three are singly exponential.
+
+The main ingredient is a *shifted sum* of polynomials. It splits a
+polynomial multiplication tensor times a dot product into equal kernel parts
+and one quotient part, which a reset (the partition behind the OpenAI
+preprint's shifted tripling) turns into shorter polynomial
+multiplications. The resulting *stages* shorten the polynomial
+multiplication and enlarge a matrix multiplication tensor. They run in
+sequence, and each is made exact separately, so no catalyst is needed. The
+main results are:
+
+- For rational `0 < epsilon <= 1`, an explicit rational scheme of at most
+  `240 epsilon^(-3/2)` stages computes `m` products of `B x B` matrices
+  from `r` products of `A x A` matrices, with exponent between `9/4` and
+  `9/4 + epsilon/2`. Each of `log(m)`, `log(r)` and `log(A)` is below
+  `2.7e10 epsilon^(-9/2) log^3(4096/epsilon)`.
+- Rational seeds of side `n_0` with
+  `log(n_0) = O(epsilon^(-11/2) log^3(1/epsilon))`, and one algorithm for
+  all `n` with exponent `9/4 + O((log log n)^(6/11) (log n)^(-2/11))`.
+- Certified finite examples: schemes with exponent below 2.5, 2.3 and 2.26
+  have source sides of 33,379, 12,371,380 and 48,859,824,830 decimal digits.
+  Near v5's computed examples, the source sides have 280 and 4,653 digits
+  instead of about 1.2e10 and 2.3e11 digits.
+- Limits within the construction: the exponent always exceeds `9/4`;
+  `log(r)` and `log(m)` have the least possible order
+  `epsilon^(-9/2) log^3(1/epsilon)`; and every scheme with exponent below 3
+  has more than `2^494` target products (computer-assisted).
+
+All sizes are still astronomically large, and no algorithm here is shown to
+use `O(n^(9/4))` operations. The relations are proved over the rationals, so
+they hold in characteristic zero; positive characteristic is not treated.
+The paper has 47 pages. Its
+[README](manuscript-shifted-chains/README.md) states the results with their
+statement numbers, and the
+[paper record](supplement-shifted-chains/docs/shifted-chains-paper-record.md)
+describes how it was checked and written.
+
 ## Files
 
-- [finite-extraction.pdf](finite-extraction.pdf): the paper, version 5.
-- [manuscript/](manuscript/): LaTeX sources, bibliography, Makefile, and build
-  instructions.
-- [supplement/](supplement/): supporting scripts, saved reports, component
+- [finite-extraction.pdf](finite-extraction.pdf): the finite-construction
+  paper, version 5.
+- [manuscript/](manuscript/): its LaTeX sources, bibliography, Makefile, and
+  build instructions.
+- [supplement/](supplement/): its supporting scripts, saved reports, component
   tests, the Lean formalization, derivations, and review records, unpacked
   for browsing and reproduction.
 - [finite-extraction-supplement-v5.zip](finite-extraction-supplement-v5.zip):
@@ -99,23 +157,29 @@ details.
   and its supplement.
 - [archive/v2/](archive/v2/): version 2 of the paper (PDF and LaTeX source)
   and its supplement, dated 7 October 2026.
+- [shifted-chains.pdf](shifted-chains.pdf): the follow-up paper.
+- [manuscript-shifted-chains/](manuscript-shifted-chains/): its LaTeX
+  sources, bibliography, Makefile, and build instructions.
+- [supplement-shifted-chains/](supplement-shifted-chains/): its scripts,
+  saved reports, test, and review records.
 
-The supplement's research notes record earlier stages of the project. The
-paper supersedes their statements about the completed construction. The
+The supplements' research notes record earlier stages of the project. The
+papers supersede their statements about the completed construction. The
 complete coefficient maps are specified mathematically rather than stored as
 expanded arrays.
 
 ## Build and reproduce
 
-To build the paper, use TeX Live with pdfLaTeX, BibTeX, latexmk, Latin
-Modern, microtype, natbib, xurl, and TikZ:
+To build the papers, use TeX Live with pdfLaTeX, BibTeX, latexmk, Latin
+Modern, microtype, natbib, xurl, hyperref, mathtools, booktabs, and TikZ:
 
 ```sh
 make -C manuscript
+make -C manuscript-shifted-chains
 ```
 
-To reproduce the supporting calculations, use Python 3.11 or later from
-`supplement/`. The finite-cost evaluator and the scripts that check the
+To reproduce the supporting calculations of version 5, use Python 3.11 or
+later from `supplement/`. The finite-cost evaluator and the scripts that check the
 paper's quoted numbers need only the standard library, except that
 `flows_row_maxima.py` needs NumPy. The component tests need pytest, NumPy,
 and SciPy.
@@ -128,6 +192,17 @@ python -I experiments/rational_interpolation_audit.py
 python -I experiments/rational_seed_arithmetic_checks.py --check
 python -I experiments/source_side_bounds.py --check
 python -m pytest -q tests
+```
+
+The follow-up paper's scripts need only the standard library, and its test
+needs pytest. From `supplement-shifted-chains/`:
+
+```sh
+cd supplement-shifted-chains
+python -I experiments/shifted_chain_certificates.py --check
+python -m pytest -q tests
+python -I -B experiments/shifted_chains_check_small_sources.py
+python -I -B experiments/shifted_chains_check_recycling.py
 ```
 
 To check the Lean formalization, install `elan` and run, from
@@ -152,3 +227,9 @@ The Lean project was built from an empty directory, fetching the pinned
 dependencies from GitHub (with Mathlib's prebuilt files from its cache). It
 built all modules, and the endpoint theorems depend only on Lean's standard
 axioms.
+
+During preparation of the follow-up paper, a copy of exactly its files in
+this repository built without warnings into the included 47-page PDF. From a
+standalone copy of `supplement-shifted-chains/`, the certificate check and
+the three tests passed, and all 20 check and skeptic scripts ran without
+failure, each in at most about two and a half minutes.

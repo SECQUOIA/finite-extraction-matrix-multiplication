@@ -1,0 +1,55 @@
+\section{Open questions}
+\label{sec:open}
+
+\begin{enumerate}
+\item \emph{Smaller finite sizes.} For the chain schemes of
+Definition~\ref{def:class} with \(p\le9/4+\eps\), the least copy counts
+have logarithms of order \(\eps^{-9/2}\log^3(1/\eps)\)
+(Remark~\ref{rem:limits-orders}), but the constants of the two bounds
+are far apart. Do compressed auxiliaries
+(Definition~\ref{def:compressed}) that attain~\eqref{eq:hankel-bound}
+exist at large widths, and what sizes do they give? What is the least
+source side over all supplies? Can an evaluation of the source with
+fewer than \(s^{6W}\) products (Section~\ref{subsec:limits-scope})
+reduce the sizes?
+
+\item \emph{Coupled auxiliaries.} The limits of
+Section~\ref{sec:limits} assume an independent auxiliary for every block,
+stage and orientation, and separate exactification of every stage. Can
+auxiliaries shared between orientations or stages, or joint
+exactification of several stages, change the orders of
+Theorem~\ref{thm:lower}?
+
+\item \emph{Seeds without the factor \(1/\eps\).} The seed of
+Theorem~\ref{thm:seed} has \(\log n_0\ge(24/\eps)\log A\), and for
+\(\eps\le3/4\) the unrolling procedure needs a factor of this order
+(Remark~\ref{rem:seed-factor}). Is there a rational seed with exponent
+below \(9/4+\eps\) and \(\log n_0=O(\eps^{-9/2}\log^3(1/\eps))\)? It
+would improve the rate of the seed route of
+Remark~\ref{rem:seed-route}. Independently, can the rate \(2/11\) of
+Theorem~\ref{thm:uniform} be improved?
+
+\item \emph{Bit complexity and precision.} Block recursion with a fixed
+rational seed is covered by~\citep[Lemma~9.4 and
+Propositions~9.5--9.6]{FinCon26}, but Remark~\ref{rem:precision} bounds
+the precision of one application of the scheme only. What are the
+precision and the integer bit complexity of the pooled recursion, which
+Algorithm~\(\mathcal U\) of Section~\ref{sec:seeds-uniform} uses?
+
+\item \emph{Positive characteristic.} The local maps of
+Section~\ref{sec:stages} hold over every field. The separator and
+exactification are charged here by rational interpolation, and we prove
+our results in characteristic zero only; the common denominator
+\(\mathcal D\) of Proposition~\ref{prop:coefficients} is divisible by
+\((s-1)!\). Over every field, \(\omega\le9/4\) is
+known~\citep{Nav26a,Zui26,Fil26}, but without sizes. Is there a
+construction over every field, for example over \(\mathbb F_2\), whose
+copy counts have logarithms polynomial in \(1/\eps\)?
+
+\item \emph{Practical sizes.} Every chain scheme with \(p<3\) has more
+than \(2^{494}\) target copies (Proposition~\ref{prop:small-sources}),
+and far from \(9/4\) other constructions are much smaller
+(Section~\ref{subsec:examples-comparison}). Which exponents can shifted
+stages, alone or combined with other schemes, reach with sizes that can
+be executed in practice?
+\end{enumerate}

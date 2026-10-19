@@ -1,0 +1,471 @@
+\section{Seeds and one algorithm for all sizes}
+\label{sec:seeds}
+
+This section turns the relative scheme of Theorem~\ref{thm:main} into a
+rational seed (Section~\ref{sec:seeds-seed}), bounds its coefficients and
+the cost of generating them (Section~\ref{sec:seeds-coefficients}), and
+gives one algorithm for all sizes (Section~\ref{sec:seeds-uniform}).
+
+\paragraph{Setting.}
+Throughout, \(\eps\in(0,1]\) is rational, \(\Lambda=\log(4096/\eps)\),
+and \(\mathcal S_\eps\) is the relative scheme \(r_*\MM_A\restr m_*\MM_B\)
+of Theorem~\ref{thm:main}, with the parameters \(D,R,L,H\) and \(N=k\)
+defined there. Its chain has \(J=2(R-1)+L\) stages, from the source pair
+\((r_1,b_1)\) to the terminal pair \((1,1)\), with arities
+\(2\le d_i<24D\). At stage \(i\), \(\mathcal S_\eps\) uses the first type,
+in the lexicographic order of \((\nK,\nO)\), with the largest sector count
+\(M_i\); so \((d_i+2)^N/(N+1)^2\le M_i<(d_i+2)^N\)
+(Lemma~\ref{lem:types}). The counts are those
+of~\eqref{eq:stage-chain-counts} for \(t=1\), and \(s\) and \(E_i\)
+are as in Proposition~\ref{prop:chain-counts}; the three maps are
+rational, and \(9/4<p<9/4+\eps/2\).
+
+\paragraph{The pooled recursion.}
+We use the pooled recursion of \citep[Lemma~2.4]{FinCon26} in its
+notation, except that we write \(\bar n_\ell\) for the side at depth
+\(\ell\), because \(n_0\) denotes the side of a seed here. Thus
+\(\rho=A/B\), \(n_\infty=AB/(B-A)\), and \(n_*=\lceil n_\infty\rceil+1\)
+is the leaf threshold. At side \(n\), the recursion starts from
+\(\nu_0=1\) product of side \(\bar n_0=n\) and sets
+\(\nu_{\ell+1}=r_*\lceil\nu_\ell/m_*\rceil\) and
+\(\bar n_{\ell+1}=A\lceil\bar n_\ell/B\rceil\); the last depth
+\(\ell_{\max}\) is the first \(\ell\) with \(\bar n_\ell\le n_*\), and its
+products are computed classically. Step~3 of the proof of
+\citep[Lemma~2.4]{FinCon26} shows that, for every \(n\ge1\) and
+\(0\le\ell\le\ell_{\max}\),
+\begin{equation}\label{eq:seeds-pooled}
+ \nu_\ell\le\Bigl(1+\frac{r_*m_*}{r_*-m_*}\Bigr)\Bigl(\frac{r_*}{m_*}\Bigr)^\ell,
+ \qquad
+ \rho^\ell n\le\bar n_\ell<n_\infty+\rho^\ell n,
+ \qquad
+ \rho<\rho^{\ell_{\max}}n\le n_*.
+\end{equation}
+
+\subsection{Resources}
+\label{sec:seeds-resources}
+
+\begin{lemma}[Resources]\label{lem:resources}
+For every rational \(\eps\in(0,1]\), the scheme \(\mathcal S_\eps\)
+satisfies:
+\begin{enumerate}
+\item[(a)] \(N=k\ge4608\), \(J\le240\,\eps^{-3/2}\),
+ \(N\le2305\,\eps^{-3/2}\Lambda\), and
+ \(2NkJ\le\log_2A\le2NkJ\log_2(24D)\); in particular
+ \(\log A\le2{,}550{,}252{,}000\,\eps^{-9/2}\Lambda^3\);
+\item[(b)] \(m_*=B^3\) and \(\log(B/A)\ge124Nk\); in particular
+ \(2A\le B\le A^2\);
+\item[(c)] \(4\le(B/A)^2\le r_*/m_*\le(B/A)^{11/4}\) and
+ \(r_*<A^{35/4}\);
+\item[(d)] \(A<n_*\le2A+1\);
+\item[(e)] \(A^{12}\le\Xi\) and \(\Xi+1\le A^{27}\), where
+ \(\Xi=r_*(1+r_*m_*)\,n_*^3\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Steps~0 and~5 of the proof of Theorem~\ref{thm:main} give
+\(N=k\ge4608\), \(J\le240\,\eps^{-3/2}\),
+\(N\le2305\,\eps^{-3/2}\Lambda\) and the bound on \(\log A\). Since
+\(2\le d_i<24D\), the number \(\log_2A=2Nk\sum_i\log_2d_i\) lies between
+\(2NkJ\) and \(2NkJ\log_2(24D)\).
+
+(b) Theorem~\ref{thm:main} gives \(m_*=B^3\) and \(B\le A^2\). Let
+\(G=\sum_i\log((d_i+2)/d_i)\) be the gain of the chain. Step~1 of the
+proof of Theorem~\ref{thm:main} gives
+\begin{equation}\label{eq:seeds-gain}
+ \log(B/A)\ge\frac{497}{512}\cdot2NkG,\qquad
+ G\ge\frac{64}\eps,\qquad J\le\frac{5D}4\,G,
+\end{equation}
+so \(\log(B/A)\ge2Nk\cdot\frac{64}\eps\cdot\frac{497}{512}\ge124Nk\), and
+in particular \(B\ge2A\).
+
+(c) By Step~1 of the proof of \citep[Lemma~2.4]{FinCon26}, \(p\ge2\), so
+\(r_*/m_*=(B/A)^p\ge(B/A)^2\ge4\). Also \(p<9/4+\eps/2\le11/4\), and
+\(r_*<A^{35/4}\) by Theorem~\ref{thm:main}.
+
+(d) Since \(B\ge2A\), we have \(A<AB/(B-A)=A/(1-A/B)\le2A\), so
+\(A+2\le n_*\le2A+1\).
+
+(e) By (b)--(d), \(r_*\ge4m_*\), \(m_*=B^3>A^3\) and \(n_*>A\), so
+\(\Xi\ge r_*^2m_*n_*^3>A^{12}\). Also \(1+r_*m_*\le2r_*m_*\) and
+\(n_*\le3A\), so \(\Xi\le54\,r_*^2m_*A^3\le54A^{35/2+6+3}\). Hence
+\(\Xi+1\le55A^{53/2}\le A^{27}\), because \(A\ge2^{2NkJ}>55^2\).
+\end{proof}
+
+\subsection{An explicit seed}
+\label{sec:seeds-seed}
+
+The next theorem is the analogue of \citep[Theorem~9.2]{FinCon26} for
+\(\mathcal S_\eps\), and its proof follows the proof given there.
+
+\begin{theorem}[An explicit seed]\label{thm:seed}
+Let \(\eps\in(0,1]\) be rational, let \(n_*\) and \(\Xi\) be as in
+Lemma~\ref{lem:resources}, and put
+\[
+ n_0=(\Xi+1)^{\lceil2/\eps\rceil}.
+\]
+For every \(n\ge n_0\), unrolling the pooled recursion of
+\(\mathcal S_\eps\) at side \(n\), with the zero padding of
+\citep[Lemma~2.4]{FinCon26} and classical multiplication at the last
+depth, gives a decomposition of \(\MM_n\) into at most
+\(\Xi n^p<n^{9/4+\eps}\) rank-one tensors with rational coefficients. In
+particular, \(n=n_0\) gives a rational seed of side \(n_0\) with fewer
+than \(n_0^{9/4+\eps}\) products, and
+\[
+ \frac{24}\eps\log A\;\le\;\log n_0\;\le\;
+ 27\Bigl\lceil\frac2\eps\Bigr\rceil\log A
+ \;<\;2.1\cdot10^{11}\,\eps^{-11/2}\log^3\frac{4096}\eps .
+\]
+\end{theorem}
+
+\begin{proof}
+Run the pooled recursion at side \(n\). By~\eqref{eq:seeds-pooled} and
+\(r_*-m_*\ge1\), we have
+\(\nu_{\ell_{\max}}\le(1+r_*m_*)(r_*/m_*)^{\ell_{\max}}\). Since
+\(r_*/m_*=\rho^{-p}\) and \(\rho^{\ell_{\max}}n>\rho\),
+\[
+ \Bigl(\frac{r_*}{m_*}\Bigr)^{\ell_{\max}}=(\rho^{\ell_{\max}})^{-p}
+ <\Bigl(\frac n\rho\Bigr)^p=\frac{r_*}{m_*}\,n^p,
+\]
+and therefore \(\nu_{\ell_{\max}}<r_*(1+r_*m_*)\,n^p\), as \(m_*\ge1\).
+Every product at the last depth has side
+\(\bar n_{\ell_{\max}}\le n_*\), and classical multiplication computes it
+with at most \(n_*^3\) scalar products. Each of them multiplies an entry
+of a left input by an entry of a right input, which by Step~5 of the proof
+of \citep[Lemma~2.4]{FinCon26} are linear forms in the entries of the two
+original \(n\times n\) matrices. All later operations (the output maps and
+the removal of padding) are fixed linear maps, so every entry of the
+computed product is a fixed linear combination of these scalar products.
+As in the proof of \citep[Corollary~8.7]{FinCon26}, the scalar products
+therefore give a decomposition of \(\MM_n\) into at most
+\(\nu_{\ell_{\max}}n_*^3<\Xi n^p\) rank-one tensors, one for each scalar
+product. Its coefficients are rational because the maps of
+\(\mathcal S_\eps\) are rational. Finally, \(n\ge n_0\) gives
+\(n^{\eps/2}\ge(\Xi+1)^{\lceil2/\eps\rceil\eps/2}\ge\Xi+1>\Xi\), and
+\(p<9/4+\eps/2\) gives \(\Xi n^p<n^{9/4+\eps}\).
+
+For the size, \(\log n_0=\lceil2/\eps\rceil\log(\Xi+1)\), and
+Lemma~\ref{lem:resources}(e) gives
+\((2/\eps)\cdot12\log A\le\log n_0\le27\lceil2/\eps\rceil\log A\). Since
+\(\eps\le1\), we have \(\lceil2/\eps\rceil\le3/\eps\), and
+Lemma~\ref{lem:resources}(a) gives
+\(\log n_0\le81\cdot2{,}550{,}252{,}000\,\eps^{-11/2}\Lambda^3
+<2.1\cdot10^{11}\,\eps^{-11/2}\Lambda^3\).
+\end{proof}
+
+Block recursion with the seed is covered by \citep[Lemma~9.4 and
+Propositions~9.5--9.6]{FinCon26}.
+
+\begin{remark}[The factor \(1/\eps\)]\label{rem:seed-factor}
+The factor of order \(1/\eps\) between \(\log n_0\) and \(\log A\) is
+necessary for the procedure of Theorem~\ref{thm:seed} when
+\(\eps\le3/4\), as in \citep[Remark~8.8]{FinCon26}: if the procedure,
+run at side \(n\), executes fewer than \(n^{9/4+\eps}\) scalar products
+at its last depth, counting those in batch slots filled with zero
+matrices, then \(\log n>(\frac{13}4\log A-\log27)/\eps\). Indeed,
+\(\ell_{\max}=0\) would give \(n^3\ge n^{9/4+\eps}\) products, so
+\(\ell_{\max}\ge1\). Then \(\nu_1=r_*\) and
+\(\nu_{\ell+1}\ge(r_*/m_*)\nu_\ell\), so
+\(\nu_{\ell_{\max}}\ge m_*\rho^{-p\ell_{\max}}\ge m_*(n/n_*)^p\)
+by~\eqref{eq:seeds-pooled}. Every product at the last depth has side
+\(A\lceil\bar n_{\ell_{\max}-1}/B\rceil\ge A\), hence needs at least
+\(A^3\) scalar products. With \(m_*=B^3\ge A^3\), \(n_*\le3A\) and
+\(p\le3\), the procedure executes at least \(n^pA^{6-p}/27\) products,
+and \(9/4<p<21/8\) (Lemma~\ref{lem:profile-potential} and
+Theorem~\ref{thm:main}) gives
+\(\eps\log n>(9/4+\eps-p)\log n>(6-p)\log A-\log27
+>\frac{13}4\log A-\log27\). This does not bound the rank after rank-one
+terms with a zero factor are deleted.
+\end{remark}
+
+\subsection{Coefficients and generation}
+\label{sec:seeds-coefficients}
+
+Appendix~\ref{sec:coefficients} writes each of the three maps of
+\(\mathcal S_\eps\) as a product of explicit matrices and describes a
+simple generator that multiplies them out. We count bit operations of
+schoolbook integer arithmetic; an addition, subtraction, multiplication,
+comparison or division with remainder of integers with at most
+\(b\ge1\) bits costs at most \(16b^2\) of them.
+
+\begin{proposition}[Coefficients and generation]\label{prop:coefficients}
+Let \(\eps\in(0,1]\) be rational, and put
+\[
+ \mathcal D=((s-1)!)^{2Nk}\prod_{i=1}^J
+ \bigl((M_i-1)!\,(2M_i-2)!\bigr)^{2k}\,(E_i!)^{2k(M_i-1)},\qquad
+ \beta_\eps=(24D)^{3N}.
+\]
+\begin{enumerate}
+\item[(a)] Every coefficient of the three maps of \(\mathcal S_\eps\) is
+ \(\mathfrak c/\mathcal D\) with an integer \(\mathfrak c\),
+ \(|\mathfrak c|<2^{\beta_\eps}\), and \(\mathcal D<2^{\beta_\eps}\).
+\item[(b)] \(\beta_\eps\le A^{1/k}\), and
+ \(\log_2\beta_\eps<10^4\,\eps^{-3/2}\Lambda^2\).
+\item[(c)] Let \(\eps=u/v\) with positive integers \(u,v\le A\); this
+ holds whenever \(\eps=1/v\), since \(v<N<A\). The generator of
+ Appendix~\ref{sec:coefficients-generator} computes \(\mathcal D\) and
+ the integers \(\mathfrak c\) of all three maps from \(u\) and \(v\) with
+ at most \(A^{46}\) bit operations, and every integer that it forms has
+ absolute value below \(2^{\beta_\eps}\).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Parts (a) and (c) are proved in
+Appendices~\ref{sec:coefficients-bounds}
+and~\ref{sec:coefficients-generator}. For (b), \(\log_2A^{1/k}
+=2N\sum_i\log_2d_i\ge2NJ\), and \(2J\ge2L\ge128D\ge3\log_2(24D)\), so
+\(\beta_\eps\le A^{1/k}\). Also \(\log_2\beta_\eps=3N\log_2(24D)
+\le3\cdot2305\,\eps^{-3/2}\Lambda\cdot\Lambda/\log2<10^4\,\eps^{-3/2}\Lambda^2\),
+by Lemma~\ref{lem:resources}(a) and \(\log(24D)\le\Lambda\) (Step~5 of
+the proof of Theorem~\ref{thm:main}).
+\end{proof}
+
+The power \(46\) in (c) comes from dense products of matrices of side
+at most \(r_*A^2B^2\); the generator exploits no sparsity.
+
+\begin{remark}[Precision of one batch]\label{rem:precision}
+Apply \(\mathcal S_\eps\) once to \(m_*\) pairs of \(B\times B\)
+matrices \(X_j,Y_j\), and multiply the \(r_*\) pairs of \(A\times A\)
+matrices that it forms classically. Evaluate every linear combination by
+recursive summation in binary floating point with round-to-nearest and
+unit roundoff \(\mathsf u\le2^{-4\beta_\eps}\), without underflow or
+overflow. Then every entry of every computed product \(X_jY_j\) has error
+at most \(2^{4\beta_\eps}\mathsf u\max_j\|X_j\|_{\max}\max_j\|Y_j\|_{\max}\).
+The proof follows that of \citep[Proposition~9.6]{FinCon26}, for one
+level with classical leaves of side~\(A\). A bilinear monomial carries at
+most \(\chi=2m_*B^2+r_*A^2+A+3\) rounding factors, and
+\(\chi\le4A^{43/4}\) by Lemma~\ref{lem:resources}(b),(c). An output entry
+combines at most \(r_*A^2\) entries of the \(A\times A\) products, each
+a sum of \(A\) products of two linear combinations, and the leg matrices
+have entries and absolute row sums below \(2^{\beta_\eps}\)
+(Appendix~\ref{sec:coefficients-bounds}). So the exact monomials of one
+entry have absolute sum at most \(\Upsilon=r_*A^32^{3\beta_\eps}\) times
+\(\max_j\|X_j\|_{\max}\max_j\|Y_j\|_{\max}\). As
+\(2\chi\Upsilon\le8A^{45/2}2^{3\beta_\eps}<2^{4\beta_\eps}\), we have
+\(\chi\mathsf u<1/2\), and the error is
+at most \(\Upsilon\chi\mathsf u/(1-\chi\mathsf u)\le2^{4\beta_\eps}\mathsf u\)
+times that product. We do not analyze the precision or the integer bit
+complexity of the pooled recursion, in which the inputs of a batch are
+themselves computed.
+\end{remark}
+
+\subsection{One algorithm for all sizes}
+\label{sec:seeds-uniform}
+
+We first make the constants of the pooled recursion explicit.
+
+\begin{lemma}[Pooled recursion with explicit constants]
+\label{lem:pooled-constants}
+Let \(r_*\MM_A\restr m_*\MM_B\) be a relative scheme with pooled exponent
+\(p\le3\), \(B\ge2A\) and \(m_*\le B^3\). Store its three maps as dense
+matrices over a field, and run the pooled recursion of
+\citep[Lemma~2.4]{FinCon26} with classical multiplication at the last
+depth. For every \(n\ge1\), the number of additions, subtractions and
+multiplications in the field, including multiplications by coefficients
+of the scheme, is at most
+\[
+ C_\nu n^p\Bigl[2\frac{r_*}{m_*}n_*^3+12m_*B^2\Bigl(\frac43\frac{r_*}{m_*}
+ n_\infty^2+\ell_{\max}\Bigl(\frac BA\Bigr)^{p-2}\Bigr)\Bigr]
+ \le(304+28\log_2n)\,B^{11}n^p,
+\]
+where \(C_\nu=1+r_*m_*/(r_*-m_*)\) and \(\ell_{\max}\) is the last depth at
+side \(n\).
+\end{lemma}
+
+\begin{proof}
+Let \(\ell<\ell_{\max}\) and \(c_\ell=\lceil\bar n_\ell/B\rceil\). One
+batch at depth \(\ell\) is an instance of \(m_*\MM_B\) whose entries are
+blocks of side \(c_\ell\). Each of the \(r_*A^2\) left blocks of the
+created products is a combination of at most \(m_*B^2\) blocks, and so is
+each right block; each of the \(m_*B^2\) output blocks is a combination of
+at most \(r_*A^2\) blocks of the products. So a batch costs fewer than
+\(6r_*m_*A^2B^2c_\ell^2\) operations. Since
+\(\nu_{\ell+1}=r_*\lceil\nu_\ell/m_*\rceil\) and
+\(\bar n_{\ell+1}=Ac_\ell\), depth \(\ell\) costs at most
+\(\lceil\nu_\ell/m_*\rceil\cdot6r_*m_*A^2B^2c_\ell^2
+=6m_*B^2\nu_{\ell+1}\bar n_{\ell+1}^2\). The last depth costs at most
+\(2\nu_{\ell_{\max}}n_*^3\).
+
+By~\eqref{eq:seeds-pooled}, \(\nu_\ell\le C_\nu(r_*/m_*)^\ell\) and
+\(\bar n_\ell^2\le2n_\infty^2+2\rho^{2\ell}n^2\). Since
+\(r_*/m_*=(B/A)^p\ge4\) and \(\rho^{\ell_{\max}}n>\rho\),
+\[
+ \sum_{\ell=1}^{\ell_{\max}}\Bigl(\frac{r_*}{m_*}\Bigr)^\ell
+ \le\frac43\Bigl(\frac{r_*}{m_*}\Bigr)^{\ell_{\max}}
+ <\frac43\,\frac{r_*}{m_*}\,n^p .
+\]
+The terms \(\rho^{(2-p)\ell}n^2=(r_*/m_*)^\ell\rho^{2\ell}n^2\) do not
+decrease with \(\ell\), and the last one is
+\((\rho^{\ell_{\max}}n)^{2-p}n^p\le\rho^{2-p}n^p\), so their sum over
+\(1\le\ell\le\ell_{\max}\) is at most \(\ell_{\max}(B/A)^{p-2}n^p\).
+Adding the leaves, which cost at most
+\(2C_\nu(r_*/m_*)^{\ell_{\max}}n_*^3<2C_\nu(r_*/m_*)n^pn_*^3\), gives the
+first bound.
+
+For the second, \(r_*\ge4m_*\) gives
+\(C_\nu\le1+\frac43m_*\le\frac73B^3\). Also \(r_*/m_*\le(B/A)^3\),
+\(n_*\le2A+1\le3A\), \(n_\infty\le2A\) and \((B/A)^{p-2}\le B/A\). Since
+\(\rho\le1/2\) and \(\rho^{\ell_{\max}-1}n>1\), we have
+\(\ell_{\max}\le\log_2n+1\). The three terms are then at most
+\(126B^6\), \(\frac{448}3B^{11}/A\) and \(28\ell_{\max}B^9/A\), and their sum
+is at most \((126+150+28(\log_2n+1))B^{11}\).
+\end{proof}
+
+The lemma counts field operations, as \citep[Corollary~9.7]{FinCon26}
+does. Padding, cutting and reassembling at depth \(\ell\) move at most
+\(3\lceil\nu_\ell/m_*\rceil m_*(Bc_\ell)^2\) entries, at most half the
+operations counted for that depth.
+
+For an integer \(v\ge1\), let \(D_v\), \(L_v\), \(H_v\), \(N_v\) and
+\(J_v\) be \(D\), \(L\), \(H\), \(N\) and \(J\) for \(\eps=1/v\), and put
+\[
+ \mathsf a(v)=2N_v^2J_v\cdot\bigl(\text{number of binary digits of }24D_v\bigr).
+\]
+By Lemma~\ref{lem:resources}(a), \(\log_2A\le\mathsf a(v)\) for the scheme
+\(\mathcal S_{1/v}\). Each of \(D_v\), \(L_v\), \(H_v\), \(N_v\) and \(J_v\)
+is nondecreasing in \(v\), so \(\mathsf a\) is nondecreasing, and
+\(\mathsf a(1)=2\cdot4608^2\cdot158\cdot6=40{,}259{,}026{,}944\).
+
+\begin{definition}[Algorithm \(\mathcal U\)]\label{def:algorithm-uniform}
+The input is an integer \(n\ge1\) and two \(n\times n\) matrices over a
+field of characteristic zero.
+\begin{enumerate}
+\item Compute \(\kappa=\lfloor\log_2n\rfloor\). If
+ \(3000\,\mathsf a(1)>\kappa\), multiply the matrices classically and
+ stop. Otherwise compute
+ \(v(n)=\max\{v\ge1:3000\,v\,\mathsf a(v)\le\kappa\}\) by binary search
+ over \(1\le v\le\kappa\).
+\item Run the generator of Appendix~\ref{sec:coefficients-generator} for
+ \(\eps=1/v(n)\). It outputs \(\mathcal D\) and the integer numerators of
+ the three maps of \(\mathcal S_{1/v(n)}\).
+\item Convert \(\mathcal D\) and every numerator to the field by Horner's
+ rule in base~\(2\), invert \(\mathcal D\), and multiply every numerator
+ by \(\mathcal D^{-1}\).
+\item Multiply the matrices by the pooled recursion of
+ \(\mathcal S_{1/v(n)}\) with classical leaves, as in
+ Lemma~\ref{lem:pooled-constants}.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[One algorithm for all sizes]\label{thm:uniform}
+Count steps as in \citep[Corollary~9.7]{FinCon26}: a step is one step of a
+fixed multitape Turing machine during the preprocessing (Steps~1 and~2 of
+Algorithm~\(\mathcal U\), and the reading of the generator's output in
+Step~3), or one addition, subtraction, multiplication or division in the
+field on matrix entries or scheme coefficients. There is a constant
+\(c_0\), depending only on the fixed machine, with the following
+properties. Algorithm~\(\mathcal U\) multiplies two \(n\times n\) matrices
+over a field of characteristic zero. If
+\(\lfloor\log_2n\rfloor\ge3000\,\mathsf a(1)\approx1.21\cdot10^{14}\), it
+uses at most
+\[
+ (c_0+28\log_2n)\,n^{9/4+0.51/v(n)}
+\]
+steps; otherwise it uses at most \(2n^3+c_0\log_2(n+1)\) steps. If
+\(\kappa=\lfloor\log_2n\rfloor\ge2\cdot10^{18}\), then
+\begin{equation}\label{eq:seeds-rate}
+ \frac{0.51}{v(n)}\le244\,
+ \frac{\bigl(\log(4096\kappa)\bigr)^{6/11}}{\kappa^{2/11}} .
+\end{equation}
+Hence, for every \(n\ge2\), Algorithm~\(\mathcal U\) uses
+\(n^{9/4+\delta(n)}\) steps with \(\delta(n)=O\bigl((\log\log n)^{6/11}(\log n)^{-2/11}\bigr)\).
+\end{theorem}
+
+\begin{proof}
+Correctness follows from \citep[Lemma~2.4]{FinCon26}, since the maps
+computed in Steps~2 and~3 are those of the relative scheme
+\(\mathcal S_{1/v(n)}\), whose denominator \(\mathcal D\) is invertible in
+characteristic zero. Step~1 takes \(O(\log n)\) machine steps: \(\mathsf a\)
+is nondecreasing, and each value \(\mathsf a(v)\) with \(v\le\kappa\) is
+computed from integers with \(O(\log\kappa)\) bits. If
+\(3000\,\mathsf a(1)>\kappa\), classical multiplication adds fewer than
+\(2n^3\) field operations.
+
+Otherwise let \(v=v(n)\), and let \(A\), \(B\), \(r_*\), \(m_*\), \(p\) be
+the counts and the pooled exponent of \(\mathcal S_{1/v}\). Then
+\(\log_2A\le\mathsf a(v)\le\kappa/(3000v)\), so \(A\le n^{1/(3000v)}\).
+
+\emph{Step~2.} By Proposition~\ref{prop:coefficients}(c), the generator
+performs at most \(A^{46}\) bit operations, and it stores at most that
+many bits. A fixed multitape Turing machine executes it, and reads its
+output in Step~3, in at most \(c_{\rm TM}A^{92}\) steps, for a constant
+\(c_{\rm TM}\): it keeps the
+stored integers on one tape, brings the operands of each integer operation
+to its work tapes by one scan of that tape, and performs schoolbook
+arithmetic there in a constant times the counted bit operations. Since
+\(92/3000<0.031\), this is at most \(c_{\rm TM}\,n^{0.031/v}\) steps.
+
+\emph{Step~3.} The three maps have at most
+\(3r_*A^2m_*B^2\le3A^{83/4}\) coefficients, by
+Lemma~\ref{lem:resources}(b),(c). Each numerator, and \(\mathcal D\), has
+at most \(\beta_\eps\le A^{1/k}\) bits
+(Proposition~\ref{prop:coefficients}), so Horner's rule takes fewer than
+\(2A^{1/k}\) field operations for each. With the inversion and the final
+multiplications, Step~3 uses at most \(A^{22}\le n\) field operations.
+
+\emph{Step~4.} Lemma~\ref{lem:resources} gives the hypotheses of
+Lemma~\ref{lem:pooled-constants}, and \(B^{11}\le A^{22}\). By
+Theorem~\ref{thm:main}, \(p<9/4+1/(2v)\). Hence Step~4 uses at most
+\((304+28\log_2n)\,A^{22}n^p\le(304+28\log_2n)\,n^{9/4+(1500+22)/(3000v)}\)
+field operations, and \(1522/3000<0.51\).
+
+Since \(0.031/v\le9/4\), the four steps together use at most
+\((c_0+28\log_2n)\,n^{9/4+0.51/v}\) steps, where \(c_0\) is
+\(c_{\rm TM}+305\) plus the constant of Step~1.
+
+For the rate, apply Lemma~\ref{lem:resources}(a) with \(\eps=1/v\) and
+\(\Lambda(v)=\log(4096v)\): \(N_v\le2305\,v^{3/2}\Lambda(v)\) and
+\(J_v\le240\,v^{3/2}\). Since \(D_v\le2\sqrt v+1\le3\sqrt v\), the number of binary
+digits of \(24D_v\) is at most \(\log_2(144\sqrt v)\le\Lambda(v)\). Hence
+\(\mathsf a(v)\le2\cdot2305^2\cdot240\,v^{9/2}\Lambda(v)^3
+<4\cdot10^9\,v^{9/2}\Lambda(v)^3\). Put
+\[
+ y=\Bigl(\frac{\kappa}{1.2\cdot10^{13}\,\Lambda(\kappa)^3}\Bigr)^{2/11}.
+\]
+Then \(y\le\kappa^{2/11}\le\kappa\). Every integer \(v\) with
+\(1\le v\le y\) satisfies \(\Lambda(v)\le\Lambda(\kappa)\), hence
+\(3000\,v\,\mathsf a(v)<1.2\cdot10^{13}\,v^{11/2}\Lambda(v)^3\le\kappa\),
+so \(v(n)\ge\lfloor y\rfloor\). The function \(\kappa/\Lambda(\kappa)^3\)
+increases for \(\kappa\ge1\), and
+\(1.2\cdot10^{13}\,\Lambda(2\cdot10^{18})^3<1.6\cdot10^{18}\). So
+\(\kappa\ge2\cdot10^{18}\) gives \(y\ge1\), hence \(v(n)\ge y/2\), and
+\[
+ \frac{0.51}{v(n)}\le\frac{1.02}y
+ =1.02\,(1.2\cdot10^{13})^{2/11}\,\frac{\Lambda(\kappa)^{6/11}}{\kappa^{2/11}}
+ <244\,\frac{\Lambda(\kappa)^{6/11}}{\kappa^{2/11}},
+\]
+because \((1.2\cdot10^{13})^{2/11}<239\). Finally, the factor
+\(c_0+28\log_2n\) adds \(O(\log\log n/\log n)\) to the exponent, which is
+of smaller order.
+\end{proof}
+
+\begin{remark}[Comparison with the preceding paper]
+\label{rem:uniform-comparison}
+For a suitable implementation of the algorithm of
+\citep[Corollary~9.7]{FinCon26}, Remark~9.8 there sketches a bound of
+\(O(n^{9/4+547200/\log_2\log_2n})\) steps (its~(9.4)), an exponent below
+\(3\) only when \(\log_2\log_2n>729{,}600\), and sketches why that
+argument gives no better order: the seed for \(\eps=1/v\) has a
+side doubly exponential in \(v\). Theorem~\ref{thm:uniform} improves the
+rate to \((\log n)^{-2/11}\), up to a factor \((\log\log n)^{6/11}\). It uses that
+\(\log A\) is polynomial in \(1/\eps\) and that the preprocessing costs
+\(A^{O(1)}\) (Proposition~\ref{prop:coefficients}). With a preprocessing
+cost \(2^{O((\log A)^c)}\) for a constant \(c>1\), the same argument would
+still give a power of \(1/\log n\), with a smaller exponent. A cost
+bound exponential in \(A\) would destroy the rate; the bit-length bound
+of \citep[Theorem~9.3]{FinCon26} is already above \(2^A\) for the \(A\)
+of that paper. The exponent \(2/11\) balances the excess
+\(1/(2v)\) of the pooled exponent against \(\log(A^{22})/\log n\) with
+\(\log A=O(v^{9/2}\log^3v)\); we do not know whether it can be improved.
+\end{remark}
+
+\begin{remark}[The seed route]\label{rem:seed-route}
+Following the proof of \citep[Corollary~9.7]{FinCon26} instead, with the
+seed of Theorem~\ref{thm:seed} and block recursion, costs at most
+\(7n_0^{17/2}n^{9/4+\eps}\) operations \citep[Lemma~9.4]{FinCon26}, with
+\(\log n_0=O(\eps^{-11/2}\Lambda^3)\). Balancing gives only
+\(\delta(n)=O\bigl((\log\log n)^{6/13}(\log n)^{-2/13}\bigr)\), because of
+the factor \(1/\eps\) between \(\log n_0\) and \(\log A\), which
+Remark~\ref{rem:seed-factor} shows to be necessary for this seed.
+\end{remark}

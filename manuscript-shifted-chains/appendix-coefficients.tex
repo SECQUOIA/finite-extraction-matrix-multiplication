@@ -1,0 +1,393 @@
+\section{The maps of the scheme and their coefficients}
+\label{sec:coefficients}
+
+This appendix writes each of the three maps of the scheme
+\(\mathcal S_\eps\) of Section~\ref{sec:seeds} as a product of explicit
+matrices, in the order in which the proofs of
+Proposition~\ref{prop:stage}, Corollary~\ref{cor:exact-stage} and
+Proposition~\ref{prop:chain-counts} apply them. From this list we read off
+a common denominator and bounds on the numerators, and we bound the cost of
+a simple generator. This proves parts (a) and (c) of
+Proposition~\ref{prop:coefficients}. We keep the notation of
+Proposition~\ref{prop:chain-counts} and Section~\ref{sec:seeds}; in
+particular \(N=k\), the terminal pair is \((1,1)\), and \(\mathcal D\)
+and \(\beta_\eps\) are as in Proposition~\ref{prop:coefficients}.
+
+\subsection{Substitution matrices}
+\label{sec:coefficients-matrices}
+
+A restriction \(T\restr T'\) replaces each variable of leg \(\lambda\) of
+\(T\) by a linear form in the leg-\(\lambda\) variables of \(T'\). Its
+\emph{leg-\(\lambda\) matrix} has rows indexed by the leg-\(\lambda\)
+variables of \(T\), columns indexed by those of \(T'\), and, in row \(x\)
+and column \(y\), the coefficient of \(y\) in the form that replaces
+\(x\). Composition multiplies leg matrices: if \(T\restr T'\) and
+\(T'\restr T''\) have leg-\(\lambda\) matrices \(\Gamma\) and
+\(\Gamma'\), then \(T\restr T''\) has \(\Gamma\Gamma'\). The restrictions
+\(mT\restr mT'\) and \(TT''\restr T'T''\), with the identity on \(T''\),
+have leg matrices \(I_m\otimes\Gamma\) and \(\Gamma\otimes I\); tensor
+products of restrictions have Kronecker products of leg matrices; and
+isomorphisms have permutation matrices. A degeneration has leg matrices
+\(\mathsf S(t)\) with Laurent polynomial entries, and \(\mathsf S(u)\) is
+the matrix at \(t=u\ne0\). The restriction
+\(E\,T^{\otimes k}\restr\widetilde T_0^{\otimes k}\) of
+\citep[Lemma~9.1(c)]{FinCon26} has, on leg \(\lambda\), rows indexed by
+pairs \((u,x)\) with \(1\le u\le E\); row \((u,x)\) is row \(x\) of
+\(\mathsf S(u)^{\otimes k}\), multiplied by \(w_u=(-1)^{u-1}\binom Eu\) on
+one fixed leg.
+
+For a rational matrix \(\Gamma\), let \(\|\Gamma\|\) be its largest
+absolute row sum. It is submultiplicative, multiplicative under
+\(\otimes\), equal to \(1\) for permutation matrices, and at least the
+absolute value of every entry. A \emph{common denominator} of \(\Gamma\)
+is a positive integer \(\mathfrak d\) with \(\mathfrak d\Gamma\)
+integral; the product of common denominators of \(\Gamma\) and
+\(\Gamma'\) is one of \(\Gamma\Gamma'\) and of \(\Gamma\otimes\Gamma'\).
+
+\subsection{The maps}
+\label{sec:coefficients-maps}
+
+For a positive integer \(n\) and \(1\le\ell\le n\), let
+\[
+ \varpi_{n,\ell}(\phi)=\prod_{\substack{1\le\ell'\le n\\ \ell'\ne\ell}}
+ \frac{\phi-\ell'}{\ell-\ell'}
+ =\sum_{\gamma=0}^{n-1}\varpi_{n,\ell,\gamma}\,\phi^\gamma
+\]
+be the \(\ell\)-th Lagrange basis polynomial of the nodes
+\(1,\ldots,n\), in an indeterminate \(\phi\), and write \([\phi^e]\) for
+the coefficient of \(\phi^e\); \citep[Section~9.1]{FinCon26} writes
+\(\xi\) for \(\phi\).
+
+Fix a leg \(\lambda\in\{1,2,3\}\). In the notation of the proof of
+Proposition~\ref{prop:chain-counts}, that proof passes through the
+tensors \(\mathcal I_0=r_*\MM_A\) and
+\begin{equation}\label{eq:coef-intermediate}
+ \mathcal I_j=\Bigl(\prod_{i<j}\rho'_i\Bigr)\Bigl(\prod_{i\ge j}\rho_i\Bigr)
+ \mathcal T_j\,\MM_{A_{\ge j}B_{<j}}
+ \qquad(1\le j\le J+1),
+\end{equation}
+where \(\rho_i=E_i(2M_i-1)^{6k}\), \(\rho'_i=M_i^{6k}\),
+\(\mathcal T_j=Q_{r_j,b_j}^{\otimes Nk}\), and
+\(\mathcal I_{J+1}\cong m_*\MM_B\). Let \(\Gamma_0\) be the leg-\(\lambda\)
+matrix of the source decomposition \(\mathcal I_0\restr\mathcal I_1\), and
+\(\Gamma_i\) that of stage \(i\), \(\mathcal I_i\restr\mathcal I_{i+1}\).
+Up to the permutation of columns given by
+\(\mathcal I_{J+1}\cong m_*\MM_B\), the leg-\(\lambda\) matrix of
+\(\mathcal S_\eps\) is
+\begin{equation}\label{eq:coef-product}
+ \Gamma=\Gamma_0\Gamma_1\cdots\Gamma_J .
+\end{equation}
+
+\paragraph{Leg dimensions.}
+Leg \(\lambda\) of \(Q_{r,b}\) has dimension \((rb(r+b-1))^2\le(r+b-1)^6\),
+since each leg of \(C(r,b)\) lies on leg \(\lambda\) in two of the six
+orientations. Along the chain, \(r+b-1\) decreases, because
+\(c_i+r_i-1<r_i+b_i-1\). Since \(\rho'_i\le\rho_i\), every leg of every
+\(\mathcal I_j\), \(0\le j\le J+1\), has dimension at most
+\[
+ \mathsf n=r_*A^2B^2\le A^{59/4},
+\]
+by Lemma~\ref{lem:resources}.
+
+\paragraph{The source.}
+Proposition~\ref{prop:chain-counts} decomposes each of the \(6Nk\) oriented
+factors \(C(r_1,b_1)^\pi\) of \(\mathcal T_1\) by
+\citep[Lemma~9.1(a)]{FinCon26}, with the nodes \(1,\ldots,s\). So
+\(\Gamma_0=I\otimes\Gamma_{\rm src}\otimes I\) (with the identity on the
+copies and on \(\MM_A\)), where the rows of \(\Gamma_{\rm src}\) are
+indexed by tuples of nodes \(\ell_f\in\{1,\ldots,s\}\), one for each
+factor \(f\), and the entry of \(\Gamma_{\rm src}\) is the product over
+\(f\) of \(\ell_f^\alpha\), \(\ell_f^\beta\)
+or \(\varpi_{s,\ell_f,\gamma}\), according as factor \(f\) contributes its
+first, second or third leg (variable \(x_\alpha\), \(y_\beta\) or
+\(z_\gamma\)) to leg \(\lambda\). Each case occurs for \(2Nk\) factors.
+
+\paragraph{One stage in one orientation.}
+Fix a stage \(i\), and write \((r,b)=(r_i,b_i)\), \(c=c_i\), \(h=b-c\),
+\(d=d_i\), \(M=M_i\), \(E=E_i\), and let \(U=C(r,b)B_X(d)\) be the
+tensor~\eqref{eq:stage-U}, with variables \(x_\alpha\), \(y_{j,\beta}\) and
+\(z_{j,\gamma}\). Fix
+\(\pi\in S_3\), and let \(\iota=\pi^{-1}(\lambda)\) be the leg of
+\(U^{\otimes N}\) that lies on leg \(\lambda\) of \((U^{\otimes N})^\pi\).
+In the proof of Proposition~\ref{prop:stage}, the oriented degeneration
+\((2M-1)(U^{\otimes N})^\pi\degen M(\mathcal VB_X(M))^\pi\) has, on leg
+\(\lambda\), the matrix
+\[
+ \mathsf S_\pi(t)=(I_{2M-1}\otimes K_\iota)\,\mathsf P_\iota(t)\,\Sigma_\iota ,
+\]
+where the factors are as follows.
+\begin{itemize}
+\item \(K_1\) is the identity. For \(\iota=2,3\), \(K_\iota\) is the
+ change to the shifted bases of Lemma~\ref{lem:shifted-chain} at all \(N\)
+ positions, followed by the crop and the type restriction of
+ Lemma~\ref{lem:stage-types}, which set coordinates to zero; as a matrix,
+ the latter is a coordinate selection, with entries \(0,1\) and at most
+ one nonzero entry in each row and column. Let \(\Pi_\ell\) be the matrix
+ whose columns are the shifted basis of
+ Lemma~\ref{lem:shifted-chain}(a), written in the monomial basis
+ \(\xi^me_j\). As in the proof of Lemma~\ref{lem:shifted-chain}(c),
+ leg~\(2\) changes by \(\Pi_b^{\otimes N}\), and leg~\(3\)
+ contragrediently, by \((\Pi_{b+r-1}^{-\top})^{\otimes N}\).
+\item \(\mathsf P_\iota(t)\) is the separator~\eqref{eq:prelim-separator},
+ in the form of \citep[Lemma~9.1(b)]{FinCon26}, with \(M\) sectors
+ \(g=0,\ldots,M-1\), the words of the type, and shared leg \(\pi(1)\). In
+ source copy \(\ell\in\{1,\ldots,2M-1\}\) it maps
+ \[
+ x_\alpha\mapsto\sum_{g'<M}\varpi_{M,g'+1}(\ell)X_{\alpha,g'},\quad
+ y_{g,\beta}\mapsto\sum_{e<M}\frac{(\ell-g-1)^e}{t^e}Y_{g,\beta,e},\quad
+ z_{g,\gamma}\mapsto\sum_{e'<M}\zeta_{\ell,g,e'}\,t^{e'}Z_{g,\gamma,e'},
+ \]
+ for \(\iota=1,2,3\) respectively, where
+ \(\zeta_{\ell,g,e'}=[\phi^{e'}]\,\varpi_{2M-1,\ell}(g+1+\phi)\).
+\item \(\Sigma_\iota\) is the word-dependent reindexing, a permutation
+ matrix.
+\end{itemize}
+
+\paragraph{One stage.}
+On leg \(\lambda\), the six-orientation degeneration of
+Proposition~\ref{prop:stage} has the matrix
+\(\mathsf S(t)=\Sigma_{\rm in}\bigl(\bigotimes_{\pi\in S_3}\mathsf S_\pi(t)\bigr)\Sigma_{\rm out}\),
+where \(\Sigma_{\rm in}\) and \(\Sigma_{\rm out}\) are the permutation
+matrices of the identifications of \(Q_{r,b}^{\otimes N}\MM_{d^{2N}}\) with
+\(\bigotimes_\pi(U^{\otimes N})^\pi\) and of
+\(\bigotimes_\pi(\mathcal VB_X(M))^\pi\) with
+\(Q_{c,r}^{\otimes N}\MM_{M^2}\). As \(\pi\) runs through \(S_3\), the
+leg \(\iota=\pi^{-1}(\lambda)\) takes each value twice.
+Corollary~\ref{cor:exact-stage} exactifies this degeneration at power \(k\)
+by \citep[Lemma~9.1(c)]{FinCon26}; let \(\Theta_i\) be the resulting
+leg-\(\lambda\) matrix, with rows \((u,x)\) as in
+Appendix~\ref{sec:coefficients-matrices}. Finally, \(\Gamma_i\) is
+\(I\otimes\Theta_i\otimes I\) (identity on the other copies and on
+\(\MM_{A_{\ge i+1}B_{<i}}\)), up to permutation matrices on both sides.
+
+\paragraph{Primitive bounds.}
+The primitive matrices have the following entries, row-sum bounds and
+common denominators. Crops, the type restriction, the reindexing and the
+identifications are coordinate selections or permutations, with row sums
+at most \(1\) and denominator \(1\); the exactification weights
+\(w_u=(-1)^{u-1}\binom Eu\) are integers with absolute value below
+\(2^E\).
+\begin{itemize}
+\item The shifted basis consists of the lifts, which are monomials, and
+ the kernel vectors
+ \(\kappa_{j'}(\xi^i)=\xi^ie_{j'+1}-\xi^{i+h}e_{j'}\). A monomial
+ \(\xi^me_j\) occurs in at most one lift and in at most two kernel
+ vectors, those with \((j',i)=(j,m-h)\) or \((j-1,m)\); so a row of
+ \(\Pi_b\) has at most three nonzero entries, all \(\pm1\), and row sum
+ at most \(3\). A row of \(\Pi_{b+r-1}^{-\top}\) lists the coefficients of
+ one monomial in the shifted basis; by~\eqref{eq:stage-inverse}, it has at
+ most \(d\) nonzero entries, all \(1\). Both matrices are integral.
+\item For \(1\le\ell\le2M-1\) and \(1\le j\le M\) we have
+ \(|\ell-j|\le2M-2\), so
+ \(|\varpi_{M,j}(\ell)|\le(2M-2)^{M-1}\) and
+ \(\sum_{g'<M}|\varpi_{M,g'+1}(\ell)|\le(2M)^M\); the denominator
+ \((j-1)!\,(M-j)!\) of \(\varpi_{M,j}\) divides \((M-1)!\). Likewise
+ \(|\ell-g-1|\le2M-2\) gives \(\sum_{e<M}|\ell-g-1|^eu^{-e}\le(2M)^M\),
+ with denominator \(u^{M-1}\).
+\item The polynomial \(\varpi_{2M-1,\ell}(g+1+\phi)\) is
+ \(\prod_{\ell'\ne\ell}(\phi+g+1-\ell')\) divided by
+ \(\prod_{\ell'\ne\ell}(\ell-\ell')=\pm(\ell-1)!\,(2M-1-\ell)!\), a divisor
+ of \((2M-2)!\). The absolute values of the coefficients of a product of
+ linear factors \(\phi+a\) sum to at most \(\prod(1+|a|)\), and
+ \(1+|g+1-\ell'|\le2M\). Hence
+ \(\sum_{e'<M}|\zeta_{\ell,g,e'}|u^{e'}\le E^{M-1}(2M)^{2M}\) for
+ \(u\le E\), with denominator \((2M-2)!\).
+\item Similarly \(\sum_{\alpha<r_1}\ell^\alpha\le s^s\),
+ \(\sum_{\beta<b_1}\ell^\beta\le s^s\), and
+ \(\sum_\gamma|\varpi_{s,\ell,\gamma}|\le\prod_{\ell'\ne\ell}(1+\ell')\le(s+1)^s\)
+ for \(1\le\ell\le s\); the denominators of the \(\varpi_{s,\ell,\gamma}\)
+ divide \((s-1)!\).
+\end{itemize}
+
+\paragraph{Bounds for the factors.}
+For \(\iota=1,2,3\), these bounds give
+\(\|\mathsf S_\pi(u)\|\le\mathfrak s_\iota\) with \(\mathfrak s_1=(2M)^M\),
+\(\mathfrak s_2=3^N(2M)^M\) and \(\mathfrak s_3=d^N(2M)^{2M}E^{M-1}\), and
+the common denominators \((M-1)!\), \(u^{M-1}\) and \((2M-2)!\). Since
+each \(\iota\) occurs twice,
+\(\|\mathsf S(u)\|\le(\mathfrak s_1\mathfrak s_2\mathfrak s_3)^2
+\le(3d)^{2N}(2M)^{8M}E^{2M}\), with common denominator
+\(((M-1)!\,(2M-2)!)^2u^{2M-2}\). For \(u\le E\), the number
+\(u^{2k(M-1)}\) divides \((E!)^{2k(M-1)}\). Hence
+\begin{equation}\label{eq:coef-stage}
+ \|\Gamma_i\|\le\mathfrak n_i=2^{E_i}\bigl((3d_i)^{2N}(2M_i)^{8M_i}
+ E_i^{2M_i}\bigr)^k,\qquad
+ \mathfrak d_i=\bigl((M_i-1)!\,(2M_i-2)!\bigr)^{2k}(E_i!)^{2k(M_i-1)},
+\end{equation}
+where \(\mathfrak d_i\) is a common denominator of \(\Gamma_i\). For the
+source,
+\begin{equation}\label{eq:coef-source}
+ \|\Gamma_0\|\le\mathfrak n_0=(s+1)^{6Nks},\qquad
+ \mathfrak d_0=((s-1)!)^{2Nk}.
+\end{equation}
+So \(\mathcal D=\mathfrak d_0\mathfrak d_1\cdots\mathfrak d_J\), for each
+of the three legs.
+
+\subsection{Denominators and bit lengths}
+\label{sec:coefficients-bounds}
+
+\begin{proof}[Proof of Proposition~\ref{prop:coefficients}(a)]
+Fix a leg. By~\eqref{eq:coef-product} and the rules of
+Appendix~\ref{sec:coefficients-matrices}, every partial product
+\(\Gamma_0\cdots\Gamma_j\) has the common denominator
+\(\mathfrak d_0\cdots\mathfrak d_j\) and norm at most
+\(\mathfrak n=\mathfrak n_0\mathfrak n_1\cdots\mathfrak n_J\) (all
+\(\mathfrak n_i\ge1\)). As \(\mathcal D=\mathfrak d_0\cdots\mathfrak d_J\),
+every coefficient of the map is \(\mathfrak c/\mathcal D\) with an
+integer \(\mathfrak c\) and \(|\mathfrak c|\le\mathfrak n\mathcal D\). It
+remains to show \(\log_2\mathfrak n+\log_2\mathcal D<\beta_\eps\).
+
+Put \(\mathcal Y=(24D)^N\), so that \(\beta_\eps=\mathcal Y^3\). We use:
+\(N=k\); \(2\le M_i\le(d_i+2)^N<\mathcal Y\);
+\(2M_i\le E_i\le6kM_i<6N\mathcal Y\le\mathcal Y^2\), so
+\(\log_2E_i<2\log_2\mathcal Y\); \(3d_i<(24D)^2\); \(J\le N/28\), since
+\(J=16D-2+L\le80D/\eps\) and \(N\ge256DH/\eps\ge2304D/\eps\), as
+\(H\ge9\); and \(s<\mathcal Y^{1/9}\), since
+\(6N^2\log_2s\le\log_2r_*\le\frac{35}4\log_2A\le\frac{35}4\cdot
+\frac{N^3}{14}\log_2(24D)\) by Lemma~\ref{lem:resources}. With
+\(\log_2(m!)\le m\log_2m\),
+\begin{align*}
+ \log_2\mathcal D&\le2N^2s\log_2s+\sum_{i=1}^J\bigl(6NM_i\log_2(2M_i)
+ +2NM_iE_i\log_2E_i\bigr),\\
+ \log_2\mathfrak n&\le6N^2s\log_2(s+1)+\sum_{i=1}^J\bigl(E_i
+ +2N^2\log_2(3d_i)+8NM_i\log_2(2M_i)+2NM_i\log_2E_i\bigr).
+\end{align*}
+The source terms add up to at most \(8N^2\mathcal Y\log_2\mathcal Y\). In
+the \(i\)-th summands, \(2NM_iE_i\log_2E_i<24N^2\mathcal Y^2\log_2\mathcal Y\),
+the terms with \(\log_2(2M_i)\) or \(\log_2E_i\) and a factor \(NM_i\) add
+up to less than \(32N\mathcal Y\log_2\mathcal Y\),
+\(E_i<6N\mathcal Y\), and
+\(2N^2\log_2(3d_i)<4N\log_2\mathcal Y\). So each stage contributes less
+than \(25N^2\mathcal Y^2\log_2\mathcal Y\), and, as
+\(\log_2\mathcal Y=N\log_2(24D)\),
+\[
+ \log_2\mathfrak n+\log_2\mathcal D
+ <8N^2\mathcal Y\log_2\mathcal Y+\frac N{28}\cdot25N^2\mathcal Y^2\log_2\mathcal Y
+ \le N^4\log_2(24D)\,\mathcal Y^2 .
+\]
+Finally \(\mathcal Y\ge48^{N-1}\cdot24D>N^4\log_2(24D)\), since
+\(N\ge4608\). Hence
+\(\log_2\mathfrak n+\log_2\mathcal D<\mathcal Y^3=\beta_\eps\).
+\end{proof}
+
+The proof also shows \(\|\Gamma\|<2^{\beta_\eps}\) for each of the three
+leg matrices \(\Gamma\), which Remark~\ref{rem:precision} uses.
+
+\subsection{The generator}
+\label{sec:coefficients-generator}
+
+The \emph{generator} takes a rational \(\eps\in(0,1]\), given by its
+numerator and denominator, and works with integers only.
+\begin{enumerate}
+\item Compute the parameters of Theorem~\ref{thm:main} and \(J\); build
+ the chain backwards from \((1,1)\) by Lemma~\ref{lem:smallest-parent};
+ for each arity, compute all \((N+1)(N+2)/2\) sector counts and take the
+ first maximizer in the lexicographic order of \((\nK,\nO)\); compute
+ \(M_i\), \(E_i\), \(s\), \(A\), \(B\), \(r_*\), \(m_*\), the
+ denominators \(\mathfrak d_i\) and \(\mathcal D\).
+\item For every stage, compute the primitive data of
+ Appendix~\ref{sec:coefficients-maps} as integer numerators over their
+ denominators: the nonzero entries of the rows of \(\Pi_b\) and of
+ \(\Pi_{b+r-1}^{-\top}\), from the definition of the shifted basis
+ and~\eqref{eq:stage-inverse}; the words of the type in lexicographic
+ order; the values
+ \(\varpi_{M,g'+1}(\ell)\); the coefficients of
+ \(\prod_{\ell'\ne\ell}(\phi+g+1-\ell')\), by multiplying linear factors;
+ the powers \(u^e\); and the binomial coefficients \(\binom Eu\).
+ For the source, compute the powers \(\ell^\alpha\) and the coefficients of
+ \(\prod_{\ell'\ne\ell}(\phi-\ell')\).
+\item For each leg, put \(\Gamma_{\le0}=\mathfrak d_0\Gamma_0\) as a dense
+ integer matrix, and for \(i=1,\ldots,J\) form \(\mathfrak d_i\Gamma_i\)
+ as a dense integer matrix and put
+ \(\Gamma_{\le i}=\Gamma_{\le i-1}\cdot\mathfrak d_i\Gamma_i\).
+\item Output \(\mathcal D\) and, for each leg, the matrix
+ \(\Gamma_{\le J}\) with its columns permuted by the identification
+ \(\mathcal I_{J+1}\cong m_*\MM_B\).
+\end{enumerate}
+
+\begin{proof}[Proof of Proposition~\ref{prop:coefficients}(c)]
+By Step~3, \(\Gamma_{\le J}=\mathfrak d_0\cdots\mathfrak d_J\,
+\Gamma_0\cdots\Gamma_J\), so by~\eqref{eq:coef-product} Step~4 outputs
+\(\mathcal D\Gamma\) for each leg, which is correct by part~(a).
+
+\emph{Entries of \(\Gamma_i\).} Each entry of \(\Gamma_i\) is zero or an
+entry of \(\Theta_i\), because the other factors of \(\Gamma_i\) are
+identities and permutations. An entry of \(\Theta_i\) is \(w_u\) (on
+the weighted leg) times a product of \(6k\) entries of matrices
+\(\mathsf S_\pi(u)\), one for each orientation and each of the \(k\) tensor
+factors. An entry of \(\mathsf S_\pi(u)\) is a single product of an entry of
+\(K_\iota\) and an entry of \(\mathsf P_\iota(u)\): for a given column of
+\(\mathsf P_\iota(u)\Sigma_\iota\), only one row of \(\mathsf P_\iota(u)\) in the given
+source copy has a nonzero entry, because the separator keeps the sector,
+the variable and (on the shared leg) the index \(\alpha\). An entry of
+\(K_\iota\) is a product of \(N\) entries of \(\Pi_b\) or
+\(\Pi_{b+r-1}^{-\top}\), or \(1\). So an entry of
+\(\mathfrak d_i\Gamma_i\) is obtained from at most \(6k(N+1)+1\) numerators
+of the primitive matrices and their denominators: multiply the
+numerators, multiply the denominators (their product divides
+\(\mathfrak d_i\)), divide \(\mathfrak d_i\) exactly by this product, and
+multiply. This takes at most \(12k(N+2)\) integer operations, and the
+same holds for the entries of \(\mathfrak d_0\Gamma_0\).
+
+\emph{Index work.} To form one entry of \(\mathfrak d_i\Gamma_i\), the
+generator also decodes its row and column indices and, for each of the
+\(6k\) orientations and tensor factors, finds the words of the sectors in
+the list of Step~2 by linear search, checks the crop and the type,
+locates the needed entries of \(\Pi_b\) or \(\Pi_{b+r-1}^{-\top}\) in
+their stored rows, and applies the reindexing position by position. For
+each orientation and tensor factor this takes at most \(4(N+3)\)
+divisions, \(2M_iN\) comparisons for the words, \(4N\) operations for the
+crop, the type and the reindexing, and \((d_i+3)N\) comparisons for the
+entries of \(\Pi_b\) or \(\Pi_{b+r-1}^{-\top}\); in total at most
+\(3M_iN(d_i+1)\), as \(M_i,d_i\ge2\). So one entry of
+\(\mathfrak d_i\Gamma_i\), with its loop counter, takes at most
+\(12k(N+2)+20kNM_i(d_i+1)<\mathcal Y^2<\mathsf n\) operations, in the
+notation of the proof of part~(a), and likewise one entry of
+\(\mathfrak d_0\Gamma_0\).
+
+\emph{Sizes of the integers.} Every numerator of a primitive entry is at
+most its row-sum bound times its denominator, so every product of such
+numerators within one entry, and every coefficient formed while
+multiplying out the linear factors of Step~2, is at most
+\(\mathfrak n_i\mathfrak d_i\le\mathfrak n\mathcal D\) in absolute value.
+The entries and the partial sums of the products in Step~3 are at most
+\(\mathfrak d_0\cdots\mathfrak d_i\,\|\Gamma_0\cdots\Gamma_{i-1}\|\,
+\max|\Gamma_i|\le\mathcal D\mathfrak n\). The other integers of Steps~1,
+2 and~4 are at most \(\mathcal D\mathfrak n\) or at most \(r_*\) (this
+covers the numerator and denominator of \(\eps\), which are at most \(A\)
+by hypothesis, the parameters, the sector counts, \(A\), \(B\) and
+\(m_*\)), and the indices and loop counters are at most
+\(\mathsf n\le A^{59/4}\), where
+\(\log_2\mathsf n\le\frac{59}4\cdot\frac{N^3}{14}\log_2(24D)<\beta_\eps\)
+by the proof of part~(a). By part~(a), every integer formed has absolute
+value below \(2^{\beta_\eps}\).
+
+\emph{Counting.} The matrices of Step~3 have at most \(\mathsf n\) rows
+and columns. As each entry takes at most \(\mathsf n\) operations,
+forming \(\mathfrak d_i\Gamma_i\) takes at most \(\mathsf n^3\), and
+the product with \(\Gamma_{\le i-1}\), with its loop counters, at most
+\(5\mathsf n^3\). Step~4 takes at most \(4\mathsf n^2\) operations for each
+leg. Steps~1 and~2 take at most
+\(16J\mathfrak m^4\) operations, where
+\(\mathfrak m=J+N+s+\max_iE_i\): for one stage, the sector counts of its
+arity take at most \(2(N+1)^3\) operations, \(\mathfrak d_i\) at most
+\(2E_i+2M_i+2k+2\), the rows of \(\Pi_b\) and \(\Pi_{b+r-1}^{-\top}\) at
+most \(5(d_i+3)d_is\), the words \(3M_iN\), the values
+\(\varpi_{M_i,g'+1}(\ell)\) at most \(4M_i^3\), the coefficients
+\(\zeta_{\ell,g,e'}\) at most \(8M_i^4\) (each of the \((2M_i-1)M_i\)
+polynomials is a product of \(2M_i-2\) linear factors), the powers
+\(u^e\) and the weights at most \(E_iM_i+3E_i\), and its factors of \(A\),
+\(B\), \(r_*\) and \(m_*\) at most \(2N^2+15k\); the parameters, the
+chain, the source data, \(\mathfrak d_0\) and \(\mathcal D\) take at most
+\(3D+H+11J+2s^3+8N^2+s+21\). In the notation of the proof of part~(a),
+\(\mathfrak m<\mathcal Y^3\), so
+\(16J\mathfrak m^4<16J\mathcal Y^{12}\le16JA^{4/k}<A^2\le\mathsf n\).
+For three legs, the generator therefore performs at most
+\(3\bigl((6J+1)\mathsf n^3+4\mathsf n^2\bigr)+\mathsf n\le18(J+1)\mathsf n^3\)
+operations on integers with at most \(\beta_\eps\) bits, hence at most
+\(288(J+1)\mathsf n^3\beta_\eps^2\) bit operations. Finally
+\(J+1\le\log_2A\), \(\mathsf n^3\le A^{177/4}\) and
+\(\beta_\eps^2\le A^{2/k}\), and \(288\log_2A\cdot A^{2/k}\le A^{7/4}\)
+because \(A\ge2^{2NkJ}\) and \(k\ge4608\). So the generator uses at most
+\(A^{46}\) bit operations.
+\end{proof}

@@ -1,0 +1,1058 @@
+{
+  "schema": "shifted-chain-certificates-v2",
+  "producer": "experiments/shifted_chain_certificates.py",
+  "model": {
+    "stage": "(r,b) -> (c,r) of arity d: d>=2, 1<=c<b, (d+2)c <= d*b-r+1",
+    "chain": "stages i=1..J from the source pair (r_1,b_1) to the terminal pair (1,t), built backward from (1,t) by the smallest parent b'=ceil(((d+2)r+b-1)/d); checked equal to the forward chain with the largest child c=floor((d*b-r+1)/(d+2))",
+    "ramp": "ramp from (R,R) to (1,1): forward arities 3j, 3j-1 for j=R-1,...,1",
+    "types": "(nK,nO,nmid) with nK+nO+nmid=N per sign, the same in all six orientations; a mode of M, certified by the exchange conditions",
+    "sector_count": "M = N!/(nK! nO! nmid!) * (d-1)^nK * 2^nO",
+    "exactification": "E = 1+6k(M-1) at every stage (Lu's separator, degree 6(M-1), over Q)",
+    "counts": "A = prod_i d_i^(2Nk); B = t^(2Nk) prod_i M_i^(2k); r_* = s^(6Nk) prod_i (2M_i-1)^(6k) E_i; m_* = prod_i M_i^(6k); s = r_1+b_1-1",
+    "p": "log(r_*/m_*)/log(B/A), the pooled exponent (v5 Lemma 2.4)",
+    "Phi": "log(2 r_*/m_*)/log(B/A) = p + log 2/log(B/A), the fixed-batch bound (v5 (10.1))",
+    "ceiling": "the log 2 term pays for the ceiling ceil(r_*/m_*) of the recursion without pooling (v5 Section 10.1); the pooled recursion also has ceilings ceil(nu_l/m_*) (v5 (2.9)), but they do not enter its exponent p",
+    "least_k": "Phi strictly decreases in k and A increases in k for fixed chain, N and types; Phi at k-1 is certified >= target, so k and A are least for that chain, N and types",
+    "field": "Q (rational interpolation, Lu's separator, rational exactification)",
+    "selection": "the points are selected, not minimal"
+  },
+  "log_enclosure": {
+    "mantissa_bits": 192,
+    "series_terms": 110,
+    "dyadic_bits": 320,
+    "printed_decimals": 12,
+    "printed_significant_digits_of_Phi_minus_p": 6,
+    "rounding": "every printed bound is rounded outward"
+  },
+  "witnesses": [
+    {
+      "name": "below-3",
+      "target": "3",
+      "source_pair": [
+        128,
+        66
+      ],
+      "s": 193,
+      "terminal_pair": [
+        1,
+        128
+      ],
+      "arities_source_first": "2",
+      "arity_runs_source_first": [
+        [
+          2,
+          1
+        ]
+      ],
+      "stages_J": 1,
+      "N_per_sign": 24,
+      "k": 2,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            6,
+            12,
+            6
+          ],
+          "M_bit_length": 44,
+          "M": "10234430029824",
+          "M_sha256_big_endian": "c6816d25630cfa60c5b1dce83252f681ae83f1a221594386daffc9feb9c8784a"
+        }
+      ],
+      "stages_r_b_d_c": [
+        [
+          128,
+          66,
+          2,
+          1
+        ]
+      ],
+      "stages_sha256": "5037b26c070217c5c23db36f358a96a6cd848f8712c618235f7939eadcd1f687",
+      "A": "2^96",
+      "decimal_digits_A": 29,
+      "decimal_digits_B": 255,
+      "Phi": {
+        "lower": "2.999745128437",
+        "upper": "2.999745128438"
+      },
+      "p": {
+        "lower": "2.998409790288",
+        "upper": "2.998409790289"
+      },
+      "Phi_minus_p": {
+        "lower": "1.33533e-3",
+        "upper": "1.33534e-3"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "3.060908233945"
+    },
+    {
+      "name": "below-2.77429",
+      "target": "2.77429",
+      "source_pair": [
+        5,
+        4
+      ],
+      "s": 8,
+      "terminal_pair": [
+        1,
+        5
+      ],
+      "arities_source_first": "2",
+      "arity_runs_source_first": [
+        [
+          2,
+          1
+        ]
+      ],
+      "stages_J": 1,
+      "N_per_sign": 215,
+      "k": 10,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            54,
+            108,
+            53
+          ],
+          "M_bit_length": 423,
+          "M": null,
+          "M_sha256_big_endian": "82375b6999404c2b34b7c5edad5076353a3538fdb25614c8489a1be1119ac7e7"
+        }
+      ],
+      "stages_r_b_d_c": [
+        [
+          5,
+          4,
+          2,
+          1
+        ]
+      ],
+      "stages_sha256": "bb23d879c2e86a5432e72d2d43b27f0c69b52457eef6f7a559301dc6407d3b4b",
+      "A": "2^4300",
+      "decimal_digits_A": 1295,
+      "decimal_digits_B": 5547,
+      "Phi": {
+        "lower": "2.774233389608",
+        "upper": "2.774233389609"
+      },
+      "p": {
+        "lower": "2.774162598475",
+        "upper": "2.774162598476"
+      },
+      "Phi_minus_p": {
+        "lower": "7.07911e-5",
+        "upper": "7.07912e-5"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "2.777595775451"
+    },
+    {
+      "name": "below-2.7",
+      "target": "2.7",
+      "source_pair": [
+        18,
+        27
+      ],
+      "s": 44,
+      "terminal_pair": [
+        1,
+        3
+      ],
+      "arities_source_first": "2^5",
+      "arity_runs_source_first": [
+        [
+          2,
+          5
+        ]
+      ],
+      "stages_J": 5,
+      "N_per_sign": 147,
+      "k": 8,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 5,
+          "type_nK_nO_nmid": [
+            37,
+            74,
+            36
+          ],
+          "M_bit_length": 287,
+          "M": null,
+          "M_sha256_big_endian": "7962b6226a5c7a1f6e177a4d733f16dae40060288930e2dad64cb54e05da5be3"
+        }
+      ],
+      "stages_r_b_d_c": [
+        [
+          18,
+          27,
+          2,
+          9
+        ],
+        [
+          9,
+          18,
+          2,
+          7
+        ],
+        [
+          7,
+          9,
+          2,
+          3
+        ],
+        [
+          3,
+          7,
+          2,
+          3
+        ],
+        [
+          3,
+          3,
+          2,
+          1
+        ]
+      ],
+      "stages_sha256": "19b207475aaffb906c3669f6994a8817c1cd279b08bc5d78cc99ec7296ca097d",
+      "A": "2^11760",
+      "decimal_digits_A": 3541,
+      "decimal_digits_B": 8025,
+      "Phi": {
+        "lower": "2.699881286934",
+        "upper": "2.699881286935"
+      },
+      "p": {
+        "lower": "2.699814165502",
+        "upper": "2.699814165503"
+      },
+      "Phi_minus_p": {
+        "lower": "6.71214e-5",
+        "upper": "6.71215e-5"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "2.713826989071"
+    },
+    {
+      "name": "below-2.5",
+      "target": "2.5",
+      "source_pair": [
+        3098,
+        5205
+      ],
+      "s": 8302,
+      "terminal_pair": [
+        1,
+        3
+      ],
+      "arities_source_first": "2^15",
+      "arity_runs_source_first": [
+        [
+          2,
+          15
+        ]
+      ],
+      "stages_J": 15,
+      "N_per_sign": 264,
+      "k": 14,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 15,
+          "type_nK_nO_nmid": [
+            66,
+            132,
+            66
+          ],
+          "M_bit_length": 520,
+          "M": null,
+          "M_sha256_big_endian": "fda6fc50da57782983de12eea2dec288083ce75d0c14832d26735f82e3bf02ce"
+        }
+      ],
+      "stages_r_b_d_c": [
+        [
+          3098,
+          5205,
+          2,
+          1828
+        ],
+        [
+          1828,
+          3098,
+          2,
+          1092
+        ],
+        [
+          1092,
+          1828,
+          2,
+          641
+        ],
+        [
+          641,
+          1092,
+          2,
+          386
+        ],
+        [
+          386,
+          641,
+          2,
+          224
+        ],
+        [
+          224,
+          386,
+          2,
+          137
+        ],
+        [
+          137,
+          224,
+          2,
+          78
+        ],
+        [
+          78,
+          137,
+          2,
+          49
+        ],
+        [
+          49,
+          78,
+          2,
+          27
+        ],
+        [
+          27,
+          49,
+          2,
+          18
+        ],
+        [
+          18,
+          27,
+          2,
+          9
+        ],
+        [
+          9,
+          18,
+          2,
+          7
+        ],
+        [
+          7,
+          9,
+          2,
+          3
+        ],
+        [
+          3,
+          7,
+          2,
+          3
+        ],
+        [
+          3,
+          3,
+          2,
+          1
+        ]
+      ],
+      "stages_sha256": "238cf9728210fb33c553fe173ac958c0d1c18af6d678cd45bac0abd36856c585",
+      "A": "2^110880",
+      "decimal_digits_A": 33379,
+      "decimal_digits_B": 69247,
+      "Phi": {
+        "lower": "2.499903515814",
+        "upper": "2.499903515815"
+      },
+      "p": {
+        "lower": "2.499895123176",
+        "upper": "2.499895123177"
+      },
+      "Phi_minus_p": {
+        "lower": "8.39263e-6",
+        "upper": "8.39264e-6"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "2.504985214690"
+    },
+    {
+      "name": "below-2.3",
+      "target": "2.3",
+      "source_pair": [
+        5858478673893218449655152385,
+        9878219107369961496029248988
+      ],
+      "s": 15736697781263179945684401372,
+      "terminal_pair": [
+        1,
+        1
+      ],
+      "arities_source_first": "2^121, then 3j, 3j-1 for j = 2, 1 (ramp from (3,3))",
+      "arity_runs_source_first": [
+        [
+          2,
+          121
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "stages_J": 125,
+      "N_per_sign": 1999,
+      "k": 80,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 122,
+          "type_nK_nO_nmid": [
+            500,
+            1000,
+            499
+          ],
+          "M_bit_length": 3987,
+          "M": null,
+          "M_sha256_big_endian": "b47fa91f2c246085aab710f5693c661c64f78e685f69ce92b04586ba436afe6b"
+        },
+        {
+          "arity": 3,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            800,
+            800,
+            399
+          ],
+          "M_bit_length": 4631,
+          "M": null,
+          "M_sha256_big_endian": "88e114ff86c2819426e4a5b1ec854b6c89a7821e06e5305eb05b0909a3d9df5c"
+        },
+        {
+          "arity": 5,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            1143,
+            571,
+            285
+          ],
+          "M_bit_length": 5601,
+          "M": null,
+          "M_sha256_big_endian": "5ff635f3761c4bed3379372d4d86b924de7ec9eb545898cadff0dc730072e160"
+        },
+        {
+          "arity": 6,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            1250,
+            500,
+            249
+          ],
+          "M_bit_length": 5987,
+          "M": null,
+          "M_sha256_big_endian": "5238c93c2cd7c6810ac0e1b42011985359355e3de8f37679dd3834b9f71ed4cc"
+        }
+      ],
+      "stages_r_b_d_c": null,
+      "stages_sha256": "5131b7652b788f5f0df265421b650cd3ee6de7516dec8e2905d95732556e010d",
+      "A": "2^39020480 * 3^319840 * 5^319840 * 6^319840",
+      "decimal_digits_A": 12371380,
+      "decimal_digits_B": 24208459,
+      "Phi": {
+        "lower": "2.299993369879",
+        "upper": "2.299993369880"
+      },
+      "p": {
+        "lower": "2.299993344448",
+        "upper": "2.299993344449"
+      },
+      "Phi_minus_p": {
+        "lower": "2.54311e-8",
+        "upper": "2.54312e-8"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "2.300155469073"
+    },
+    {
+      "name": "below-2.26",
+      "target": "2.26",
+      "source_pair": [
+        3483897101959970460746613762801218069800935452644225204274290759247277915832716736676812499333324247671121453701665241847691081518252612723497416790551133733457629932,
+        4724538031906658106968592453450230458946539539412064983292070095685522518136469679483398243983840236315243139368324327016027382065175719946925419102527838537689909788
+      ],
+      "s": 8208435133866628567715206216251448528747474992056290187566360854932800433969186416160210743317164483986364593069989568863718463583428332670422835893078972271147539719,
+      "terminal_pair": [
+        1,
+        1
+      ],
+      "arities_source_first": "4^1244, then 3j, 3j-1 for j = 10, ..., 1 (ramp from (11,11))",
+      "arity_runs_source_first": [
+        [
+          4,
+          1244
+        ],
+        [
+          30,
+          1
+        ],
+        [
+          29,
+          1
+        ],
+        [
+          27,
+          1
+        ],
+        [
+          26,
+          1
+        ],
+        [
+          24,
+          1
+        ],
+        [
+          23,
+          1
+        ],
+        [
+          21,
+          1
+        ],
+        [
+          20,
+          1
+        ],
+        [
+          18,
+          1
+        ],
+        [
+          17,
+          1
+        ],
+        [
+          15,
+          1
+        ],
+        [
+          14,
+          1
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          9,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "stages_J": 1264,
+      "N_per_sign": 28336,
+      "k": 1118,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            7084,
+            14168,
+            7084
+          ],
+          "M_bit_length": 56658,
+          "M": null,
+          "M_sha256_big_endian": "973fa727b3b1b0c74865db626d85ead4e1c3220801db6f636bfcc80fb44a0d32"
+        },
+        {
+          "arity": 3,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            11335,
+            11334,
+            5667
+          ],
+          "M_bit_length": 65780,
+          "M": null,
+          "M_sha256_big_endian": "673705f14b846f8bb308648928d548d826507d9e5956c2f22b4cee504a5c356c"
+        },
+        {
+          "arity": 4,
+          "stages": 1244,
+          "type_nK_nO_nmid": [
+            14169,
+            9445,
+            4722
+          ],
+          "M_bit_length": 73233,
+          "M": null,
+          "M_sha256_big_endian": "f002d0318aeecebce424534104d3e1e71f6294bde0245e6e471bed84e5b01bc5"
+        },
+        {
+          "arity": 5,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            16192,
+            8096,
+            4048
+          ],
+          "M_bit_length": 79535,
+          "M": null,
+          "M_sha256_big_endian": "9d499438ae2d6bd9b6af6db9822cd2baeba5fc528ae6cbaa44e4f931c21d4857"
+        },
+        {
+          "arity": 6,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            17710,
+            7084,
+            3542
+          ],
+          "M_bit_length": 84994,
+          "M": null,
+          "M_sha256_big_endian": "e20e3dde0b4303e1978ee5fd3103265f39a18fedfecbf3c46d62722f6e5e9fb2"
+        },
+        {
+          "arity": 8,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            19836,
+            5667,
+            2833
+          ],
+          "M_bit_length": 94116,
+          "M": null,
+          "M_sha256_big_endian": "0959e0351f5ce2744cea476c5c8706abc7c54d87e24def5f80c661476f0e5e5d"
+        },
+        {
+          "arity": 9,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            20608,
+            5152,
+            2576
+          ],
+          "M_bit_length": 98013,
+          "M": null,
+          "M_sha256_big_endian": "12612403becd63f203f7ea706406b10677a0b7fd338f9df545462af5d392fc9f"
+        },
+        {
+          "arity": 11,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            21798,
+            4359,
+            2179
+          ],
+          "M_bit_length": 104842,
+          "M": null,
+          "M_sha256_big_endian": "68058105860d732552e577e38f2901203c9255273be59b3c3a44169d23769ef3"
+        },
+        {
+          "arity": 12,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            22264,
+            4048,
+            2024
+          ],
+          "M_bit_length": 107872,
+          "M": null,
+          "M_sha256_big_endian": "902e3b5a0ff73f73ba930e554359f29aff4832cd1c81c62cc9aaa80d330677f3"
+        },
+        {
+          "arity": 14,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            23023,
+            3542,
+            1771
+          ],
+          "M_bit_length": 113331,
+          "M": null,
+          "M_sha256_big_endian": "da5fa15e3cf1ed090ce36471c93f00ec82304a83f24c6773fcee3778ef72c339"
+        },
+        {
+          "arity": 15,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            23337,
+            3333,
+            1666
+          ],
+          "M_bit_length": 115809,
+          "M": null,
+          "M_sha256_big_endian": "456ae8013366db28d40a5f62d5934e67f4aee589c071fca1fa24aefabd3e0532"
+        },
+        {
+          "arity": 17,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            23863,
+            2982,
+            1491
+          ],
+          "M_bit_length": 120356,
+          "M": null,
+          "M_sha256_big_endian": "27bf22f97bbf3c59ec71ae17739e21cfbfe0619ab43da207a67cfbd72a2fb55a"
+        },
+        {
+          "arity": 18,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            24087,
+            2833,
+            1416
+          ],
+          "M_bit_length": 122453,
+          "M": null,
+          "M_sha256_big_endian": "74afcc3384b54cc89bac15b8dd4f539868e0b9c3b88f2ddd1d2ba6b81ced5d90"
+        },
+        {
+          "arity": 20,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            24472,
+            2576,
+            1288
+          ],
+          "M_bit_length": 126350,
+          "M": null,
+          "M_sha256_big_endian": "23c5c397f04286705b4010ea99e74e71d13e6d7dfd386a174c7161982d0234e0"
+        },
+        {
+          "arity": 21,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            24640,
+            2464,
+            1232
+          ],
+          "M_bit_length": 128167,
+          "M": null,
+          "M_sha256_big_endian": "1b7ae1a1db420bc6200445d77209754badfdcf73bd69fd89f91371f164f576c3"
+        },
+        {
+          "arity": 23,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            24937,
+            2266,
+            1133
+          ],
+          "M_bit_length": 131576,
+          "M": null,
+          "M_sha256_big_endian": "c5c6b64d5b67fe6e9d740ef6f73fad2e8bf361f3a39df85a54eda9348b04ff9a"
+        },
+        {
+          "arity": 24,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            25068,
+            2179,
+            1089
+          ],
+          "M_bit_length": 133179,
+          "M": null,
+          "M_sha256_big_endian": "78702ba169e723ed1cf2d480a95d6924ffaa920758ea1c0c24ea31d33be7b88d"
+        },
+        {
+          "arity": 26,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            25300,
+            2024,
+            1012
+          ],
+          "M_bit_length": 136209,
+          "M": null,
+          "M_sha256_big_endian": "eedada5fd59d474365876c2ff523636ca49c3d44a51b268b7853010520595292"
+        },
+        {
+          "arity": 27,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            25405,
+            1954,
+            977
+          ],
+          "M_bit_length": 137643,
+          "M": null,
+          "M_sha256_big_endian": "8f741ad8c52906f9e07d5cb172c9a8d083df4fe10680f9fc7bd129bf87c695d5"
+        },
+        {
+          "arity": 29,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            25594,
+            1828,
+            914
+          ],
+          "M_bit_length": 140370,
+          "M": null,
+          "M_sha256_big_endian": "7502ad6836004f83f1d5530d13efb4a6fbdb6ae993388741302fe03a8cd79cbc"
+        },
+        {
+          "arity": 30,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            25680,
+            1771,
+            885
+          ],
+          "M_bit_length": 141668,
+          "M": null,
+          "M_sha256_big_endian": "02e80822ba86d9f0c5ea9043be1521878719d08f39a0a69d4edc1bda534aa6e4"
+        }
+      ],
+      "stages_r_b_d_c": null,
+      "stages_sha256": "9ca8517051969859d3136547847907f205a26d2dacfdafd18e0b5f338c7d8c6b",
+      "A": "2^63359296 * 3^63359296 * 4^78818964224 * 5^63359296 * 6^63359296 * 8^63359296 * 9^63359296 * 11^63359296 * 12^63359296 * 14^63359296 * 15^63359296 * 17^63359296 * 18^63359296 * 20^63359296 * 21^63359296 * 23^63359296 * 24^63359296 * 26^63359296 * 27^63359296 * 29^63359296 * 30^63359296",
+      "decimal_digits_A": 48859824830,
+      "decimal_digits_B": 62827651353,
+      "Phi": {
+        "lower": "2.259999981184",
+        "upper": "2.259999981185"
+      },
+      "p": {
+        "lower": "2.259999981162",
+        "upper": "2.259999981163"
+      },
+      "Phi_minus_p": {
+        "lower": "2.15516e-11",
+        "upper": "2.15517e-11"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "2.260001782389"
+    }
+  ],
+  "comparisons_with_v5_note": "Targets 2.84063 and 2.67283 lie about 1e-5 below the computed Phi of v5 Table 2 rows a=8 and a=12 (floating-point values 2.8406393 and 2.6728401), not only below v5's certified bounds Phi-bar. v5 states that pooling lowers its Phi by less than 1e-7, so the targets are also below v5's pooled exponents p if v5's floating-point values are accurate to 1e-6. v5 does not tabulate its B.",
+  "comparisons_with_v5": [
+    {
+      "name": "below-2.84063",
+      "target": "2.84063",
+      "source_pair": [
+        5,
+        4
+      ],
+      "s": 8,
+      "terminal_pair": [
+        1,
+        5
+      ],
+      "arities_source_first": "2",
+      "arity_runs_source_first": [
+        [
+          2,
+          1
+        ]
+      ],
+      "stages_J": 1,
+      "N_per_sign": 93,
+      "k": 5,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 1,
+          "type_nK_nO_nmid": [
+            23,
+            47,
+            23
+          ],
+          "M_bit_length": 180,
+          "M": "941892517449610631754538859967532245440316705865728000",
+          "M_sha256_big_endian": "0d8c880c19298d566ce603c185e501a5442e4a952f39c35702e8c5c89839075b"
+        }
+      ],
+      "stages_r_b_d_c": [
+        [
+          5,
+          4,
+          2,
+          1
+        ]
+      ],
+      "stages_sha256": "bb23d879c2e86a5432e72d2d43b27f0c69b52457eef6f7a559301dc6407d3b4b",
+      "A": "2^930",
+      "decimal_digits_A": 280,
+      "decimal_digits_B": 1190,
+      "Phi": {
+        "lower": "2.840553213476",
+        "upper": "2.840553213477"
+      },
+      "p": {
+        "lower": "2.840222347372",
+        "upper": "2.840222347373"
+      },
+      "Phi_minus_p": {
+        "lower": "3.30866e-4",
+        "upper": "3.30867e-4"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "2.855739554207",
+      "v5_table_2": {
+        "a": 8,
+        "Phi_computed": "2.8406393",
+        "Phi_bar_certified": "2.848599165",
+        "decimal_digits_A": 11877489885
+      }
+    },
+    {
+      "name": "below-2.67283",
+      "target": "2.67283",
+      "source_pair": [
+        49,
+        78
+      ],
+      "s": 126,
+      "terminal_pair": [
+        1,
+        3
+      ],
+      "arities_source_first": "2^7",
+      "arity_runs_source_first": [
+        [
+          2,
+          7
+        ]
+      ],
+      "stages_J": 7,
+      "N_per_sign": 138,
+      "k": 8,
+      "types": [
+        {
+          "arity": 2,
+          "stages": 7,
+          "type_nK_nO_nmid": [
+            35,
+            69,
+            34
+          ],
+          "M_bit_length": 269,
+          "M": null,
+          "M_sha256_big_endian": "9fd9818ebadcd11bc30aacac2140356ed35ec88a27b521a8f924c235fd7757e4"
+        }
+      ],
+      "stages_r_b_d_c": [
+        [
+          49,
+          78,
+          2,
+          27
+        ],
+        [
+          27,
+          49,
+          2,
+          18
+        ],
+        [
+          18,
+          27,
+          2,
+          9
+        ],
+        [
+          9,
+          18,
+          2,
+          7
+        ],
+        [
+          7,
+          9,
+          2,
+          3
+        ],
+        [
+          3,
+          7,
+          2,
+          3
+        ],
+        [
+          3,
+          3,
+          2,
+          1
+        ]
+      ],
+      "stages_sha256": "f2b817e7fc53d181617cc709cc5fb0b4f07fb245e0323b3fafeaa7bdfbeb86b0",
+      "A": "2^15456",
+      "decimal_digits_A": 4653,
+      "decimal_digits_B": 10114,
+      "Phi": {
+        "lower": "2.672186713006",
+        "upper": "2.672186713007"
+      },
+      "p": {
+        "lower": "2.672131587560",
+        "upper": "2.672131587561"
+      },
+      "Phi_minus_p": {
+        "lower": "5.51254e-5",
+        "upper": "5.51255e-5"
+      },
+      "Phi_below_target": true,
+      "k_is_least": true,
+      "Phi_at_k_minus_1_lower": "2.687230915549",
+      "v5_table_2": {
+        "a": 12,
+        "Phi_computed": "2.6728401",
+        "Phi_bar_certified": "2.675820359",
+        "decimal_digits_A": 234905651862
+      }
+    }
+  ]
+}

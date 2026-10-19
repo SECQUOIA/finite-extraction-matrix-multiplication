@@ -1,0 +1,525 @@
+\section{Chains and the main theorem}
+\label{sec:chains}
+
+This section chooses the chain and its parameters and proves the main
+theorem (Theorem~\ref{thm:main}). Next to the terminal pair, an
+\emph{arity ramp} climbs the diagonal (Section~\ref{subsec:chains-ramp});
+above it, a \emph{bulk} of stages of one arity \(D\) makes the source
+pair grow geometrically (Section~\ref{subsec:chains-bulk}).
+Section~\ref{subsec:chains-potential} shows that the chain schemes of
+Section~\ref{subsec:chains-legal} have \(p>9/4\).
+
+\subsection{Chain schemes}
+\label{subsec:chains-legal}
+
+Fix a chain (Section~\ref{subsec:chain-counts}) with source pair
+\((r_1,b_1)\), evaluation size \(s=r_1+b_1-1\) and terminal pair
+\((1,t)\); we call \(G=\sum_{i=1}^J\log\frac{d_i+2}{d_i}\) its
+\emph{gain}. For integers \(N,k\ge1\) and, at each stage \(i\), a type
+of width \(N\) with sector count \(M_i\), Proposition~\ref{prop:chain-counts} gives a
+restriction \(r_*\MM_A\restr m_*\MM_B\) over \(\Q\) with the
+counts~\eqref{eq:stage-chain-counts}. If \(B>A\), it is a relative
+scheme, which we call a \emph{chain scheme}
+(Definition~\ref{def:class} extends the term to crops, exchanges,
+several blocks per stage and other supplies). Dividing the numerator and
+the denominator of its pooled exponent \(p=\log(r_*/m_*)/\log(B/A)\) by
+\(2Nk\) gives
+\begin{equation}\label{eq:p-normalized}
+ p=\frac{3\log s+C_{\mathrm{sep}}+C_{\mathrm{ex}}}{\Delta},\qquad
+ \Delta=\frac{\log(B/A)}{2Nk}
+ =\log t+\sum_i\Bigl(\frac{\log M_i}N-\log d_i\Bigr),
+\end{equation}
+where \(C_{\mathrm{sep}}=\frac3N\sum_i\log(2-1/M_i)\) is the
+\emph{separator charge} and
+\(C_{\mathrm{ex}}=\frac1{2Nk}\sum_i\log E_i\) is the
+\emph{exactification charge}. The fixed-batch bound~\eqref{eq:prelim-phi} is
+\begin{equation}\label{eq:chains-phi}
+ \Phi=\frac{\log(2r_*/m_*)}{\log(B/A)}=p+\frac{C_{\mathrm{pool}}}{\Delta},
+ \qquad C_{\mathrm{pool}}=\frac{\log2}{2Nk}.
+\end{equation}
+For large \(N\) and \(k\) the charges are small, and for types with the
+largest sector counts \(\Delta\) is close to \(\log t+G\)
+(Lemma~\ref{lem:types}). So the best a chain can give is its
+\emph{ideal exponent} \(3\log s/(\log t+G)\);
+Lemma~\ref{lem:profile-potential} shows that \(p\) always exceeds it.
+
+\begin{lemma}[Smallest parent]\label{lem:smallest-parent}
+Let \(d\ge2\), and let \((c,r)\) be a pair of positive integers. Put
+\[
+ b=\Bigl\lceil\frac{(d+2)c+r-1}{d}\Bigr\rceil,\qquad
+ e=db-(d+2)c-r+1 .
+\]
+Then \(0\le e\le d-1\), the stage \((r,b)\to(c,r)\) of arity \(d\) is
+legal, and \(b\) is the least integer with this property.
+\end{lemma}
+
+We call \((r,b)\) the \emph{smallest parent} of \((c,r)\) for arity
+\(d\), and \(e\) its \emph{slack}.
+
+\begin{proof}
+The bounds on \(e\) restate the definition of the ceiling. For the
+stage \((r,b)\to(c,r)\), the last condition of~\eqref{eq:stage-conditions}
+reads \(db\ge(d+2)c+r-1\), that is, \(e\ge0\), and the ceiling is the
+least integer \(b\) with this property.
+\end{proof}
+
+\subsection{The ramp}
+\label{subsec:chains-ramp}
+
+Recall that the least profile of~\citep[(3.4)]{FinCon26} is
+\(F(m,n)=\varsigma_{\min(m,n)}\bigl(\max(m,n)+\frac{\min(m,n)-1}2\bigr)\),
+where \(\varsigma_m=\prod_{\ell=1}^{m-1}(1+\frac1{3\ell})\) (written \(s_m\)
+in~\citep{FinCon26}), so that \(F(R,R)=\varsigma_R(3R-1)/2\).
+
+\begin{lemma}[Zero-slack ramp]\label{lem:ramp}
+Let \(R\ge2\). Start at the pair \((1,1)\) and, for
+\(j=1,\ldots,R-1\) in turn, take the smallest parent for arity \(3j-1\)
+and then the smallest parent for arity \(3j\). All slacks are zero, and
+the pairs are
+\[
+ (j,j)\xleftarrow{\;3j-1\;}(j,j+1)\xleftarrow{\;3j\;}(j+1,j+1)
+ \qquad(1\le j\le R-1),
+\]
+where each arrow points from a parent to its child and carries the
+arity. Read forwards, this is a chain of \(2(R-1)\) legal stages from
+\((R,R)\) to the terminal pair \((1,1)\), with largest arity \(3R-3\).
+Its gain is
+\[
+ G=\sum_{j=1}^{R-1}\log\frac{(3j+1)(3j+2)}{(3j-1)\,3j}=\log F(R,R),
+ \qquad\text{and}\qquad F(R,R)\ge R^{4/3}.
+\]
+\end{lemma}
+
+\begin{proof}
+For arity \(3j-1\) and the pair \((j,j)\),
+Lemma~\ref{lem:smallest-parent} gives
+\(b=\lceil((3j+1)j+j-1)/(3j-1)\rceil=\lceil(3j-1)(j+1)/(3j-1)\rceil=j+1\)
+with slack zero. For arity \(3j\) and the pair \((j,j+1)\), it gives
+\(b=\lceil((3j+2)j+j)/(3j)\rceil=j+1\) with slack zero. The two stages
+contribute the factors \((3j+1)/(3j-1)\) and \((3j+2)/(3j)\) to
+\(\exp(G)\). Since \(3j+2=3(j+1)-1\), the product of the factors
+\((3j+2)/(3j-1)\) over \(j<R\) telescopes to \((3R-1)/2\), and the
+product of the factors \((3j+1)/(3j)\) is \(\varsigma_R\). Hence
+\(\exp(G)=F(R,R)\). Finally, \((1+\frac1{3\ell})^3\ge1+\frac1\ell\)
+gives \(\varsigma_R^3\ge\prod_{\ell=1}^{R-1}(1+\frac1\ell)=R\), and
+\((3R-1)/2\ge R\).
+\end{proof}
+
+Each pair of ramp stages multiplies \(\exp(G)\) by
+\(F(j+1,j+1)/F(j,j)\), and \(F(j+1,j+1)-F(j,j)=\varsigma_j+\varsigma_{j+1}\).
+For \(F\), the quantity \(H_a\) in the proof
+of~\citep[Lemma~5.1]{OAI26} equals \(\varsigma_a\), so the ramp attains the
+diagonal recursion~\citep[(5.1)]{OAI26} with equality, with integer
+pairs and no rounding. Used alone, the ramp is a chain with \(s=2R-1\),
+and its ideal exponent \(3\log(2R-1)/\log F(R,R)\) is the profile
+exponent of~\citep[Section~3]{FinCon26}. It exceeds \(9/4\) by less
+than \(\frac94\log2/\log R\), since \(F(R,R)\ge R^{4/3}\)
+(Lemma~\ref{lem:ramp}), and, as the proof of
+\citep[Proposition~11.1(b)]{FinCon26} shows, by at least
+\(\frac94\log\frac65/\log\frac{3R-1}2\). So, by
+Lemma~\ref{lem:profile-potential}(c), a chain scheme on the ramp alone
+with \(p\le9/4+\eps\) needs \(R\) and the number of stages exponential
+in \(1/\eps\). The bulk is what makes \(\log A\) polynomial in
+\(1/\eps\).
+
+\subsection{The bulk}
+\label{subsec:chains-bulk}
+
+\begin{lemma}[Bulk potential]\label{lem:bulk-potential}
+Let \(D\ge2\), let \(\mu\) be the positive root of
+\(D\mu^2-\mu-(D+2)=0\), and put \(\eta=\mu-1/D\). Then
+\(1+1/D<\mu<5/4+1/D\), so \(1<\eta<5/4\), and \(\mu\eta=(D+2)/D\). For a
+pair \((r,b)\) put \(V(r,b)=\eta(r-\frac13)+(b-\frac13)\).
+\begin{enumerate}
+\item[(a)] If \((r,b)\) is the smallest parent of \((c,r)\) for arity
+\(D\), with slack \(e\), then \(V(r,b)=\mu V(c,r)+e/D\).
+\item[(b)] Let \(R\ge1\) and \(L\ge0\), and let the pair \((r',b')\)
+arise from \((R,R)\) by \(L\) smallest-parent steps of arity \(D\). Then
+\(r'+b'-1<\mu^L(\frac94R+D)\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Put \(f(u)=Du^2-u-(D+2)\). Since \(f(0)<0\) and \(f\) is a convex
+quadratic, \(f\) has exactly one positive root,
+\(\mu=(1+\sqrt{4D^2+8D+1})/(2D)\). As \(f(1+\frac1D)=-1\) and
+\(f(\frac54+\frac1D)=(9D-12)/16>0\), it lies strictly between
+\(1+\frac1D\) and \(\frac54+\frac1D\). The equation \(D\mu^2=\mu+D+2\)
+gives \(\mu\eta=\mu^2-\mu/D=(D+2)/D\).
+
+(a) By the definition of the slack, \(b=((D+2)c+r-1+e)/D\). In
+\[
+ V(r,b)-\mu V(c,r)
+ =\eta\bigl(r-\tfrac13\bigr)+\frac{(D+2)c+r-1+e}D-\tfrac13
+ -\mu\eta\bigl(c-\tfrac13\bigr)-\mu\bigl(r-\tfrac13\bigr),
+\]
+the coefficient of \(c\) is \((D+2)/D-\mu\eta=0\), and that of \(r\) is
+\(\eta+1/D-\mu=0\). The constant term is
+\(\frac{\mu-\eta}3+\frac{\mu\eta-1}3+\frac{e-1}D
+=\frac1{3D}+\frac2{3D}+\frac{e-1}D=\frac eD\).
+
+(b) Let \(V_\ell\) be the value of \(V\) after \(\ell\) steps, and
+\(e_\ell\le D-1\) the slack of step \(\ell\). By (a),
+\[
+ V_L=\mu^LV_0+\sum_{\ell=1}^L\mu^{L-\ell}\frac{e_\ell}D
+ \le\mu^LV_0+\sum_{\ell=0}^{L-1}\mu^\ell
+ \le\mu^L\Bigl(V_0+\frac1{\mu-1}\Bigr).
+\]
+Here \(V_0=(1+\eta)(R-\frac13)<\frac94R\), and \(\mu-1>1/D\) gives
+\(1/(\mu-1)<D\). Finally, \(\eta>1\) and \(r'\ge1\) give
+\(V_L=\eta(r'-\frac13)+b'-\frac13>r'+b'-1\).
+\end{proof}
+
+The potential \(V\) comes from the map \((c,r)\mapsto(r,((D+2)c+r-1)/D)\),
+the smallest parent without the ceiling: the map fixes
+\((\frac13,\frac13)\), and \((\eta,1)\) is a left eigenvector of its
+linear part, for the Perron root \(\mu\).
+
+Each bulk stage adds \(g_D=\log\frac{D+2}D\) to the gain and multiplies
+\(s\) by about \(\mu\): in the setting of
+Lemma~\ref{lem:bulk-potential}(b), part (a) and \(e\ge0\) also give
+\(V(r',b')\ge\mu^LV(R,R)\), and \(V(r,b)<\frac54r+b\le\frac52(r+b-1)\)
+for every pair of positive integers, so
+\(\log(r'+b'-1)=L\log\mu+O(\log(R+D))\). For a long bulk,
+\(3\log s/G\) therefore tends to \(\omega_D=3\log\mu/g_D\), the ideal
+exponent of the bulk.
+
+\begin{lemma}[Ideal gap]\label{lem:ideal-gap}
+Let \(D\ge2\), let \(\mu\) be as in Lemma~\ref{lem:bulk-potential}, and
+put \(y=g_D/2\). Then \(\sinh y=1/\sqrt{D(D+2)}\),
+\[
+ \log\mu=y+\operatorname{arsinh}\bigl(\tfrac12\sinh y\bigr),
+ \qquad\text{and}\qquad
+ \frac94\le\omega_D\le\frac94+\frac{27}{32(D+1)^2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Since \(e^y=\sqrt{(D+2)/D}\), we have
+\(\sinh y=\frac12(e^y-e^{-y})=1/\sqrt{D(D+2)}\). With
+\(z=\frac12\sinh y\),
+\[
+ z+\sqrt{1+z^2}=\frac{1+\sqrt{4D^2+8D+1}}{2\sqrt{D(D+2)}},
+ \qquad\text{so}\qquad
+ e^y\bigl(z+\sqrt{1+z^2}\bigr)=\frac{1+\sqrt{4D^2+8D+1}}{2D}=\mu .
+\]
+This is the identity, since
+\(\operatorname{arsinh}z=\log(z+\sqrt{1+z^2})\). For the lower bound,
+\(\operatorname{arsinh}(\frac12\sinh y)\ge\frac y2\) is equivalent to
+\(\frac12\sinh y\ge\sinh\frac y2\), that is, to
+\(\sinh\frac y2\cosh\frac y2\ge\sinh\frac y2\). Hence
+\(3\log\mu\ge\frac92y=\frac94g_D\).
+
+For the upper bound, \(\frac{D+2}D=(1+\frac1{D+1})/(1-\frac1{D+1})\)
+gives \(g_D=2\operatorname{artanh}\frac1{D+1}\ge\frac2{D+1}\). Using
+\(\operatorname{arsinh}z\le z\),
+\[
+ \omega_D=\frac32+\frac{3\operatorname{arsinh}(\frac12\sinh y)}{g_D}
+ \le\frac32+\frac{3\sinh y}{2g_D}
+ \le\frac32+\frac34\cdot\frac{D+1}{\sqrt{D(D+2)}} .
+\]
+Finally, \(D(D+2)=(D+1)^2-1\) lies between \(\frac89(D+1)^2\) and
+\((D+1)^2\), as \(D\ge2\). Hence
+\(\frac{D+1}{\sqrt{D(D+2)}}\le\frac{(D+1)^2}{D(D+2)}
+=1+\frac1{D(D+2)}\le1+\frac9{8(D+1)^2}\).
+\end{proof}
+
+The expansion
+\(\operatorname{arsinh}(\frac12\sinh y)=\frac y2+\frac{y^3}{16}+O(y^5)\)
+gives \(\omega_D-\frac94=\frac3{32D^2}+O(D^{-3})\), about a ninth of the
+upper bound.
+
+\begin{lemma}[Defect]\label{lem:defect}
+Let \(D\ge2\), \(R=8D\) and \(L\ge0\). Starting at \((1,1)\), build
+the ramp of Lemma~\ref{lem:ramp} up to \((R,R)\), and then take \(L\)
+further smallest parents of arity \(D\). Read forwards, this is a chain
+with terminal pair \((1,1)\) and \(J=16D-2+L\) stages: \(L\) bulk
+stages of arity \(D\), then the \(2R-2\) ramp stages. All its arities
+satisfy \(2\le d_i\le24D-3\). Its gain is \(G=\log F(R,R)+Lg_D\), and
+\begin{equation}\label{eq:defect}
+ 3\log s-\tfrac94G<3\log\tfrac{19}8+Lg_D\bigl(\omega_D-\tfrac94\bigr)
+ \le3+\frac{27L}{16D(D+1)^2}.
+\end{equation}
+\end{lemma}
+
+We call this chain the \emph{ramp-and-bulk chain} for \(D\) and \(L\).
+
+\begin{proof}
+The stages, arities and gain follow from
+Lemmas~\ref{lem:smallest-parent} and~\ref{lem:ramp}. Since
+\(\frac94R+D=\frac{19}8R\), Lemma~\ref{lem:bulk-potential}(b) gives
+\(3\log s<3\log\frac{19R}8+3L\log\mu\), and Lemma~\ref{lem:ramp} gives
+\(\frac94\log F(R,R)\ge3\log R\). Subtracting proves the first
+inequality, since \(3\log\mu-\frac94g_D=g_D(\omega_D-\frac94)\). For the
+second, \(\log\frac{19}8<1\), and
+\(g_D(\omega_D-\frac94)\le\frac2D\cdot\frac{27}{32(D+1)^2}\) by
+Lemma~\ref{lem:ideal-gap} and \(g_D=\log(1+\frac2D)\le\frac2D\).
+\end{proof}
+
+\subsection{Types, and the least profile as a potential}
+\label{subsec:chains-potential}
+
+For \(d\ge2\) and \(N\ge1\), a type \((\nK,\nO,\nmid)\) of width \(N\),
+that is, with \(\nK+\nO+\nmid=N\), has the sector count
+\(N!\,(d-1)^{\nK}2^{\nO}/(\nK!\,\nO!\,\nmid!)\)
+(Lemma~\ref{lem:stage-types}). Let \(M(N,d)\) be the largest sector
+count over all types of width \(N\).
+
+\begin{lemma}[Types]\label{lem:types}
+For \(d\ge2\) and \(N\ge1\), every sector count is less than
+\((d+2)^N\), and \((d+2)^N/(N+1)^2\le M(N,d)<(d+2)^N\).
+\end{lemma}
+
+\begin{proof}
+By the multinomial theorem, the sector counts of all types add up to
+\(((d-1)+2+1)^N=(d+2)^N\). There are \(\binom{N+2}2\ge3\) types, and
+every count is positive, so each count is less than the sum. The
+largest count is at least the average, and
+\(\binom{N+2}2=\frac{(N+2)(N+1)}2\le(N+1)^2\).
+\end{proof}
+
+\begin{lemma}[The least profile is a potential]
+\label{lem:profile-potential}
+Let \(F\) be the least profile of~\citep[(3.4)]{FinCon26}.
+\begin{enumerate}
+\item[(a)] Every legal stage \((r,b)\to(c,r)\) of arity \(d\) satisfies
+\(d\,F(r,b)\ge(d+2)\,F(c,r)\), with equality on every stage of the ramp
+of Lemma~\ref{lem:ramp}.
+\item[(b)] Every chain (Section~\ref{subsec:chain-counts}) satisfies
+\(\log t+G\le\log F(r_1,b_1)\le\frac43\log s\).
+\item[(c)] Every chain scheme of Section~\ref{subsec:chains-legal}, and
+every relative scheme given by the variant of
+Remark~\ref{rem:varying-powers}, satisfies
+\(p>3\log s/(\log t+G)\ge9/4\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Put \(b^+=db-(d-1)c\) and \(h=b-c\), so that \(c<b<b^+\) and
+\(b^+-b=(d-1)h\). By~\citep[Theorem~3.2]{FinCon26}, \(F\) is a profile:
+it satisfies the concavity axiom \citep[(3.2)]{FinCon26}, and the
+tripling axiom \citep[(3.3)]{FinCon26} at every column. By
+concavity, the increments \(F(r,b'+1)-F(r,b')\) of row \(r\) do not
+increase in \(b'\). So each of the \(h\) increments from column \(c\) to
+\(b\) is at least each of the \((d-1)h\) increments from \(b\) to
+\(b^+\), and \((d-1)\bigl(F(r,b)-F(r,c)\bigr)\ge F(r,b^+)-F(r,b)\), that
+is,
+\[
+ d\,F(r,b)\ge(d-1)F(r,c)+F(r,b^+).
+\]
+By \citep[(3.5)]{FinCon26}, the increments of row \(r\) from column
+\(r-1\) on equal \(\varsigma_r>0\). As they do not increase, the row is
+increasing. By Lemma~\ref{lem:reset}(c), \(b^+\ge3c+r-1\), so
+\(F(r,b^+)\ge F(r,3c+r-1)\ge3F(r,c)\) by tripling. Hence
+\(dF(r,b)\ge(d+2)F(r,c)\), and \(F(r,c)=F(c,r)\) by symmetry.
+
+On the ramp, \citep[(3.4)]{FinCon26} gives
+\(F(j,j)=\varsigma_j\frac{3j-1}2\), \(F(j,j+1)=\varsigma_j\frac{3j+1}2\) and
+\(F(j+1,j+1)=\varsigma_{j+1}\frac{3j+2}2=\varsigma_j\frac{(3j+1)(3j+2)}{6j}\).
+Hence \((3j-1)F(j,j+1)=(3j+1)F(j,j)\) and
+\(3j\,F(j+1,j+1)=(3j+2)F(j,j+1)\): these are the equality cases for the
+stages of arities \(3j-1\) and \(3j\).
+
+(b) Applying (a) to every stage and multiplying gives
+\(F(r_1,b_1)\ge\exp(G)F(c_J,r_J)=t\exp(G)\), by the normalization
+\citep[(3.1)]{FinCon26}. The second inequality is
+\(F(m,n)\le(m+n-1)^{4/3}\) \citep[(3.6)]{FinCon26}.
+
+(c) By~\eqref{eq:stage-chain-counts},
+\(r_*/m_*=s^{6Nk}\prod_i((2M_i-1)/M_i)^{6k}E_i\), and every factor
+other than \(s^{6Nk}\) is at least one, so
+\(\log(r_*/m_*)\ge6Nk\log s\). By Lemma~\ref{lem:types},
+\(M_i<(d_i+2)^N\), so \(\log(B/A)<2Nk(\log t+G)\), since \(J\ge1\).
+As \(B>A\) and \(s\ge b_1>c_1\ge1\), we get
+\(p\ge6Nk\log s/\log(B/A)>3\log s/(\log t+G)\). Since \(G>0\), (b)
+gives \(3\log s/(\log t+G)\ge9/4\). The same argument, with
+\(N_1k_1\) in place of \(Nk\), applies to the variant of
+Remark~\ref{rem:varying-powers}, with stage-dependent \(N_i\) and
+\(k_i\) and \(N_ik_i=N_1k_1\), since there
+\(M_i^{2k_i}<(d_i+2)^{2N_ik_i}=(d_i+2)^{2N_1k_1}\).
+\end{proof}
+
+Lemma~\ref{lem:profile-potential} is the analogue for chain schemes of
+the scalar limit in~\citep[Remark~3.3]{FinCon26}.
+Section~\ref{sec:limits} shows more: \(p>9/4\) persists if the auxiliary
+of each stage is replaced by a compressed auxiliary of any rank, and for
+every supply (Definition~\ref{def:compressed},
+Corollary~\ref{cor:compression-limit}).
+On a ramp stage, \(c\ge r-1\), \(b^+=3c+r-1\), and row \(r\) of \(F\) is
+affine from column \(r-1\) on, so every inequality in the proof of (a)
+is an equality.
+
+\subsection{The main theorem}
+\label{subsec:chains-main}
+
+\begin{theorem}[Main theorem]\label{thm:main}
+Let \(0<\eps\le1\) be rational. Put
+\[
+ D=\bigl\lceil\sqrt{4/\eps}\,\bigr\rceil,\qquad R=8D,\qquad
+ L=\lceil64D/\eps\rceil,
+\]
+let \(H\) be the number of binary digits of \(\lceil128D/\eps\rceil\),
+and put \(N=k=\lceil256DH/\eps\rceil\). Take the ramp-and-bulk chain
+for \(D\) and \(L\) (Lemma~\ref{lem:defect}), the width \(N\) and the
+power \(k\), and at stage \(i\) a type of width \(N\) with the largest
+sector count \(M_i=M(N,d_i)\). Then the restriction
+\(r_*\MM_A\restr m_*\MM_B\) of Proposition~\ref{prop:chain-counts} for
+these data has rational coefficients and \(B>A\), so it is a relative
+scheme over \(\Q\). Its pooled exponent \(p\), its fixed-batch bound
+\(\Phi\) and its counts satisfy
+\begin{gather*}
+ \frac94<p<\Phi<\frac94+\frac{719}{1988}\,\eps<\frac94+\frac\eps2,
+ \qquad
+ \log A<3\cdot10^9\,\eps^{-9/2}\log^3\frac{4096}\eps,\\
+ B\le A^2,\qquad m_*=B^3\le A^6,\qquad r_*<A^{35/4}.
+\end{gather*}
+\end{theorem}
+
+All parameters are computed from \(\eps\) by integer arithmetic; for
+example, if \(\eps=u/v\) with positive integers \(u\) and \(v\), then
+\(D\) is the least integer with \(D^2u\ge4v\).
+
+\begin{proof}
+Here \(t=1\), so by~\eqref{eq:p-normalized}
+and~\eqref{eq:chains-phi},
+\(\Phi=(3\log s+C_{\mathrm{sep}}+C_{\mathrm{ex}}+C_{\mathrm{pool}})/\Delta\)
+with \(\Delta=\sum_i(\frac1N\log M_i-\log d_i)\), once we know
+\(\Delta>0\). Put \(x=128D/\eps\), \(a_N=2\log(N+1)/N\) and
+\(\Lambda=\log(4096/\eps)\).
+
+\emph{Step 0: parameter facts.} Since \(\eps\le1\), we have \(D\ge2\),
+\(D^2\eps\ge4\) and \(x\ge256\). From
+\(2^{H-1}\le\lceil x\rceil<2^H\) we get \(H>\log_2x\ge\log x\),
+\(H\le1+\log_2(x+1)\le x\) and, as \(\lceil x\rceil\ge2^8\), \(H\ge9\).
+Next, \(N\ge2xH\), so \(N=k\ge4608\), and
+\(N+1\le2xH+2\le2x^2+2\le x^3\). Also \(\log(6k)<k\). Since
+\(L\ge64D\), \(J=16D-2+L\le\frac54L\). Every arity satisfies
+\(d_i\le24D-3\), so \(\log d_i<\log(d_i+2)<\log(24D)\le\log x<H\).
+
+\emph{Step 1: the denominator, and \(B>A\).} By
+Lemma~\ref{lem:types}, \(\frac1N\log M_i\ge\log(d_i+2)-a_N\), so
+\(\Delta\ge G-Ja_N\). By Step~0, \(a_N\le6\log x/N<6H/(2xH)=3/x\), that
+is, \(a_N<3\eps/(128D)\). Since \(\log(1+u)\ge u/(1+u)\), we have
+\(g_D\ge2/(D+2)\). As \(\log F(R,R)\ge0\),
+\[
+ G\ge Lg_D\ge\frac{2L}{D+2}\ge\frac{128D}{(D+2)\eps}\ge\frac{64}\eps,
+ \qquad
+ \frac JG\le\frac{5L}4\cdot\frac{D+2}{2L}\le\frac{5D}4 .
+\]
+Hence \(Ja_N/G\le\frac{15}{512}\eps<1\), and \(\Delta\ge G-Ja_N>0\). So
+\(\log(B/A)=2Nk\Delta>0\), that is, \(B>A\).
+
+\emph{Step 2: the charges.} Since \(2-1/M_i<2\),
+\(C_{\mathrm{sep}}\le3J\log2/N\). Since \(E_i\le6kM_i\le6k(d_i+2)^N\),
+\(C_{\mathrm{ex}}\le J\log(6k)/(2Nk)+\frac1{2k}\sum_i\log(d_i+2)\).
+
+\emph{Step 3: reduction.} Put
+\(X=3\log s+C_{\mathrm{sep}}+C_{\mathrm{ex}}+C_{\mathrm{pool}}-\frac94\Delta\),
+so that \(\Phi-\frac94=X/\Delta\). By
+Lemma~\ref{lem:profile-potential}(c), \(p>9/4\), that is,
+\(X>C_{\mathrm{pool}}>0\). With \(\Delta\ge G-Ja_N\) and
+\(-\frac94\Delta\le-\frac94G+\frac94Ja_N\) from Step~1,
+\[
+ \Phi-\frac94=\frac X\Delta\le\frac X{G-Ja_N}
+ \le\frac1{1-Ja_N/G}\Bigl(\frac{3\log s-\frac94G}G
+ +\frac{C_{\mathrm{sep}}+C_{\mathrm{ex}}+C_{\mathrm{pool}}}G
+ +\frac94\cdot\frac{Ja_N}G\Bigr).
+\]
+
+\emph{Step 4: the charges, divided by \(G\).} We bound the six terms of
+the bracket: (i) the geometric defect, (ii) the type loss, (iii) the
+separator copies, (iv) and (v) the two parts of the exactification
+charge, and (vi) the fixed-batch ceiling.
+\begin{enumerate}
+\item[(i)] By~\eqref{eq:defect},
+\(3\log s-\frac94G<3+\frac{27L}{16D(D+1)^2}\). Here
+\(3/G\le\frac3{64}\eps\), and \(G\ge2L/(D+2)\) gives
+\(\frac{27L}{16D(D+1)^2G}\le\frac{27(D+2)}{32D(D+1)^2}<\frac{27}{32D^2}
+\le\frac{27}{128}\eps\), using \(D(D+2)<(D+1)^2\) and
+\(D^2\eps\ge4\). Together, \(\frac3{64}+\frac{27}{128}=\frac{33}{128}\).
+\item[(ii)] \(\frac94\cdot\frac{Ja_N}G\le\frac94\cdot\frac{15}{512}\eps\),
+by Step~1.
+\item[(iii)] \(\frac{3J\log2}{NG}\le\frac{15D\log2}{4N}
+\le\frac{15\log2}{1024H}\eps<\frac{15}{1024}\eps\), by \(J/G\le5D/4\) and
+\(N\ge256DH/\eps\).
+\item[(iv)] \(\frac{J\log(6k)}{2NkG}\le\frac J{2NG}\le\frac{5D}{8N}
+\le\frac5{2048H}\eps\le\frac5{2048}\eps\).
+\item[(v)] \(\frac1{2kG}\sum_i\log(d_i+2)\le\frac{JH}{2kG}
+\le\frac{5DH}{8k}\le\frac5{2048}\eps\).
+\item[(vi)] \(\frac{C_{\mathrm{pool}}}G=\frac{\log2}{2NkG}
+\le\frac{\log2}{128Nk}\eps<\frac1{128}\eps\), by \(G\ge64/\eps\).
+\end{enumerate}
+The bounds add up to
+\(\frac{528+135+30+5+5+16}{2048}\eps=\frac{719}{2048}\eps\), and
+\(1-Ja_N/G\ge\frac{497}{512}\). Hence
+\(\Phi-\frac94<\frac{719}{2048}\cdot\frac{512}{497}\eps
+=\frac{719}{1988}\eps<\frac\eps2\). With \(9/4<p\)
+(Lemma~\ref{lem:profile-potential}(c)) and
+\(\Phi=p+C_{\mathrm{pool}}/\Delta>p\), this proves the exponent bounds.
+
+\emph{Step 5: the source side.} We have
+\(D\le2\eps^{-1/2}+1\le3\eps^{-1/2}\), so
+\(J\le16D+64D/\eps-1\le240\,\eps^{-3/2}\) and
+\(x\le384\,\eps^{-3/2}\). Since
+\(H\le1+\log_2(2x)\le1+\frac32\log(2x)\) and \(\log(2x)\ge\log512>2\),
+we get \(H\le2\log(2x)\le2\log768+3\log\frac1\eps\le3\Lambda\), using
+\(768^2<4096^3\). Hence
+\(N=k\le256DH/\eps+1\le2304\,\eps^{-3/2}\Lambda+1
+\le2305\,\eps^{-3/2}\Lambda\). Finally,
+\(\log d_i<\log(24D)\le\log(72\eps^{-1/2})\le\Lambda\). Therefore
+\[
+ \log A=2Nk\sum_i\log d_i<2N^2J\Lambda
+ \le2\cdot2305^2\cdot240\,\eps^{-9/2}\Lambda^3
+ =2{,}550{,}252{,}000\,\eps^{-9/2}\Lambda^3
+ <3\cdot10^9\,\eps^{-9/2}\Lambda^3 .
+\]
+
+\emph{Step 6: the other counts.} Since \(d_i\ge2\), we have
+\(d_i+2\le d_i^2\), so \(M_i<(d_i+2)^N\le d_i^{2N}\) by
+Lemma~\ref{lem:types}, and \(B=\prod_iM_i^{2k}\le A^2\). Since \(t=1\),
+\eqref{eq:stage-chain-counts} gives \(m_*=B^3\le A^6\). By the definition
+of \(p\), \(r_*=m_*(B/A)^p\). As \(1<B/A\le A\) and
+\(p<\frac94+\frac\eps2\le\frac{11}4\), we get
+\(r_*<B^3(B/A)^{11/4}\le A^{35/4}\). The coefficients are rational by
+Proposition~\ref{prop:chain-counts}.
+\end{proof}
+
+With the separator of~\citep[Proposition~4.6]{FinCon26} in place of
+Lü's, \(E_i=1+6k(M_i-1)^2\) doubles bound~(v) of Step~4, so the proof
+gives \(\frac{724}{1988}\eps\) in place of \(\frac{719}{1988}\eps\),
+with coefficients in a cyclotomic field instead of~\(\Q\). For the bulk
+alone, started at \((1,1)\), Lemma~\ref{lem:bulk-potential}(b) with
+\(R=1\) puts \(3\log(D+\frac94)\) in place of \(3\log\frac{19}8\)
+in~\eqref{eq:defect}; the same argument would then need \(L\) larger by
+a factor of order \(\log\frac1\eps\) and would give only
+\(\log A=O(\eps^{-9/2}\log^4\frac1\eps)\).
+
+\begin{corollary}\label{cor:main-eps}
+Let \(0<\eps\le\frac12\) be rational. The scheme of
+Theorem~\ref{thm:main} with \(2\eps\) in place of \(\eps\) is a
+relative scheme over \(\Q\) with \(\frac94<p<\Phi<\frac94+\eps\),
+\(\log A<1.4\cdot10^8\,\eps^{-9/2}\log^3(2048/\eps)\), \(B\le A^2\),
+\(m_*\le A^6\) and \(r_*<A^{35/4}\).
+\end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:main} applies to \(2\eps\le1\). It gives
+\(\Phi<\frac94+\frac{719}{994}\eps\) and
+\(\log A<3\cdot10^9(2\eps)^{-9/2}\log^3(2048/\eps)\). Finally,
+\(3\cdot10^9\cdot2^{-9/2}<1.4\cdot10^8\), because
+\(9\cdot10^{18}<1.96\cdot10^{16}\cdot2^9\).
+\end{proof}
+
+\begin{remark}[\(\Phi\) versus \(p\), and the bound \(\frac94+\frac\eps2\)]
+\label{rem:phi-p}
+By~\eqref{eq:prelim-phi}, \(\Phi\) also bounds the exponent of the
+recursion without pooling. Here \(\Phi-p=\log2/\log(B/A)\), and Steps~0
+and~1 give
+\(\log(B/A)\ge2Nk(G-Ja_N)\ge2\cdot4608^2\cdot\frac{497}{512}\cdot
+\frac{64}\eps\), so \(\Phi-p<10^{-9}\eps\). The theorem keeps half of
+\(\eps\) in reserve because Section~\ref{sec:seeds} unrolls the pooled
+recursion into one seed, as in~\citep[Theorem~9.2]{FinCon26}; the factor
+lost in unrolling is absorbed into the remaining \(\eps/2\). For an
+algorithm with exponent below \(\frac94+\eps\) alone,
+Corollary~\ref{cor:main-eps} suffices.
+\end{remark}

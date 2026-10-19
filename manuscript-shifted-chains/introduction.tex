@@ -1,0 +1,349 @@
+\section{Introduction}
+\label{sec:intro}
+
+The exponent \(\omega\) of matrix multiplication is the infimum of the
+real numbers \(a\) such that two \(n\times n\) matrices can be multiplied
+with \(O(n^a)\) arithmetic operations. In a preprint dated 2~October 2026
+and released on 6~October, \citet{OAI26} proved \(\omega\le9/4\) over the
+complex numbers, well below the bounds near \(2.371\) obtained by the
+laser method~\citep{AD25,Dup26,Zad26,OAI26Stag}. The proof ends with an
+existence theorem for tensor characters, and specifies neither a size
+\(n\) nor an algorithm for \(n\times n\) matrices with fewer than
+\(n^{9/4+\eps}\) multiplications.
+
+The preceding paper~\citep{FinCon26} constructs, for every rational
+\(\eps>0\), explicit exact bilinear algorithms with rational coefficients
+and exponent below \(9/4+\eps\). Their sizes are doubly exponential in
+\(1/\eps\), necessarily so within that construction: as \(\eps\to0\),
+the least source side \(A\) (defined below) of a scheme with exponent at most
+\(9/4+\eps\) satisfies \(\log\log A=\Theta(1/\eps)\), and its seed sides
+are doubly exponential too~\citep[Corollary~11.2]{FinCon26}. The second
+open question of~\citep[Section~11.5]{FinCon26} asks for a finite
+construction with exponent below \(9/4+\eps\) in which \(\log A\) is
+bounded by a polynomial in \(1/\eps\). That question was posed for the
+source side \(A\), but \(A\) alone is not a robust measure: composition
+with the classical algorithm reduces it to~\(1\)
+(Remark~\ref{rem:composition}). The robust measures are the copy counts
+\(r_*\) and \(m_*\) and the seed side \(n_0\)
+(Section~\ref{subsec:intro-results}), which are also doubly exponential
+within~\citep{FinCon26} (Table~\ref{tab:intro-comparison}). Here all
+three are singly exponential. Our schemes have
+\(\log r_*,\log m_*=O(\eps^{-9/2}\log^3(1/\eps))\), the least possible
+order within the construction (Theorems~\ref{thm:intro-main}
+and~\ref{thm:intro-limits}), and seeds with
+\(\log n_0=O(\eps^{-11/2}\log^3(1/\eps))\)
+(Theorem~\ref{thm:intro-seed}). They also have
+\(\log A=O(\eps^{-9/2}\log^3(1/\eps))\), which answers the question as
+posed.
+Sections~\ref{sec:stages}--\ref{sec:limits} prove
+Theorems~\ref{thm:intro-main}--\ref{thm:intro-limits} below, with long
+proofs in Appendices~\ref{sec:lower-proof} and~\ref{sec:coefficients}.
+
+\subsection{Results}
+\label{subsec:intro-results}
+
+We use the conventions of~\citep{FinCon26}, recalled in
+Section~\ref{sec:prelim} below; all logarithms are natural. We write
+\(T\restr T'\) if linear substitutions on each leg of the tensor \(T\) transform it into \(T'\),
+\(\MM_d\) for \(d\times d\) matrix multiplication, and \(mT\) for the
+direct sum of \(m\) copies of \(T\). A \emph{relative
+scheme}~\citep[Definition~2.3]{FinCon26} is a restriction
+\(r_*\MM_A\restr m_*\MM_B\) with \(B>A\); it computes \(m_*\) products
+of \(B\times B\) matrices from \(r_*\) products of \(A\times A\)
+matrices. We call \(A\) and \(B\) its \emph{source} and \emph{target
+sides}, \(r_*\) and \(m_*\) its \emph{copy counts}, and
+\(p=\log(r_*/m_*)/\log(B/A)\) its \emph{pooled exponent}. Applied
+recursively, with the subproblems of each depth pooled into batches of
+\(m_*\), it multiplies \(n\times n\) matrices with \(O(n^p)\) arithmetic
+operations if \(p>2\), over every field that contains its
+coefficients~\citep[Lemma~2.4]{FinCon26}.
+
+Our schemes use the convolution tensor
+\(C(r,b)=\sum_{\alpha<r}\sum_{\beta<b}x_\alpha y_\beta z_{\alpha+\beta}\),
+which multiplies polynomials with \(r\) and \(b\) coefficients, the dot
+product \(B_X(d)=x\sum_{\gamma<d}y_\gamma z_\gamma\), and the product
+\(Q_{r,b}\) of the six copies of \(C(r,b)\) with permuted legs; note that
+\(Q_{1,t}\cong\MM_{t^2}\). A \emph{stage} \((r,b)\to(c,r)\) of arity
+\(d\) turns a power of \(Q_{r,b}\) and auxiliary dot products
+\(B_X(d^N)\) into the same power of \(Q_{c,r}\) and a matrix
+multiplication tensor. A \emph{chain} applies stages in sequence, from a
+\emph{source pair} \((r_1,b_1)\) to a \emph{terminal pair} \((1,t)\)
+(Section~\ref{subsec:intro-idea}).
+\begin{theorem}[Main theorem]\label{thm:intro-main}
+For every rational \(0<\eps\le1\), an explicit chain of at most
+\(240\,\eps^{-3/2}\) stages, whose parameters are computed from \(\eps\)
+by integer arithmetic, gives a relative scheme
+\(r_*\MM_A\restr m_*\MM_B\) with rational coefficients such that
+\(9/4<p<9/4+\eps/2\),
+\[
+ \log m_*<1.8\cdot10^{10}\,\eps^{-9/2}\log^3\frac{4096}\eps,\qquad
+ \log r_*<2.7\cdot10^{10}\,\eps^{-9/2}\log^3\frac{4096}\eps,
+\]
+\(m_*=B^3\), \(r_*<A^{35/4}\), \(B\le A^2\) and
+\(\log A<3\cdot10^9\,\eps^{-9/2}\log^3(4096/\eps)\). For
+\(0<\eps\le\frac12\), the scheme with \(2\eps\) in place of \(\eps\)
+satisfies \(9/4<p<9/4+\eps\),
+\(\log m_*<8.4\cdot10^8\,\eps^{-9/2}\log^3(2048/\eps)\),
+\(\log r_*<1.23\cdot10^9\,\eps^{-9/2}\log^3(2048/\eps)\) and
+\(\log A<1.4\cdot10^8\,\eps^{-9/2}\log^3(2048/\eps)\).
+\end{theorem}
+
+\begin{theorem}[Seeds and one algorithm]\label{thm:intro-seed}
+Let \(0<\eps\le1\) be rational, and let \(A\) be the source side of the
+scheme of Theorem~\ref{thm:intro-main}.
+\begin{enumerate}
+\item[(a)] An explicit integer \(n_0\) with
+\(\log n_0<2.1\cdot10^{11}\,\eps^{-11/2}\log^3(4096/\eps)\) has the
+following property: for every \(n\ge n_0\), unrolling the recursion of
+the scheme at side \(n\) gives a rational bilinear algorithm for
+\(n\times n\) matrices with fewer than \(n^{9/4+\eps}\)
+multiplications.
+\item[(b)] The coefficients of the scheme are fractions
+\(\mathfrak c/\mathcal D\) with a common denominator \(\mathcal D\),
+where \(\mathcal D\) and all \(|\mathfrak c|\) are below
+\(2^{\beta_\eps}\) with
+\(\log_2\beta_\eps<10^4\,\eps^{-3/2}\log^2(4096/\eps)\). If
+\(\eps=u/v\) with positive integers \(u,v\le A\), which holds whenever
+\(\eps=1/v\) (then \(v<A\)), a generator computes \(\mathcal D\) and all numerators
+\(\mathfrak c\) from \(u\) and \(v\) with at most \(A^{46}\) bit
+operations.
+\item[(c)] One algorithm multiplies \(n\times n\) matrices over every
+field of characteristic zero, for every \(n\ge2\), in
+\(n^{9/4+\delta(n)}\) steps, where
+\(\delta(n)=O((\log\log n)^{6/11}(\log n)^{-2/11})\). A step is a step of
+a fixed multitape Turing machine during the preprocessing, or a field
+operation.
+\end{enumerate}
+\end{theorem}
+
+Theorem~\ref{thm:intro-main} restates Theorem~\ref{thm:main} and
+Corollary~\ref{cor:main-eps}, with Lemma~\ref{lem:resources}(a) for the
+number of stages; the bounds on \(\log m_*\) and \(\log r_*\) follow
+from \(m_*\le A^6\) and \(r_*<A^{35/4}\), as in
+Remark~\ref{rem:limits-orders}. Parts (a), (b) and (c) of
+Theorem~\ref{thm:intro-seed} are Theorem~\ref{thm:seed}, where
+\(\log n_0\ge(24/\eps)\log A\), Proposition~\ref{prop:coefficients} and
+Theorem~\ref{thm:uniform}. All these sizes are astronomically large, and
+no algorithm here is shown to use \(O(n^{9/4})\) operations. The local
+maps of Section~\ref{sec:stages} hold over every field; the relations
+that use the separator and exactification are proved over \(\Q\), and we
+do not treat positive characteristic.
+
+For a fixed target, much smaller chains suffice.
+Proposition~\ref{prop:witnesses}, restated next, certifies some with
+the supplementary script \path|shifted_chain_certificates.py|, through
+the \emph{fixed-batch bound}
+\(\Phi=\log(2r_*/m_*)/\log(B/A)=p+\log2/\log(B/A)\)
+of~\citep[(10.1)]{FinCon26}, which also bounds the exponent of the
+recursion without pooling; Theorem~\ref{thm:intro-main} holds with
+\(\Phi\) in place of \(p\) (Theorem~\ref{thm:main}).
+
+\begin{theorem}[Finite examples; computer-assisted]
+\label{thm:intro-examples}
+Explicit chains give relative schemes over \(\Q\) with \(\Phi<2.5\),
+\(2.3\), \(2.26\), \(2.84063\) and \(2.67283\), whose source sides have
+\(33{,}379\), \(12{,}371{,}380\), \(48{,}859{,}824{,}830\), \(280\) and
+\(4{,}653\) decimal digits, respectively. The last two targets lie about
+\(10^{-5}\) below the floating-point values of \(\Phi\) for the schemes
+of~\citep[Table~2]{FinCon26} with \(a=8\) and \(a=12\)
+(Section~\ref{subsec:examples-comparison}).
+\end{theorem}
+
+Section~\ref{sec:limits} asks what the construction cannot do. Its
+\emph{chain schemes} (Definition~\ref{def:class}) allow crops and
+exchanges of the pairs, several blocks with their own widths and powers
+in each stage, and every \emph{supply} of the auxiliary matrix
+multiplication tensors, by the source or by tensors that earlier stages
+produce (\emph{forward recycling}, Lemma~\ref{lem:recycling}).
+
+\begin{theorem}[Limits within the construction]\label{thm:intro-limits}
+\leavevmode
+\begin{enumerate}
+\item[(a)] Every chain scheme has \(p>9/4\), also with compressed
+auxiliaries of any rank (Definition~\ref{def:compressed}).
+\item[(b)] Let \(0<\eps<1/9216\). Every chain scheme with
+\(p\le9/4+\eps\) satisfies
+\(\log r_*>\log m_*>3.9\cdot10^{-6}\,\eps^{-9/2}\log^3(1/\eps)\) and
+\(\log(B/A)>9.8\cdot10^{-5}\,\eps^{-4}\log^2(1/\eps)\). If the source
+supplies every auxiliary, then also
+\(\log A>1.3\cdot10^{-6}\,\eps^{-9/2}\log^3(1/\eps)\).
+\end{enumerate}
+\end{theorem}
+
+Part (a) is Corollary~\ref{cor:compression-limit}, which extends
+Lemma~\ref{lem:profile-potential}(c) by a Hankel flattening. Part (b) is
+Theorem~\ref{thm:lower}. Its bounds on \(r_*\), \(m_*\) and
+\(\log(B/A)\) extend to composites and tensor products of chain schemes
+and classical algorithms, and Theorem~\ref{thm:intro-main} attains their
+orders (Remark~\ref{rem:limits-orders}). The source side depends on the
+supply. Forward recycling keeps the \(r_*\), \(m_*\) and
+\(p<9/4+\eps/2\) of that scheme, changes \(\log(B/A)\) by at most
+\(\log2\), and gives \(\log A<5.32\cdot10^6\,\eps^{-3}\log^3(4096/\eps)\)
+(Corollary~\ref{cor:recycled-main}). It lowers \(\log n_0\) of the
+seed only by a factor below \(1.34\), since the copy counts, not the
+source side, set the size of the seed (Remark~\ref{rem:limits-orders}).
+With computer assistance, Proposition~\ref{prop:small-sources} shows that every chain scheme with
+\(p<3\), also after composition and tensor products, has
+\(m_*>2^{494}\), and that the least such \(m_*\) is attained. None of
+these limits is a lower bound for \(\omega\) or for tensor rank.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+ & \multicolumn{2}{l}{Preceding paper} & This paper\\
+\cmidrule(r){2-3}
+ & size & source & size\\
+\midrule
+least \(\log m_*\) and \(\log r_*\) & \(>(6/5)^{9/(2\eps)}\)
+ & \citep[Prop.~11.1(b)]{FinCon26}
+ & \(\Theta(\eps^{-9/2}\log^3(1/\eps))\)\\
+\(\log n_0\) of a seed & \(>\frac12(6/5)^{9/\eps}\)
+ & \citep[Cor.~11.2(c)]{FinCon26}
+ & \(O(\eps^{-11/2}\log^3(1/\eps))\)\\
+least \(\log A\) & \(e^{\Theta(1/\eps)}\)
+ & \citep[Cor.~11.2(b)]{FinCon26}
+ & \(\Theta(\eps^{-9/2}\log^3(1/\eps))\)\\
+\(\delta(n)\) of one algorithm & \(O(1/\log\log n)\)
+ & \citep[Rem.~9.8]{FinCon26}, sketch
+ & \(O((\log\log n)^{6/11}(\log n)^{-2/11})\)\\
+digits of \(A\), \(\Phi\approx2.6728\) & \(234{,}905{,}651{,}862\)
+ & \citep[Table~2]{FinCon26}, \(a=12\) & \(4{,}653\)\\
+digits of \(A\), \(p<2.26\) & \(>9.29\cdot10^{34}\)
+ & Section~\ref{subsec:examples-comparison} & \(48{,}859{,}824{,}830\)\\
+\bottomrule
+\end{tabular}
+\caption{The two constructions, each with the source supplying every
+auxiliary; far from \(9/4\), other constructions are smaller
+(Section~\ref{subsec:examples-comparison}). The first three rows concern
+exponents at most \(9/4+\eps\) as \(\eps\to0\): schemes with
+\(p\le9/4+\eps\), and seeds with fewer than \(n_0^{9/4+\eps}\) products.
+Preceding paper: the first and third rows hold for \(\eps\le1/4\), and
+the second for \(\eps\le1/2\). In the first row,
+\citep[Proposition~11.1(b)]{FinCon26} bounds \(\log A\) and gives
+\(a\ge4\) for the target index \(a\); with this,
+\citep[(7.3), (7.6) and~(11.2)]{FinCon26} and \(B>A\) give
+\(\log r_*>\log m_*>2\log A\). This paper:
+Theorems~\ref{thm:intro-main} and~\ref{thm:intro-limits}(b) for the
+first and third rows (Remark~\ref{rem:limits-orders}),
+Theorem~\ref{thm:intro-seed} for the second and fourth, and
+Theorem~\ref{thm:intro-examples} for the last two.}
+\label{tab:intro-comparison}
+\end{table}
+
+\subsection{The idea}
+\label{subsec:intro-idea}
+
+\paragraph{One stage.}
+Fix \(d\ge2\) and \(1\le c<b\), and put \(h=b-c\). The \emph{shifted
+sum} \((g_0,\ldots,g_{d-1})\mapsto\sum_{j<d}\xi^{jh}g_j\) maps \(d\)
+polynomials with \(b\) coefficients onto those with \(b^+=db-(d-1)c\)
+coefficients, with kernel the direct sum of \(d-1\) copies of the
+polynomials with \(c\) coefficients. As it commutes with multiplication
+by a polynomial, \(C(r,b)B_X(d)\) is block triangular in unimodular
+bases adapted to the kernel, with a \emph{quotient} part \(C(r,b^+)\)
+and \(d-1\) \emph{kernel} parts \(C(r,c)\) sharing the first leg
+(Lemma~\ref{lem:shifted-chain}). If \((d+2)c\le db-r+1\), a crop and a
+reset cut the quotient part into two \emph{outer} parts \(C(r,c)\) and
+one \emph{middle} part \(C(r,c)^{(23)}\) (Lemma~\ref{lem:reset}). In the
+\(N\)-th tensor power, prescribing the numbers \((\nK,\nO,\nmid)\) of
+kernel, outer and middle parts on legs \(2\) and \(3\) deletes every
+cross term, since each goes from a part to one of larger weight (the
+weights are \(2\), \(1\), \(0\), in this order), and leaves
+\(M=N!\,(d-1)^{\nK}2^{\nO}/(\nK!\,\nO!\,\nmid!)\) sectors sharing the
+first leg (Lemma~\ref{lem:stage-types}), with
+\((d+2)^N/(N+1)^2\le M<(d+2)^N\) for the largest \(M\)
+(Lemma~\ref{lem:types}). L\"u's version~\citep{Lu26} of the separator
+of~\citet{OAI26} turns \(2M-1\) copies of this sum into \(M\) independent sectors, each with an extra
+dot product \(B_X(M)\). In the six orientations of the legs, the dot
+products \(B_X(e)\) form \(\MM_{e^2}\), and the middle parts only
+permute the orientations, so Proposition~\ref{prop:stage} gives a
+degeneration over \(\Q\), of degree at most \(6(M-1)\),
+\[
+ (2M-1)^6\,Q_{r,b}^{\otimes N}\,\MM_{d^{2N}}\degen
+ M^6\,Q_{c,r}^{\otimes N}\,\MM_{M^2} ,
+\]
+where \(\MM_e\) denotes \(e\times e\) matrix multiplication and \(M\)
+the sector count. For the largest \(M\), the stage trades an auxiliary
+of side \(d^{2N}\) for a matrix multiplication tensor of side \(M^2\approx(d+2)^{2N}\), at
+the price of fewer than \(64\) copies.
+
+\paragraph{Chains, and why \(9/4\).}
+Interpolation~\citep{Bini80}, in the rational form
+of~\citep[Lemmas~2.2 and~9.1(c)]{FinCon26}, makes each stage exact at a
+tensor power \(k\), with \(E=1+6k(M-1)\) times as many copies
+(Corollary~\ref{cor:exact-stage}). The power of \(Q_{c,r}\) in the
+target of a stage is the power of \(Q\) in the source of the next, so
+exact stages compose. Unlike~\citep{FinCon26}, a chain needs no
+balancing of frequencies and no \emph{catalyst}, that is, no factor
+common to both sides of a relation that each use of the relation
+consumes and reproduces~\citep[Proposition~7.1]{FinCon26}. A chain, started by evaluating
+\(Q_{r_1,b_1}\) with \(s^6\) products, \(s=r_1+b_1-1\), gives \(r_*\MM_A\restr m_*\MM_B\) with
+\(A=\prod_id_i^{2Nk}\) and \(B=t^{2Nk}\prod_iM_i^{2k}\)
+(Proposition~\ref{prop:chain-counts}). As \(N\) and \(k\) grow, with
+types of the largest \(M\), \(p\) approaches the \emph{ideal exponent} \(3\log s/(\log t+G)\), where
+\(G=\sum_i\log\frac{d_i+2}{d_i}\) is the \emph{gain}. The least profile
+\(F\) (Section~\ref{subsec:prelim-profiles}) satisfies
+\(dF(r,b)\ge(d+2)F(c,r)\) at every stage, \(F(1,t)=t\) and
+\(F(r_1,b_1)\le s^{4/3}\), so \(\log t+G\le\frac43\log s\) and \(p>9/4\)
+(Lemma~\ref{lem:profile-potential}). Equality holds on the \emph{arity
+ramp}, the stages of arities \(3j-1\) and \(3j\) from \((R,R)\) down to
+\((1,1)\), with gain \(\log F(R,R)\ge\frac43\log R\)
+(Lemma~\ref{lem:ramp}). Above it, a \emph{bulk} of stages of one arity
+\(D\) multiplies the pair by about the positive root \(\mu\) of
+\(D\mu^2-\mu-(D+2)=0\) at each stage, with ideal exponent at most
+\(9/4+27/(32(D+1)^2)\) (Lemmas~\ref{lem:bulk-potential}
+and~\ref{lem:ideal-gap}). Theorem~\ref{thm:intro-main} takes
+\(D=\lceil2\eps^{-1/2}\rceil\), \(R=8D\), about \(64D/\eps\) bulk stages
+and \(N=k=O(\eps^{-3/2}\log(1/\eps))\), so that the excess of the ideal
+exponent over \(9/4\) and all losses add up to less than \(\eps/2\) (Step~4 of the proof of Theorem~\ref{thm:main}). As \(A\)
+depends only on the arities, \(N\) and \(k\),
+\(\log A\le2N^2J\log(24D)=O(\eps^{-9/2}\log^3(1/\eps))\), where \(J\)
+is the number of stages. The exponentially large source pair enters
+only \(r_*\), through \(s^{6Nk}\), and the copy counts satisfy
+\(m_*\le A^6\) and \(r_*<A^{35/4}\).
+
+\subsection{Related work and credits}
+\label{subsec:intro-related}
+
+The bound \(\omega\le9/4\), the profile axioms and the convolution
+relations behind them are due to \citet{OAI26}. The bound was extended
+to every field~\citep{Nav26a,Zui26} (in Lean), to associative unital
+rings~\citep{Nav26b}, to algebraically closed fields of every
+characteristic, with a polynomial separator and the other steps checked
+in outline~\citep{Lu26}, and to rectangular products in characteristic
+zero~\citep{Uzn26}. The criterion of~\citet{Fil26} turns finite
+families of shared-leg block identities with a nonnegative certificate
+into exponent bounds, and also gives \(\omega\le9/4\) over every field.
+These works prove that algorithms exist; to our knowledge, apart from~\citep{FinCon26}, no work gives
+explicit sizes for exponents near \(9/4\). An OpenAI
+preprint~\citep{OAI26Comp} proves \(\omega<2.258\) in characteristic
+zero by a different method.
+
+For \(h=1\) the shifted sum is known: for \(d=2\) it is the map in the
+proof of~\citep[Lemma~4.1]{OAI26}, and for every \(d\) its kernel is the
+first step \(\mathcal F^1\) of the determinant
+filtration~\citep[Lemma~2.5]{Maakestad23},~\citep[Section~4.1]{FinCon26}
+(there for \(b\ge d\)).
+For \(h\ge2\) it is a substitution of binary forms
+(Section~\ref{subsec:shifted-chain}); this is elementary, but we found
+no source for it. New, to our knowledge, are keeping the kernel whole,
+as \(d-1\) equal parts, the shift \(h\ge2\), the acyclic schedule
+without a catalyst, the arity ramp, and the explicit bounds proved
+here. The reset is
+the partition in the proof of~\citep[Lemma~4.2]{OAI26} (see
+also~\citep[Lemma~2.1(3)]{Uzn26}), and our type restriction
+follows~\citep[Lemma~4.3]{FinCon26}. Shared-leg separation is due
+to~\citet[Proposition~3.1]{OAI26}, with \(5M\) source copies; we use the
+polynomial separator of~\citet[Proposition~2.1]{Lu26}, with \(2M-1\)
+copies and degree at most \(M-1\), in the rational form
+of~\citep[Lemma~9.1(b)]{FinCon26}. The ramp attains the diagonal
+recursion~\citep[(5.1)]{OAI26} with equality, and
+\(F(R,R)\ge R^{4/3}\) is~\citep[Lemma~5.1]{OAI26}. With \(N=1\) and the
+cross terms removed by a degeneration, a stage gives a shared-leg block
+identity \(C(r,b)B_X(d)\degen\sum_iT_i\) with \(d+2\) blocks, in the
+sense of~\citet[Theorem~1.1, identity~(1.2)]{Fil26}, whose criterion
+gives exponents but no sizes. Relative schemes are a form of relative
+bilinear complexity~\citep{Str87}, and type restrictions are standard
+in the laser method~\citep{Str87,CW90}.

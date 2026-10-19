@@ -1,0 +1,476 @@
+\section{Stages}
+\label{sec:stages}
+
+A \emph{legal stage of arity \(d\)}, or simply a \emph{stage}, written
+\((r,b)\to(c,r)\), is given by integers with
+\begin{equation}\label{eq:stage-conditions}
+ r\ge1,\qquad d\ge2,\qquad c\ge1,\qquad (d+2)c\le db-r+1 .
+\end{equation}
+The last condition implies \(c<b\), as \(dc<(d+2)c\le db-r+1\le db\).
+The stage
+has \emph{parent} \(C(r,b)\), \emph{child length} \(c\) and next pair
+\((c,r)\). We put \(h=b-c\ge1\) and \(b^+=db-(d-1)c=b+(d-1)h\), the
+\emph{shift} and the \emph{quotient length}.
+Lemma~\ref{lem:shifted-chain} splits \(C(r,b)B_X(d)\)
+block-triangularly into \(d-1\) kernel parts \(C(r,c)\) and a quotient
+part \(C(r,b^+)\). By Lemma~\ref{lem:reset}(c), the last condition
+of~\eqref{eq:stage-conditions} says that \(b^+\ge3c+r-1\), so
+Lemma~\ref{lem:reset} can crop the quotient to \(C(r,3c+r-1)\) and
+reset it into two copies of \(C(r,c)\) and one of \(C(r,c)^{(23)}\).
+Lemma~\ref{lem:stage-types} deletes all cross terms in a tensor power by
+fixing class counts, and Proposition~\ref{prop:stage},
+Corollary~\ref{cor:exact-stage} and Proposition~\ref{prop:chain-counts}
+turn this into exact relations and compose them.
+
+\subsection{The shifted sum}
+\label{subsec:shifted-chain}
+
+Let \(\mathbb F\) be a field, and let \(\mathbb F[\xi]_{<\ell}\) be the
+polynomials in \(\xi\) of degree less than \(\ell\), with basis
+\(\xi^0,\ldots,\xi^{\ell-1}\). Fix \(d\ge2\) and \(h\ge1\). For
+\(\ell\ge h+1\) let \(W_\ell=(\mathbb F[\xi]_{<\ell})^d\), with
+components \(j=0,\ldots,d-1\) and monomial basis \(\xi^me_j\), and define
+the \emph{shifted sum}
+\[
+ W_\ell\to\mathbb F[\xi]_{<\ell+(d-1)h},\qquad
+ (g_0,\ldots,g_{d-1})\longmapsto\sum_{j=0}^{d-1}\xi^{jh}g_j .
+\]
+For \(0\le j\le d-2\) and \(g\in\mathbb F[\xi]_{<\ell-h}\), the
+\emph{kernel vector} \(\kappa_j(g)\in W_\ell\) has component \(j\) equal
+to \(-\xi^hg\), component \(j+1\) equal to \(g\), and all others zero.
+For \(0\le\gamma<\ell+(d-1)h\), let \(j_\ell(\gamma)\) be the least \(j\)
+with \(\gamma\le jh+\ell-1\), and let
+\(\lambda_\ell(\gamma)=\xi^{\gamma-j_\ell(\gamma)h}e_{j_\ell(\gamma)}\),
+the \emph{lift} of \(\xi^\gamma\). It is a monomial of \(W_\ell\), the
+one in the first component that contains the exponent \(\gamma\): if
+\(j=j_\ell(\gamma)\ge1\), then \(\gamma>(j-1)h+\ell-1\ge jh\).
+
+For integers \(r\ge1\), \(d\ge2\) and \(1\le c<b\), with \(h=b-c\), the
+tensor
+\begin{equation}\label{eq:stage-U}
+ U=C(r,b)\,B_X(d)=\sum_{\alpha=0}^{r-1}\sum_{\beta=0}^{b-1}\sum_{j=0}^{d-1}
+ x_\alpha\,y_{j,\beta}\,z_{j,\alpha+\beta}
+\end{equation}
+multiplies \(f\in\mathbb F[\xi]_{<r}\) by \(g\in W_b\) componentwise: the
+variable \(z_{j,\gamma}\) reads the coefficient of \(\xi^\gamma e_j\) in
+\(fg\in W_{b+r-1}\).
+
+\begin{lemma}[Shifted sum]\label{lem:shifted-chain}
+Let \(d\ge2\), \(h\ge1\) and \(\ell\ge h+1\).
+\begin{enumerate}
+\item[(a)] The lifts \(\lambda_\ell(\gamma)\), \(0\le\gamma<\ell+(d-1)h\),
+and the kernel vectors \(\kappa_j(\xi^i)\), \(0\le j\le d-2\),
+\(0\le i<\ell-h\), form a basis of \(W_\ell\), the \emph{shifted basis}.
+Its matrix has entries in \(\{0,\pm1\}\) and determinant \(\pm1\), and its
+inverse has entries in \(\{0,1\}\): for \(0\le m<\ell\) and \(0\le j<d\),
+\begin{equation}\label{eq:stage-inverse}
+ \xi^me_j=\lambda_\ell(jh+m)
+ +\sum_{j'=j_\ell(jh+m)}^{j-1}\kappa_{j'}\bigl(\xi^{m+(j-1-j')h}\bigr).
+\end{equation}
+\item[(b)] The shifted sum is surjective, and its kernel is the direct
+sum of the \(d-1\) subspaces \(\kappa_j(\mathbb F[\xi]_{<\ell-h})\).
+\item[(c)] Let \(r\ge1\) and \(1\le c<b\), with \(h=b-c\). Use the shifted
+basis of \(W_b\) on leg~\(2\) of \(U\), the coordinates dual to the
+shifted basis of \(W_{b+r-1}\) on leg~\(3\), and the monomial basis on
+leg~\(1\). Call the new coordinates \(y^{\mathrm q}_\beta\) and
+\(y^{(j)}_i\) (for \(\lambda_b(\beta)\) and \(\kappa_j(\xi^i)\)), and
+\(z^{\mathrm q}_\gamma\) and \(z^{(j)}_i\) (for
+\(\lambda_{b+r-1}(\gamma)\) and \(\kappa_j(\xi^i)\)). Then \(U\) becomes
+\begin{equation}\label{eq:stage-tensor}
+ U'=\sum_{\alpha=0}^{r-1}x_\alpha\Biggl(
+ \sum_{\beta=0}^{b^+-1}y^{\mathrm q}_\beta z^{\mathrm q}_{\beta+\alpha}
+ +\sum_{j=0}^{d-2}\sum_{i=0}^{c-1}y^{(j)}_iz^{(j)}_{i+\alpha}
+ +\sum_{\beta=0}^{b^+-1}\ \sum_{j'=j_{b+r-1}(\beta+\alpha)}^{j_b(\beta)-1}
+ y^{\mathrm q}_\beta z^{(j')}_{\beta+\alpha-(j'+1)h}\Biggr).
+\end{equation}
+The first sum is \(C(r,b^+)\), the second is \(d-1\) copies of \(C(r,c)\),
+all sharing leg~\(1\), and the third, which joins quotient to kernel
+coordinates, is nonzero if and only if \(r\ge2\). The substitutions are
+integral with integral inverses, so \(U\restr U'\restr U\) over every
+field.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For each \(\gamma\), the monomials \(m_j=\xi^{\gamma-jh}e_j\) of
+\(W_\ell\) have \(j_0\le j\le j_1\), where \(j_0=j_\ell(\gamma)\) and
+\(j_1=\min(d-1,\lfloor\gamma/h\rfloor)\); let \(W^{(\gamma)}\) be their
+span. Every monomial \(\xi^me_j\) lies in \(W^{(m+jh)}\), so
+\(W_\ell=\bigoplus_\gamma W^{(\gamma)}\). The lift \(\lambda_\ell(\gamma)\)
+is \(m_{j_0}\), and \(\kappa_j(\xi^i)=\xi^ie_{j+1}-\xi^{i+h}e_j\) lies in
+\(W^{(\gamma)}\) for \(\gamma=i+(j+1)h\), where the conditions
+\(0\le i<\ell-h\) and \(j\le d-2\) read \(j_0\le j<j_1\). So the vectors
+of~(a) in \(W^{(\gamma)}\) are \(m_{j_0}\) and \(m_{j+1}-m_j\),
+\(j_0\le j<j_1\). Their matrix in the basis \(m_{j_0},\ldots,m_{j_1}\) is
+unitriangular with entries \(0,\pm1\), and its inverse
+\(m_j=m_{j_0}+\sum_{j'=j_0}^{j-1}(m_{j'+1}-m_{j'})\)
+is~\eqref{eq:stage-inverse}. Hence (a) holds on every \(W^{(\gamma)}\),
+and so on \(W_\ell\).
+
+(b) The shifted sum maps \(\xi^me_j\) to \(\xi^{m+jh}\), so it maps the
+lifts bijectively onto the monomials \(\xi^\gamma\) and is onto; and it
+maps \(\kappa_j(g)\) to \(-\xi^{(j+1)h}g+\xi^{(j+1)h}g=0\). As the lifts
+and kernel vectors form a basis by~(a), the kernel vectors form a basis of
+the kernel.
+
+(c) As in \citep[Section~4.1]{FinCon26}, substitute \(y=\Pi_by'\) and
+\(z=\Pi_{b+r-1}^{-\top}z'\), where \(\Pi_\ell\) has the shifted basis as
+columns; the coefficient of \(x_\alpha y'_{\mathbf u}z'_{\mathbf v}\) is
+then the coordinate along \(\mathbf v\) of \(\xi^\alpha\mathbf u\). First,
+\(\xi^\alpha\kappa_j(\xi^i)=\kappa_j(\xi^{i+\alpha})\) in \(W_{b+r-1}\),
+since \(i+\alpha<c+r-1=(b+r-1)-h\). Second,
+\(\xi^\alpha\lambda_b(\beta)=\xi^{\beta+\alpha-jh}e_j\) with
+\(j=j_b(\beta)\), and by~\eqref{eq:stage-inverse} for \(W_{b+r-1}\) this
+is \(\lambda_{b+r-1}(\beta+\alpha)\) plus
+\(\kappa_{j'}(\xi^{\beta+\alpha-(j'+1)h})\) for
+\(j_{b+r-1}(\beta+\alpha)\le j'<j_b(\beta)\). This
+gives~\eqref{eq:stage-tensor}; in the first sum, \(\beta\) runs over
+\([0,b^+)\) and \(\beta+\alpha\) over \([0,b^++r-1)\). If \(r=1\), then
+\(\alpha=0\) and \(j_{b+r-1}=j_b\), so the third sum is empty. If
+\(r\ge2\), then \(\beta=b<b^+\) and \(\alpha=0\) give \(j_b(b)=1\) and
+\(j_{b+r-1}(b)=0\), so the third sum contains
+\(x_0y^{\mathrm q}_bz^{(0)}_c\).
+\end{proof}
+
+\begin{example}\label{ex:shifted-chain}
+Take \(d=2\), \(r=2\), \(b=3\) and \(c=1\), so that \(h=2\), \(b^+=5\)
+and the shifted sum is \((g_0,g_1)\mapsto g_0+\xi^2g_1\). The shifted
+bases are
+\[
+\begin{array}{c|l|l}
+ &\text{lifts }\lambda_\ell(0),\lambda_\ell(1),\ldots&\text{kernel vectors }\kappa_0(\xi^i)\\ \hline
+ W_3&e_0,\ \xi e_0,\ \xi^2e_0,\ \xi e_1,\ \xi^2e_1&e_1-\xi^2e_0\\
+ W_4&e_0,\ \xi e_0,\ \xi^2e_0,\ \xi^3e_0,\ \xi^2e_1,\ \xi^3e_1&e_1-\xi^2e_0,\ \xi e_1-\xi^3e_0
+\end{array}
+\]
+Multiplying a vector of the first row by \(1\) or \(\xi\) gives a vector
+of the second row in every case but one: \(1\cdot\lambda_3(3)=\xi e_1\)
+is \(\lambda_4(3)+\kappa_0(\xi)\) in \(W_4\). Hence \(U'\) consists of
+\(C(2,5)\) in the coordinates \(x,y^{\mathrm q},z^{\mathrm q}\), of
+\(C(2,1)\) in \(x,y^{(0)},z^{(0)}\), and of the single term
+\(x_0y^{\mathrm q}_3z^{(0)}_1\).
+\end{example}
+
+\paragraph{Binary forms.}
+Identify \(\xi^me_j\in W_\ell\) with
+\(u^{\ell-1-m}v^m\,u'^{\,d-1-j}v'^{\,j}\in V_\ell\otimes V'_d\), where
+\(V_\ell\) and \(V'_d\) are the binary forms with \(\ell\) and \(d\)
+coefficients in \(u,v\) and in \(u',v'\) of \citep[Section~4.1]{FinCon26},
+and identify \(\xi^\gamma\) with \(u^{\ell+(d-1)h-1-\gamma}v^\gamma\). Then
+the shifted sum is the substitution \((u',v')=(u^h,v^h)\), and
+\(\kappa_j(\xi^i)=\Delta_h\,u^{\ell-h-1-i}v^iu'^{\,d-2-j}v'^{\,j}\) with
+\(\Delta_h=u^hv'-v^hu'\). For \(h=1\), the kernel
+\(\Delta_1(V_{\ell-1}\otimes V'_{d-1})\) is the first step
+\(\mathcal F^1(V_\ell\otimes V'_d)\) of the determinant filtration
+of \citep[Section~4.1]{FinCon26}, defined there for \(\ell\ge d\). For
+\(b\ge d\), the split of width \(d-1\) there refines \(\mathcal F^1\)
+further, with quotients carrying \(C(r,b+d-1-2j)\), \(1\le j\le d-1\);
+Lemma~\ref{lem:shifted-chain} keeps it whole, as \(d-1\) equal parts
+\(C(r,c)\).
+
+\subsection{Crop and reset}
+\label{subsec:reset}
+
+\begin{lemma}[Crop and reset]\label{lem:reset}
+Let \(r,c\ge1\).
+\begin{enumerate}
+\item[(a)] For \(\ell\ge3c+r-1\), setting \(y_\beta=0\) for
+\(\beta\ge3c+r-1\) and \(z_\gamma=0\) for \(\gamma\ge3c+2r-2\) restricts
+\(C(r,\ell)\) to \(C(r,3c+r-1)\).
+\item[(b)] Label the indices of legs \(2\) and \(3\) of \(C(r,3c+r-1)\)
+by the intervals
+\[
+\begin{array}{c|ccc}
+ &\mathsf{left}&\mathsf{mid}&\mathsf{right}\\ \hline
+ \beta\text{ (leg 2)}&[0,c-1]&[c,2c+r-2]&[2c+r-1,3c+r-2]\\
+ \gamma\text{ (leg 3)}&[0,c+r-2]&[c+r-1,2c+r-2]&[2c+r-1,3c+2r-3]
+\end{array}
+\]
+In every term \(x_\alpha y_\beta z_{\alpha+\beta}\), either \(\beta\) and
+\(\gamma=\alpha+\beta\) have the same label, or \(\beta\) is
+\(\mathsf{mid}\) and \(\gamma\) is \(\mathsf{left}\) or \(\mathsf{right}\).
+The terms with both labels \(\mathsf{left}\) form \(C(r,c)\); those with
+both labels \(\mathsf{right}\) form \(C(r,c)\) after subtracting
+\(2c+r-1\) from \(\beta\) and \(\gamma\); and those with both labels
+\(\mathsf{mid}\) form \(C(r,c)^{(23)}\) after \(\alpha\mapsto r-1-\alpha\),
+\(\beta\mapsto\beta-c\) and \(\gamma\mapsto\gamma-(c+r-1)\).
+\item[(c)] For \(d\ge2\) and \(1\le c<b\), \(b^+\ge3c+r-1\) if and only if
+\((d+2)c\le db-r+1\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) If \(\beta<3c+r-1\), then \(\alpha+\beta\le3c+2r-3\), so the kept
+terms are those of \(C(r,3c+r-1)\).
+(b) A \(\mathsf{left}\) \(\beta\) gives \(\gamma\le c+r-2\), which is
+\(\mathsf{left}\); a \(\mathsf{right}\) \(\beta\) gives
+\(\gamma\ge\beta\), which is \(\mathsf{right}\); and a \(\mathsf{mid}\)
+\(\gamma\) gives \(\beta=\gamma-\alpha\in[c,2c+r-2]\), which is
+\(\mathsf{mid}\). So different labels force a \(\mathsf{mid}\) \(\beta\)
+and an outer \(\gamma\). The \(\mathsf{left}\) part consists of the terms
+with \(\beta<c\), and the \(\mathsf{right}\) part is a translate. The
+\(\mathsf{mid}\) part consists of the terms with \(\gamma\) \(\mathsf{mid}\);
+with \(\alpha'=r-1-\alpha\) and \(\gamma'=\gamma-(c+r-1)\in[0,c)\) we get
+\(\beta=c+\alpha'+\gamma'\), so after the substitutions the part is
+\(\sum_{\alpha'<r,\gamma'<c}x_{\alpha'}y_{\alpha'+\gamma'}z_{\gamma'}\),
+which is \(C(r,c)\) with legs \(2\) and \(3\) exchanged.
+(c) \(b^+-(3c+r-1)=db-(d+2)c-r+1\).
+\end{proof}
+
+Lemma~\ref{lem:stage-types} below removes the cross terms of~(b),
+together with the third sum of~\eqref{eq:stage-tensor}.
+
+\subsection{The type restriction of a stage}
+\label{subsec:stage-types}
+
+Fix a stage \((r,b)\to(c,r)\) of arity \(d\). Each coordinate on legs
+\(2\) and \(3\) of \(U'\) gets a \emph{letter}: \(y^{(j)}_i\) and
+\(z^{(j)}_i\) get \(\mathsf K_j\); \(y^{\mathrm q}_\beta\) gets its
+leg-\(2\) label from Lemma~\ref{lem:reset}(b) if \(\beta<3c+r-1\), and
+\(\mathsf{cropped}\) otherwise; \(z^{\mathrm q}_\gamma\) gets its leg-\(3\)
+label if \(\gamma<3c+2r-2\), and \(\mathsf{cropped}\) otherwise. Since
+\(b^+\ge3c+r-1\), the quotient coordinates that are not
+\(\mathsf{cropped}\) carry \(C(r,3c+r-1)\) and every label occurs. The other letters form three \emph{classes}: \emph{kernel}
+(\(\mathsf K_0,\ldots,\mathsf K_{d-2}\)), of \emph{weight}~\(2\);
+\emph{outer} (\(\mathsf{left},\mathsf{right}\)), of weight~\(1\); and
+\emph{middle} (\(\mathsf{mid}\)), of weight~\(0\). The \emph{diagonal
+part} \(U'_\chi\) of such a letter \(\chi\) is the sum of the terms of
+\(U'\) with letter \(\chi\) on both legs. By
+Lemmas~\ref{lem:shifted-chain}(c) and~\ref{lem:reset}, coordinate
+permutations of each leg identify \(U'_{\mathsf K_j}\),
+\(U'_{\mathsf{left}}\) and \(U'_{\mathsf{right}}\) with \(C(r,c)\), and
+\(U'_{\mathsf{mid}}\) with \(C(r,c)^{(23)}\), the last one reversing the
+first index.
+
+\begin{lemma}[Stage type restriction]\label{lem:stage-types}
+Let \((r,b)\to(c,r)\) be a stage of arity \(d\), let \(N\ge1\), and let
+\(\tau=(\nK,\nO,\nmid)\) be nonnegative integers with sum \(N\), a
+\emph{type of width \(N\)}. In \(U'^{\otimes N}\), with product
+coordinates on legs \(2\) and \(3\), the \emph{word} of a coordinate is
+its sequence of letters, and its \emph{type} is the triple of the
+numbers of its kernel, outer and middle letters. After the substitutions
+of Lemma~\ref{lem:shifted-chain}(c) in every position, setting to zero
+every coordinate on legs \(2\) and \(3\) whose type is not \(\tau\) gives
+a restriction of \(U^{\otimes N}\), with integer coefficients, to a sum
+\(T=\sum_wT_w\) of
+\begin{equation}\label{eq:stage-sector-count}
+ M=\frac{N!}{\nK!\,\nO!\,\nmid!}\,(d-1)^{\nK}\,2^{\nO}
+\end{equation}
+sectors sharing the first leg \(X=(\mathbb F^r)^{\otimes N}\), one for each
+word \(w\) of type \(\tau\) (a word that contains \(\mathsf{cropped}\) has a
+type of width less than \(N\)). The sector
+\(T_w=U'_{w_1}\otimes\cdots\otimes U'_{w_N}\) consists of the terms with
+word \(w\) on both legs. Moving the middle positions to the end, keeping
+the order within each group, and reversing the first index at middle
+positions identifies \(T_w\) with
+\begin{equation}\label{eq:stage-sector-tensor}
+ \mathcal V=C(r,c)^{\otimes(N-\nmid)}\bigl(C(r,c)^{(23)}\bigr)^{\otimes\nmid}
+\end{equation}
+by coordinate permutations of each leg; on the first leg they depend
+on \(w\).
+\end{lemma}
+
+\begin{proof}
+\emph{One position.} Let \(x_\alpha y'_{\mathbf u}z'_{\mathbf v}\) be a
+term of \(U'\) with letters \(\chi\ne\mathsf{cropped}\) on leg \(2\) and
+\(\chi'\ne\mathsf{cropped}\) on leg \(3\). We claim that \(\chi'=\chi\) or
+that \(\chi'\) has larger weight. By~\eqref{eq:stage-tensor}, a kernel
+coordinate \(y^{(j)}_i\) occurs only with \(z^{(j)}_{i+\alpha}\). A
+quotient coordinate, of weight at most \(1\), occurs either with a kernel
+coordinate, of weight \(2\), or in a term
+\(x_\alpha y^{\mathrm q}_\beta z^{\mathrm q}_{\beta+\alpha}\) of
+\(C(r,b^+)\) with \(\beta<3c+r-1\), which by Lemma~\ref{lem:reset} has
+equal labels or goes from \(\mathsf{mid}\) to an outer label.
+
+\emph{The power.} Setting coordinates to zero is a restriction, so
+\(U^{\otimes N}\restr U'^{\otimes N}\restr T\). The coefficient of a term
+of \(U'^{\otimes N}\) is the product of the coefficients in the \(N\)
+positions. In a surviving term with words \(w\) on leg \(2\) and \(w'\)
+on leg \(3\), the weight of \(w'_q\) is therefore at least that of
+\(w_q\) at every position \(q\). Both words have type \(\tau\)
+and hence weight \(2\nK+\nO\), so the weights agree at every position,
+and by the claim \(w'=w\). Thus \(T\) is the sum of the \(T_w\), which use
+disjoint coordinates on legs \(2\) and \(3\), and
+\(T_w=\bigotimes_qU'_{w_q}\).
+
+\emph{Count.} A word of type \(\tau\) is given by the positions of the
+three classes, a kernel letter at each kernel position and an outer
+letter at each outer position, which gives~\eqref{eq:stage-sector-count}.
+The identification follows from those of the parts \(U'_\chi\).
+\end{proof}
+
+In Example~\ref{ex:shifted-chain}, where~\eqref{eq:stage-conditions}
+reads \(4\le5\), the crop removes \(y^{\mathrm q}_4\) and
+\(z^{\mathrm q}_5\), and the cross terms are
+\(x_0y^{\mathrm q}_1z^{\mathrm q}_1\) (\(\mathsf{mid}\) to
+\(\mathsf{left}\)), \(x_1y^{\mathrm q}_2z^{\mathrm q}_3\) (\(\mathsf{mid}\)
+to \(\mathsf{right}\)) and \(x_0y^{\mathrm q}_3z^{(0)}_1\)
+(\(\mathsf{right}\) to \(\mathsf K_0\)). Fixing only the number of middle
+letters, as in \citep[Lemma~4.5]{FinCon26}, would keep the last one.
+
+\subsection{The stage relation}
+\label{subsec:stage-relation}
+
+\begin{proposition}[One stage]\label{prop:stage}
+Let \((r,b)\to(c,r)\) be a stage of arity \(d\), let \(N\ge1\), let
+\(\tau\) be a type of width \(N\), and let \(M\) be given
+by~\eqref{eq:stage-sector-count}. There is a degeneration over \(\Q\)
+\begin{equation}\label{eq:stage-relation}
+ (2M-1)^6\,Q_{r,b}^{\otimes N}\,\MM_{d^{2N}}\degen M^6\,Q_{c,r}^{\otimes N}\,\MM_{M^2}
+\end{equation}
+of degree at most \(6(M-1)\). In each orientation \(\pi\in S_3\), its maps
+are the restriction of Lemma~\ref{lem:stage-types}, the
+separator~\eqref{eq:prelim-separator} with shared leg \(\pi(1)\), and
+coordinate permutations that do not depend on \(t\).
+\end{proposition}
+
+\begin{proof}
+Let \(U\) be the tensor~\eqref{eq:stage-U}; since
+\(B_X(d)^{\otimes N}\cong B_X(d^N)\),
+\(U^{\otimes N}\cong C(r,b)^{\otimes N}B_X(d^N)\). Apply the restriction
+of Lemma~\ref{lem:stage-types} to each of \(2M-1\) copies of
+\(U^{\otimes N}\), then the separator~\eqref{eq:prelim-separator}, of
+degree at most \(M-1\), and then the reindexing of
+Section~\ref{subsec:prelim-sectors} built from the identifications
+\(T_w\cong\mathcal V\). The first and last maps do not depend on \(t\),
+and the last is defined on all target variables. By
+\citep[Lemma~2.1]{FinCon26}, for every \(\pi\in S_3\) this gives
+\((2M-1)(U^{\otimes N})^\pi\degen M(\mathcal VB_X(M))^\pi\), of degree at
+most \(M-1\), with shared leg \(\pi(1)\), and tensoring the six
+orientations with one parameter \(t\) gives
+\[
+ (2M-1)^6\bigotimes_{\pi\in S_3}(U^{\otimes N})^\pi
+ \degen M^6\bigotimes_{\pi\in S_3}\bigl(\mathcal VB_X(M)\bigr)^\pi
+\]
+of degree at most \(6(M-1)\). All maps are rational. It remains to
+identify both sides by coordinate permutations within each global leg,
+which change neither the degree nor the constant term.
+By~\eqref{eq:prelim-mm}, \(\bigotimes_\pi(U^{\otimes N})^\pi\cong
+Q_{r,b}^{\otimes N}\bigotimes_\pi B_X(d^N)^\pi\cong Q_{r,b}^{\otimes N}\MM_{d^{2N}}\)
+and \(\bigotimes_\pi B_X(M)^\pi\cong\MM_{M^2}\). Since
+\((T^{(23)})^\pi=T^{\pi(23)}\) for every tensor \(T\),
+\[
+ \bigotimes_{\pi\in S_3}\mathcal V^\pi
+ =\bigotimes_{\pi\in S_3}\bigl(C(r,c)^\pi\bigr)^{\otimes(N-\nmid)}
+ \bigl(C(r,c)^{\pi(23)}\bigr)^{\otimes\nmid},
+\]
+and as \(\pi\) runs through \(S_3\), so does \(\pi(23)\). Hence
+\(\bigotimes_\pi\mathcal V^\pi\cong Q_{r,c}^{\otimes N}\cong Q_{c,r}^{\otimes N}\)
+by~\eqref{eq:prelim-Q}.
+\end{proof}
+
+\begin{corollary}[Exact stage]\label{cor:exact-stage}
+In the setting of Proposition~\ref{prop:stage}, let \(k\ge1\) and
+\(E=1+6k(M-1)\). Then, over \(\Q\),
+\begin{equation}\label{eq:stage-exact}
+ E\,(2M-1)^{6k}\,Q_{r,b}^{\otimes Nk}\,\MM_{d^{2Nk}}
+ \restr M^{6k}\,Q_{c,r}^{\otimes Nk}\,\MM_{M^{2k}} .
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Apply exactification in its rational form \citep[Lemmas~2.2
+and~9.1(c)]{FinCon26} to~\eqref{eq:stage-relation}, with degree bound
+\(\theta=6(M-1)\) and \(k\theta+1=E\), and use \((mT)^{\otimes k}\cong m^kT^{\otimes k}\) and
+\(\MM_a^{\otimes k}\cong\MM_{a^k}\).
+\end{proof}
+
+\begin{remark}[Both signs]\label{rem:both-signs}
+For one class \(\mathcal A_\sigma\), the proof gives
+\(\bigotimes_{\pi\in\mathcal A_\sigma}\mathcal V^\pi\cong
+(S^\sigma_{r,c})^{\otimes(N-\nmid)}(S^{-\sigma}_{r,c})^{\otimes\nmid}\),
+since \(\pi(23)\in\mathcal A_{-\sigma}\). For \(c=r\),
+\citep[(4.6)]{FinCon26} closes this with \(S^+_{r,r}\cong S^-_{r,r}\). For
+\(r\ne c\) with \(r,c\ge2\), the identities of \citep[(2.6)]{FinCon26} do
+not relate \(S^+_{r,c}\) to \(S^-_{r,c}\), so we use all six
+orientations, as in the proof of \citep[Lemma~4.2]{OAI26}. This costs
+nothing in the exponent. A threefold relation of degree \(3(M-1)\), if it
+existed, would have the auxiliaries
+\(\bigotimes_{\pi\in\mathcal A_\sigma}B_X(e)^\pi\cong\MM_e\)
+\citep[(2.2)]{FinCon26} with \(e=d^N\) and \(e=M\). At power \(2k\) it
+would give the same copy counts, auxiliary sides and number
+\(E=1+2k\cdot3(M-1)\) of exactification copies
+as~\eqref{eq:stage-exact}; only its odd powers, which give smaller sides
+but no smaller exponent, have no sixfold counterpart (compare
+\citep[Appendix~A.4]{FinCon26}).
+\end{remark}
+
+\subsection{Chains}
+\label{subsec:chain-counts}
+
+A \emph{chain} of \(J\ge1\) stages from the \emph{source pair}
+\((r_1,b_1)\) to the \emph{terminal pair} \((1,t)\), \(t\ge1\), consists
+of stages \((r_i,b_i)\to(c_i,r_i)\) of arities \(d_i\), \(1\le i\le J\),
+with \((r_{i+1},b_{i+1})=(c_i,r_i)\) for \(i<J\) and \((c_J,r_J)=(1,t)\).
+Its \emph{evaluation size} is \(s=r_1+b_1-1\).
+
+\begin{proposition}[Chain counts]\label{prop:chain-counts}
+Fix a chain as above and integers \(N,k\ge1\). At each stage \(i\) fix a
+type of width \(N\), let \(M_i\) be its sector
+count~\eqref{eq:stage-sector-count} with \(d=d_i\), and put
+\(E_i=1+6k(M_i-1)\). Then \(r_*\MM_A\restr m_*\MM_B\) over \(\Q\), where
+\begin{equation}\label{eq:stage-chain-counts}
+\begin{aligned}
+ A&=\prod_{i=1}^Jd_i^{2Nk},&\qquad
+ B&=t^{2Nk}\prod_{i=1}^JM_i^{2k},\\
+ r_*&=s^{6Nk}\prod_{i=1}^JE_i\,(2M_i-1)^{6k},&\qquad
+ m_*&=\prod_{i=1}^JM_i^{6k}.
+\end{aligned}
+\end{equation}
+If \(B>A\), this is a relative scheme \citep[Definition~2.3]{FinCon26}, its
+pooled exponent \(p=\log(r_*/m_*)/\log(B/A)\) satisfies \(p\ge2\), and
+\(\omega\le p\) over every field of characteristic zero
+\citep[Lemma~2.4]{FinCon26}.
+\end{proposition}
+
+\begin{proof}
+Put \(\mathcal T_i=Q_{r_i,b_i}^{\otimes Nk}\) for \(1\le i\le J+1\), with
+\((r_{J+1},b_{J+1})=(1,t)\), so that \(\mathcal T_{J+1}\cong\MM_{t^{2Nk}}\)
+by~\eqref{eq:prelim-Q} and~\eqref{eq:prelim-mm}. Put
+\(\rho_i=E_i(2M_i-1)^{6k}\) and \(\rho'_i=M_i^{6k}\). Since
+\(Q_{c_i,r_i}=Q_{r_{i+1},b_{i+1}}\), Corollary~\ref{cor:exact-stage} reads
+\(\rho_i\mathcal T_i\MM_{d_i^{2Nk}}\restr\rho'_i\mathcal T_{i+1}\MM_{M_i^{2k}}\). With
+\(A_{\ge j}=\prod_{i\ge j}d_i^{2Nk}\) and \(B_{<j}=\prod_{i<j}M_i^{2k}\),
+we show by induction on \(j=1,\ldots,J+1\) that
+\[
+ \Bigl(\prod_{i=1}^J\rho_i\Bigr)\mathcal T_1\MM_A\restr
+ \Bigl(\prod_{i<j}\rho'_i\Bigr)\Bigl(\prod_{i\ge j}\rho_i\Bigr)
+ \mathcal T_j\,\MM_{A_{\ge j}B_{<j}} .
+\]
+For \(j=1\) the two sides are equal. For the step, write
+\(\MM_{A_{\ge j}B_{<j}}\cong\MM_{d_j^{2Nk}}\MM_{A_{\ge j+1}B_{<j}}\). The
+right side is a direct sum of copies of
+\(\rho_j\mathcal T_j\MM_{d_j^{2Nk}}\MM_{A_{\ge j+1}B_{<j}}\). Applying
+Corollary~\ref{cor:exact-stage} for stage \(j\), tensored with
+\(\MM_{A_{\ge j+1}B_{<j}}\), to each copy turns it into
+\(\rho'_j\mathcal T_{j+1}\MM_{A_{\ge j+1}B_{<j+1}}\), which is the claim for
+\(j+1\). For \(j=J+1\), the right side is isomorphic to \(m_*\MM_B\).
+Finally, \eqref{eq:prelim-Q} gives \(s^{6Nk}\MM_1\restr \mathcal T_1\) over \(\Q\),
+so \(r_*\MM_A\restr(\prod_i\rho_i)\mathcal T_1\MM_A\), and composing gives
+\(r_*\MM_A\restr m_*\MM_B\). The rest is
+Section~\ref{subsec:prelim-schemes}.
+\end{proof}
+
+\begin{remark}[Stage-dependent \(N\) and \(k\)]\label{rem:varying-powers}
+The proof needs only that the \(Q\)-power in the target of each stage is
+the \(Q\)-power in the source of the next. So stage \(i\) may use its own
+\(N_i,k_i\ge1\), a type of width \(N_i\) and \(E_i=1+6k_i(M_i-1)\),
+provided \(N_ik_i=N_1k_1\) for all \(i\).
+The same induction then gives \(A=\prod_id_i^{2N_1k_1}\),
+\(B=t^{2N_1k_1}\prod_iM_i^{2k_i}\),
+\(r_*=s^{6N_1k_1}\prod_iE_i(2M_i-1)^{6k_i}\) and
+\(m_*=\prod_iM_i^{6k_i}\).
+\end{remark}
+
+\begin{remark}[Fields]\label{rem:field-scope}
+Lemmas~\ref{lem:shifted-chain}, \ref{lem:reset}
+and~\ref{lem:stage-types} use integer matrices with integer inverses and
+coordinate selections, so they hold over every field.
+Proposition~\ref{prop:stage}, Corollary~\ref{cor:exact-stage} and
+Proposition~\ref{prop:chain-counts} are proved over \(\Q\), hence hold over
+every field of characteristic zero; their coefficients come from the
+interpolation of \citep[Lemma~9.1]{FinCon26} at the nodes
+\(1,\ldots,s\) and, at each stage \(i\), \(1,\ldots,M_i\),
+\(1,\ldots,2M_i-1\) and \(1,\ldots,E_i\). We do not treat positive
+characteristic (Section~\ref{sec:open}).
+\end{remark}

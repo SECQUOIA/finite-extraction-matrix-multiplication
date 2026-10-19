@@ -1,0 +1,154 @@
+\section{Finite examples}
+\label{sec:examples}
+
+For a fixed target exponent, chain schemes much smaller than those of
+Theorem~\ref{thm:main} suffice. This section lists certified examples
+and compares them with the examples of~\citep[Section~10]{FinCon26}. No
+other result depends on this section.
+
+\subsection{Certified witnesses}
+\label{subsec:examples-witnesses}
+
+A \emph{witness} is given by a target \(\Phi_0\), a terminal pair
+\((1,t)\), arities \(d_1,\ldots,d_J\ge2\) and integers \(N,k\ge1\). Its
+chain is built backwards from \((1,t)\) by smallest parents
+(Lemma~\ref{lem:smallest-parent}), which fixes the source pair and makes
+every stage legal. Stage \(i\) uses a type of width \(N\) with the
+largest sector count \(M(N,d_i)\) (Section~\ref{subsec:chains-potential}).
+Proposition~\ref{prop:chain-counts} gives a restriction
+\(r_*\MM_A\restr m_*\MM_B\) over \(\Q\) with the
+counts~\eqref{eq:stage-chain-counts}, and we certify \(\Phi<\Phi_0\) for its
+fixed-batch bound \(\Phi\)~\eqref{eq:chains-phi}, so that also
+\(p<\Phi_0\). For example, the first row of Table~\ref{tab:witnesses}
+is the single stage \((128,66)\to(1,128)\) of arity \(2\), legal since
+\(4\le2\cdot66-128+1\).
+
+\begin{proposition}[Witnesses]\label{prop:witnesses}
+For each row of Table~\ref{tab:witnesses}, the restriction defined above
+is a relative scheme over \(\Q\), its fixed-batch bound \(\Phi\) is less
+than the entry in the column \(\Phi<\), hence less than \(\Phi_0\), and
+\(\Phi-p\) and the numbers of decimal digits of \(A\) and \(B\) are as
+stated.
+\end{proposition}
+
+\begin{proof}
+The proof is computer-assisted, by the supplementary script
+\path|shifted_chain_certificates.py|, which reproduces its report
+\path|shifted-chain-certificates.json| byte for byte. The script checks
+every stage against~\eqref{eq:stage-conditions}, and the maximality of each
+type \(\tau=(\tau_1,\tau_2,\tau_3)=(\nK,\nO,\nmid)\) by the
+inequalities \(w_i\tau_j\le w_j(\tau_i+1)\) for \(i\ne j\) with
+\(\tau_j>0\), where \(w=(d-1,2,1)\), which say that moving one letter
+from class \(j\) to class \(i\) does not increase the sector count;
+these characterize the maximizers,
+because the logarithm of~\eqref{eq:stage-sector-count} is \(\log N!\)
+plus a sum of concave functions
+\(\tau_i\mapsto\tau_i\log w_i-\log\tau_i!\). It forms the integers
+\(d_i\), \(M_i\), \(2M_i-1\), \(E_i\), \(s\) and \(t\) exactly, encloses
+their logarithms in intervals with dyadic endpoints (an
+\(\operatorname{artanh}\) series with directed rounding and a tail
+bound), and evaluates \(\Phi\), \(p\), \(\Phi-p\), \(\log_{10}A\) and
+\(\log_{10}B\) in exact interval arithmetic. If the enclosure of
+\(\log_{10}A\) or \(\log_{10}B\) contains an integer, the digit count is
+decided exactly. Printed bounds are rounded outwards.
+\end{proof}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrlrrrlrrr}
+\toprule
+\(\Phi_0\)&\(J\)&arities&\(t\)&\(N\)&\(k\)&\(\Phi<\)&\(\Phi-p\)
+ &digits of \(A\)&digits of \(B\)\\
+\midrule
+\(3\)&\(1\)&\(2\)&\(128\)&\(24\)&\(2\)&\(2.999745128438\)
+ &\(1.34\cdot10^{-3}\)&\(29\)&\(255\)\\
+\(2.77429\)&\(1\)&\(2\)&\(5\)&\(215\)&\(10\)&\(2.774233389609\)
+ &\(7.08\cdot10^{-5}\)&\(1\,295\)&\(5\,547\)\\
+\(2.7\)&\(5\)&\(2\)&\(3\)&\(147\)&\(8\)&\(2.699881286935\)
+ &\(6.71\cdot10^{-5}\)&\(3\,541\)&\(8\,025\)\\
+\(2.5\)&\(15\)&\(2\)&\(3\)&\(264\)&\(14\)&\(2.499903515815\)
+ &\(8.39\cdot10^{-6}\)&\(33\,379\)&\(69\,247\)\\
+\(2.3\)&\(125\)&\(2\), ramp \(3\)&\(1\)&\(1\,999\)&\(80\)
+ &\(2.299993369880\)&\(2.54\cdot10^{-8}\)&\(12\,371\,380\)
+ &\(24\,208\,459\)\\
+\(2.26\)&\(1\,264\)&\(4\), ramp \(11\)&\(1\)&\(28\,336\)&\(1\,118\)
+ &\(2.259999981185\)&\(2.16\cdot10^{-11}\)&\(48\,859\,824\,830\)
+ &\(62\,827\,651\,353\)\\
+\midrule
+\(2.84063\)&\(1\)&\(2\)&\(5\)&\(93\)&\(5\)&\(2.840553213477\)
+ &\(3.31\cdot10^{-4}\)&\(280\)&\(1\,190\)\\
+\(2.67283\)&\(7\)&\(2\)&\(3\)&\(138\)&\(8\)&\(2.672186713007\)
+ &\(5.51\cdot10^{-5}\)&\(4\,653\)&\(10\,114\)\\
+\bottomrule
+\end{tabular}
+\caption{Certified chain schemes (Proposition~\ref{prop:witnesses}),
+built backwards from \((1,t)\) by smallest parents. Column \(J\): the
+number of stages. Column ``arities'': the arity \(d\) of every stage,
+or ``\(d\), ramp~\(R\)'' for \(J-2(R-1)\) stages of arity \(d\) followed
+by the \(2(R-1)\) stages of Lemma~\ref{lem:ramp} from \((R,R)\) to
+\((1,1)\), of arities \(3j\) and \(3j-1\) for \(j=R-1,\ldots,1\), in
+this order from the source. Column \(\Phi<\): certified upper bound for
+\(\Phi\). Column \(\Phi-p\): the value of \(\log2/\log(B/A)\), rounded to
+three significant digits. The last two rows are the comparison points of
+Section~\ref{subsec:examples-comparison}.}
+\label{tab:witnesses}
+\end{table}
+
+The source pairs are \((128,66)\), \((5,4)\), \((18,27)\),
+\((3098,5205)\), a pair of \(28\)-digit integers, a pair of
+\(166\)-digit integers, \((5,4)\) and \((49,78)\); the report lists them
+with the types and intervals for \(p\). The rows are selected, not
+optimized; we do not claim that any of them is the smallest chain scheme
+below its target. The \(2.3\) and \(2.26\) rows have the ramp-and-bulk
+shape of Theorem~\ref{thm:main}, but much smaller parameters than that
+theorem uses. The column \(\Phi-p\) is below \(1.4\cdot10^{-3}\) in
+every row and below \(10^{-5}\) for the targets \(2.5\), \(2.3\)
+and~\(2.26\).
+
+\subsection{Comparison with the preceding paper}
+\label{subsec:examples-comparison}
+
+Table~2 of~\citep{FinCon26} bounds the same quantity \(\Phi\)
+\citep[(10.1)]{FinCon26} for three schemes of the construction there,
+with target indices \(a=4\), \(8\) and \(12\) in the notation
+of~\citep{FinCon26}. For the last two it gives the certified upper
+bounds \(2.848599165\) and \(2.675820359\), the floating-point values
+\(2.8406393\) and \(2.6728401\) of \(\Phi\), and source sides with \(11\,877\,489\,885\) and \(234\,905\,651\,862\) digits.
+The last two rows of Table~\ref{tab:witnesses} have targets about
+\(10^{-5}\) below these floating-point values. They are the one-stage
+chain \((5,4)\to(1,5)\) of arity \(2\), with \(A=2^{930}\), and a chain
+of seven stages of arity \(2\) from \((49,78)\) to \((1,3)\), with
+\(A=2^{15456}\). Their source sides have \(280\) and \(4\,653\) digits,
+fewer by factors of about \(4.2\cdot10^7\) and \(5.0\cdot10^7\), and
+even their target sides, with \(1\,190\) and \(10\,114\) digits, have
+fewer digits than the source sides there. Pooling lowers the \(\Phi\) of
+those schemes by less than \(10^{-7}\)~\citep[Section~10.2]{FinCon26},
+so the targets are also below their pooled exponents, provided the
+floating-point values are accurate to \(10^{-6}\).
+
+Near \(9/4\) the gap is much larger. By
+\citep[Corollary~11.2(a)]{FinCon26}, every scheme of the construction
+there with \(p<3\) has \(p>\frac94+9\log(6/5)/(2\log(2\log A))\). For
+\(p<2.26\) this forces \(2\log A>(6/5)^{450}\), so \(A\) has more than
+\((6/5)^{450}/(2\log10)>9.29\cdot10^{34}\) digits, against
+\(48\,859\,824\,830\) for the \(2.26\) row. For \(p<2.3\) it forces only
+\(2\log A>(6/5)^{90}\), that is, more than \(2.9\cdot10^6\) digits, so it
+does not separate the two constructions there.
+
+These comparisons concern the schemes as constructed, with the source
+supplying every auxiliary. Forward recycling and composition with other
+relative schemes, for example with the classical algorithm
+\(n^3\MM_1\restr\MM_n\) of source side \(1\), change \(A\) and \(B\)
+(Section~\ref{subsec:limits-class}).
+
+Far from \(9/4\), chain schemes are not the smallest schemes known.
+Strassen's algorithm~\citep{Str69} is the relative scheme
+\(7\MM_1\restr\MM_2\), with \(A=1\), \(B=2\) and \(p=\log_27<2.808\),
+below the targets \(3\) and \(2.84063\). Schwartz and Zwecher~\citep{SZ26} report an algorithm
+with exponent \(2.773203\) whose base case has side below \(1000\),
+below the target \(2.77429\). The advantage of chain schemes lies near
+\(9/4\), where, to our knowledge, the only other explicit sizes are
+those of~\citep{FinCon26}, which grow doubly exponentially in
+\(1/\eps\)~\citep[Corollary~11.2(b)]{FinCon26}.

@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xurl}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\hypersetup{pdftitle={A singly exponential construction of matrix multiplication algorithms with exponent approaching 9/4},
+ pdfsubject={Explicit tensor constructions and arithmetic complexity},
+ pdfkeywords={matrix multiplication, tensor rank, convolution, explicit construction}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\newcommand{\MM}{\mathsf M}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\restr}{\succeq}
+\newcommand{\degen}{\unrhd}
+\newcommand{\nK}{n_{\mathrm K}}
+\newcommand{\nO}{n_{\mathrm O}}
+\renewcommand{\nmid}{n_{\mathrm{mid}}}
+\DeclareMathOperator{\diag}{diag}
+\title{A singly exponential construction of matrix multiplication\\algorithms with exponent approaching \(9/4\)}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\input{introduction}
+\input{preliminaries}
+\input{stages}
+\input{chains}
+\input{seeds}
+\input{examples}
+\input{limits}
+\input{open-questions}
+\appendix
+\input{appendix-lower}
+\input{appendix-coefficients}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

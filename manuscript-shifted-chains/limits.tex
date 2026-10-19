@@ -1,0 +1,584 @@
+\section{Limits within the construction}
+\label{sec:limits}
+
+This section asks what the construction of
+Sections~\ref{sec:stages} and~\ref{sec:chains} cannot do. It fixes the
+class of schemes (Section~\ref{subsec:limits-class}), shows that
+\(p>9/4\) even with compressed auxiliaries
+(Section~\ref{subsec:limits-exponent}), bounds the copy counts and
+\(\log(B/A)\) from below as \(p\to9/4\)
+(Section~\ref{subsec:limits-resources}) and the number of target copies
+for \(p<3\) (Section~\ref{subsec:limits-small}), and lists what the
+class leaves out (Section~\ref{subsec:limits-scope}). None of these
+statements is a lower bound for \(\omega\) or for tensor rank.
+
+\subsection{Chain data and supplies}
+\label{subsec:limits-class}
+
+\begin{definition}[Chain data and supplies]\label{def:class}
+\emph{Chain data} consist of the following.
+\begin{enumerate}
+\item[(a)] Integers \(J,W\ge1\), and pairs \((r_i,b_i)\) of positive
+integers for \(1\le i\le J+1\).
+\item[(b)] For each \(i\le J\), an arity \(d_i\ge2\) and a child length
+\(c_i\ge1\) such that, for one ordering \((r,b)\) of the entries of
+\((r_i,b_i)\), the stage \((r,b)\to(c_i,r)\) of arity \(d_i\) is legal
+\eqref{eq:stage-conditions} and, after exchanging \(r_{i+1}\) and
+\(b_{i+1}\) if necessary, \(r_{i+1}\le c_i\) and \(b_{i+1}\le r\).
+\item[(c)] For each \(i\le J\), finitely many \emph{blocks} \(j\), each
+with a power \(k_{ij}\ge1\) and a type \(\tau_{ij}\) of width
+\(N_{ij}\ge1\) (Lemma~\ref{lem:stage-types}), such that
+\(\sum_jN_{ij}k_{ij}=W\).
+\item[(d)] A \emph{terminal} \(t\) with \(1\le t\le\max(r_{J+1},b_{J+1})\).
+\end{enumerate}
+Put \(s=r_1+b_1-1\). Let \(M_{ij}\) be the sector
+count~\eqref{eq:stage-sector-count} of \(\tau_{ij}\) at arity \(d_i\),
+\(E_{ij}=1+6k_{ij}(M_{ij}-1)\), \(U_i=d_i^{2W}\) and
+\(V_i=\prod_jM_{ij}^{2k_{ij}}\), and put
+\begin{equation}\label{eq:class-counts}
+ \bar A=\prod_{i=1}^JU_i,\quad
+ \bar B=t^{2W}\prod_{i=1}^JV_i,\quad
+ r_*=s^{6W}\prod_{i,j}E_{ij}(2M_{ij}-1)^{6k_{ij}},\quad
+ m_*=\prod_{i,j}M_{ij}^{6k_{ij}} .
+\end{equation}
+A \emph{supply} for chain data consists of positive integers
+\(A=\mathfrak b_0\) and \(f_1,\ldots,f_J\) such that \(U_if_i\le\mathfrak b_{i-1}\)
+for every \(i\), where \(\mathfrak b_i=f_iV_i\). Its \emph{source side} is
+\(A\), and its \emph{target side} is \(B=t^{2W}\mathfrak b_J\).
+\begin{itemize}
+\item The \emph{source supply} has \(A=\bar A\) and
+\(f_i=\prod_{l>i}U_l\prod_{l<i}V_l\).
+\item The \emph{recycling supply} with source side \(A\) has
+\(f_i=\lfloor\mathfrak b_{i-1}/U_i\rfloor\). It is a supply if every
+\(f_i\ge1\).
+\end{itemize}
+By Lemma~\ref{lem:recycling}, chain data and a supply give a restriction
+\(r_*\MM_A\restr m_*\MM_B\) over \(\Q\). If \(B>A\), it is a relative
+scheme, which we call a \emph{chain scheme}.
+\end{definition}
+
+Block \(j\) of stage \(i\) applies the exact relation of
+Corollary~\ref{cor:exact-stage} with \((N,k,\tau)=(N_{ij},k_{ij},\tau_{ij})\)
+to its own \(N_{ij}k_{ij}\) of the \(W\) factors of
+\(Q_{r_i,b_i}^{\otimes W}\). So stage \(i\) consumes an auxiliary of side
+\(U_i\) and produces one of side \(V_i\), and \(\bar A\) is the total side
+consumed. Before stage \(i\) the scheme holds one matrix multiplication
+factor \(\MM_{\mathfrak b_{i-1}}\), the \emph{bank}; stage \(i\) cuts
+\(\MM_{U_i}\MM_{f_i}\) out of it, turns \(\MM_{U_i}\) into
+\(\MM_{V_i}\), and keeps \(\MM_{V_i}\MM_{f_i}\cong\MM_{\mathfrak b_i}\). Under
+the source supply, \(U_if_i=\mathfrak b_{i-1}\) for every \(i\), and
+\(B=\bar B\). Under the recycling supply each stage takes what it can
+from the factors that earlier stages produced.
+
+The class fixes the stage relation of Corollary~\ref{cor:exact-stage}
+for every block (uncompressed auxiliaries, Lü's separator with \(2M-1\)
+copies, separate exactification of each block), the evaluation of the
+source with \(s^{6W}\) products, and the crop of the last pair to
+\((1,t)\). The arities, children, crops, exchanges, blocks, types, widths,
+powers, the terminal and the supply are free. The restrictions of
+Proposition~\ref{prop:chain-counts} and Remark~\ref{rem:varying-powers}
+are given by chain data with one block per stage and the source supply,
+without crops or exchanges; so the chain schemes of
+Section~\ref{sec:chains} are chain schemes in the sense of
+Definition~\ref{def:class}.
+
+\begin{lemma}[Supplies and forward recycling]\label{lem:recycling}
+Let chain data and a supply be given, with source side \(A\) and target
+side \(B\). Then \(r_*\MM_A\restr m_*\MM_B\) over \(\Q\). Moreover:
+\begin{enumerate}
+\item[(a)] \(B/A\le\bar B/\bar A\), with equality for the source supply;
+\item[(b)] if \(B>A\), then this restriction and the one given by the
+source supply are chain schemes, and the pooled exponent of the first is
+at least that of the second;
+\item[(c)] if \(A\ge4J\max_{1\le i\le J}U_i\prod_{l<i}(U_l/V_l)\), then
+the recycling supply with source side \(A\) is a supply,
+\(\mathfrak b_{i-1}\ge2JU_i\) for every \(i\), and \(B/A\ge\bar B/(2\bar A)\).
+\end{enumerate}
+\end{lemma}
+
+The proof (Appendix~\ref{subsec:proof-recycling}) is an induction over
+the stages. The bank only carries factors forward, so this is not a
+catalyst, and every auxiliary keeps its full side. It works because
+every stage is exactified before its output is used
+(Section~\ref{subsec:prelim-degenerations}). The same induction can also
+fund the blocks of one stage one after another, since they act on
+disjoint factors of \(Q\). This keeps \(r_*\), \(m_*\) and
+\(B/A\le\bar B/\bar A\), so the results of
+Section~\ref{subsec:limits-resources} on \(r_*\), \(m_*\) and
+\(\log(B/A)\) hold for it with the same proofs, as they use only
+Lemma~\ref{lem:recycling}(a) and~(b).
+
+\begin{remark}[Composition]\label{rem:composition}
+The step of this induction composes any two relative schemes. Let
+\(r^{(l)}\MM_{A^{(l)}}\restr m^{(l)}\MM_{B^{(l)}}\), \(l=1,2\), be
+relative schemes with \(B^{(1)}\ge A^{(2)}\), and put
+\(f=\lfloor B^{(1)}/A^{(2)}\rfloor\). Take \(r^{(2)}\) copies of the
+first, restrict each \(\MM_{B^{(1)}}\) to its principal block
+\(\MM_{A^{(2)}f}\cong\MM_{A^{(2)}}\MM_f\), and apply the second, tensored
+with the identity on \(\MM_f\). This gives
+\(r^{(1)}r^{(2)}\MM_{A^{(1)}}\restr m^{(1)}m^{(2)}\MM_{B^{(2)}f}\). Since
+\(B^{(2)}f/A^{(1)}\le(B^{(1)}/A^{(1)})(B^{(2)}/A^{(2)})\) and
+\(r^{(l)}/m^{(l)}>1\) (Section~\ref{subsec:prelim-schemes}), the
+composite, if \(B^{(2)}f>A^{(1)}\), has pooled exponent at least the
+smaller of the two.
+
+The classical algorithm is the relative scheme \(n^3\MM_1\restr\MM_n\),
+with source side \(1\) and pooled exponent \(3\). Let
+\(r_*\MM_A\restr m_*\MM_B\) be a relative scheme, and let
+\(n\ge2AB/(B-A)\). Put the classical algorithm first, and then apply
+the scheme \(j\) times, each time to the factor produced by the previous
+step. The composite has source side \(1\), copy counts \(n^3r_*^j\) and
+\(m_*^j\), and target side \(\mathfrak b_j\), where \(\mathfrak b_0=n\) and
+\(\mathfrak b_{l+1}=\lfloor\mathfrak b_l/A\rfloor B\). Every step can be applied, and
+\(\log\mathfrak b_j\ge\log n+j\log(B/A)-2\)
+(Appendix~\ref{subsec:proof-recycling}). So the pooled exponent of the
+composite tends to that of the scheme as \(j\to\infty\), and with
+Theorem~\ref{thm:main}, for every \(\delta>0\) some composite with
+source side \(1\) has pooled exponent below \(9/4+\delta\).
+
+So the source side alone does not measure the size of an algorithm. A
+lower bound on \(A\), such as Theorem~\ref{thm:lower}(c) below,
+concerns chain schemes with the source supply. The copy counts \(r_*\)
+and \(m_*\), and hence \(r_*/m_*\), multiply under composition and
+tensor products.
+\end{remark}
+
+\subsection{The exponent limit}
+\label{subsec:limits-exponent}
+
+\paragraph{Scalar arguments.}
+Lemma~\ref{lem:profile-potential} is a scalar argument, the analogue
+of~\citep[Remark~3.3]{FinCon26}: it bounds the gain
+\(\log\frac{d+2}d\) of each stage by the drop of \(\log F\) along the
+stage. A compressed auxiliary changes the gain of a stage, so the rest
+of this subsection works with tensors.
+
+\paragraph{Sector tensors.}
+Let \(r,c,N\ge1\), and write \([r]=\{0,\ldots,r-1\}\). The \emph{middle
+child} is
+\[
+ C^{\mathrm{mid}}(r,c)=\sum_{\alpha=0}^{r-1}\sum_{\gamma=0}^{c-1}
+ x_\alpha\,y_{r-1-\alpha+\gamma}\,z_\gamma ,
+\]
+with legs of sizes \(r\), \(r+c-1\) and \(c\). Reversing the first
+index turns it into \(C(r,c)^{(23)}\); we keep the first index
+unreversed, because the bound below needs the first leg fixed. Let
+\(X=(\mathbb F^r)^{\otimes N}\), with coordinates \(x_\alpha\) indexed by
+words \(\alpha\in[r]^N\). An \emph{\((r,c;N)\) sector tensor} is a sum
+\(T=\sum_{g=1}^MT_g\) of \(M\) sectors sharing the first leg \(X\)
+(Section~\ref{subsec:prelim-sectors}) such that, for each \(g\),
+invertible linear maps on \(Y_g\) and \(Z_g\), together with the
+identity on \(X\), carry \(T_g\) to a product
+\(L_{g,1}\otimes\cdots\otimes L_{g,N}\); here each \(L_{g,\ell}\) is
+\(C(r,c)\) or \(C^{\mathrm{mid}}(r,c)\), and letter \(\ell\) of
+\(\alpha\) is its first index. Let \(\nmid(g)\) be the number of factors
+\(C^{\mathrm{mid}}(r,c)\). For tensors \(S\) and \(T\) with the same
+first leg, we write \(S\restr_1T\) if linear substitutions on legs \(2\)
+and \(3\), together with the identity on leg~\(1\), transform \(S\) into
+\(T\).
+
+Let \((r,b)\to(c,r)\) be a legal stage of arity \(d\), and let \(T\) be
+the tensor of Lemma~\ref{lem:stage-types} for a type
+\(\tau=(\nK,\nO,\nmid)\). Then \(T\) is an \((r,c;N)\) sector tensor with
+\(M\) sectors given by~\eqref{eq:stage-sector-count}, and
+\(\nmid(g)=\nmid\) for all \(g\): its sectors are
+\(T_w=\bigotimes_\ell U'_{w_\ell}\), and by
+Lemmas~\ref{lem:shifted-chain}(c) and~\ref{lem:reset}(b), renaming the
+coordinates of legs \(2\) and \(3\) alone identifies \(U'_\chi\) with
+\(C(r,c)\) for kernel and outer letters and with
+\(C^{\mathrm{mid}}(r,c)\) for the middle letter. The substitutions of
+Lemma~\ref{lem:shifted-chain}(c) and the zeroing of
+Lemma~\ref{lem:stage-types} act on legs \(2\) and \(3\) only, so
+\(C(r,b)^{\otimes N}B_X(d^N)\restr_1T\).
+
+\paragraph{The Hankel lift.}
+Let \(u,v\ge1\) with \(u+v=r+1\). For a tensor \(T\) with first leg
+\(X\), write \(T[\alpha,\eta,\zeta]\) for its coefficient at
+\(x_\alpha y_\eta z_\zeta\). Its \emph{Hankel lift} \(\mathcal L_u(T)\)
+is the matrix with rows indexed by pairs \((\zeta,a)\), where \(\zeta\)
+is a coordinate of leg \(3\) and \(a\in[u]^N\), columns indexed by pairs
+\((\eta,e)\), where \(\eta\) is a coordinate of leg \(2\) and
+\(e\in[v]^N\), and entries
+\[
+ \mathcal L_u(T)_{(\zeta,a),(\eta,e)}=T[a+e,\eta,\zeta],
+\]
+where \(a+e\in[r]^N\) is the word with letters \(a_\ell+e_\ell\).
+Equivalently, \(\mathcal L_u(T)\) is an ordinary flattening of the
+tensor obtained from \(T\) by pulling its first leg back along the
+multiplication map \((\mathbb F^u\otimes\mathbb F^v)^{\otimes N}\to X\)
+of \(C(u,v)^{\otimes N}\); this is a catalecticant (Hankel) flattening.
+Three facts follow from the definition.
+\begin{enumerate}
+\item[(i)] If \(S\restr_1T\), with matrices \(\mathsf B\) and
+\(\mathsf\Gamma\) of the substitutions on legs \(2\) and \(3\), then
+\(\mathcal L_u(T)=(\mathsf\Gamma^{\top}\otimes I)\,\mathcal L_u(S)\,(\mathsf B\otimes I)\),
+so \(\operatorname{rank}\mathcal L_u(T)\le\operatorname{rank}\mathcal L_u(S)\).
+\item[(ii)] For tensors with first legs \((\mathbb F^r)^{\otimes N}\) and
+\((\mathbb F^r)^{\otimes N'}\), \(\mathcal L_u(TT')\) is
+\(\mathcal L_u(T)\otimes\mathcal L_u(T')\) up to permutations of rows and
+columns.
+\item[(iii)] \(\mathcal L_u\bigl(C(r,b)^{\otimes N}B_X(q)\bigr)\) is
+\(\mathcal L_u(C(r,b)^{\otimes N})\otimes I_q\) up to permutations, since
+the coefficient of \(B_X(q)\) at \(y_\eta z_\zeta\) is \([\eta=\zeta]\).
+\end{enumerate}
+Over every field, the rank of a Kronecker product is the product of the
+ranks.
+
+\begin{lemma}[Local ranks]\label{lem:hankel-ranks}
+For \(N=1\) and over every field,
+\(\operatorname{rank}\mathcal L_u(C(r,b))=b+v-1\) and
+\(\operatorname{rank}\mathcal L_u(C^{\mathrm{mid}}(r,c))=c+u-1\).
+\end{lemma}
+
+The proof (Appendix~\ref{subsec:proof-hankel}) factors each lift through
+the sum of two indices and exhibits an identity submatrix of full size.
+
+\begin{theorem}[Hankel flattening bound]\label{thm:hankel}
+Let \(T\) be an \((r,c;N)\) sector tensor with \(M\) sectors over a
+field \(\mathbb F\), and let \(b,q\ge1\). If
+\(C(r,b)^{\otimes N}B_X(q)\restr_1T\), then for all integers \(u,v\ge1\)
+with \(u+v=r+1\),
+\begin{equation}\label{eq:hankel-bound}
+ q\,(b+v-1)^N\ \ge\ \sum_{g=1}^M(c+v-1)^{N-\nmid(g)}(c+u-1)^{\nmid(g)} .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By (ii), (iii) and Lemma~\ref{lem:hankel-ranks}, the left side is the
+rank of \(\mathcal L_u(C(r,b)^{\otimes N}B_X(q))\). Since
+\(T_g\in X\otimes Y_g\otimes Z_g\), the matrix \(\mathcal L_u(T)\) is
+block diagonal, with the block \(\mathcal L_u(T_g)\) on the rows
+\(Z_g\times[u]^N\) and the columns \(Y_g\times[v]^N\), so its rank is
+\(\sum_g\operatorname{rank}\mathcal L_u(T_g)\). By (i), applied to the
+invertible maps and to their inverses, (ii) and
+Lemma~\ref{lem:hankel-ranks}, the rank of \(\mathcal L_u(T_g)\) is the
+\(g\)-th term on the right. Now apply (i) to
+\(C(r,b)^{\otimes N}B_X(q)\restr_1T\).
+\end{proof}
+
+Write \(\varphi_r(y)=(r+2y-1)^2-1\) for real \(y\ge1\), and define the
+potential \(\Psi(r,b)=r^2+4rb+b^2-2r-2b-\frac16\) for real \(r,b\ge1\).
+
+\begin{lemma}[Gain per factor]\label{lem:hankel-gain}
+In Theorem~\ref{thm:hankel}, if \(b\ge c\), then
+\(\frac1N\log(M/q)\le\frac12\log\bigl(\varphi_r(b)/\varphi_r(c)\bigr)\).
+\end{lemma}
+
+\begin{lemma}[Potential]\label{lem:hankel-potential}
+For real \(r,b\ge1\):
+\begin{enumerate}
+\item[(a)] \(\Psi\) is symmetric and increasing in each argument, and
+\(\Psi(r,b)\ge\Psi(1,1)=\frac{11}6\);
+\item[(b)] if \(b>c\ge1\), then
+\(\frac12\log\bigl(\varphi_r(b)/\varphi_r(c)\bigr)<\frac23\log\bigl(\Psi(r,b)/\Psi(r,c)\bigr)\);
+\item[(c)] \(\Psi(r,b)\le\frac{11}6(r+b-1)^2\) if \(r+b\ge3\), and
+\(\Psi(r,b)\ge\frac{11}6b^{3/2}\).
+\end{enumerate}
+\end{lemma}
+
+The proofs are in Appendix~\ref{subsec:proof-hankel}. For
+Lemma~\ref{lem:hankel-gain}, one takes \(u=v\) if \(r\) is odd, and
+combines the two nearly balanced choices of \((u,v)\) by the
+Cauchy--Schwarz inequality if \(r\) is even. Part~(b) of
+Lemma~\ref{lem:hankel-potential} says that
+\(\frac23\log\Psi(r,y)-\frac12\log\varphi_r(y)\) increases in \(y\).
+
+\begin{definition}[Compressed auxiliaries]\label{def:compressed}
+Let \((r,b)\to(c,r)\) be a legal stage of arity \(d\), let \(N\ge1\),
+let \(\tau\) be a type of width \(N\), and let \(T\) be the tensor of
+Lemma~\ref{lem:stage-types}. A \emph{compressed auxiliary of rank \(q\)}
+for these data is a restriction \(C(r,b)^{\otimes N}B_X(q)\restr_1T\),
+where \(q\ge1\). \emph{Compressed chain data} are chain data together
+with, for every block \((i,j)\), a compressed auxiliary of some rank
+\(q_{ij}\), used in all six orientations, for the stage of
+Definition~\ref{def:class}(b) and \((N_{ij},\tau_{ij})\); in their
+counts~\eqref{eq:class-counts}, \(U_i=\prod_jq_{ij}^{2k_{ij}}\).
+\end{definition}
+
+The stage itself has \(q=d^N\). Using a compressed auxiliary in every
+orientation of the proof of Proposition~\ref{prop:stage} and then
+Corollary~\ref{cor:exact-stage} gives, since
+\(\bigotimes_\pi B_X(q)^\pi\cong\MM_{q^2}\),
+\[
+ E\,(2M-1)^{6k}\,Q_{r,b}^{\otimes Nk}\,\MM_{q^{2k}}\restr
+ M^{6k}\,Q_{c,r}^{\otimes Nk}\,\MM_{M^{2k}}
+\]
+over every field of characteristic zero that contains the coefficients
+of the compressed auxiliary. So Lemma~\ref{lem:recycling} and its proof
+hold for compressed chain data, with the new \(U_i\).
+
+\begin{corollary}[Compression limit]\label{cor:compression-limit}
+Let compressed chain data and a supply give a relative scheme
+\(r_*\MM_A\restr m_*\MM_B\). Then its pooled exponent satisfies
+\(p>9/4\).
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:recycling}(b), we may assume the source supply, so
+\(A=\bar A\) and \(B=\bar B\). Put \(w_{ij}=N_{ij}k_{ij}/W\), so that
+\(\sum_jw_{ij}=1\). Then
+\[
+ \frac{\log(B/A)}{2W}=\log t+\sum_{i,j}w_{ij}h_{ij},\qquad
+ h_{ij}=\frac1{N_{ij}}\log\frac{M_{ij}}{q_{ij}} .
+\]
+Fix \(i\), and let \((r,b)\to(c_i,r)\) be the stage of
+Definition~\ref{def:class}(b); it has \(c_i<b\). By
+Theorem~\ref{thm:hankel} and Lemmas~\ref{lem:hankel-gain}
+and~\ref{lem:hankel-potential}(b), applied to each block, and by the
+symmetry of \(\Psi\),
+\(\sum_jw_{ij}h_{ij}<\frac23\log\bigl(\Psi(r_i,b_i)/\Psi(c_i,r)\bigr)\).
+By Lemma~\ref{lem:hankel-potential}(a),
+\(\Psi(r_{i+1},b_{i+1})\le\Psi(c_i,r)\) and
+\(\Psi(1,t)\le\Psi(r_{J+1},b_{J+1})\). So the sum telescopes, and
+Lemma~\ref{lem:hankel-potential}(c), with \(r_1+b_1\ge3\), gives
+\[
+ \frac{\log(B/A)}{2W}<\log t+\frac23\log\frac{\Psi(r_1,b_1)}{\Psi(1,t)}
+ \le\log t+\frac23\log\frac{s^2}{t^{3/2}}=\frac43\log s .
+\]
+By the proof of Lemma~\ref{lem:recycling}(b),
+\(\log(r_*/m_*)\ge6W\log s>0\). Hence
+\(p=\log(r_*/m_*)/\log(B/A)>6/(8/3)=9/4\).
+\end{proof}
+
+For \(q_{ij}=d_i^{N_{ij}}\), the corollary gives the conclusion
+\(p>9/4\) of Lemma~\ref{lem:profile-potential}(c) for every chain scheme,
+with any supply, but not the intermediate bound
+\(p>3\log s/(\log t+G)\). One rank in all six orientations is no loss of
+generality for the barrier: if orientation \(\pi\) has a compressed
+auxiliary of rank \(q_\pi\), then \(B_X(\max_\pi q_\pi)\restr B_X(q_\pi)\)
+(set the extra coordinates to zero) gives one of rank \(\max_\pi q_\pi\)
+in every orientation, as the square auxiliary \(\MM_{q^2}\) requires,
+and~\eqref{eq:hankel-bound} holds for each \(q_\pi\) separately.
+
+\begin{remark}[Ordinary sectors only]\label{rem:ordinary-only}
+Middle sectors are what make exponents below \(3\) possible. For
+\(u=1\), \(\mathcal L_1(T)\) is the flattening of \(T\) with rows indexed
+by leg~\(3\), whose rank does not increase under any restriction, and if
+no sector has a middle factor, then~\eqref{eq:hankel-bound} reads
+\(M(r+c-1)^N\le q(r+b-1)^N\). So let compressed chain data have only
+types with \(\nmid=0\), and put \(s_i=r_i+b_i-1\), so that \(s_1=s\). In
+the notation of the proof above, every block of stage \(i\) has
+\(h_{ij}\le\log(s_i/(r+c_i-1))\le\log(s_i/s_{i+1})\). These bounds
+telescope, and
+\(t\le s_{J+1}\) gives \(\log(B/A)\le2W\log s\). Hence \(p\ge3\) for
+every supply.
+\end{remark}
+
+\begin{remark}[The first leg, and sharpness]\label{rem:hankel-remarks}
+For \(u=1\) and \(u=r\), the lift is a flattening of \(T\) along leg
+\(3\) or leg \(2\). The lifts with \(2\le u\le r-1\) use the Hankel
+structure of the shared first leg, so they need \(\restr_1\). Crops of
+the first leg to a prefix are harmless: they turn \(C(r,b)\) into
+\(C(r',b)\) with unused coordinates, and \(\Psi\) increases in \(r\).
+General first-leg maps are not covered. Theorem~\ref{thm:hankel} also
+holds if \(T\) is the constant term of a degeneration with the identity
+on leg~\(1\): the minors of size \(q(b+v-1)^N+1\) of the lift of the
+transformed tensor vanish as polynomials in the parameter, hence at
+\(0\). So removing cross terms by powers of a parameter does not escape
+the bound. In the homogeneous limit, Lemma~\ref{lem:hankel-gain} is
+tight on the efficient ray \(r=\lambda b\), \(c=\lambda^2b\) with
+\((d+2)\lambda^2+\lambda-d=0\), where \((r+2b)/(r+2c)=(d+2)/d\), the gain
+per factor of an uncompressed stage. The potential step of
+Lemma~\ref{lem:hankel-potential}(b) is tight only to first order as
+\(\lambda\to1\). For compressed auxiliaries this suggests, but we do not
+prove, that \(9/4\) can be approached only with growing arity; for chain
+schemes, which have uncompressed auxiliaries, Theorem~\ref{thm:lower}
+proves it.
+\end{remark}
+
+\subsection{Resource bounds}
+\label{subsec:limits-resources}
+
+\begin{theorem}[Resource lower bound within the construction]\label{thm:lower}
+Let \(0<\eps<1/9216\), and let a chain scheme \(r_*\MM_A\restr m_*\MM_B\)
+have pooled exponent at most \(9/4+\eps\). Then, with \(\bar A\) as
+in~\eqref{eq:class-counts}:
+\begin{enumerate}
+\item[(a)] \(\log r_*>\log m_*\ge3\log\bar A>3.9\cdot10^{-6}\,\eps^{-9/2}\log^3(1/\eps)\);
+\item[(b)] \(\log(B/A)>9.8\cdot10^{-5}\,\eps^{-4}\log^2(1/\eps)\);
+\item[(c)] under the source supply,
+\(\log A=\log\bar A>1.3\cdot10^{-6}\,\eps^{-9/2}\log^3(1/\eps)\).
+\end{enumerate}
+Moreover, some block \((i,j)\) has \(d_i>(96\eps)^{-1/2}\),
+\(N_{ij}>9d_i\log(1/\eps)/(16\eps)\) and
+\(k_{ij}>d_i\log d_i/(4\eps)\), and
+\(W>3\log^2(1/\eps)/(8192\,\eps^3)\).
+\end{theorem}
+
+The proof is in Appendix~\ref{subsec:lower-main-proof}. In~(a),
+\(\bar A\) is the auxiliary side consumed by the stages; the supplied
+source side \(A\) may be smaller (Corollary~\ref{cor:recycled-main}) or
+larger, and (a) bounds \(r_*\) and \(m_*\) in every case.
+
+The bounds \(3.9\cdot10^{-6}\,\eps^{-9/2}\log^3(1/\eps)\) on
+\(\log r_*\) and \(\log m_*\) in~(a), and the bound~(b), also hold for
+every relative scheme built from chain schemes and classical algorithms
+by composition (Remark~\ref{rem:composition}) and tensor products.
+Indeed, under both operations \(m_*\) and \(r_*/m_*\) are the products
+of those of the parts, \(B/A\) is at most the product, and every part
+has \(r_*/m_*>1\). So if the result has
+\(\log(r_*/m_*)\le(9/4+\eps)\log(B/A)\), the mediant inequality gives a
+part with \(\log(r_*/m_*)\le(9/4+\eps)\log(B/A)\), where
+\(9/4+\eps<3\). This part is a chain scheme, and its \(m_*\) and
+\(r_*/m_*\), hence also its \(r_*\), bound those of the result from
+below. For~(b), the result has
+\(\log(B/A)\ge\log(r_*/m_*)/(9/4+\eps)\), and the proof of~(b) bounds
+this quotient from below for that part.
+
+\begin{corollary}[Recycling the main construction]\label{cor:recycled-main}
+Let \(0<\eps\le1\) be rational, and take the chain, type width, power and
+types of Theorem~\ref{thm:main}. The recycling supply with source side
+\(A'=4JD^{2Nk}\) is a supply. It gives a relative scheme
+\(r_*\MM_{A'}\restr m_*\MM_{B'}\) over \(\Q\) with the same \(r_*\) and
+\(m_*\) as Theorem~\ref{thm:main}, whose pooled exponent \(p'\) satisfies
+\(p\le p'<p+10^{-9}\eps\), and so \(9/4<p'<9/4+\eps/2\). Moreover,
+\[
+ \log A'<5.32\cdot10^6\,\eps^{-3}\log^3\frac{4096}\eps,\qquad
+ \log B'<1.5\cdot10^9\,\eps^{-4}\log^2\frac{4096}\eps .
+\]
+\end{corollary}
+
+The proof is in Appendix~\ref{subsec:lower-recycled-proof}. For
+example, on the chain of Theorem~\ref{thm:main} at \(\eps=1\), the source
+side \(A=\prod_id_i^{2Nk}\) has \(3{,}250{,}941{,}263\) decimal digits
+and the recycled source side \(A'=4JD^{2Nk}\) has \(12{,}783{,}943\)
+(supplementary script \path|shifted_chains_check_recycling.py|,
+Part~5).
+
+\begin{remark}[Orders]\label{rem:limits-orders}
+Within the construction, as \(\eps\to0\):
+\begin{itemize}
+\item \emph{Copy counts.} For every chain scheme, and for the composites
+above, \(p\le9/4+\eps\) with \(\eps<1/9216\) forces \(\log m_*\) and
+\(\log r_*\) above \(3.9\cdot10^{-6}\eps^{-9/2}\log^3(1/\eps)\). For
+rational \(\eps\le\frac12\), Corollary~\ref{cor:main-eps} gives
+\(p<9/4+\eps\) with \(m_*\le A^6\) and \(r_*<A^{35/4}\), so
+\(\log m_*<8.4\cdot10^8\eps^{-9/2}\log^3(2048/\eps)\) and
+\(\log r_*<1.23\cdot10^9\eps^{-9/2}\log^3(2048/\eps)\). So the least
+values of \(\log m_*\) and \(\log r_*\) have order
+\(\eps^{-9/2}\log^3(1/\eps)\).
+\item \emph{Ratio.} The least \(\log(B/A)\) has order
+\(\eps^{-4}\log^2(1/\eps)\), by Theorem~\ref{thm:lower}(b) and by the
+scheme of Corollary~\ref{cor:main-eps}, for which the proof of
+Corollary~\ref{cor:recycled-main}, with \(2\eps\) in place of \(\eps\), gives
+\(\log(B/A)<1.43\cdot10^9(2\eps)^{-4}\log^2(2048/\eps)
+<9\cdot10^7\eps^{-4}\log^2(2048/\eps)\). Recycling keeps this order,
+since \(B/(2A)\le B'/A'\le B/A\) in the proof of
+Corollary~\ref{cor:recycled-main}.
+\item \emph{Source side.} Under the source supply, the least \(\log A\)
+has order \(\eps^{-9/2}\log^3(1/\eps)\), by Theorem~\ref{thm:lower}(c)
+and Corollary~\ref{cor:main-eps}. Otherwise the counts do not determine
+it: Corollary~\ref{cor:recycled-main} gives
+\(\log A'=O(\eps^{-3}\log^3(1/\eps))\), and composition with the
+classical algorithm gives source side \(1\). Part~(c) needs its
+hypothesis: for rational \(\eps\le2^{-26}\), the scheme of
+Corollary~\ref{cor:recycled-main} has pooled exponent below
+\(9/4+\eps/2\) and a source side below the bound of~(c) with
+\(\eps/2\) in place of \(\eps\), since the ratio of the two bounds,
+\(\frac{5.32\cdot10^{12}}{1.3}\,2^{-9/2}\eps^{3/2}\bigl(\log(4096/\eps)/\log(2/\eps)\bigr)^3\),
+increases with \(\eps\) and is below \(0.92\) at \(\eps=2^{-26}\).
+\item \emph{Seeds.} The seed of Theorem~\ref{thm:seed} depends on the
+scheme through \(\Xi=r_*(1+r_*m_*)n_*^3\), and
+\(r_*^2m_*\le\Xi\le54r_*^2m_*A^3\), where
+\(r_*^2m_*\ge m_*^3=B^9\ge(2A)^9\) (Lemma~\ref{lem:resources}). So the
+seed built in the same way from the scheme of
+Corollary~\ref{cor:recycled-main} has \(\log n_0\) smaller by a factor
+less than \(\frac43+\frac{\log55}{9\log A}<1.34\): the copy counts, not
+the source side, set the size of the seed.
+\end{itemize}
+\end{remark}
+
+\subsection{Small batches}
+\label{subsec:limits-small}
+
+Unlike the source side, the number \(m_*\) of target copies does not
+depend on the supply, and it multiplies under composition. It is the
+batch size of the pooled recursion~\citep[Lemma~2.4]{FinCon26}, and the
+maps of a relative scheme have at least \(m_*B^2\) nonzero coefficients
+on each leg (see the proof of Proposition~\ref{prop:small-sources}).
+
+\begin{proposition}[Small batches; computer-assisted]\label{prop:small-sources}
+Let \(M_0=\frac{23!}{6!\,11!\,6!}\,2^{11}=2\,558\,607\,507\,456\); then
+\(2^{494}<M_0^{12}<2^{495}\).
+\begin{enumerate}
+\item[(a)] Every chain scheme with the source supply and \(p<3\) has
+\(m_*\ge M_0^{12}\).
+\item[(b)] So does every relative scheme with \(p<3\) obtained from such
+chain schemes and the classical restrictions \(n^3\MM_1\restr\MM_n\) by
+repeated use of these operations: (i) replacing \(r\MM_A\restr m\MM_B\)
+by some \(r\MM_{A'}\restr m\MM_{B'}\) with \(B'/A'\le B/A\), as other
+supplies do (Lemma~\ref{lem:recycling}); (ii) composition as in
+Remark~\ref{rem:composition}, applied to restrictions
+\(r^{(l)}\MM_{A^{(l)}}\restr m^{(l)}\MM_{B^{(l)}}\), \(l=1,2\), with
+\(B^{(1)}\ge A^{(2)}\); and (iii) tensor products. The maps of such a
+scheme have more than \(2^{496}\) nonzero coefficients on each leg.
+\item[(c)] The bound in (a) is attained: the one-stage chain
+\((361,182)\to(1,361)\) of arity \(2\) with \(N=23\), \(k=2\) and type
+\((6,11,6)\) has \(m_*=M_0^{12}\) and \(p<2.9999985\).
+\end{enumerate}
+\end{proposition}
+
+The proof is in Appendix~\ref{subsec:lower-small-proof}; it checks two
+finite lists of cases with the supplementary script
+\path|shifted_chains_check_small_sources.py|. The bound uses the charges
+in~\eqref{eq:class-counts} and uncompressed auxiliaries. It says nothing
+about schemes outside the construction, such as Strassen's, with
+\(m_*=1\), and it concerns only the operations listed in~(b), since
+keeping some of the target copies is a restriction too.
+
+\subsection{Scope}
+\label{subsec:limits-scope}
+
+The results above cover the class of Definition~\ref{def:class},
+compressed auxiliaries for the exponent, and supplies and composition
+for \(r_*\), \(m_*\) and \(\log(B/A)\). For compressed chain data we
+have no resource bound. The bounds concern counts only, so they do not
+depend on the field.
+
+The proofs extend to two variants of the class.
+\begin{itemize}
+\item \emph{Other separators and exactifiers.} The proofs of
+Corollary~\ref{cor:compression-limit} and Theorem~\ref{thm:lower} use
+the separator and the exactifier of a block \((i,j)\) only through their
+numbers of copies. Corollary~\ref{cor:compression-limit} needs only that
+the separator has at least \(M_{ij}\) copies, and
+Theorem~\ref{thm:lower} needs this for the exactifier as well. For
+the tensor \(T\) of Lemma~\ref{lem:stage-types}, with \(M\) sectors,
+every separator with output~\eqref{eq:prelim-separator} has at least
+\(M\) copies. Indeed, maps on legs~\(2\) and~\(3\) identify each sector
+with a product of \(N\) factors \(C(r,c)\) or \(C^{\mathrm{mid}}(r,c)\)
+(Section~\ref{subsec:limits-exponent}), each of rank \(r\) along
+leg~\(1\). So the flattening of \(\bigoplus_gT_gB_X(M)\) along leg~\(1\)
+has rank \(Mr^N\). That of \(cT\) has rank at most \(cr^N\), and
+degenerations do not raise flattening ranks, so
+\(cT\degen\bigoplus_gT_gB_X(M)\) needs \(c\ge M\).
+Proposition~\ref{prop:small-sources} uses the exact counts
+\(2M_{ij}-1\) and \(E_{ij}\).
+\item \emph{Joint exactification of the blocks of one stage} keeps
+Theorem~\ref{thm:lower} except for the bound on \(k_{ij}\)
+(Remark~\ref{rem:joint-exactification}).
+\end{itemize}
+
+The class charges \(s^{6W}\) products for the source. Since the
+flattening of \(Q_{r,b}\) along leg~\(1\) has rank \((rb(r+b-1))^2\),
+every evaluation of \(Q_{r_1,b_1}^{\otimes W}\) needs at least
+\((r_1b_1s)^{2W}\) products, and with such a source the proof of
+Corollary~\ref{cor:compression-limit} gives only
+\(p>\frac34\bigl(1+\log(r_1b_1)/\log s\bigr)\), which may be below
+\(9/4\) for a finite chain.
+
+Outside the class are:
+\begin{enumerate}
+\item[(i)] exactification of several stages together, and exactifiers
+with fewer than \(M_{ij}\) copies;
+\item[(ii)] auxiliaries shared between orientations or stages, or cut
+from the \(Q\)-factors;
+\item[(iii)] blocks of one stage with different children, factors that
+skip a stage, and states that split and merge;
+\item[(iv)] other local maps, such as the determinant splits
+of~\citep[Section~4]{FinCon26}, children longer than their parents (for
+which Lemma~\ref{lem:hankel-potential}(b) fails), stages of arity~\(1\),
+and different types in different orientations;
+\item[(v)] other terminal restrictions, and combinations with other
+schemes beyond Remark~\ref{rem:composition}.
+\end{enumerate}

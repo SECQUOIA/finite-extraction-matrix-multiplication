@@ -1,0 +1,449 @@
+% Draft bibliography for the shifted-chain follow-up paper.
+% Prepared 18 October 2026; see docs/shifted-chains-check-literature.md.
+%
+% Keys reuse manuscript/references.bib (v5) wherever the work is the same.
+% Metadata was checked against arXiv (API and abstract pages), Crossref,
+% Zenodo, and the GitHub API on 18 October 2026.  Entries marked OPTIONAL
+% are needed only if the follow-up uses the corresponding material.
+% The entry for v5 itself is FinCon26 (no URL) or FinCon26pub (pinned public
+% repository); cite it with \citep, since \citet prints "Anonymous".  With
+% plainnat a "key" field is printed in place of the author, so none is used.
+
+% ---------------------------------------------------------------- v5 itself
+
+@misc{FinCon26,
+  author       = {{Anonymous}},
+  title        = {A finite construction of matrix multiplication algorithms with exponent approaching $9/4$},
+  year         = {2026},
+  month        = oct,
+  note         = {Manuscript without author byline, version~5, 18~October 2026, 79~pages.
+                  Versions 1 and~2 (7~October 2026) have the title
+                  \emph{Explicit finite extraction from convolution profiles for
+                  matrix multiplication}, under which Filmus's manuscript cites version~2}
+}
+% Public variant, for use instead of FinCon26 if the follow-up need not hide
+% the source.  Filmus's manuscript (Fil26) already cites version 2 with this
+% repository URL and the key "SECQUOIA".  BibTeX includes only cited entries,
+% so keeping both entries in the file is harmless.
+@misc{FinCon26pub,
+  author       = {{Anonymous}},
+  title        = {A finite construction of matrix multiplication algorithms with exponent approaching $9/4$},
+  year         = {2026},
+  month        = oct,
+  url          = {https://github.com/SECQUOIA/finite-extraction-matrix-multiplication/tree/6562ac60a236c86ec707eaa9861b90f41e761037},
+  note         = {Manuscript without author byline, version~5, 18~October 2026,
+                  79~pages, repository commit 6562ac60; versions 1 and~2
+                  (7~October 2026) have the title \emph{Explicit finite extraction
+                  from convolution profiles for matrix multiplication}}
+}
+
+% ---------------------------------------------------- OpenAI and later work
+
+@misc{OAI26,
+  author       = {{OpenAI}},
+  title        = {An Upper Bound of $9/4$ for the Matrix Multiplication Exponent},
+  year         = {2026},
+  month        = oct,
+  note         = {Preprint dated 2 October 2026, released 6 October 2026; unchanged through commit 1581d4c (12 October 2026), the latest commit of the repository on 18 October 2026},
+  url          = {https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Matrix-Multiplication-Nine-Fourths-October-2-2026/paper.pdf}
+}
+
+@misc{OAI26Stag,
+  author       = {{OpenAI}},
+  title        = {Staggered extraction for exact matrix multiplication over every field},
+  year         = {2026},
+  month        = oct,
+  note         = {Preprint dated 24 September 2026, released 6 October 2026},
+  url          = {https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026}
+}
+
+@misc{OAI26Comp,
+  author       = {{OpenAI}},
+  title        = {Complex Matrix Multiplication Below $2.258$ and Rectangular Bounds},
+  year         = {2026},
+  month        = oct,
+  note         = {Preprint dated 24 September 2026, released 6 October 2026},
+  url          = {https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026}
+}
+
+% OPTIONAL: only if the follow-up mentions the OpenAI Lean formalization.
+@misc{OAI26Lean,
+  author       = {{OpenAI}},
+  title        = {Matrix multiplication with exponent at most $9/4$},
+  year         = {2026},
+  month        = oct,
+  note         = {{Lean} formalization, family 107 of the openai/math collection, released 6 October 2026; theorem \texttt{OAI.MatrixMultiplication.complex\_omega\_le\_nine\_quarters}, over $\mathbb{C}$},
+  url          = {https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/OAI/LinearAlgebra/MatrixMultiplication}
+}
+
+@misc{Lu26,
+  author        = {L{\"u}, Houxi},
+  title         = {Polynomial Separation of a Shared Tensor Leg and Matrix Multiplication in Arbitrary Characteristic},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2610.18914},
+  eprint        = {2610.18914},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CC},
+  url           = {https://arxiv.org/abs/2610.18914v1},
+  note          = {arXiv preprint v1, 12 October 2026}
+}
+
+@misc{Fil26,
+  author = {Filmus, Yuval},
+  title  = {Matrix multiplication from block identities},
+  year   = {2026},
+  month  = oct,
+  url    = {https://github.com/YuvalFilmus/matrix-multiplication-block-identities/tree/8e38460c2c04617692a64a826b09e8995ac8717d},
+  note   = {Manuscript with {Lean} formalization, repository commit 8e38460c, 17 October 2026; the manuscript has no byline; authorship as stated in the repository}
+}
+
+@misc{Nav26a,
+  author = {Navot, Sela},
+  title  = {Matrix multiplication exponent at most $9/4$ over arbitrary fields: a {Lean} formalization},
+  year   = {2026},
+  doi    = {10.5281/zenodo.23219128},
+  url    = {https://doi.org/10.5281/zenodo.23219128},
+  note   = {Software, version 1.0.0, Zenodo, 7 October 2026}
+}
+
+@misc{Nav26b,
+  author = {Navot, Sela},
+  title  = {The Matrix Multiplication Bound $\omega\le9/4$ over Associative Rings},
+  year   = {2026},
+  doi    = {10.5281/zenodo.23268534},
+  url    = {https://doi.org/10.5281/zenodo.23268534},
+  note   = {Software with manuscript, version 0.1.0, Zenodo, 9 October 2026}
+}
+
+@misc{Zui26,
+  author = {Zuiddam, Jeroen},
+  title  = {Lean proof that the matrix multiplication exponent is at most $9/4$ over every field},
+  year   = {2026},
+  url    = {https://github.com/jzuiddam/omega-nine-quarters-all-fields/tree/615b591cddd8792173c17b58558ef3b9f11a702c},
+  note   = {GitHub repository, 7 October 2026}
+}
+
+@misc{Uzn26,
+  author        = {Uzna{\'n}ski, Przemys{\l}aw},
+  title         = {Rectangular matrix multiplication from polynomial products},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2610.10494},
+  eprint        = {2610.10494},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.DS},
+  url           = {https://arxiv.org/abs/2610.10494v2},
+  note          = {arXiv preprint v2, 11 October 2026; v1 (7 October 2026) has the title \emph{Rectangular matrix multiplication from shared-leg entropy}}
+}
+
+% ------------------------------------------------- laser-method bounds
+
+@inproceedings{AD25,
+  author    = {Alman, Josh and Duan, Ran and Vassilevska Williams, Virginia and Xu, Yinzhan and Xu, Zixuan and Zhou, Renfei},
+  title     = {More Asymmetry Yields Faster Matrix Multiplication},
+  booktitle = {Proceedings of the 2025 Annual ACM-SIAM Symposium on Discrete Algorithms},
+  pages     = {2005--2039},
+  year      = {2025},
+  publisher = {Society for Industrial and Applied Mathematics},
+  doi       = {10.1137/1.9781611978322.63},
+  eprint    = {2404.16349},
+  archivePrefix = {arXiv}
+}
+
+@misc{Dup26,
+  author        = {Dupont, Emilien and Eisenberger, Marvin and Kozlovskii, Borislav and Mehrabian, Abbas and Ruiz, Francisco J. R. and See, Abigail and Zhou, Renfei and Alman, Josh and Vassilevska Williams, Virginia and Balog, Matej},
+  title         = {Improving the matrix multiplication exponent with modern optimization and {AlphaEvolve}},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2608.16884},
+  eprint        = {2608.16884},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.DS},
+  note          = {arXiv preprint v1, 17 August 2026},
+  url           = {https://arxiv.org/abs/2608.16884v1}
+}
+
+@misc{Zad26,
+  author        = {Zadeh, Reza},
+  title         = {A faster matrix multiplication algorithm through structured optimization},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2610.10593},
+  eprint        = {2610.10593},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.DS},
+  url           = {https://arxiv.org/abs/2610.10593v1},
+  note          = {arXiv preprint v1, 6 October 2026}
+}
+
+@article{AW21,
+  author  = {Alman, Josh and Vassilevska Williams, Virginia},
+  title   = {A Refined Laser Method and Faster Matrix Multiplication},
+  journal = {TheoretiCS},
+  volume  = {3},
+  year    = {2024},
+  pages   = {1--32},
+  doi     = {10.46298/theoretics.24.21},
+  eprint  = {2010.05846},
+  archivePrefix = {arXiv},
+  note    = {Article 21; conference version in SODA 2021, pp. 522--539}
+}
+
+% ------------------------------------------------------------- classical
+
+@article{Str69,
+  author  = {Strassen, Volker},
+  title   = {{G}aussian elimination is not optimal},
+  journal = {Numerische Mathematik},
+  volume  = {13},
+  pages   = {354--356},
+  year    = {1969},
+  doi     = {10.1007/BF02165411}
+}
+
+@article{Bini80,
+  author  = {Bini, Dario},
+  title   = {Relations between exact and approximate bilinear algorithms. {Applications}},
+  journal = {Calcolo},
+  volume  = {17},
+  number  = {1},
+  pages   = {87--97},
+  year    = {1980},
+  doi     = {10.1007/BF02575865}
+}
+
+@article{Sch81,
+  author  = {Sch{\"o}nhage, Arnold},
+  title   = {Partial and total matrix multiplication},
+  journal = {SIAM Journal on Computing},
+  volume  = {10},
+  number  = {3},
+  pages   = {434--455},
+  year    = {1981},
+  doi     = {10.1137/0210032}
+}
+
+@inproceedings{Str86,
+  author    = {Strassen, Volker},
+  title     = {The asymptotic spectrum of tensors and the exponent of matrix multiplication},
+  booktitle = {27th Annual Symposium on Foundations of Computer Science (FOCS 1986)},
+  pages     = {49--54},
+  year      = {1986},
+  publisher = {IEEE},
+  doi       = {10.1109/SFCS.1986.52}
+}
+
+@article{Str87,
+  author  = {Strassen, Volker},
+  title   = {Relative bilinear complexity and matrix multiplication},
+  journal = {Journal f{\"u}r die reine und angewandte Mathematik},
+  volume  = {375/376},
+  pages   = {406--443},
+  year    = {1987},
+  doi     = {10.1515/crll.1987.375-376.406}
+}
+
+@article{Str88,
+  author  = {Strassen, Volker},
+  title   = {The asymptotic spectrum of tensors},
+  journal = {Journal f{\"u}r die reine und angewandte Mathematik},
+  volume  = {384},
+  pages   = {102--152},
+  year    = {1988},
+  doi     = {10.1515/crll.1988.384.102}
+}
+
+@article{CW90,
+  author  = {Coppersmith, Don and Winograd, Shmuel},
+  title   = {Matrix multiplication via arithmetic progressions},
+  journal = {Journal of Symbolic Computation},
+  volume  = {9},
+  number  = {3},
+  pages   = {251--280},
+  year    = {1990},
+  doi     = {10.1016/S0747-7171(08)80013-2}
+}
+
+@inproceedings{LG14,
+  author    = {Le Gall, Fran{\c{c}}ois},
+  title     = {Powers of Tensors and Fast Matrix Multiplication},
+  booktitle = {Proceedings of the 39th International Symposium on Symbolic and Algebraic Computation},
+  pages     = {296--303},
+  year      = {2014},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/2608628.2608664},
+  eprint    = {1401.7714},
+  archivePrefix = {arXiv},
+  note      = {Full version: arXiv:1401.7714}
+}
+
+@article{CVZ,
+  author  = {Christandl, Matthias and Vrana, P{\'e}ter and Zuiddam, Jeroen},
+  title   = {Universal points in the asymptotic spectrum of tensors},
+  journal = {Journal of the American Mathematical Society},
+  volume  = {36},
+  number  = {1},
+  pages   = {31--79},
+  year    = {2023},
+  doi     = {10.1090/jams/996},
+  eprint  = {1709.07851},
+  archivePrefix = {arXiv}
+}
+
+@article{CVZ21,
+  author  = {Christandl, Matthias and Vrana, P{\'e}ter and Zuiddam, Jeroen},
+  title   = {Barriers for Fast Matrix Multiplication from Irreversibility},
+  journal = {Theory of Computing},
+  volume  = {17},
+  pages   = {1--32},
+  year    = {2021},
+  doi     = {10.4086/toc.2021.v017a002},
+  url     = {https://theoryofcomputing.org/articles/v017a002/},
+  note    = {Article 2}
+}
+
+% ------------------------------------- binary forms and the shifted-chain map
+
+@misc{Maakestad23,
+  author        = {Maakestad, Helge {\"O}ystein},
+  title         = {A universal {C}lebsch--{G}ordan filtration for {$\mathrm{GL}_{2,A}$}},
+  year          = {2023},
+  doi           = {10.48550/arXiv.2308.12730},
+  eprint        = {2308.12730},
+  archivePrefix = {arXiv},
+  primaryClass  = {math.AG},
+  url           = {https://arxiv.org/abs/2308.12730v8},
+  note          = {Preprint; v8 revised 18 March 2025}
+}
+
+% OPTIONAL: the source that OAI26 cites (its Section 2.6, author version)
+% for the determinant exact sequence of binary forms.  Not read here.
+@book{Kow14,
+  author    = {Kowalski, Emmanuel},
+  title     = {An Introduction to the Representation Theory of Groups},
+  series    = {Graduate Studies in Mathematics},
+  volume    = {155},
+  publisher = {American Mathematical Society},
+  year      = {2014},
+  doi       = {10.1090/gsm/155}
+}
+
+% OPTIONAL: sectioned (overlap-add) convolution, the endpoint h = b of the
+% shifted map.  Metadata verified (Crossref, ACM); the attribution of the
+% overlap-add method to this paper is from secondary sources, not read here.
+@inproceedings{Sto66,
+  author    = {Stockham, Jr., Thomas G.},
+  title     = {High-speed convolution and correlation},
+  booktitle = {Proceedings of the April 26--28, 1966, Spring Joint Computer Conference (AFIPS '66 Spring)},
+  pages     = {229--233},
+  year      = {1966},
+  publisher = {ACM},
+  doi       = {10.1145/1464182.1464209}
+}
+
+% ------------------------------------------ OPTIONAL: feasible-size context
+
+@misc{Pan18,
+  author        = {Pan, Victor Y.},
+  title         = {Fast Feasible and Unfeasible Matrix Multiplication},
+  year          = {2018},
+  doi           = {10.48550/arXiv.1804.04102},
+  eprint        = {1804.04102},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.DS},
+  url           = {https://arxiv.org/abs/1804.04102v1},
+  note          = {arXiv preprint v1, 11 April 2018}
+}
+
+@inproceedings{SZ26,
+  author    = {Schwartz, Oded and Zwecher, Eyal},
+  title     = {Towards Faster Feasible Matrix Multiplication by Trilinear Aggregation},
+  booktitle = {Proceedings of the 2026 International Symposium on Symbolic and Algebraic Computation (ISSAC 2026)},
+  pages     = {354--363},
+  year      = {2026},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/3815436.3815438},
+  eprint    = {2508.01748},
+  archivePrefix = {arXiv}
+}
+
+% ------------------------------------------- OPTIONAL: general background
+
+@book{BCS97,
+  author    = {B{\"u}rgisser, Peter and Clausen, Michael and Shokrollahi, Mohammad Amin},
+  title     = {Algebraic Complexity Theory},
+  series    = {Grundlehren der mathematischen Wissenschaften},
+  volume    = {315},
+  publisher = {Springer},
+  address   = {Berlin, Heidelberg},
+  year      = {1997},
+  doi       = {10.1007/978-3-662-03338-8}
+}
+
+@article{WZ26,
+  author  = {Wigderson, Avi and Zuiddam, Jeroen},
+  title   = {Asymptotic spectra: Theory, applications, and extensions},
+  journal = {Bulletin of the American Mathematical Society},
+  volume  = {63},
+  number  = {2},
+  pages   = {199--331},
+  year    = {2026},
+  doi     = {10.1090/bull/1880}
+}
+
+% OPTIONAL: only if the follow-up bounds type counts with Stirling's formula.
+@article{Robbins55,
+  author  = {Robbins, Herbert},
+  title   = {A Remark on {S}tirling's Formula},
+  journal = {The American Mathematical Monthly},
+  volume  = {62},
+  number  = {1},
+  pages   = {26--29},
+  year    = {1955},
+  doi     = {10.2307/2308012}
+}
+
+% OPTIONAL: only if the follow-up includes a Lean formalization.
+@inproceedings{Lean4,
+  author    = {de Moura, Leonardo and Ullrich, Sebastian},
+  title     = {The {Lean}~4 Theorem Prover and Programming Language},
+  booktitle = {Automated Deduction -- {CADE} 28},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {12699},
+  pages     = {625--635},
+  year      = {2021},
+  publisher = {Springer},
+  doi       = {10.1007/978-3-030-79876-5_37}
+}
+
+@inproceedings{Mathlib,
+  author    = {{The mathlib Community}},
+  title     = {The {Lean} Mathematical Library},
+  booktitle = {Proceedings of the 9th {ACM} {SIGPLAN} International Conference on Certified Programs and Proofs ({CPP} 2020)},
+  pages     = {367--381},
+  year      = {2020},
+  publisher = {Association for Computing Machinery},
+  doi       = {10.1145/3372885.3373824}
+}
+
+% OPTIONAL: only if the follow-up states precision or stability bounds.
+@article{DDHK07,
+  author = {Demmel, James and Dumitriu, Ioana and Holtz, Olga and Kleinberg, Robert},
+  title = {Fast matrix multiplication is stable},
+  journal = {Numerische Mathematik},
+  volume = {106},
+  number = {2},
+  pages = {199--224},
+  year = {2007},
+  doi = {10.1007/s00211-007-0061-6},
+  eprint = {math/0603207},
+  archivePrefix = {arXiv}
+}
+
+@article{BL80,
+  author  = {Bini, Dario and Lotti, Grazia},
+  title   = {Stability of fast algorithms for matrix multiplication},
+  journal = {Numerische Mathematik},
+  volume  = {36},
+  number  = {1},
+  pages   = {63--72},
+  year    = {1980},
+  doi     = {10.1007/BF01395989}
+}

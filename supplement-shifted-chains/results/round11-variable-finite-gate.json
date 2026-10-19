@@ -1,0 +1,2614 @@
+{
+  "scope": "Uncompressed paired d-chain recipe over Q/characteristic zero; common inventory n and power k; arbitrary variable arities, depth, positive initial indices, optional input/output swaps, legal extra crops, and retained type at every level; ordinary source evaluation, prescribed separators, separate exactification, terminal first-input projection, and actual final ceiling are retained.",
+  "proved_finite_statement": "A<=2^128 and B>A imply actual paid exponent p>=29/10.",
+  "safe_pruning": "Remove from the Q-based lower relaxation all levels with maximum sector count<=d^n; each removed local cost is nonnegative and its inverse lambda factor only increases the source requirement. If none remain, actual p>=3 from b_final<=s. Every remaining arity has d<=2n.",
+  "geometry": {
+    "slope_alpha": "40/49",
+    "root_interval_bits": 128,
+    "source_bound": "s>=alpha*z*b+((4/3-alpha)*z-1/3), z=product(lambda_d^-1)",
+    "endpoint_minimizer": "b=max(1,p*C/((3-p)*a)), a=alpha*z, C=(4/3-alpha)*z-1/3"
+  },
+  "controls": {
+    "terminal_squared_residual_linear_coefficient": "24/49",
+    "terminal_squared_residual_quadratic_coefficient": "2/7203",
+    "large_arity_mode_checks": 98,
+    "small_inventory_no_gain_checks": 198,
+    "M1_mode_replacement_integer_check": "17^6*49<9^10"
+  },
+  "screen": {
+    "source_bits": 128,
+    "source_cap": 340282366920938463463374607431768211456,
+    "positive_mode_n_d_pairs": 219,
+    "positive_mode_table": [
+      {
+        "n": 3,
+        "d": 2,
+        "maximum_sector_count": 12,
+        "maximizing_type_K_O_M": [
+          1,
+          2,
+          0
+        ]
+      },
+      {
+        "n": 4,
+        "d": 2,
+        "maximum_sector_count": 48,
+        "maximizing_type_K_O_M": [
+          1,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 4,
+        "d": 3,
+        "maximum_sector_count": 96,
+        "maximizing_type_K_O_M": [
+          2,
+          2,
+          0
+        ]
+      },
+      {
+        "n": 5,
+        "d": 2,
+        "maximum_sector_count": 160,
+        "maximizing_type_K_O_M": [
+          1,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 5,
+        "d": 3,
+        "maximum_sector_count": 480,
+        "maximizing_type_K_O_M": [
+          2,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 5,
+        "d": 4,
+        "maximum_sector_count": 1080,
+        "maximizing_type_K_O_M": [
+          3,
+          2,
+          0
+        ]
+      },
+      {
+        "n": 6,
+        "d": 2,
+        "maximum_sector_count": 480,
+        "maximizing_type_K_O_M": [
+          2,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 6,
+        "d": 3,
+        "maximum_sector_count": 1920,
+        "maximizing_type_K_O_M": [
+          3,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 6,
+        "d": 4,
+        "maximum_sector_count": 6480,
+        "maximizing_type_K_O_M": [
+          3,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 7,
+        "d": 2,
+        "maximum_sector_count": 1680,
+        "maximizing_type_K_O_M": [
+          2,
+          4,
+          1
+        ]
+      },
+      {
+        "n": 7,
+        "d": 3,
+        "maximum_sector_count": 8960,
+        "maximizing_type_K_O_M": [
+          3,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 7,
+        "d": 4,
+        "maximum_sector_count": 34020,
+        "maximizing_type_K_O_M": [
+          4,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 7,
+        "d": 5,
+        "maximum_sector_count": 107520,
+        "maximizing_type_K_O_M": [
+          4,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 8,
+        "d": 2,
+        "maximum_sector_count": 6720,
+        "maximizing_type_K_O_M": [
+          2,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 8,
+        "d": 3,
+        "maximum_sector_count": 35840,
+        "maximizing_type_K_O_M": [
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 8,
+        "d": 4,
+        "maximum_sector_count": 181440,
+        "maximizing_type_K_O_M": [
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 8,
+        "d": 5,
+        "maximum_sector_count": 688128,
+        "maximizing_type_K_O_M": [
+          5,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 8,
+        "d": 6,
+        "maximum_sector_count": 2100000,
+        "maximizing_type_K_O_M": [
+          5,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 9,
+        "d": 2,
+        "maximum_sector_count": 24192,
+        "maximizing_type_K_O_M": [
+          2,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 9,
+        "d": 3,
+        "maximum_sector_count": 161280,
+        "maximizing_type_K_O_M": [
+          4,
+          4,
+          1
+        ]
+      },
+      {
+        "n": 9,
+        "d": 4,
+        "maximum_sector_count": 979776,
+        "maximizing_type_K_O_M": [
+          5,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 9,
+        "d": 5,
+        "maximum_sector_count": 4128768,
+        "maximizing_type_K_O_M": [
+          6,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 9,
+        "d": 6,
+        "maximum_sector_count": 15750000,
+        "maximizing_type_K_O_M": [
+          6,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 9,
+        "d": 7,
+        "maximum_sector_count": 47029248,
+        "maximizing_type_K_O_M": [
+          6,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 10,
+        "d": 2,
+        "maximum_sector_count": 80640,
+        "maximizing_type_K_O_M": [
+          3,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 10,
+        "d": 3,
+        "maximum_sector_count": 806400,
+        "maximizing_type_K_O_M": [
+          4,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 10,
+        "d": 4,
+        "maximum_sector_count": 4898880,
+        "maximizing_type_K_O_M": [
+          6,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 10,
+        "d": 5,
+        "maximum_sector_count": 27525120,
+        "maximizing_type_K_O_M": [
+          6,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 10,
+        "d": 6,
+        "maximum_sector_count": 112500000,
+        "maximizing_type_K_O_M": [
+          7,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 10,
+        "d": 7,
+        "maximum_sector_count": 403107840,
+        "maximizing_type_K_O_M": [
+          7,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 10,
+        "d": 8,
+        "maximum_sector_count": 1185901920,
+        "maximizing_type_K_O_M": [
+          7,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 11,
+        "d": 2,
+        "maximum_sector_count": 295680,
+        "maximizing_type_K_O_M": [
+          3,
+          6,
+          2
+        ]
+      },
+      {
+        "n": 11,
+        "d": 3,
+        "maximum_sector_count": 3548160,
+        "maximizing_type_K_O_M": [
+          5,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 11,
+        "d": 4,
+        "maximum_sector_count": 26943840,
+        "maximizing_type_K_O_M": [
+          6,
+          4,
+          1
+        ]
+      },
+      {
+        "n": 11,
+        "d": 5,
+        "maximum_sector_count": 173015040,
+        "maximizing_type_K_O_M": [
+          7,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 11,
+        "d": 6,
+        "maximum_sector_count": 825000000,
+        "maximizing_type_K_O_M": [
+          7,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 11,
+        "d": 7,
+        "maximum_sector_count": 3325639680,
+        "maximizing_type_K_O_M": [
+          8,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 11,
+        "d": 8,
+        "maximum_sector_count": 11414305980,
+        "maximizing_type_K_O_M": [
+          8,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 11,
+        "d": 9,
+        "maximum_sector_count": 33218887680,
+        "maximizing_type_K_O_M": [
+          8,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 12,
+        "d": 2,
+        "maximum_sector_count": 1182720,
+        "maximizing_type_K_O_M": [
+          3,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 12,
+        "d": 3,
+        "maximum_sector_count": 17031168,
+        "maximizing_type_K_O_M": [
+          5,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 12,
+        "d": 4,
+        "maximum_sector_count": 161663040,
+        "maximizing_type_K_O_M": [
+          6,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 12,
+        "d": 5,
+        "maximum_sector_count": 1038090240,
+        "maximizing_type_K_O_M": [
+          8,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 12,
+        "d": 6,
+        "maximum_sector_count": 6187500000,
+        "maximizing_type_K_O_M": [
+          8,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 12,
+        "d": 7,
+        "maximum_sector_count": 26605117440,
+        "maximizing_type_K_O_M": [
+          9,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 12,
+        "d": 8,
+        "maximum_sector_count": 106533522480,
+        "maximizing_type_K_O_M": [
+          9,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 12,
+        "d": 9,
+        "maximum_sector_count": 354334801920,
+        "maximizing_type_K_O_M": [
+          9,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 12,
+        "d": 10,
+        "maximum_sector_count": 1022790090960,
+        "maximizing_type_K_O_M": [
+          9,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 13,
+        "d": 2,
+        "maximum_sector_count": 4392960,
+        "maximizing_type_K_O_M": [
+          3,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 13,
+        "d": 3,
+        "maximum_sector_count": 73801728,
+        "maximizing_type_K_O_M": [
+          6,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 13,
+        "d": 4,
+        "maximum_sector_count": 900694080,
+        "maximizing_type_K_O_M": [
+          7,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 13,
+        "d": 5,
+        "maximum_sector_count": 6747586560,
+        "maximizing_type_K_O_M": [
+          8,
+          4,
+          1
+        ]
+      },
+      {
+        "n": 13,
+        "d": 6,
+        "maximum_sector_count": 44687500000,
+        "maximizing_type_K_O_M": [
+          9,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 13,
+        "d": 7,
+        "maximum_sector_count": 230577684480,
+        "maximizing_type_K_O_M": [
+          9,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 13,
+        "d": 8,
+        "maximum_sector_count": 969455054568,
+        "maximizing_type_K_O_M": [
+          10,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 13,
+        "d": 9,
+        "maximum_sector_count": 3685081939968,
+        "maximizing_type_K_O_M": [
+          10,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 13,
+        "d": 10,
+        "maximum_sector_count": 11966644064232,
+        "maximizing_type_K_O_M": [
+          10,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 14,
+        "d": 2,
+        "maximum_sector_count": 15375360,
+        "maximizing_type_K_O_M": [
+          4,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 14,
+        "d": 3,
+        "maximum_sector_count": 344408064,
+        "maximizing_type_K_O_M": [
+          6,
+          6,
+          2
+        ]
+      },
+      {
+        "n": 14,
+        "d": 4,
+        "maximum_sector_count": 5043886848,
+        "maximizing_type_K_O_M": [
+          7,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 14,
+        "d": 5,
+        "maximum_sector_count": 47233105920,
+        "maximizing_type_K_O_M": [
+          8,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 14,
+        "d": 6,
+        "maximum_sector_count": 312812500000,
+        "maximizing_type_K_O_M": [
+          10,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 14,
+        "d": 7,
+        "maximum_sector_count": 1936852549632,
+        "maximizing_type_K_O_M": [
+          10,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 14,
+        "d": 8,
+        "maximum_sector_count": 9048247175968,
+        "maximizing_type_K_O_M": [
+          10,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 14,
+        "d": 9,
+        "maximum_sector_count": 37520834297856,
+        "maximizing_type_K_O_M": [
+          11,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 14,
+        "d": 10,
+        "maximum_sector_count": 137072468372112,
+        "maximizing_type_K_O_M": [
+          11,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 14,
+        "d": 11,
+        "maximum_sector_count": 436800000000000,
+        "maximizing_type_K_O_M": [
+          11,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "d": 2,
+        "maximum_sector_count": 57657600,
+        "maximizing_type_K_O_M": [
+          4,
+          8,
+          3
+        ]
+      },
+      {
+        "n": 15,
+        "d": 3,
+        "maximum_sector_count": 1722040320,
+        "maximizing_type_K_O_M": [
+          6,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 15,
+        "d": 4,
+        "maximum_sector_count": 28371863520,
+        "maximizing_type_K_O_M": [
+          8,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 15,
+        "d": 5,
+        "maximum_sector_count": 314887372800,
+        "maximizing_type_K_O_M": [
+          9,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 15,
+        "d": 6,
+        "maximum_sector_count": 2346093750000,
+        "maximizing_type_K_O_M": [
+          10,
+          4,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "d": 7,
+        "maximum_sector_count": 15846975406080,
+        "maximizing_type_K_O_M": [
+          11,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "d": 8,
+        "maximum_sector_count": 86369632134240,
+        "maximizing_type_K_O_M": [
+          11,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "d": 9,
+        "maximum_sector_count": 375208342978560,
+        "maximizing_type_K_O_M": [
+          12,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "d": 10,
+        "maximum_sector_count": 1542065269186260,
+        "maximizing_type_K_O_M": [
+          12,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "d": 11,
+        "maximum_sector_count": 5460000000000000,
+        "maximizing_type_K_O_M": [
+          12,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 15,
+        "d": 12,
+        "maximum_sector_count": 17135818936896660,
+        "maximizing_type_K_O_M": [
+          12,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "d": 2,
+        "maximum_sector_count": 230630400,
+        "maximizing_type_K_O_M": [
+          4,
+          8,
+          4
+        ]
+      },
+      {
+        "n": 16,
+        "d": 3,
+        "maximum_sector_count": 7872184320,
+        "maximizing_type_K_O_M": [
+          7,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 16,
+        "d": 4,
+        "maximum_sector_count": 151316605440,
+        "maximizing_type_K_O_M": [
+          9,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 16,
+        "d": 5,
+        "maximum_sector_count": 2015279185920,
+        "maximizing_type_K_O_M": [
+          10,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 16,
+        "d": 6,
+        "maximum_sector_count": 18768750000000,
+        "maximizing_type_K_O_M": [
+          10,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 16,
+        "d": 7,
+        "maximum_sector_count": 126775803248640,
+        "maximizing_type_K_O_M": [
+          12,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "d": 8,
+        "maximum_sector_count": 806116566586240,
+        "maximizing_type_K_O_M": [
+          12,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "d": 9,
+        "maximum_sector_count": 4002222325104640,
+        "maximizing_type_K_O_M": [
+          12,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "d": 10,
+        "maximum_sector_count": 17081338366370880,
+        "maximizing_type_K_O_M": [
+          13,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "d": 11,
+        "maximum_sector_count": 67200000000000000,
+        "maximizing_type_K_O_M": [
+          13,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "d": 12,
+        "maximum_sector_count": 231992625607216320,
+        "maximizing_type_K_O_M": [
+          13,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 16,
+        "d": 13,
+        "maximum_sector_count": 718994340147363840,
+        "maximizing_type_K_O_M": [
+          13,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 17,
+        "d": 2,
+        "maximum_sector_count": 871270400,
+        "maximizing_type_K_O_M": [
+          4,
+          9,
+          4
+        ]
+      },
+      {
+        "n": 17,
+        "d": 3,
+        "maximum_sector_count": 38236323840,
+        "maximizing_type_K_O_M": [
+          7,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 17,
+        "d": 4,
+        "maximum_sector_count": 857460764160,
+        "maximizing_type_K_O_M": [
+          9,
+          6,
+          2
+        ]
+      },
+      {
+        "n": 17,
+        "d": 5,
+        "maximum_sector_count": 13703898464256,
+        "maximizing_type_K_O_M": [
+          10,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 17,
+        "d": 6,
+        "maximum_sector_count": 145031250000000,
+        "maximizing_type_K_O_M": [
+          11,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 17,
+        "d": 7,
+        "maximum_sector_count": 1077594327613440,
+        "maximizing_type_K_O_M": [
+          12,
+          4,
+          1
+        ]
+      },
+      {
+        "n": 17,
+        "d": 8,
+        "maximum_sector_count": 7379067032597120,
+        "maximizing_type_K_O_M": [
+          13,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 17,
+        "d": 9,
+        "maximum_sector_count": 41869402785710080,
+        "maximizing_type_K_O_M": [
+          13,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 17,
+        "d": 10,
+        "maximum_sector_count": 193588501485536640,
+        "maximizing_type_K_O_M": [
+          13,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 17,
+        "d": 11,
+        "maximum_sector_count": 816000000000000000,
+        "maximizing_type_K_O_M": [
+          14,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 17,
+        "d": 12,
+        "maximum_sector_count": 3098758642039246560,
+        "maximizing_type_K_O_M": [
+          14,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 17,
+        "d": 13,
+        "maximum_sector_count": 10476774670718730240,
+        "maximizing_type_K_O_M": [
+          14,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 18,
+        "d": 2,
+        "maximum_sector_count": 3136573440,
+        "maximizing_type_K_O_M": [
+          5,
+          9,
+          4
+        ]
+      },
+      {
+        "n": 18,
+        "d": 3,
+        "maximum_sector_count": 172063457280,
+        "maximizing_type_K_O_M": [
+          8,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 18,
+        "d": 4,
+        "maximum_sector_count": 5144764584960,
+        "maximizing_type_K_O_M": [
+          9,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 18,
+        "d": 5,
+        "maximum_sector_count": 89698244493312,
+        "maximizing_type_K_O_M": [
+          11,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 18,
+        "d": 6,
+        "maximum_sector_count": 1087734375000000,
+        "maximizing_type_K_O_M": [
+          12,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 18,
+        "d": 7,
+        "maximum_sector_count": 9698348948520960,
+        "maximizing_type_K_O_M": [
+          12,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 18,
+        "d": 8,
+        "maximum_sector_count": 66411603293374080,
+        "maximizing_type_K_O_M": [
+          14,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 18,
+        "d": 9,
+        "maximum_sector_count": 430656714367303680,
+        "maximizing_type_K_O_M": [
+          14,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 18,
+        "d": 10,
+        "maximum_sector_count": 2240095517189781120,
+        "maximizing_type_K_O_M": [
+          14,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 18,
+        "d": 11,
+        "maximum_sector_count": 9792000000000000000,
+        "maximizing_type_K_O_M": [
+          15,
+          2,
+          1
+        ]
+      },
+      {
+        "n": 19,
+        "d": 2,
+        "maximum_sector_count": 11918979072,
+        "maximizing_type_K_O_M": [
+          5,
+          10,
+          4
+        ]
+      },
+      {
+        "n": 19,
+        "d": 3,
+        "maximum_sector_count": 817301422080,
+        "maximizing_type_K_O_M": [
+          8,
+          8,
+          3
+        ]
+      },
+      {
+        "n": 19,
+        "d": 4,
+        "maximum_sector_count": 29325158134272,
+        "maximizing_type_K_O_M": [
+          10,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 19,
+        "d": 5,
+        "maximum_sector_count": 568088881790976,
+        "maximizing_type_K_O_M": [
+          12,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 19,
+        "d": 6,
+        "maximum_sector_count": 8266781250000000,
+        "maximizing_type_K_O_M": [
+          12,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 19,
+        "d": 7,
+        "maximum_sector_count": 85047060010106880,
+        "maximizing_type_K_O_M": [
+          13,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 19,
+        "d": 8,
+        "maximum_sector_count": 630910231287053760,
+        "maximizing_type_K_O_M": [
+          14,
+          4,
+          1
+        ]
+      },
+      {
+        "n": 19,
+        "d": 9,
+        "maximum_sector_count": 4363988038922010624,
+        "maximizing_type_K_O_M": [
+          15,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 19,
+        "d": 10,
+        "maximum_sector_count": 25537088895963504768,
+        "maximizing_type_K_O_M": [
+          15,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 20,
+        "d": 2,
+        "maximum_sector_count": 47675916288,
+        "maximizing_type_K_O_M": [
+          5,
+          10,
+          5
+        ]
+      },
+      {
+        "n": 20,
+        "d": 3,
+        "maximum_sector_count": 4086507110400,
+        "maximizing_type_K_O_M": [
+          8,
+          8,
+          4
+        ]
+      },
+      {
+        "n": 20,
+        "d": 4,
+        "maximum_sector_count": 167572332195840,
+        "maximizing_type_K_O_M": [
+          10,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 20,
+        "d": 5,
+        "maximum_sector_count": 3787259211939840,
+        "maximizing_type_K_O_M": [
+          12,
+          6,
+          2
+        ]
+      },
+      {
+        "n": 20,
+        "d": 6,
+        "maximum_sector_count": 63590625000000000,
+        "maximizing_type_K_O_M": [
+          13,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 20,
+        "d": 7,
+        "maximum_sector_count": 728974800086630400,
+        "maximizing_type_K_O_M": [
+          14,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 20,
+        "d": 8,
+        "maximum_sector_count": 6309102312870537600,
+        "maximizing_type_K_O_M": [
+          14,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 20,
+        "d": 9,
+        "maximum_sector_count": 43639880389220106240,
+        "maximizing_type_K_O_M": [
+          16,
+          3,
+          1
+        ]
+      },
+      {
+        "n": 21,
+        "d": 2,
+        "maximum_sector_count": 182035316736,
+        "maximizing_type_K_O_M": [
+          5,
+          11,
+          5
+        ]
+      },
+      {
+        "n": 21,
+        "d": 3,
+        "maximum_sector_count": 19070366515200,
+        "maximizing_type_K_O_M": [
+          9,
+          8,
+          4
+        ]
+      },
+      {
+        "n": 21,
+        "d": 4,
+        "maximum_sector_count": 959732448030720,
+        "maximizing_type_K_O_M": [
+          11,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 21,
+        "d": 5,
+        "maximum_sector_count": 26510814483578880,
+        "maximizing_type_K_O_M": [
+          12,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 21,
+        "d": 6,
+        "maximum_sector_count": 476929687500000000,
+        "maximizing_type_K_O_M": [
+          14,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 21,
+        "d": 7,
+        "maximum_sector_count": 6123388320727695360,
+        "maximizing_type_K_O_M": [
+          15,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 21,
+        "d": 8,
+        "maximum_sector_count": 61829202666131268480,
+        "maximizing_type_K_O_M": [
+          15,
+          4,
+          2
+        ]
+      },
+      {
+        "n": 22,
+        "d": 2,
+        "maximum_sector_count": 667462828032,
+        "maximizing_type_K_O_M": [
+          6,
+          11,
+          5
+        ]
+      },
+      {
+        "n": 22,
+        "d": 3,
+        "maximum_sector_count": 93232902963200,
+        "maximizing_type_K_O_M": [
+          9,
+          9,
+          4
+        ]
+      },
+      {
+        "n": 22,
+        "d": 4,
+        "maximum_sector_count": 5278528464168960,
+        "maximizing_type_K_O_M": [
+          12,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 22,
+        "d": 5,
+        "maximum_sector_count": 179457821119610880,
+        "maximizing_type_K_O_M": [
+          13,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 22,
+        "d": 6,
+        "maximum_sector_count": 3497484375000000000,
+        "maximizing_type_K_O_M": [
+          15,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 22,
+        "d": 7,
+        "maximum_sector_count": 53885817222403719168,
+        "maximizing_type_K_O_M": [
+          15,
+          5,
+          2
+        ]
+      },
+      {
+        "n": 23,
+        "d": 2,
+        "maximum_sector_count": 2558607507456,
+        "maximizing_type_K_O_M": [
+          6,
+          12,
+          5
+        ]
+      },
+      {
+        "n": 23,
+        "d": 3,
+        "maximum_sector_count": 428871353630720,
+        "maximizing_type_K_O_M": [
+          10,
+          9,
+          4
+        ]
+      },
+      {
+        "n": 23,
+        "d": 4,
+        "maximum_sector_count": 30351538668971520,
+        "maximizing_type_K_O_M": [
+          12,
+          8,
+          3
+        ]
+      },
+      {
+        "n": 23,
+        "d": 5,
+        "maximum_sector_count": 1179294253071728640,
+        "maximizing_type_K_O_M": [
+          14,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 23,
+        "d": 6,
+        "maximum_sector_count": 26814046875000000000,
+        "maximizing_type_K_O_M": [
+          15,
+          6,
+          2
+        ]
+      },
+      {
+        "n": 24,
+        "d": 2,
+        "maximum_sector_count": 10234430029824,
+        "maximizing_type_K_O_M": [
+          6,
+          12,
+          6
+        ]
+      },
+      {
+        "n": 24,
+        "d": 3,
+        "maximum_sector_count": 2058582497427456,
+        "maximizing_type_K_O_M": [
+          10,
+          10,
+          4
+        ]
+      },
+      {
+        "n": 24,
+        "d": 4,
+        "maximum_sector_count": 182109232013829120,
+        "maximizing_type_K_O_M": [
+          12,
+          8,
+          4
+        ]
+      },
+      {
+        "n": 24,
+        "d": 5,
+        "maximum_sector_count": 8086589163920424960,
+        "maximizing_type_K_O_M": [
+          14,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 24,
+        "d": 6,
+        "maximum_sector_count": 214512375000000000000,
+        "maximizing_type_K_O_M": [
+          15,
+          6,
+          3
+        ]
+      },
+      {
+        "n": 25,
+        "d": 2,
+        "maximum_sector_count": 39363192422400,
+        "maximizing_type_K_O_M": [
+          6,
+          13,
+          6
+        ]
+      },
+      {
+        "n": 25,
+        "d": 3,
+        "maximum_sector_count": 10292912487137280,
+        "maximizing_type_K_O_M": [
+          10,
+          10,
+          5
+        ]
+      },
+      {
+        "n": 25,
+        "d": 4,
+        "maximum_sector_count": 1050630184695168000,
+        "maximizing_type_K_O_M": [
+          13,
+          8,
+          4
+        ]
+      },
+      {
+        "n": 25,
+        "d": 5,
+        "maximum_sector_count": 53910594426136166400,
+        "maximizing_type_K_O_M": [
+          15,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 26,
+        "d": 2,
+        "maximum_sector_count": 146206143283200,
+        "maximizing_type_K_O_M": [
+          7,
+          13,
+          6
+        ]
+      },
+      {
+        "n": 26,
+        "d": 3,
+        "maximum_sector_count": 48657404484648960,
+        "maximizing_type_K_O_M": [
+          11,
+          10,
+          5
+        ]
+      },
+      {
+        "n": 26,
+        "d": 4,
+        "maximum_sector_count": 6070307733794304000,
+        "maximizing_type_K_O_M": [
+          13,
+          9,
+          4
+        ]
+      },
+      {
+        "n": 26,
+        "d": 5,
+        "maximum_sector_count": 350418863769885081600,
+        "maximizing_type_K_O_M": [
+          16,
+          7,
+          3
+        ]
+      },
+      {
+        "n": 27,
+        "d": 2,
+        "maximum_sector_count": 563937981235200,
+        "maximizing_type_K_O_M": [
+          7,
+          14,
+          6
+        ]
+      },
+      {
+        "n": 27,
+        "d": 3,
+        "maximum_sector_count": 238863622015549440,
+        "maximizing_type_K_O_M": [
+          11,
+          11,
+          5
+        ]
+      },
+      {
+        "n": 27,
+        "d": 4,
+        "maximum_sector_count": 35121066174095616000,
+        "maximizing_type_K_O_M": [
+          14,
+          9,
+          4
+        ]
+      },
+      {
+        "n": 27,
+        "d": 5,
+        "maximum_sector_count": 2365327330446724300800,
+        "maximizing_type_K_O_M": [
+          16,
+          8,
+          3
+        ]
+      },
+      {
+        "n": 28,
+        "d": 2,
+        "maximum_sector_count": 2255751924940800,
+        "maximizing_type_K_O_M": [
+          7,
+          14,
+          7
+        ]
+      },
+      {
+        "n": 28,
+        "d": 3,
+        "maximum_sector_count": 1114696902739230720,
+        "maximizing_type_K_O_M": [
+          12,
+          11,
+          5
+        ]
+      },
+      {
+        "n": 28,
+        "d": 4,
+        "maximum_sector_count": 196677970574935449600,
+        "maximizing_type_K_O_M": [
+          15,
+          9,
+          4
+        ]
+      },
+      {
+        "n": 29,
+        "d": 2,
+        "maximum_sector_count": 8722240776437760,
+        "maximizing_type_K_O_M": [
+          7,
+          15,
+          7
+        ]
+      },
+      {
+        "n": 29,
+        "d": 3,
+        "maximum_sector_count": 5387701696572948480,
+        "maximizing_type_K_O_M": [
+          12,
+          12,
+          5
+        ]
+      },
+      {
+        "n": 29,
+        "d": 4,
+        "maximum_sector_count": 1140732229334625607680,
+        "maximizing_type_K_O_M": [
+          15,
+          10,
+          4
+        ]
+      },
+      {
+        "n": 30,
+        "d": 2,
+        "maximum_sector_count": 32708402911641600,
+        "maximizing_type_K_O_M": [
+          8,
+          15,
+          7
+        ]
+      },
+      {
+        "n": 30,
+        "d": 3,
+        "maximum_sector_count": 26938508482864742400,
+        "maximizing_type_K_O_M": [
+          12,
+          12,
+          6
+        ]
+      },
+      {
+        "n": 30,
+        "d": 4,
+        "maximum_sector_count": 6844393376007753646080,
+        "maximizing_type_K_O_M": [
+          15,
+          10,
+          5
+        ]
+      },
+      {
+        "n": 31,
+        "d": 2,
+        "maximum_sector_count": 126745061282611200,
+        "maximizing_type_K_O_M": [
+          8,
+          16,
+          7
+        ]
+      },
+      {
+        "n": 31,
+        "d": 3,
+        "maximum_sector_count": 128475963533662617600,
+        "maximizing_type_K_O_M": [
+          13,
+          12,
+          6
+        ]
+      },
+      {
+        "n": 31,
+        "d": 4,
+        "maximum_sector_count": 39783036498045068067840,
+        "maximizing_type_K_O_M": [
+          16,
+          10,
+          5
+        ]
+      },
+      {
+        "n": 32,
+        "d": 2,
+        "maximum_sector_count": 506980245130444800,
+        "maximizing_type_K_O_M": [
+          8,
+          16,
+          8
+        ]
+      },
+      {
+        "n": 32,
+        "d": 3,
+        "maximum_sector_count": 632497051242646732800,
+        "maximizing_type_K_O_M": [
+          13,
+          13,
+          6
+        ]
+      },
+      {
+        "n": 32,
+        "d": 4,
+        "maximum_sector_count": 231464939624989486940160,
+        "maximizing_type_K_O_M": [
+          16,
+          11,
+          5
+        ]
+      },
+      {
+        "n": 33,
+        "d": 2,
+        "maximum_sector_count": 1968276245800550400,
+        "maximizing_type_K_O_M": [
+          8,
+          17,
+          8
+        ]
+      },
+      {
+        "n": 33,
+        "d": 3,
+        "maximum_sector_count": 2981771813001048883200,
+        "maximizing_type_K_O_M": [
+          14,
+          13,
+          6
+        ]
+      },
+      {
+        "n": 34,
+        "d": 2,
+        "maximum_sector_count": 7435710261913190400,
+        "maximizing_type_K_O_M": [
+          9,
+          17,
+          8
+        ]
+      },
+      {
+        "n": 34,
+        "d": 3,
+        "maximum_sector_count": 14482891663147951718400,
+        "maximizing_type_K_O_M": [
+          14,
+          14,
+          6
+        ]
+      },
+      {
+        "n": 35,
+        "d": 2,
+        "maximum_sector_count": 28916651018551296000,
+        "maximizing_type_K_O_M": [
+          9,
+          18,
+          8
+        ]
+      },
+      {
+        "n": 35,
+        "d": 3,
+        "maximum_sector_count": 72414458315739758592000,
+        "maximizing_type_K_O_M": [
+          14,
+          14,
+          7
+        ]
+      },
+      {
+        "n": 36,
+        "d": 2,
+        "maximum_sector_count": 115666604074205184000,
+        "maximizing_type_K_O_M": [
+          9,
+          18,
+          9
+        ]
+      },
+      {
+        "n": 36,
+        "d": 3,
+        "maximum_sector_count": 347589399915550841241600,
+        "maximizing_type_K_O_M": [
+          15,
+          14,
+          7
+        ]
+      },
+      {
+        "n": 37,
+        "d": 2,
+        "maximum_sector_count": 450490984289009664000,
+        "maximizing_type_K_O_M": [
+          9,
+          19,
+          9
+        ]
+      },
+      {
+        "n": 37,
+        "d": 3,
+        "maximum_sector_count": 1714774372916717483458560,
+        "maximizing_type_K_O_M": [
+          15,
+          15,
+          7
+        ]
+      },
+      {
+        "n": 38,
+        "d": 2,
+        "maximum_sector_count": 1711865740298236723200,
+        "maximizing_type_K_O_M": [
+          10,
+          19,
+          9
+        ]
+      },
+      {
+        "n": 38,
+        "d": 3,
+        "maximum_sector_count": 8145178271354408046428160,
+        "maximizing_type_K_O_M": [
+          16,
+          15,
+          7
+        ]
+      },
+      {
+        "n": 39,
+        "d": 2,
+        "maximum_sector_count": 6676276387163123220480,
+        "maximizing_type_K_O_M": [
+          10,
+          20,
+          9
+        ]
+      },
+      {
+        "n": 39,
+        "d": 3,
+        "maximum_sector_count": 39707744072852739226337280,
+        "maximizing_type_K_O_M": [
+          16,
+          16,
+          7
+        ]
+      },
+      {
+        "n": 40,
+        "d": 2,
+        "maximum_sector_count": 26705105548652492881920,
+        "maximizing_type_K_O_M": [
+          10,
+          20,
+          10
+        ]
+      },
+      {
+        "n": 40,
+        "d": 3,
+        "maximum_sector_count": 198538720364263696131686400,
+        "maximizing_type_K_O_M": [
+          16,
+          16,
+          8
+        ]
+      },
+      {
+        "n": 41,
+        "d": 2,
+        "maximum_sector_count": 104277078809024019824640,
+        "maximizing_type_K_O_M": [
+          10,
+          21,
+          10
+        ]
+      },
+      {
+        "n": 42,
+        "d": 2,
+        "maximum_sector_count": 398148846361728075694080,
+        "maximizing_type_K_O_M": [
+          11,
+          21,
+          10
+        ]
+      },
+      {
+        "n": 43,
+        "d": 2,
+        "maximum_sector_count": 1556400035777664295895040,
+        "maximizing_type_K_O_M": [
+          11,
+          22,
+          10
+        ]
+      },
+      {
+        "n": 44,
+        "d": 2,
+        "maximum_sector_count": 6225600143110657183580160,
+        "maximizing_type_K_O_M": [
+          11,
+          22,
+          11
+        ]
+      },
+      {
+        "n": 45,
+        "d": 2,
+        "maximum_sector_count": 24361044038259093327052800,
+        "maximizing_type_K_O_M": [
+          11,
+          23,
+          11
+        ]
+      },
+      {
+        "n": 46,
+        "d": 2,
+        "maximum_sector_count": 93384002146659857753702400,
+        "maximizing_type_K_O_M": [
+          12,
+          23,
+          11
+        ]
+      },
+      {
+        "n": 47,
+        "d": 2,
+        "maximum_sector_count": 365754008407751109535334400,
+        "maximizing_type_K_O_M": [
+          12,
+          24,
+          11
+        ]
+      },
+      {
+        "n": 48,
+        "d": 2,
+        "maximum_sector_count": 1463016033631004438141337600,
+        "maximizing_type_K_O_M": [
+          12,
+          24,
+          12
+        ]
+      },
+      {
+        "n": 49,
+        "d": 2,
+        "maximum_sector_count": 5735022851833537397514043392,
+        "maximizing_type_K_O_M": [
+          12,
+          25,
+          12
+        ]
+      },
+      {
+        "n": 50,
+        "d": 2,
+        "maximum_sector_count": 22057780199359759221207859200,
+        "maximizing_type_K_O_M": [
+          13,
+          25,
+          12
+        ]
+      },
+      {
+        "n": 51,
+        "d": 2,
+        "maximum_sector_count": 86534368474411363098584678400,
+        "maximizing_type_K_O_M": [
+          13,
+          26,
+          12
+        ]
+      },
+      {
+        "n": 52,
+        "d": 2,
+        "maximum_sector_count": 346137473897645452394338713600,
+        "maximizing_type_K_O_M": [
+          13,
+          26,
+          13
+        ]
+      },
+      {
+        "n": 53,
+        "d": 2,
+        "maximum_sector_count": 1358910082709274739029626060800,
+        "maximizing_type_K_O_M": [
+          13,
+          27,
+          13
+        ]
+      },
+      {
+        "n": 54,
+        "d": 2,
+        "maximum_sector_count": 5241510319021488279114271948800,
+        "maximizing_type_K_O_M": [
+          14,
+          27,
+          13
+        ]
+      },
+      {
+        "n": 55,
+        "d": 2,
+        "maximum_sector_count": 20591647681870132525091782656000,
+        "maximizing_type_K_O_M": [
+          14,
+          28,
+          13
+        ]
+      },
+      {
+        "n": 56,
+        "d": 2,
+        "maximum_sector_count": 82366590727480530100367130624000,
+        "maximizing_type_K_O_M": [
+          14,
+          28,
+          14
+        ]
+      },
+      {
+        "n": 57,
+        "d": 2,
+        "maximum_sector_count": 323785908376992428670408720384000,
+        "maximizing_type_K_O_M": [
+          14,
+          29,
+          14
+        ]
+      },
+      {
+        "n": 58,
+        "d": 2,
+        "maximum_sector_count": 1251972179057704057525580385484800,
+        "maximizing_type_K_O_M": [
+          15,
+          29,
+          14
+        ]
+      },
+      {
+        "n": 59,
+        "d": 2,
+        "maximum_sector_count": 4924423904293635959600616182906880,
+        "maximizing_type_K_O_M": [
+          15,
+          30,
+          14
+        ]
+      },
+      {
+        "n": 60,
+        "d": 2,
+        "maximum_sector_count": 19697695617174543838402464731627520,
+        "maximizing_type_K_O_M": [
+          15,
+          30,
+          15
+        ]
+      },
+      {
+        "n": 61,
+        "d": 2,
+        "maximum_sector_count": 77519963396622398331777441847050240,
+        "maximizing_type_K_O_M": [
+          15,
+          31,
+          15
+        ]
+      },
+      {
+        "n": 62,
+        "d": 2,
+        "maximum_sector_count": 300389858161911793535637587157319680,
+        "maximizing_type_K_O_M": [
+          16,
+          31,
+          15
+        ]
+      },
+      {
+        "n": 63,
+        "d": 2,
+        "maximum_sector_count": 1182785066512527687046572999431946240,
+        "maximizing_type_K_O_M": [
+          16,
+          32,
+          15
+        ]
+      },
+      {
+        "n": 64,
+        "d": 2,
+        "maximum_sector_count": 4731140266050110748186291997727784960,
+        "maximizing_type_K_O_M": [
+          16,
+          32,
+          16
+        ]
+      }
+    ],
+    "nonempty_retained_multisets": 1752,
+    "maximum_retained_depth": 21,
+    "multiset_census_sha256": "030a70bd38117797792b9ea2d855de175f8becf3d98b9217790c226f284477d6",
+    "counts_by_n_k": {
+      "3:1": 21,
+      "3:2": 10,
+      "3:3": 7,
+      "3:4": 5,
+      "3:5": 4,
+      "3:6": 3,
+      "3:7": 3,
+      "3:8": 2,
+      "3:9": 2,
+      "3:10": 2,
+      "3:11": 1,
+      "3:12": 1,
+      "3:13": 1,
+      "3:14": 1,
+      "3:15": 1,
+      "3:16": 1,
+      "3:17": 1,
+      "3:18": 1,
+      "3:19": 1,
+      "3:20": 1,
+      "3:21": 1,
+      "4:1": 94,
+      "4:2": 27,
+      "4:3": 13,
+      "4:4": 8,
+      "4:5": 6,
+      "4:6": 4,
+      "4:7": 3,
+      "4:8": 3,
+      "4:9": 2,
+      "4:10": 2,
+      "4:11": 1,
+      "4:12": 1,
+      "4:13": 1,
+      "4:14": 1,
+      "4:15": 1,
+      "4:16": 1,
+      "5:1": 179,
+      "5:2": 33,
+      "5:3": 14,
+      "5:4": 8,
+      "5:5": 4,
+      "5:6": 4,
+      "5:7": 2,
+      "5:8": 2,
+      "5:9": 1,
+      "5:10": 1,
+      "5:11": 1,
+      "5:12": 1,
+      "6:1": 112,
+      "6:2": 22,
+      "6:3": 8,
+      "6:4": 5,
+      "6:5": 4,
+      "6:6": 2,
+      "6:7": 1,
+      "6:8": 1,
+      "6:9": 1,
+      "6:10": 1,
+      "7:1": 135,
+      "7:2": 19,
+      "7:3": 8,
+      "7:4": 4,
+      "7:5": 2,
+      "7:6": 1,
+      "7:7": 1,
+      "7:8": 1,
+      "7:9": 1,
+      "8:1": 135,
+      "8:2": 18,
+      "8:3": 7,
+      "8:4": 4,
+      "8:5": 2,
+      "8:6": 1,
+      "8:7": 1,
+      "8:8": 1,
+      "9:1": 112,
+      "9:2": 12,
+      "9:3": 5,
+      "9:4": 2,
+      "9:5": 1,
+      "9:6": 1,
+      "9:7": 1,
+      "10:1": 95,
+      "10:2": 12,
+      "10:3": 4,
+      "10:4": 2,
+      "10:5": 1,
+      "10:6": 1,
+      "11:1": 76,
+      "11:2": 8,
+      "11:3": 2,
+      "11:4": 1,
+      "11:5": 1,
+      "12:1": 61,
+      "12:2": 7,
+      "12:3": 2,
+      "12:4": 1,
+      "12:5": 1,
+      "13:1": 44,
+      "13:2": 5,
+      "13:3": 2,
+      "13:4": 1,
+      "14:1": 33,
+      "14:2": 4,
+      "14:3": 1,
+      "14:4": 1,
+      "15:1": 29,
+      "15:2": 4,
+      "15:3": 1,
+      "15:4": 1,
+      "16:1": 27,
+      "16:2": 4,
+      "16:3": 1,
+      "16:4": 1,
+      "17:1": 21,
+      "17:2": 2,
+      "17:3": 1,
+      "18:1": 16,
+      "18:2": 2,
+      "18:3": 1,
+      "19:1": 15,
+      "19:2": 2,
+      "19:3": 1,
+      "20:1": 13,
+      "20:2": 2,
+      "20:3": 1,
+      "21:1": 11,
+      "21:2": 1,
+      "21:3": 1,
+      "22:1": 8,
+      "22:2": 1,
+      "23:1": 7,
+      "23:2": 1,
+      "24:1": 7,
+      "24:2": 1,
+      "25:1": 5,
+      "25:2": 1,
+      "26:1": 5,
+      "26:2": 1,
+      "27:1": 5,
+      "27:2": 1,
+      "28:1": 4,
+      "28:2": 1,
+      "29:1": 4,
+      "29:2": 1,
+      "30:1": 4,
+      "30:2": 1,
+      "31:1": 4,
+      "31:2": 1,
+      "32:1": 4,
+      "32:2": 1,
+      "33:1": 2,
+      "34:1": 2,
+      "35:1": 2,
+      "36:1": 2,
+      "37:1": 2,
+      "38:1": 2,
+      "39:1": 2,
+      "40:1": 2,
+      "41:1": 1,
+      "42:1": 1,
+      "43:1": 1,
+      "44:1": 1,
+      "45:1": 1,
+      "46:1": 1,
+      "47:1": 1,
+      "48:1": 1,
+      "49:1": 1,
+      "50:1": 1,
+      "51:1": 1,
+      "52:1": 1,
+      "53:1": 1,
+      "54:1": 1,
+      "55:1": 1,
+      "56:1": 1,
+      "57:1": 1,
+      "58:1": 1,
+      "59:1": 1,
+      "60:1": 1,
+      "61:1": 1,
+      "62:1": 1,
+      "63:1": 1,
+      "64:1": 1
+    },
+    "quality_gates": {
+      "29/10": {
+        "threshold": "29/10",
+        "checked_multisets": 1752,
+        "unexcluded_multisets": [],
+        "all_multisets_excluded": true,
+        "minimum_witness": {
+          "parameters": {
+            "n": 32,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 340282366920938463463374607431768211456
+          },
+          "margin_interval": {
+            "lower": "0.0215604002067301120267966377178610303126973504565031536597840690854351393945024484248569587",
+            "upper": "0.0215604002067301120268024412766990421937950766728656306427475309699532277300684460390955774"
+          },
+          "inverse_contraction_lower": "2722258935367507707706996859454145691648/1614491007368632334858229515780033278393",
+          "continuous_endpoint_b": "3705666972079160439952676936313509815795739/326671072244100924924839623134497482997760",
+          "affine_source_at_optimum": "1277816197268676013776785150452934419239910/79110059361062984408053246273221630641257"
+        }
+      },
+      "59/20": {
+        "threshold": "59/20",
+        "checked_multisets": 1752,
+        "unexcluded_multisets": [
+          {
+            "n": 16,
+            "k": 4,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 340282366920938463463374607431768211456
+          },
+          {
+            "n": 17,
+            "k": 3,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 5070602400912917605986812821504
+          },
+          {
+            "n": 18,
+            "k": 3,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 324518553658426726783156020576256
+          },
+          {
+            "n": 19,
+            "k": 3,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 20769187434139310514121985316880384
+          },
+          {
+            "n": 20,
+            "k": 3,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 1329227995784915872903807060280344576
+          },
+          {
+            "n": 21,
+            "k": 3,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 85070591730234615865843651857942052864
+          },
+          {
+            "n": 22,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 309485009821345068724781056
+          },
+          {
+            "n": 23,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 4951760157141521099596496896
+          },
+          {
+            "n": 24,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 79228162514264337593543950336
+          },
+          {
+            "n": 25,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 1267650600228229401496703205376
+          },
+          {
+            "n": 26,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 20282409603651670423947251286016
+          },
+          {
+            "n": 27,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 324518553658426726783156020576256
+          },
+          {
+            "n": 28,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 5192296858534827628530496329220096
+          },
+          {
+            "n": 29,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 83076749736557242056487941267521536
+          },
+          {
+            "n": 30,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 1329227995784915872903807060280344576
+          },
+          {
+            "n": 31,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 21267647932558653966460912964485513216
+          },
+          {
+            "n": 32,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 340282366920938463463374607431768211456
+          }
+        ],
+        "all_multisets_excluded": false,
+        "minimum_witness": {
+          "parameters": {
+            "n": 32,
+            "k": 2,
+            "arities": [
+              2
+            ],
+            "arity_product": 2,
+            "source_A": 340282366920938463463374607431768211456
+          },
+          "margin_interval": {
+            "lower": "-0.144685524405363812946773237501597133866036348618710739602233951187857905184284486104633973",
+            "upper": "-0.144685524405363812946767411884609453902948341604924631226869148706026622058380079665627602"
+          },
+          "inverse_contraction_lower": "2722258935367507707706996859454145691648/1614491007368632334858229515780033278393",
+          "continuous_endpoint_b": "7539115563885188481283032387672313073515469/326671072244100924924839623134497482997760",
+          "affine_source_at_optimum": "2555632394537352027553570300905868838479820/79110059361062984408053246273221630641257"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "The p=2.95 relaxation has negative margins; no stronger barrier is inferred from it.",
+    "Negative relaxed margins are not constructions or evidence that a legal chain attains those values.",
+    "Compressed auxiliaries, altered source circuits, joint exactification, variable local n/k, and different terminal recipes are outside the theorem.",
+    "All frozen rounds7-10 and the paper remain unchanged."
+  ]
+}
